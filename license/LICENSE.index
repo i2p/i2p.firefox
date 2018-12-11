@@ -1,0 +1,15 @@
+This "browser profile distribution" contains code under a number of Free
+Software and Open Source licenses. You are entitled to copies of these licenses,
+and they are distributed with this package in the LICENSE.txt file on display.
+
+  1. MIT License
+    * all original material in this repository
+  2. Mozilla Public License 2.0(From Mozilla Installer)
+    * ./i2pbrowser-mozcompat.nsi
+  3. Modified BSD License(From Tor Browser Bundle)
+    * ./firefox.profile.i2p/user.js
+  4. GNU General Public License 2.0(NoScript and HTTPS Everywhere)
+    * ./firefox.profile.i2p/extensions/
+  5. GNU General Public License 3.0(Part of HTTPS Everywhere)
+    * ./firefox.profike.i2p/extensions/https-everywhere@eff.org.xpi
+
