@@ -5,4 +5,6 @@ To build this, you will need the following software packages (all available in D
 * dos2unix
 * curl
 
-Type "make"
+Before you build, you should update the files "NoScript.url" and "HTTPSEverywhere.url" to point to the latest direct download links of the respective plugins.  If those have changed, it's a good idea to check those files back in to keep them as current as possible.
+
+After that just type "Make"
