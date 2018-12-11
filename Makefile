@@ -1,4 +1,10 @@
-all: build/license-all.txt profile.tgz
+all: profile.tgz install.exe
+
+install.exe: profile build/license-all.txt
+	cp src/nsis/*.nsi build
+	cp src/nsis/*.nsh build
+	cp src/icons/*.ico build
+	cd build && makensis i2pbrowser-installer.nsi && cp install.exe ../ && echo "built windows installer"
 
 build/license-all.txt: build
 	cat license/LICENSE.index LICENSE license/MPL2.txt license/LICENSE.tor license/HTTPS-Everywhere.txt license/NoScript.txt > build/license-all.txt
@@ -6,14 +12,16 @@ build/license-all.txt: build
 
 
 clean:
-	rm -rf build profile.tgz
+	rm -rf build profile.tgz installer.exe
 
 
 build:
 	@echo "creating build directory"
 	mkdir build
 
-profile.tgz: build/profile/user.js build/profile/bookmarks.html copy-xpi
+profile: build/profile/user.js build/profile/bookmarks.html copy-xpi
+
+profile.tgz: profile
 	@echo "building profile tarball"
 	cd build && tar -czf profile.tgz profile && cp profile.tgz ../
 
@@ -27,7 +35,7 @@ copy-xpi: build/NoScript.xpi build/HTTPSEverywhere.xpi build/profile/extensions
 	cp build/NoScript.xpi "build/profile/extensions/{73a6fe31-595d-460b-a920-fcc0f8843232}.xpi"
 	cp build/HTTPSEverywhere.xpi "build/profile/extensions/https-everywhere-eff@eff.org.xpi"
 
-build/NoScript.xpi: build/ NoScript.url
+build/NoScript.xpi: build NoScript.url
 	curl `cat NoScript.url` > build/NoScript.xpi
 
 build/HTTPSEverywhere.xpi : build HTTPSEverywhere.url
@@ -36,5 +44,5 @@ build/HTTPSEverywhere.xpi : build HTTPSEverywhere.url
 build/profile/extensions: build/profile
 	mkdir build/profile/extensions
 
-build/profile:
+build/profile: build
 	mkdir build/profile

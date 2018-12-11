@@ -1,0 +1,3 @@
+!define VERSIONMAJOR 0
+!define VERSIONMINOR 1
+!define VERSIONBUILD a
