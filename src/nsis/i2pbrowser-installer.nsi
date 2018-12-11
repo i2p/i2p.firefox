@@ -80,7 +80,7 @@ Function .onInit
         ${EndIf}
     ${EndIf}
     ${If} ${FileExists} "${I2PINSTEXE32}/i2p.exe"
-        StrCpy $I2PINSTEXE "${I2PINSTEXE64}"
+        StrCpy $I2PINSTEXE "${I2PINSTEXE32}"
     ${EndIf}
     ${If} ${FileExists} "${I2PINSTEXE64}/i2p.exe"
         StrCpy $I2PINSTEXE "${I2PINSTEXE64}"
