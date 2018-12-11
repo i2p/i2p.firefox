@@ -12,7 +12,7 @@ build/license-all.txt: build
 
 
 clean:
-	rm -rf build profile.tgz installer.exe
+	rm -rf build profile.tgz install.exe
 
 
 build:
