@@ -10,7 +10,6 @@
 
 var FFINSTEXE
 var I2PINSTEXE
-var SHORTCUT
 
 !define FFINSTEXE
 !define FFINSTEXE32 "$PROGRAMFILES32\Mozilla Firefox\"
@@ -35,7 +34,6 @@ RequestExecutionLevel admin
 
 !include LogicLib.nsh
 !include x64.nsh
-!include i2pbrowser-strrep.nsh
 
 PageEx license
     licensetext "${LICENSE_TITLE}"
@@ -153,9 +151,6 @@ Section Install
     CreateShortCut "$DESKTOP\${APPNAME}.lnk" "C:\Windows\system32\cmd.exe" "/c $\"$INSTDIR\i2pbrowser.bat$\"" "$INSTDIR\ui2pbrowser_icon.ico"
     CreateShortCut "$DESKTOP\Private Browsing-${APPNAME}.lnk" "C:\Windows\system32\cmd.exe" "/c $\"$INSTDIR\i2pbrowser-private.bat$\"" "$INSTDIR\ui2pbrowser_icon.ico"
 
-    ${StrRep} $SHORTCUT "$SMPROGRAMS\${APPNAME}\${APPNAME}.lnk" '\' '\\'
-
-    !define SHORTCUTPATH $SHORTCUT
 
     SetShellVarContext current
     !define I2PAPPDATA "$APPDATA\I2P\"
@@ -163,11 +158,11 @@ Section Install
     SetOutPath "${I2PAPPDATA}"
 
     ;# Point the browser config setting
-    FileOpen $0 "${I2PAPPDATA}\clients.config" a
+    FileOpen $0 "${I2PAPPDATA}\router.config" a
     FileSeek $0 0 END
     FileWriteByte $0 "13"
     FileWriteByte $0 "10"
-    FileWrite $0 "browser=$\"${SHORTCUTPATH}$\""
+    FileWrite $0 "routerconsole.browser=$INSTDIR\i2pbrowser.bat"
     FileWriteByte $0 "13"
     FileWriteByte $0 "10"
     FileClose $0
