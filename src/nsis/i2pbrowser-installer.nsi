@@ -162,7 +162,7 @@ Section Install
     FileSeek $0 0 END
     FileWriteByte $0 "13"
     FileWriteByte $0 "10"
-    FileWrite $0 "routerconsole.browser=$INSTDIR\i2pbrowser.bat"
+    FileWrite $0 "routerconsole.browser=$\"$INSTDIR\i2pbrowser.bat$\""
     FileWriteByte $0 "13"
     FileWriteByte $0 "10"
     FileClose $0
