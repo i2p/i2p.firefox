@@ -17,7 +17,7 @@ clean:
 
 build:
 	@echo "creating build directory"
-	mkdir build
+	mkdir -p build
 
 profile: build/profile/user.js build/profile/bookmarks.html copy-xpi
 
@@ -42,7 +42,7 @@ build/HTTPSEverywhere.xpi : build HTTPSEverywhere.url
 	curl `cat HTTPSEverywhere.url` > build/HTTPSEverywhere.xpi
 
 build/profile/extensions: build/profile
-	mkdir build/profile/extensions
+	mkdir -p build/profile/extensions
 
 build/profile: build
-	mkdir build/profile
+	mkdir -p build/profile
