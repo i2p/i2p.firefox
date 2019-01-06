@@ -12,7 +12,7 @@ build/license-all.txt: build
 
 
 clean:
-	rm -rf build profile.tgz install.exe
+	rm -rf build profile-*.tgz install.exe
 
 
 build:
@@ -22,8 +22,9 @@ build:
 profile: build/profile/user.js build/profile/bookmarks.html copy-xpi
 
 profile.tgz: profile
-	@echo "building profile tarball"
-	cd build && tar -czf profile.tgz profile && cp profile.tgz ../
+	$(eval PROFILE_VERSION := $(shell cat src/profile/version.txt))
+	@echo "building profile tarball $(PROFILE_VERSION)"
+	cd build && tar -czf profile-$(PROFILE_VERSION).tgz profile && cp profile-$(PROFILE_VERSION).tgz ../
 
 build/profile/user.js: build/profile src/profile/user.js
 	cp src/profile/user.js build/profile/user.js
