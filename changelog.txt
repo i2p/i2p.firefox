@@ -1,0 +1,4 @@
+2019-01-05 zab
+* start a changelog
+* add version to the profile, independent of installer version
+  - version 0.1 corresponds to IDK version 0.03b
