@@ -6,6 +6,11 @@ install.exe: profile build/licenses
 	cp src/icons/*.ico build
 	cd build && makensis i2pbrowser-installer.nsi && cp install.exe ../ && echo "built windows installer"
 
+#
+# Warning: a displayed license file of more than 28752 bytes
+# will cause makensis V3.03 to crash.
+# Possibly related: https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=895064
+#
 build/licenses: build
 	mkdir -p build/licenses
 	cp license/* build/licenses
@@ -37,10 +42,10 @@ copy-xpi: build/NoScript.xpi build/HTTPSEverywhere.xpi build/profile/extensions
 	cp build/NoScript.xpi "build/profile/extensions/{73a6fe31-595d-460b-a920-fcc0f8843232}.xpi"
 	cp build/HTTPSEverywhere.xpi "build/profile/extensions/https-everywhere-eff@eff.org.xpi"
 
-build/NoScript.xpi: build NoScript.url
+build/NoScript.xpi: NoScript.url
 	curl `cat NoScript.url` > build/NoScript.xpi
 
-build/HTTPSEverywhere.xpi : build HTTPSEverywhere.url
+build/HTTPSEverywhere.xpi : HTTPSEverywhere.url
 	curl `cat HTTPSEverywhere.url` > build/HTTPSEverywhere.xpi
 
 build/profile/extensions: build/profile
