@@ -1,15 +1,16 @@
 all: profile.tgz install.exe
 
-install.exe: profile build/license-all.txt
+install.exe: profile build/licenses
 	cp src/nsis/*.nsi build
 	cp src/nsis/*.nsh build
 	cp src/icons/*.ico build
 	cd build && makensis i2pbrowser-installer.nsi && cp install.exe ../ && echo "built windows installer"
 
-build/license-all.txt: build
-	cat license/LICENSE.index LICENSE license/MPL2.txt license/LICENSE.tor license/HTTPS-Everywhere.txt license/NoScript.txt > build/license-all.txt
-	unix2dos build/license-all.txt
-
+build/licenses: build
+	mkdir -p build/licenses
+	cp license/* build/licenses
+	cp LICENSE build/licenses/MIT.txt
+	unix2dos build/licenses/LICENSE.index
 
 clean:
 	rm -rf build profile-*.tgz install.exe

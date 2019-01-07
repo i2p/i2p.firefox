@@ -4,7 +4,7 @@
 !define FIREFOX_MESSAGE "Select the location of your Firefox installation."
 !define I2P_MESSAGE "Select the location of your i2p installation."
 !define LAUNCH_TEXT "Launch the i2p browser?"
-!define LICENSE_TITLE "MIT License"
+!define LICENSE_TITLE "Many Licenses"
 !define CONSOLE_URL "http://127.0.0.1:7657/home"
 
 !include i2pbrowser-version.nsi
@@ -25,7 +25,7 @@ var I2PINSTEXE
 InstallDir "$PROGRAMFILES\${COMPANYNAME}\${APPNAME}"
 
 # rtf or txt file - remember if it is txt, it must be in the DOS text format (\r\n)
-LicenseData "license-all.txt"
+LicenseData "licenses\LICENSE.index"
 # This will be in the installer/uninstaller's title bar
 Name "${COMPANYNAME} - ${APPNAME}"
 Icon "ui2pbrowser_icon.ico"
@@ -38,7 +38,7 @@ RequestExecutionLevel admin
 
 PageEx license
     licensetext "${LICENSE_TITLE}"
-    licensedata "license-all.txt"
+    licensedata "licenses\LICENSE.index"
 PageExEnd
 PageEx directory
     dirtext "${FIREFOX_MESSAGE}"
@@ -133,6 +133,11 @@ Section Install
     FileWriteByte $0 "10"
     FileClose $0
 
+    # Install the licenses
+    createDirectory "$INSTDIR\licenses"
+    SetOutPath "$INSTDIR\licenses"
+    File /r licenses\*.*
+
     # Install the profile
     createDirectory "$LOCALAPPDATA\${APPNAME}\firefox.profile.i2p"
     SetOutPath "$LOCALAPPDATA\${APPNAME}\firefox.profile.i2p"
@@ -179,6 +184,9 @@ SectionEnd
 
 # uninstaller section start
 Section "uninstall"
+
+    # Remove the licenses
+    rmDir /r "$INSTDIR\licenses"
 
     # Uninstall the launcher scripts
     Delete $INSTDIR\i2pbrowser.bat
