@@ -60,6 +60,8 @@ Function .onInit
     ${If} $0 == 1
         ${If} ${FileExists} "${FFINSTEXE64}/firefox.exe"
             StrCpy $FFINSTEXE "${FFINSTEXE64}"
+	${ElseIf} ${FileExists} "${FFINSTEXE32}/firefox.exe"
+	    StrCpy $FFINSTEXE "${FFINSTEXE32}"
         ${EndIf}
         ${If} ${FileExists} "$PROFILE/OneDrive/Desktop/Tor Browser/Browser/firefox.exe"
             StrCpy $FFINSTEXE "$PROFILE/OneDrive/Desktop/Tor Browser/Browser/"

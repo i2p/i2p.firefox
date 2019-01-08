@@ -2,6 +2,7 @@
 * Rename the output of the windows installer to include version.
   - current (initial) version is 0.01a
 * Change text in prompts for Firefox and I2P locations
+* check 32-bit location even if install should have been 64-bit
 
 2019-01-07 zzz
 * Remove irrelevant parts of Tor license
