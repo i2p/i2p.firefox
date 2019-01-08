@@ -28,7 +28,7 @@ InstallDir "$PROGRAMFILES\${COMPANYNAME}\${APPNAME}"
 LicenseData "licenses\LICENSE.index"
 # This will be in the installer/uninstaller's title bar
 Name "${COMPANYNAME} - ${APPNAME}"
-Icon "ui2pbrowser_icon.ico"
+Icon ui2pbrowser_icon.ico
 OutFile "I2P-Profile-Installer-${VERSIONMAJOR}.${VERSIONMINOR}${VERSIONBUILD}.exe"
 
 RequestExecutionLevel admin
@@ -223,6 +223,7 @@ Section "uninstall"
 SectionEnd
 
 !include "MUI2.nsh"
+!define MUI_ICON ui2pbrowser_icon.ico
 !define MUI_FINISHPAGE_RUN
 !define MUI_FINISHPAGE_RUN_TEXT "${LAUNCH_TEXT}"
 !define MUI_FINISHPAGE_RUN_FUNCTION "LaunchLink"
