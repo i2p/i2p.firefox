@@ -4,7 +4,7 @@ install.exe: profile build/licenses
 	cp src/nsis/*.nsi build
 	cp src/nsis/*.nsh build
 	cp src/icons/*.ico build
-	cd build && makensis i2pbrowser-installer.nsi && cp install.exe ../ && echo "built windows installer"
+	cd build && makensis i2pbrowser-installer.nsi && cp I2P-Profile-Installer-*.exe ../ && echo "built windows installer"
 
 #
 # Warning: a displayed license file of more than 28752 bytes
@@ -18,7 +18,7 @@ build/licenses: build
 	unix2dos build/licenses/LICENSE.index
 
 clean:
-	rm -rf build profile-*.tgz install.exe
+	rm -rf build profile-*.tgz I2P-Profile-Installer-*.exe
 
 
 build:

@@ -29,7 +29,7 @@ LicenseData "licenses\LICENSE.index"
 # This will be in the installer/uninstaller's title bar
 Name "${COMPANYNAME} - ${APPNAME}"
 Icon "ui2pbrowser_icon.ico"
-OutFile "install.exe"
+OutFile "I2P-Profile-Installer-${VERSIONMAJOR}.${VERSIONMINOR}${VERSIONBUILD}.exe"
 
 RequestExecutionLevel admin
 

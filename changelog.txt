@@ -1,3 +1,14 @@
+2019-01-08 zab
+* Rename the output of the windows installer to include version.
+  - current (initial) version is 0.01a
+
+2019-01-07 zzz
+* Remove irrelevant parts of Tor license
+* Fix Makefile to not re-download the xpi's
+
+2019-01-07 zab
+* Split the license into files to reduce size and fix build on nsis v3 (ticket 2372)
+
 2019-01-05 zab
 * start a changelog
 * add version to the profile, independent of installer version
