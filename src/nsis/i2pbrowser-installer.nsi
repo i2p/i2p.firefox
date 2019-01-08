@@ -1,3 +1,6 @@
+# uncomment on v3
+# UniCode true
+
 !define APPNAME "I2PBrowser-Launcher"
 !define COMPANYNAME "I2P"
 !define DESCRIPTION "This launches Firefox with a browser profile pre-configured to use i2p"
@@ -35,6 +38,84 @@ RequestExecutionLevel admin
 
 !include LogicLib.nsh
 !include x64.nsh
+!define MUI_ICON ui2pbrowser_icon.ico
+!include "MUI2.nsh"
+
+### Available languages
+  !insertmacro MUI_LANGUAGE "English"
+  !insertmacro MUI_LANGUAGE "French"
+  !insertmacro MUI_LANGUAGE "German"
+  !insertmacro MUI_LANGUAGE "Spanish"
+  !insertmacro MUI_LANGUAGE "SpanishInternational"
+  !insertmacro MUI_LANGUAGE "SimpChinese"
+  !insertmacro MUI_LANGUAGE "TradChinese"
+  !insertmacro MUI_LANGUAGE "Japanese"
+  !insertmacro MUI_LANGUAGE "Korean"
+  !insertmacro MUI_LANGUAGE "Italian"
+  !insertmacro MUI_LANGUAGE "Dutch"
+  !insertmacro MUI_LANGUAGE "Danish"
+  !insertmacro MUI_LANGUAGE "Swedish"
+  !insertmacro MUI_LANGUAGE "Norwegian"
+  !insertmacro MUI_LANGUAGE "NorwegianNynorsk"
+  !insertmacro MUI_LANGUAGE "Finnish"
+  !insertmacro MUI_LANGUAGE "Greek"
+  !insertmacro MUI_LANGUAGE "Russian"
+  !insertmacro MUI_LANGUAGE "Portuguese"
+  !insertmacro MUI_LANGUAGE "PortugueseBR"
+  !insertmacro MUI_LANGUAGE "Polish"
+  !insertmacro MUI_LANGUAGE "Ukrainian"
+  !insertmacro MUI_LANGUAGE "Czech"
+  !insertmacro MUI_LANGUAGE "Slovak"
+  !insertmacro MUI_LANGUAGE "Croatian"
+  !insertmacro MUI_LANGUAGE "Bulgarian"
+  !insertmacro MUI_LANGUAGE "Hungarian"
+  !insertmacro MUI_LANGUAGE "Thai"
+  !insertmacro MUI_LANGUAGE "Romanian"
+  !insertmacro MUI_LANGUAGE "Latvian"
+  !insertmacro MUI_LANGUAGE "Macedonian"
+  !insertmacro MUI_LANGUAGE "Estonian"
+  !insertmacro MUI_LANGUAGE "Turkish"
+  !insertmacro MUI_LANGUAGE "Lithuanian"
+  !insertmacro MUI_LANGUAGE "Slovenian"
+  !insertmacro MUI_LANGUAGE "Serbian"
+  !insertmacro MUI_LANGUAGE "SerbianLatin"
+  !insertmacro MUI_LANGUAGE "Arabic"
+  !insertmacro MUI_LANGUAGE "Farsi"
+  !insertmacro MUI_LANGUAGE "Hebrew"
+  !insertmacro MUI_LANGUAGE "Indonesian"
+  !insertmacro MUI_LANGUAGE "Mongolian"
+  !insertmacro MUI_LANGUAGE "Luxembourgish"
+  !insertmacro MUI_LANGUAGE "Albanian"
+  !insertmacro MUI_LANGUAGE "Breton"
+  !insertmacro MUI_LANGUAGE "Belarusian"
+  !insertmacro MUI_LANGUAGE "Icelandic"
+  !insertmacro MUI_LANGUAGE "Malay"
+  !insertmacro MUI_LANGUAGE "Bosnian"
+  !insertmacro MUI_LANGUAGE "Kurdish"
+  !insertmacro MUI_LANGUAGE "Irish"
+  !insertmacro MUI_LANGUAGE "Uzbek"
+  !insertmacro MUI_LANGUAGE "Galician"
+  !insertmacro MUI_LANGUAGE "Afrikaans"
+  !insertmacro MUI_LANGUAGE "Catalan"
+  !insertmacro MUI_LANGUAGE "Esperanto"
+  !insertmacro MUI_LANGUAGE "Basque"
+  !insertmacro MUI_LANGUAGE "Welsh"
+# Commented out languages below do not compile on NSIS v2
+#  !insertmacro MUI_LANGUAGE "Asturian"
+#  !insertmacro MUI_LANGUAGE "Pashto"
+#  !insertmacro MUI_LANGUAGE "ScotsGaelic"
+#  !insertmacro MUI_LANGUAGE "Georgian"
+#  !insertmacro MUI_LANGUAGE "Vietnamese"
+#  !insertmacro MUI_LANGUAGE "Armenian"
+#  !insertmacro MUI_LANGUAGE "Corsican"
+#  !insertmacro MUI_LANGUAGE "Tatar"
+#  !insertmacro MUI_LANGUAGE "Hindi"
+### END LANGUAGES
+
+# small speed optimization
+!insertmacro MUI_RESERVEFILE_LANGDLL
+# show all languages, regardless of codepage
+!define MUI_LANGDLL_ALLLANGUAGES
 
 PageEx license
     licensetext "${LICENSE_TITLE}"
@@ -56,6 +137,7 @@ PageExEnd
 !include i2pbrowser-mozcompat.nsi
 
 Function .onInit
+    !insertmacro MUI_LANGDLL_DISPLAY
     Call ShouldInstall64Bit
     ${If} $0 == 1
         ${If} ${FileExists} "${FFINSTEXE64}/firefox.exe"
@@ -222,8 +304,6 @@ Section "uninstall"
 
 SectionEnd
 
-!include "MUI2.nsh"
-!define MUI_ICON ui2pbrowser_icon.ico
 !define MUI_FINISHPAGE_RUN
 !define MUI_FINISHPAGE_RUN_TEXT "${LAUNCH_TEXT}"
 !define MUI_FINISHPAGE_RUN_FUNCTION "LaunchLink"

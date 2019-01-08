@@ -4,6 +4,7 @@
 * Change text in prompts for Firefox and I2P locations
 * check 32-bit location even if install should have been 64-bit
 * use a Toopie as icon
+* Add language selection dialog
 
 2019-01-07 zzz
 * Remove irrelevant parts of Tor license
