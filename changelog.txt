@@ -1,6 +1,7 @@
 2019-01-08 zab
 * Rename the output of the windows installer to include version.
   - current (initial) version is 0.01a
+* Change text in prompts for Firefox and I2P locations
 
 2019-01-07 zzz
 * Remove irrelevant parts of Tor license
