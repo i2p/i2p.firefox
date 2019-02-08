@@ -20,8 +20,8 @@ var I2PINSTEXE
 !define FFINSTEXE64 "$PROGRAMFILES64\Mozilla Firefox\"
 
 !define I2PINSTEXE
-!define I2PINSTEXE32 "$PROGRAMFILES32\i2p\"
-!define I2PINSTEXE64 "$PROGRAMFILES64\i2p\"
+!define I2PINSTEXE32 "$PROGRAMFILES32\i2p"
+!define I2PINSTEXE64 "$PROGRAMFILES64\i2p"
 
 !define RAM_NEEDED_FOR_64BIT 0x80000000
 
@@ -126,12 +126,12 @@ PageEx directory
     dirvar $FFINSTEXE
     PageCallbacks firefoxDetect
 PageExEnd
-Page instfiles
 PageEx directory
     dirtext "${I2P_MESSAGE}"
     dirvar $I2PINSTEXE
     PageCallbacks routerDetect
 PageExEnd
+Page instfiles
 
 
 !include i2pbrowser-mozcompat.nsi
@@ -162,10 +162,10 @@ Function .onInit
             StrCpy $FFINSTEXE "$PROFILE/Desktop/Tor Browser/Browser/"
         ${EndIf}
     ${EndIf}
-    ${If} ${FileExists} "${I2PINSTEXE32}/i2p.exe"
+    ${If} ${FileExists} "${I2PINSTEXE32}"
         StrCpy $I2PINSTEXE "${I2PINSTEXE32}"
     ${EndIf}
-    ${If} ${FileExists} "${I2PINSTEXE64}/i2p.exe"
+    ${If} ${FileExists} "${I2PINSTEXE64}"
         StrCpy $I2PINSTEXE "${I2PINSTEXE64}"
     ${EndIf}
 FunctionEnd
@@ -177,7 +177,7 @@ Function firefoxDetect
 FunctionEnd
 
 Function routerDetect
-    ${If} ${FileExists} "$I2PINSTEXE/i2p.exe"
+    ${If} ${FileExists} "$I2PINSTEXE"
         Abort directory
     ${EndIf}
 FunctionEnd
@@ -227,6 +227,7 @@ Section Install
     SetOutPath "$LOCALAPPDATA\${APPNAME}\firefox.profile.i2p"
     File profile/user.js
     File profile/bookmarks.html
+    File profile/storage-sync.sqlite
 
     # Install the extensions
     createDirectory "$LOCALAPPDATA\${APPNAME}\firefox.profile.i2p\extensions"
@@ -280,6 +281,7 @@ Section "uninstall"
     # Uninstall the profile
     Delete $LOCALAPPDATA\${APPNAME}\firefox.profile.i2p\user.js
     Delete $LOCALAPPDATA\${APPNAME}\firefox.profile.i2p\bookmarks.html
+    Delete $LOCALAPPDATA\${APPNAME}\firefox.profile.i2p\storage-sync.sqlite
 
     # Uninstall the extensions
     Delete "$LOCALAPPDATA\${APPNAME}\firefox.profile.i2p\extensions\{73a6fe31-595d-460b-a920-fcc0f8843232}.xpi"
