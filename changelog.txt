@@ -1,3 +1,11 @@
+2019-02-09 zab
+* Enable js on the console and disable everywhere else
+* Newer versions of plugins
+* Bump profile version to 0.2
+* Move I2P detection to happen before any files are written
+* Update I2P detection to detect "zero" installer as well
+* Bump installer version to 0.02a
+
 2019-01-08 zab
 * Rename the output of the windows installer to include version.
   - current (initial) version is 0.01a
