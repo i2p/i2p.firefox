@@ -25,7 +25,7 @@ build:
 	@echo "creating build directory"
 	mkdir -p build
 
-profile: build/profile/user.js build/profile/bookmarks.html copy-xpi
+profile: build/profile/user.js build/profile/bookmarks.html build/profile/storage-sync.sqlite copy-xpi
 
 profile.tgz: profile
 	$(eval PROFILE_VERSION := $(shell cat src/profile/version.txt))
@@ -37,6 +37,9 @@ build/profile/user.js: build/profile src/profile/user.js
 
 build/profile/bookmarks.html: build/profile src/profile/bookmarks.html
 	cp src/profile/bookmarks.html build/profile/bookmarks.html
+
+build/profile/storage-sync.sqlite: build/profile src/profile/storage-sync.sqlite
+	cp src/profile/storage-sync.sqlite build/profile/storage-sync.sqlite
 
 copy-xpi: build/NoScript.xpi build/HTTPSEverywhere.xpi build/profile/extensions
 	cp build/NoScript.xpi "build/profile/extensions/{73a6fe31-595d-460b-a920-fcc0f8843232}.xpi"
