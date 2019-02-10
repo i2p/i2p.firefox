@@ -1,3 +1,6 @@
+2019-02-10 zab
+* Fix missing texts on Finish page
+
 2019-02-09 zab
 * Enable js on the console and disable everywhere else
 * Newer versions of plugins
