@@ -83,9 +83,9 @@ user_pref("extensions.torbutton.use_nontor_proxy", true);
 //user_pref("extensions.torlauncher.socks_port_use_ipc", );
 //user_pref("extensions.torlauncher.socks_ipc_path", "");
 
-//user_pref("extensions.torlauncher.start_tor", false);
+user_pref("extensions.torlauncher.start_tor", false);
 //user_pref("extensions.torlauncher.default_bridge_type", "");
-//user_pref("extensions.torlauncher.prompt_at_startup", false);
+user_pref("extensions.torlauncher.prompt_at_startup", false);
 
 // Resist-fingerprinting and first-party isolation enable
 

@@ -227,6 +227,7 @@ Section Install
     createDirectory "$LOCALAPPDATA\${APPNAME}\firefox.profile.i2p"
     SetOutPath "$LOCALAPPDATA\${APPNAME}\firefox.profile.i2p"
     File profile/user.js
+    File profile/prefs.js
     File profile/bookmarks.html
     File profile/storage-sync.sqlite
 
