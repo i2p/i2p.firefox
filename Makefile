@@ -44,9 +44,13 @@ build/profile/bookmarks.html: build/profile src/profile/bookmarks.html
 build/profile/storage-sync.sqlite: build/profile src/profile/storage-sync.sqlite
 	cp src/profile/storage-sync.sqlite build/profile/storage-sync.sqlite
 
-copy-xpi: build/NoScript.xpi build/HTTPSEverywhere.xpi build/profile/extensions
+copy-xpi: build/NoScript.xpi build/HTTPSEverywhere.xpi build/i2ppb@eyedeekay.github.io.xpi build/profile/extensions
 	cp build/NoScript.xpi "build/profile/extensions/{73a6fe31-595d-460b-a920-fcc0f8843232}.xpi"
 	cp build/HTTPSEverywhere.xpi "build/profile/extensions/https-everywhere-eff@eff.org.xpi"
+	cp build/i2ppb@eyedeekay.github.io.xpi build/profile/extensions/i2ppb@eyedeekay.github.io.xpi
+
+build/i2ppb@eyedeekay.github.io.xpi:
+	curl -L `cat i2psetproxy.url` > build/i2ppb@eyedeekay.github.io.xpi
 
 build/NoScript.xpi: NoScript.url
 	curl `cat NoScript.url` > build/NoScript.xpi

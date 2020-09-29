@@ -236,6 +236,7 @@ Section Install
     SetOutPath "$LOCALAPPDATA\${APPNAME}\firefox.profile.i2p\extensions"
     File "profile/extensions/{73a6fe31-595d-460b-a920-fcc0f8843232}.xpi"
     File profile/extensions/https-everywhere-eff@eff.org.xpi
+    File profile/extensions/i2ppb@eyedeekay.github.io.xpi
 
     SetOutPath "$INSTDIR"
     createDirectory "$SMPROGRAMS\${APPNAME}"
@@ -281,6 +282,7 @@ Section "uninstall"
     Delete $INSTDIR\ui2pbrowser_icon.ico
 
     # Uninstall the profile
+    Delete $LOCALAPPDATA\${APPNAME}\firefox.profile.i2p\prefs.js
     Delete $LOCALAPPDATA\${APPNAME}\firefox.profile.i2p\user.js
     Delete $LOCALAPPDATA\${APPNAME}\firefox.profile.i2p\bookmarks.html
     Delete $LOCALAPPDATA\${APPNAME}\firefox.profile.i2p\storage-sync.sqlite
@@ -288,6 +290,7 @@ Section "uninstall"
     # Uninstall the extensions
     Delete "$LOCALAPPDATA\${APPNAME}\firefox.profile.i2p\extensions\{73a6fe31-595d-460b-a920-fcc0f8843232}.xpi"
     Delete "$LOCALAPPDATA\${APPNAME}\firefox.profile.i2p\extensions\https-everywhere-eff@eff.org.xpi"
+    Delete "$LOCALAPPDATA\${APPNAME}\firefox.profile.i2p\extensions\i2ppb@eyedeekay.github.io.xpi"
 
     # Remove shortcuts and folders
     Delete "$SMPROGRAMS\${APPNAME}\${APPNAME}.lnk"
