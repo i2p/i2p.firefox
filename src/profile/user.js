@@ -207,3 +207,4 @@ user_pref("browser.chrome.errorReporter.infoURL", "");
 user_pref("breakpad.reportURL", "");
 user_pref("browser.newtabpage.activity-stream.default.sites", "");
 //user_pref("browser.newtabpage.activity-stream.default.sites", "http://planet.i2p/,http://legwork.i2p/,http://i2pwiki.i2p/,http://i2pforums.i2p/,http://zzz.i2p/");
+user_pref("dom.security.https_only_mode", false);

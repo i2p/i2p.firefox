@@ -1,3 +1,9 @@
+2020-12-20
+* Add I2P in Private Browsing plugin, which for the purposes of this profile provides
+ - X-I2P-Location functionality(Alternate service locations for mirrors)
+ - X-I2P-TorrentLocation functionality(Alternate resource locations for sites)
+ - Pre-Disable HTTPS only mode dom.security.https_only_mode=false in the profile in favor of HTTPS-Everywhere
+
 2019-02-10 zab
 * Fix missing texts on Finish page
 
