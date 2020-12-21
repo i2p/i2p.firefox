@@ -18,12 +18,21 @@ profile.tgz - the firefox profile, plus a shell script which will
 launch it if Firefox is found in the $PATH on Unix-Like operating
 systems.
 install.exe - the windows installer, which sets up shortcuts to
-launch Firefox on Windows..
+launch Firefox on Windows.
 
 To report issues against this browser profile, please file issues
 at [the official Gitlab](https://i2pgit.org/i2p-hackers/i2p.firefox)
 or the [Github Mirror](https://github.com/i2p/i2p.firefox). Issues
-pertaining to the plugins should be reported to their upstream
-maintainers.
+pertaining to the plugins may be reported to their upstream
+maintainers if it's determined that our configuration is not at
+fault.
 
-For the 
+NoScript is developed on Github by `hackademix` and the community:
+ - https://github.com/hackademix/noscript
+
+HTTPS Everywhere is developed on Github by the EFF:
+ - https://github.com/EFForg/https-everywhere
+
+I2P in Private Browsing is developed on Gitlab and Github by idk and the community:
+ - https://i2pgit.org/idk/I2P-in-Private-Browsing-Mode-Firefox
+ - https://github.com/eyedeekay/I2P-in-Private-Browsing-Mode-Firefox
