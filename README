@@ -5,9 +5,25 @@ To build this, you will need the following software packages (all available in D
 * dos2unix
 * curl
 
-Before you build, you should update the files "NoScript.url" and "HTTPSEverywhere.url" to point to the latest direct download links of the respective plugins.  If those have changed, it's a good idea to check those files back in to keep them as current as possible.
+Before you build, you should update the files "NoScript.url"
+and "i2psetproxy.url" to point to the latest direct download
+links of the respective plugins. "HTTPSEverywhere.url" now
+points to the latest stable version of "HTTPS Everywhere" at
+all times. If those have changed, `make clean` to ensure that
+up to date versions are used in the build.
 
 After that just type "make".  This will produce two files:
 
-profile.tgz - the raw firefox profile.
-install.exe - the windows installer.
+profile.tgz - the firefox profile, plus a shell script which will
+launch it if Firefox is found in the $PATH on Unix-Like operating
+systems.
+install.exe - the windows installer, which sets up shortcuts to
+launch Firefox on Windows..
+
+To report issues against this browser profile, please file issues
+at [the official Gitlab](https://i2pgit.org/i2p-hackers/i2p.firefox)
+or the [Github Mirror](https://github.com/i2p/i2p.firefox). Issues
+pertaining to the plugins should be reported to their upstream
+maintainers.
+
+For the 

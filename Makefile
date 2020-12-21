@@ -30,6 +30,7 @@ profile: build/profile/user.js build/profile/prefs.js build/profile/bookmarks.ht
 profile.tgz: profile
 	$(eval PROFILE_VERSION := $(shell cat src/profile/version.txt))
 	@echo "building profile tarball $(PROFILE_VERSION)"
+	install -m755 src/unix/i2pbrowser.sh build/profile/i2pbrowser.sh
 	cd build && tar -czf profile-$(PROFILE_VERSION).tgz profile && cp profile-$(PROFILE_VERSION).tgz ../
 
 build/profile/user.js: build/profile src/profile/user.js
