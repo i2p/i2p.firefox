@@ -27,7 +27,7 @@ user_pref("privacy.firstparty.isolate", true);
 // Use i2p http proxy for all connections and set homepage to safe local form.
 
 // DON'T allow access to the admin panel from the profile we browse i2p with.
-user_pref("network.proxy.no_proxies_on", 0);
+user_pref("network.proxy.no_proxies_on", "127.0.0.1:7657,localhost:7657,127.0.0.1:7662,localhost:7662,127.0.0.1:7669,localhost:7669");
 user_pref("network.proxy.type", 1);
 user_pref("network.proxy.http", "127.0.0.1");
 user_pref("network.proxy.http_port", 4444);
