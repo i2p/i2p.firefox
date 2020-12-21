@@ -42,3 +42,4 @@ user_pref("browser.startup.homepage", "about:blank");
 user_pref("dom.security.https_only_mode", false);
 user_pref("keyword.enabled", false);
 user_pref("extensions.allowPrivateBrowsingByDefault", true);
+user_pref("extensions.PrivateBrowsing.notification", false);

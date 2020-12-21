@@ -210,3 +210,4 @@ user_pref("browser.newtabpage.activity-stream.default.sites", "");
 user_pref("dom.security.https_only_mode", false);
 user_pref("keyword.enabled", false);
 user_pref("extensions.allowPrivateBrowsingByDefault", true);
+user_pref("extensions.PrivateBrowsing.notification", false);
