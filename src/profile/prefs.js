@@ -41,3 +41,4 @@ user_pref("network.proxy.share_proxy_settings", true);
 user_pref("browser.startup.homepage", "about:blank");
 user_pref("dom.security.https_only_mode", false);
 user_pref("keyword.enabled", false);
+user_pref("extensions.allowPrivateBrowsingByDefault", true);
