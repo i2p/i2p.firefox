@@ -18,4 +18,4 @@ if [ -z $FIREFOX ]; then
   exit 1
 fi
 
-$FIREFOX --profile .
+$FIREFOX --profile . $@
