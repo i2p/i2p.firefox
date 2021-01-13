@@ -247,7 +247,7 @@ Section Install
 
 
     SetShellVarContext current
-    !define I2PAPPDATA "$APPDATA\I2P\"
+    !define I2PAPPDATA "$LOCALAPPDATA\I2P\"
 
     SetOutPath "${I2PAPPDATA}"
 
