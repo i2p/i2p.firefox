@@ -1,3 +1,8 @@
+2021-01-17 idk
+* Use Local Application Data instead of Roaming application data for router.config file
+* Use Roaming Application Daya only if a clients.config.d is present, indicating that the
+ roaming application directory is in use deliberately.
+
 2020-12-20 idk
 * Add I2P in Private Browsing plugin, which for the purposes of this profile provides
  - X-I2P-Location functionality(Alternate service locations for mirrors)

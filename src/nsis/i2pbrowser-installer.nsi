@@ -143,8 +143,8 @@ Function .onInit
     ${If} $0 == 1
         ${If} ${FileExists} "${FFINSTEXE64}/firefox.exe"
             StrCpy $FFINSTEXE "${FFINSTEXE64}"
-	${ElseIf} ${FileExists} "${FFINSTEXE32}/firefox.exe"
-	    StrCpy $FFINSTEXE "${FFINSTEXE32}"
+    ${ElseIf} ${FileExists} "${FFINSTEXE32}/firefox.exe"
+        StrCpy $FFINSTEXE "${FFINSTEXE32}"
         ${EndIf}
         ${If} ${FileExists} "$PROFILE/OneDrive/Desktop/Tor Browser/Browser/firefox.exe"
             StrCpy $FFINSTEXE "$PROFILE/OneDrive/Desktop/Tor Browser/Browser/"
@@ -247,7 +247,10 @@ Section Install
 
 
     SetShellVarContext current
-    !define I2PAPPDATA "$LOCALAPPDATA\I2P\"
+    Var /Global I2PAPPDATA 
+    IfFileExists "$APPDATA\I2P\clients.config.d" 0 +2
+        StrCpy $I2PAPPDATA "$APPDATA\I2P\"
+        StrCpy $I2PAPPDATA "$LOCALAPPDATA\I2P\"
 
     SetOutPath "${I2PAPPDATA}"
 
