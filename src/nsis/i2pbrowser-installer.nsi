@@ -277,7 +277,7 @@ Section Install
     # Install the config userChrome
     createDirectory "$LOCALAPPDATA\${APPNAME}\firefox.profile.config.i2p\chrome"
     SetOutPath "$LOCALAPPDATA\${APPNAME}\firefox.profile.config.i2p\chrome"
-    File profile/chrome/userChrome.css
+    File app-profile/chrome/userChrome.css
 
     SetOutPath "$INSTDIR"
     createDirectory "$SMPROGRAMS\${APPNAME}"

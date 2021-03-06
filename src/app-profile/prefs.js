@@ -45,4 +45,11 @@ user_pref("extensions.allowPrivateBrowsingByDefault", true);
 user_pref("extensions.PrivateBrowsing.notification", false);
 
 user_pref("toolkit.legacyUserProfileCustomizations.stylesheets", true);
-
+user_pref("extensions.pocket.enabled", false);
+user_pref("browser.newtabpage.activity-stream.showSponsoredTopSites", false);
+user_pref("browser.newtabpage.activity-stream.showSponsored", false);
+user_pref("services.sync.prefs.sync.browser.newtabpage.activity-stream.showSponsored", false);
+user_pref("browser.newtabpage.activity-stream.feeds.section.highlights", false);
+user_pref("browser.newtabpage.activity-stream.feeds.section.topstories", false);
+user_pref("browser.newtabpage.activity-stream.default.sites", "http://127.0.0.1:7657/home,http://127.0.0.1:7657/i2psnark/,http://127.0.0.1:7657/susimail/");
+user_pref("browser.newtabpage.activity-stream.feeds.topsites", true);
