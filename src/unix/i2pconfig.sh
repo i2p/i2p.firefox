@@ -35,4 +35,4 @@ if [ -z $FIREFOX ]; then
   exit 1
 fi
 
-$FIREFOX --profile "$CONFIGURING_PROFILE" $@
+$FIREFOX --profile "$CONFIGURING_PROFILE" "$ROUTER_CONSOLE" $@

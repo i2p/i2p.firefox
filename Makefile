@@ -110,5 +110,5 @@ install:
 	install -m755 build/profile/i2pbrowser.sh /usr/local/bin/i2pbrowser
 	install -m755 build/app-profile/i2pconfig.sh /usr/local/bin/i2pconfig
 	cp -vr build/profile /var/lib/i2pbrowser/profile
-	cp -vr build/app-profile /var/lib/i2pbrowser/profile
+	cp -vr build/app-profile /var/lib/i2pbrowser/app-profile
 
