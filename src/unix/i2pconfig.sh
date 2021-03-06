@@ -4,16 +4,16 @@ if [ -f "/etc/i2pbrowser/i2pbrowserrc" ]; then
   . /etc/i2pbrowser/i2pbrowserrc
 fi
 
-if [ -z $BROWSING_PROFILE ]; then
-  BROWSING_PROFILE="."
+if [ -z $CONFIGURING_PROFILE ]; then
+  CONFIGURING_PROFILE="."
 fi
 
-if [ ! -d "$BROWSING_PROFILE" ]; then
-  mkdir -p "$BROWSING_PROFILE" 
-  cp -vr /var/lib/i2pbrowser/profile/* "$BROWSING_PROFILE" 
+if [ ! -d "$CONFIGURING_PROFILE" ]; then
+  mkdir -p "$CONFIGURING_PROFILE" 
+  cp -vr /var/lib/i2pbrowser/app-profile/* "$CONFIGURING_PROFILE" 
 fi
 
-if [ ! -f "$BROWSING_PROFILE/user.js" ]; then
+if [ ! -f "$CONFIGURING_PROFILE/user.js" ]; then
   exit 1
 fi
 
@@ -35,4 +35,4 @@ if [ -z $FIREFOX ]; then
   exit 1
 fi
 
-$FIREFOX --profile "$BROWSING_PROFILE" $@
+$FIREFOX --profile "$CONFIGURING_PROFILE" $@

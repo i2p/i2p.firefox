@@ -54,7 +54,7 @@ app-profile: build/app-profile/user.js build/app-profile/prefs.js build/app-prof
 app-profile.tgz: app-profile
 	$(eval PROFILE_VERSION := $(shell cat src/app-profile/version.txt))
 	@echo "building app-profile tarball $(PROFILE_VERSION)"
-	install -m755 src/unix/i2pbrowser.sh build/app-profile/i2pbrowser.sh
+	install -m755 src/unix/i2pconfig.sh build/app-profile/i2pconfig.sh
 	cd build && tar -czf app-profile-$(PROFILE_VERSION).tgz app-profile && cp app-profile-$(PROFILE_VERSION).tgz ../
 
 build/app-profile/user.js: build/app-profile src/app-profile/user.js
@@ -100,3 +100,15 @@ build/app-profile/extensions: build/app-profile
 
 build/app-profile: build
 	mkdir -p build/app-profile
+
+install:
+	rm -rfv /etc/i2pbrowser \
+		/var/lib/i2pbrowser
+	mkdir -p /etc/i2pbrowser \
+		/var/lib/i2pbrowser
+	install -m644 src/unix/i2pbrowserrc /etc/i2pbrowser/i2pbrowserrc
+	install -m755 build/profile/i2pbrowser.sh /usr/local/bin/i2pbrowser
+	install -m755 build/app-profile/i2pconfig.sh /usr/local/bin/i2pconfig
+	cp -vr build/profile /var/lib/i2pbrowser/profile
+	cp -vr build/app-profile /var/lib/i2pbrowser/profile
+

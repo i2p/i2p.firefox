@@ -1,0 +1,3 @@
+
+CONFIGURING_PROFILE=$HOME/i2p/firefox/webapps
+BROWSING_PROFILE=$HOME/i2p/firefox/browsing
