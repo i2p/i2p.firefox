@@ -14,6 +14,7 @@ if [ ! -d "$CONFIGURING_PROFILE" ]; then
 fi
 
 if [ ! -f "$CONFIGURING_PROFILE/user.js" ]; then
+  echo "user.js not present in $CONFIGURING_PROFILE, this is not a Firefox profile"
   exit 1
 fi
 

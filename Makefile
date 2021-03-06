@@ -112,3 +112,9 @@ install:
 	cp -vr build/profile /var/lib/i2pbrowser/profile
 	cp -vr build/app-profile /var/lib/i2pbrowser/app-profile
 
+uninstall:
+	rm -rfv /etc/i2pbrowser \
+		/var/lib/i2pbrowser \
+		/etc/i2pbrowser/i2pbrowserrc \
+		/usr/local/bin/i2pbrowser \
+		/usr/local/bin/i2pconfig
