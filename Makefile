@@ -1,4 +1,4 @@
-all: profile.tgz install.exe
+all: profile.tgz app-profile.tgz install.exe
 
 install.exe: profile build/licenses
 	cp src/nsis/*.nsi build
@@ -18,8 +18,7 @@ build/licenses: build
 	unix2dos build/licenses/LICENSE.index
 
 clean:
-	rm -rf build profile-*.tgz I2P-Profile-Installer-*.exe
-
+	rm -rf build app-profile-*.tgz profile-*.tgz I2P-Profile-Installer-*.exe
 
 build:
 	@echo "creating build directory"
@@ -50,6 +49,33 @@ copy-xpi: build/NoScript.xpi build/HTTPSEverywhere.xpi build/i2ppb@eyedeekay.git
 	cp build/HTTPSEverywhere.xpi "build/profile/extensions/https-everywhere-eff@eff.org.xpi"
 	cp build/i2ppb@eyedeekay.github.io.xpi build/profile/extensions/i2ppb@eyedeekay.github.io.xpi
 
+app-profile: build/app-profile/user.js build/app-profile/prefs.js build/app-profile/chrome/userChrome.css build/app-profile/bookmarks.html build/app-profile/storage-sync.sqlite copy-app-xpi
+
+app-profile.tgz: app-profile
+	$(eval PROFILE_VERSION := $(shell cat src/app-profile/version.txt))
+	@echo "building app-profile tarball $(PROFILE_VERSION)"
+	install -m755 src/unix/i2pbrowser.sh build/app-profile/i2pbrowser.sh
+	cd build && tar -czf app-profile-$(PROFILE_VERSION).tgz app-profile && cp app-profile-$(PROFILE_VERSION).tgz ../
+
+build/app-profile/user.js: build/app-profile src/app-profile/user.js
+	cp src/app-profile/user.js build/app-profile/user.js
+
+build/app-profile/prefs.js: build/app-profile src/app-profile/prefs.js
+	cp src/app-profile/prefs.js build/app-profile/prefs.js
+
+build/app-profile/chrome/userChrome.css: build/app-profile/chrome src/app-profile/chrome/userChrome.css
+	cp src/app-profile/chrome/userChrome.css build/app-profile/chrome/userChrome.css
+
+build/app-profile/bookmarks.html: build/app-profile src/app-profile/bookmarks.html
+	cp src/app-profile/bookmarks.html build/app-profile/bookmarks.html
+
+build/app-profile/storage-sync.sqlite: build/app-profile src/app-profile/storage-sync.sqlite
+	cp src/app-profile/storage-sync.sqlite build/app-profile/storage-sync.sqlite
+
+copy-app-xpi: build/NoScript.xpi build/HTTPSEverywhere.xpi build/i2ppb@eyedeekay.github.io.xpi build/app-profile/extensions
+	cp build/HTTPSEverywhere.xpi "build/app-profile/extensions/https-everywhere-eff@eff.org.xpi"
+	cp build/i2ppb@eyedeekay.github.io.xpi build/app-profile/extensions/i2ppb@eyedeekay.github.io.xpi
+
 build/i2ppb@eyedeekay.github.io.xpi:
 	curl -L `cat i2psetproxy.url` > build/i2ppb@eyedeekay.github.io.xpi
 
@@ -64,3 +90,13 @@ build/profile/extensions: build/profile
 
 build/profile: build
 	mkdir -p build/profile
+	
+
+build/app-profile/chrome: build/app-profile
+	mkdir -p build/app-profile/chrome
+	
+build/app-profile/extensions: build/app-profile
+	mkdir -p build/app-profile/extensions
+
+build/app-profile: build
+	mkdir -p build/app-profile

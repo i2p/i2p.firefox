@@ -13,9 +13,11 @@
 !include i2pbrowser-version.nsi
 
 var FFINSTEXE
+var FFNONTORINSTEXE
 var I2PINSTEXE
 
 !define FFINSTEXE
+!define FFNONTORINSTEXE
 !define FFINSTEXE32 "$PROGRAMFILES32\Mozilla Firefox\"
 !define FFINSTEXE64 "$PROGRAMFILES64\Mozilla Firefox\"
 
@@ -125,6 +127,7 @@ PageExEnd
 PageEx directory
     dirtext "${FIREFOX_MESSAGE}"
     dirvar $FFINSTEXE
+    dirvar $FFNONTORINSTEXE
     PageCallbacks firefoxDetect
 PageExEnd
 PageEx directory
@@ -143,8 +146,10 @@ Function .onInit
     ${If} $0 == 1
         ${If} ${FileExists} "${FFINSTEXE64}/firefox.exe"
             StrCpy $FFINSTEXE "${FFINSTEXE64}"
+            StrCpy $FFNONTORINSTEXE "${FFINSTEXE64}"
     ${ElseIf} ${FileExists} "${FFINSTEXE32}/firefox.exe"
-        StrCpy $FFINSTEXE "${FFINSTEXE32}"
+            StrCpy $FFINSTEXE "${FFINSTEXE32}"
+            StrCpy $FFNONTORINSTEXE "${FFINSTEXE32}"
         ${EndIf}
         ${If} ${FileExists} "$PROFILE/OneDrive/Desktop/Tor Browser/Browser/firefox.exe"
             StrCpy $FFINSTEXE "$PROFILE/OneDrive/Desktop/Tor Browser/Browser/"
@@ -155,6 +160,7 @@ Function .onInit
     ${Else}
         ${If} ${FileExists} "${FFINSTEXE32}/firefox.exe"
             StrCpy $FFINSTEXE "${FFINSTEXE32}"
+            StrCpy $FFNONTORINSTEXE "${FFINSTEXE32}"
         ${EndIf}
         ${If} ${FileExists} "$PROFILE/OneDrive/Desktop/Tor Browser/Browser/firefox.exe"
             StrCpy $FFINSTEXE "$PROFILE/OneDrive/Desktop/Tor Browser/Browser/"
@@ -218,6 +224,22 @@ Section Install
     FileWriteByte $0 "10"
     FileClose $0
 
+
+    # Install the launcher scripts: This will need to be it's own section, since
+    # now I think we just need to let the user select if the user is using a non
+    # default Firefox path.
+    FileOpen $0 "$INSTDIR\i2pconfig.bat" w
+    FileWrite $0 "@echo off"
+    FileWriteByte $0 "13"
+    FileWriteByte $0 "10"
+    FileWrite $0 'start "" "$FFNONTORINSTEXE\firefox.exe" -no-remote -profile "$LOCALAPPDATA\${APPNAME}\firefox.profile.config.i2p" -url %1'
+    FileWriteByte $0 "13"
+    FileWriteByte $0 "10"
+    FileWrite $0 exit
+    FileWriteByte $0 "13"
+    FileWriteByte $0 "10"
+    FileClose $0
+
     # Install the licenses
     createDirectory "$INSTDIR\licenses"
     SetOutPath "$INSTDIR\licenses"
@@ -235,6 +257,20 @@ Section Install
     createDirectory "$LOCALAPPDATA\${APPNAME}\firefox.profile.i2p\extensions"
     SetOutPath "$LOCALAPPDATA\${APPNAME}\firefox.profile.i2p\extensions"
     File "profile/extensions/{73a6fe31-595d-460b-a920-fcc0f8843232}.xpi"
+    File profile/extensions/https-everywhere-eff@eff.org.xpi
+    File profile/extensions/i2ppb@eyedeekay.github.io.xpi
+
+    # Install the config profile
+    createDirectory "$LOCALAPPDATA\${APPNAME}\firefox.profile.config.i2p"
+    SetOutPath "$LOCALAPPDATA\${APPNAME}\firefox.profile.config.i2p"
+    File app-profile/user.js
+    File app-profile/prefs.js
+    File app-profile/bookmarks.html
+    File app-profile/storage-sync.sqlite
+
+    # Install the config extensions
+    createDirectory "$LOCALAPPDATA\${APPNAME}\firefox.profile.config.i2p\extensions"
+    SetOutPath "$LOCALAPPDATA\${APPNAME}\firefox.profile.config.i2p\extensions"
     File profile/extensions/https-everywhere-eff@eff.org.xpi
     File profile/extensions/i2ppb@eyedeekay.github.io.xpi
 
@@ -259,7 +295,7 @@ Section Install
     FileSeek $0 0 END
     FileWriteByte $0 "13"
     FileWriteByte $0 "10"
-    FileWrite $0 "routerconsole.browser=$\"$INSTDIR\i2pbrowser.bat$\""
+    FileWrite $0 "routerconsole.browser=$\"$INSTDIR\i2pconfig.bat$\""
     FileWriteByte $0 "13"
     FileWriteByte $0 "10"
     FileClose $0
@@ -281,6 +317,7 @@ Section "uninstall"
 
     # Uninstall the launcher scripts
     Delete $INSTDIR\i2pbrowser.bat
+    Delete $INSTDIR\i2pconfig.bat
     Delete $INSTDIR\i2pbrowser-private.bat
     Delete $INSTDIR\ui2pbrowser_icon.ico
 
@@ -290,10 +327,18 @@ Section "uninstall"
     Delete $LOCALAPPDATA\${APPNAME}\firefox.profile.i2p\bookmarks.html
     Delete $LOCALAPPDATA\${APPNAME}\firefox.profile.i2p\storage-sync.sqlite
 
+    Delete $LOCALAPPDATA\${APPNAME}\firefox.profile.config.i2p\prefs.js
+    Delete $LOCALAPPDATA\${APPNAME}\firefox.profile.config.i2p\user.js
+    Delete $LOCALAPPDATA\${APPNAME}\firefox.profile.config.i2p\bookmarks.html
+    Delete $LOCALAPPDATA\${APPNAME}\firefox.profile.config.i2p\storage-sync.sqlite
+
     # Uninstall the extensions
     Delete "$LOCALAPPDATA\${APPNAME}\firefox.profile.i2p\extensions\{73a6fe31-595d-460b-a920-fcc0f8843232}.xpi"
     Delete "$LOCALAPPDATA\${APPNAME}\firefox.profile.i2p\extensions\https-everywhere-eff@eff.org.xpi"
     Delete "$LOCALAPPDATA\${APPNAME}\firefox.profile.i2p\extensions\i2ppb@eyedeekay.github.io.xpi"
+
+    Delete "$LOCALAPPDATA\${APPNAME}\firefox.profile.config.i2p\extensions\https-everywhere-eff@eff.org.xpi"
+    Delete "$LOCALAPPDATA\${APPNAME}\firefox.profile.config.i2p\extensions\i2ppb@eyedeekay.github.io.xpi"
 
     # Remove shortcuts and folders
     Delete "$SMPROGRAMS\${APPNAME}\${APPNAME}.lnk"
