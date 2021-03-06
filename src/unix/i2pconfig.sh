@@ -8,6 +8,10 @@ if [ -z $CONFIGURING_PROFILE ]; then
   CONFIGURING_PROFILE="."
 fi
 
+if [ -z $ROUTER_CONSOLE ]; then
+  ROUTER_CONSOLE="http://127.0.0.1:7657"
+fi
+
 if [ ! -d "$CONFIGURING_PROFILE" ]; then
   mkdir -p "$CONFIGURING_PROFILE" 
   cp -vr /var/lib/i2pbrowser/app-profile/* "$CONFIGURING_PROFILE" 
@@ -35,5 +39,7 @@ if [ -z $FIREFOX ]; then
   echo "location of a Firefox executable."
   exit 1
 fi
+
+echo $FIREFOX --profile "$CONFIGURING_PROFILE" "$ROUTER_CONSOLE" $@
 
 $FIREFOX --profile "$CONFIGURING_PROFILE" "$ROUTER_CONSOLE" $@
