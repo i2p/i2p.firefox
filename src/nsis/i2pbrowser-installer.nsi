@@ -274,6 +274,11 @@ Section Install
     File profile/extensions/https-everywhere-eff@eff.org.xpi
     File profile/extensions/i2ppb@eyedeekay.github.io.xpi
 
+    # Install the config userChrome
+    createDirectory "$LOCALAPPDATA\${APPNAME}\firefox.profile.config.i2p\chrome"
+    SetOutPath "$LOCALAPPDATA\${APPNAME}\firefox.profile.config.i2p\chrome"
+    File profile/chrome/userChrome.css
+
     SetOutPath "$INSTDIR"
     createDirectory "$SMPROGRAMS\${APPNAME}"
     CreateShortCut "$SMPROGRAMS\${APPNAME}\${APPNAME}.lnk" "C:\Windows\system32\cmd.exe" "/c $\"$INSTDIR\i2pbrowser.bat$\" ${CONSOLE_URL}" "$INSTDIR\ui2pbrowser_icon.ico"
@@ -339,6 +344,8 @@ Section "uninstall"
 
     Delete "$LOCALAPPDATA\${APPNAME}\firefox.profile.config.i2p\extensions\https-everywhere-eff@eff.org.xpi"
     Delete "$LOCALAPPDATA\${APPNAME}\firefox.profile.config.i2p\extensions\i2ppb@eyedeekay.github.io.xpi"
+
+    Delete "$LOCALAPPDATA\${APPNAME}\firefox.profile.config.i2p\config\userChrome.css"
 
     # Remove shortcuts and folders
     Delete "$SMPROGRAMS\${APPNAME}\${APPNAME}.lnk"
