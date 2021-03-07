@@ -291,12 +291,17 @@ Section Install
     Var /Global I2PAPPDATA 
     IfFileExists "$APPDATA\I2P\clients.config.d" 0 +2
         StrCpy $I2PAPPDATA "$APPDATA\I2P\"
+    IfFileExists "$LOCALAPPDATA\I2P\clients.config.d" 0 +2
         StrCpy $I2PAPPDATA "$LOCALAPPDATA\I2P\"
+    IfFileExists "$I2PINSTEXE\clients.config" 0 +2
+        StrCpy $I2PAPPDATA "$I2PINSTEXE"
+        StrCpy $I2PAPPDATA "$I2PINSTEXE"
 
-    SetOutPath "${I2PAPPDATA}"
-
+    createDirectory "$I2PAPPDATA"
+    SetOutPath "$I2PAPPDATA"
+    
     ;# Point the browser config setting
-    FileOpen $0 "${I2PAPPDATA}\router.config" a
+    FileOpen $0 "$I2PAPPDATA\router.config" a
     FileSeek $0 0 END
     FileWriteByte $0 "13"
     FileWriteByte $0 "10"
