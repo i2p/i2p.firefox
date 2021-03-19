@@ -18,7 +18,7 @@ build/licenses: build
 	unix2dos build/licenses/LICENSE.index
 
 clean:
-	rm -rf build app-profile-*.tgz profile-*.tgz I2P-Profile-Installer-*.exe
+	rm -rf build app-profile-*.tgz profile-*.tgz I2P-Profile-Installer-*.exe *.deb
 
 build:
 	@echo "creating build directory"
@@ -85,6 +85,20 @@ build/NoScript.xpi: NoScript.url
 build/HTTPSEverywhere.xpi : HTTPSEverywhere.url
 	curl `cat HTTPSEverywhere.url` > build/HTTPSEverywhere.xpi
 
+clean-extensions:
+	rm -fv i2psetproxy.url NoScript.url HTTPSEverywhere.url
+
+extensions:HTTPSEverywhere.url NoScript.url i2psetproxy.url
+
+HTTPSEverywhere.url:
+	@echo "https://addons.mozilla.org/firefox/downloads/file/3716461/"`./amo-version.sh https-everywhere`"/https_everywhere-"`./amo-version.sh https-everywhere`"-an+fx.xpi" > HTTPSEverywhere.url
+
+NoScript.url:
+	@echo "https://addons.mozilla.org/firefox/downloads/file/3534184/"`./amo-version.sh noscript`"/{73a6fe31-595d-460b-a920-fcc0f8843232}.xpi" > NoScript.url
+
+i2psetproxy.url:
+	@echo "https://addons.mozilla.org/firefox/downloads/file/3674169/"`./amo-version.sh i2p-in-private-browsing`"/i2ppb@eyedeekay.github.io.xpi" > i2psetproxy.url
+
 build/profile/extensions: build/profile
 	mkdir -p build/profile/extensions
 
@@ -124,3 +138,21 @@ uninstall:
 		/usr/local/bin/i2pconfig \
 		/usr/share/applications/i2pbrowser.desktop \
 		/usr/share/applications/i2pconfig.desktop
+
+checkinstall:
+	checkinstall \
+		--default \
+		--install=no \
+		--fstrans=yes \
+		--pkgname=i2p-firefox \
+		--pkgversion=$(PROFILE_VERSION) \
+		--pkggroup=net \
+		--pkgrelease=1 \
+		--pkgsource="https://i2pgit.org/i2p-hackers/i2p.firefox" \
+		--maintainer="hankhill19580@gmail.com" \
+		--requires="firefox" \
+		--suggests="i2p,i2p-router,syndie,tor,tsocks" \
+		--nodoc \
+		--deldoc=yes \
+		--deldesc=yes \
+		--backup=no
