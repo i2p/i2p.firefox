@@ -1,4 +1,8 @@
 
+if [ -f /etc/i2pbrowser/i2pbrowserdebianrc ]; then
+  . /etc/i2pbrowser/i2pbrowserdebianrc
+fi
+
 CONFIGURING_PROFILE=$HOME/i2p/firefox/webapps
 BROWSING_PROFILE=$HOME/i2p/firefox/browsing
 ROUTER_CONSOLE="127.0.0.1:7657"

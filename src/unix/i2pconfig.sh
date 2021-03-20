@@ -4,6 +4,10 @@ if [ -f "/etc/i2pbrowser/i2pbrowserrc" ]; then
   . /etc/i2pbrowser/i2pbrowserrc
 fi
 
+if [ ! -z $I2PROUTER ]; then
+  "$I2PROUTER" start
+fi
+
 if [ -f "$HOME/.i2p/router.config" ]; then
   if [ "$0" = "/usr/local/bin/i2pconfig" ]; then
     if ! grep -R 'routerconsole.browser' "$HOME/.i2p/router.config" ; then

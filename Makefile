@@ -121,6 +121,7 @@ install:
 	mkdir -p /etc/i2pbrowser \
 		/var/lib/i2pbrowser
 	install -m644 src/unix/i2pbrowserrc /etc/i2pbrowser/i2pbrowserrc
+	install -m644 src/unix/i2pbrowserdebianrc /etc/i2pbrowser/i2pbrowserdebianrc
 	install -m755 build/profile/i2pbrowser.sh /usr/local/bin/i2pbrowser
 	install -m755 build/app-profile/i2pconfig.sh /usr/local/bin/i2pconfig
 	install -m755 src/unix/i2p-config-service-setup.sh /usr/local/bin/i2p-config-service-setup
@@ -136,6 +137,7 @@ uninstall:
 		/etc/i2pbrowser/i2pbrowserrc \
 		/usr/local/bin/i2pbrowser \
 		/usr/local/bin/i2pconfig \
+		/usr/local/bin/i2p-config-service-setup \
 		/usr/share/applications/i2pbrowser.desktop \
 		/usr/share/applications/i2pconfig.desktop
 
@@ -150,7 +152,7 @@ checkinstall:
 		--pkgrelease=1 \
 		--pkgsource="https://i2pgit.org/i2p-hackers/i2p.firefox" \
 		--maintainer="hankhill19580@gmail.com" \
-		--requires="firefox" \
+		--requires="firefox,wget,i2p,i2p-router" \
 		--suggests="i2p,i2p-router,syndie,tor,tsocks" \
 		--nodoc \
 		--deldoc=yes \

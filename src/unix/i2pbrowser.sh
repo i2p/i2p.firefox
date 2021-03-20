@@ -4,6 +4,10 @@ if [ -f "/etc/i2pbrowser/i2pbrowserrc" ]; then
   . /etc/i2pbrowser/i2pbrowserrc
 fi
 
+if [ ! -z $I2PROUTER ]; then
+  "$I2PROUTER" start
+fi
+
 if [ -z $BROWSING_PROFILE ]; then
   BROWSING_PROFILE="."
 fi
