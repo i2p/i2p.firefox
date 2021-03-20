@@ -202,6 +202,12 @@ Section Install
     # default Firefox path.
     FileOpen $0 "$INSTDIR\i2pbrowser.bat" w
     FileWrite $0 "@echo off"
+# TODO: Test this thoroughly and enable.
+#     FileWriteByte $0 "13"
+#     FileWriteByte $0 "10"
+#     FileWrite $0 'start "" "$I2PINSTEXE\i2prouter" start'
+#     FileWriteByte $0 "13"
+#     FileWriteByte $0 "10"
     FileWriteByte $0 "13"
     FileWriteByte $0 "10"
     FileWrite $0 'start "" "$FFINSTEXE\firefox.exe" -no-remote -profile "$LOCALAPPDATA\${APPNAME}\firefox.profile.i2p" -url %1'
@@ -214,6 +220,12 @@ Section Install
 
     FileOpen $0 "$INSTDIR\i2pbrowser-private.bat" w
     FileWrite $0 "@echo off"
+# TODO: Test this thoroughly and enable..
+#     FileWriteByte $0 "13"
+#     FileWriteByte $0 "10"
+#     FileWrite $0 'start "" "$I2PINSTEXE\i2prouter" start'
+#     FileWriteByte $0 "13"
+#     FileWriteByte $0 "10"
     FileWriteByte $0 "13"
     FileWriteByte $0 "10"
     FileWrite $0 'start "" "$FFINSTEXE\firefox.exe" -no-remote -profile "$LOCALAPPDATA\${APPNAME}\firefox.profile.i2p" -private-window about:blank'
@@ -230,6 +242,12 @@ Section Install
     # default Firefox path.
     FileOpen $0 "$INSTDIR\i2pconfig.bat" w
     FileWrite $0 "@echo off"
+# TODO: Test this thoroughly and enable.
+#     FileWriteByte $0 "13"
+#     FileWriteByte $0 "10"
+#     FileWrite $0 'start "" "$I2PINSTEXE\i2prouter" start'
+#     FileWriteByte $0 "13"
+#     FileWriteByte $0 "10"
     FileWriteByte $0 "13"
     FileWriteByte $0 "10"
     FileWrite $0 'start "" "$FFNONTORINSTEXE\firefox.exe" -no-remote -profile "$LOCALAPPDATA\${APPNAME}\firefox.profile.config.i2p" -url %1'
@@ -239,6 +257,8 @@ Section Install
     FileWriteByte $0 "13"
     FileWriteByte $0 "10"
     FileClose $0
+
+
 
     # Install the licenses
     createDirectory "$INSTDIR\licenses"
