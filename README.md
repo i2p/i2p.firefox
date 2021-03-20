@@ -7,6 +7,7 @@ Features:
  - Automatically select an up-to-date, secure Firefox or Tor Browser(On Windows) variant
  - Automatically configure a profile for I2P
  - Automatically block-list all non-I2P local destinations
+ - Enable first-party isolation, anti-fingerprinting, letterboxing
  - Automatically sandbox I2P, Non-I2P, and I2P-Application cookiestores
 
 Build Dependencies:
