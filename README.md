@@ -81,7 +81,12 @@ the `make checkinstall` target after building with `make`.
 
         make
         make checkinstall
-        sudo apt install -i2p-firefox*.deb
+        sudo apt install ./i2p-firefox*.deb
+
+If you want to set up i2pconfig to run when you start the service
+with `sudo service i2p start` then you can run the script:
+
+        /usr/local/bin/i2p-config-service-setup
 
 Issues
 ------
