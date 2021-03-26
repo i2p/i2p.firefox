@@ -114,6 +114,9 @@ necessary, then complete the regular build instructions. If a jpackaged I2P rout
 isn't present to use at build time, the inclusion will be skipped automatically
 with a non-fatal warning.
 
+In the near future, I'll start providing a pre-built app image to ease the
+build process for non-Windows users.
+
 Issues
 ------
 
