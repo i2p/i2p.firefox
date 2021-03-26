@@ -169,6 +169,7 @@ Function .onInit
             StrCpy $FFINSTEXE "$PROFILE/Desktop/Tor Browser/Browser/"
         ${EndIf}
     ${EndIf}
+    StrCpy $I2PINSTEXE "${I2PINSTEXE64}"
     ${If} ${FileExists} "${I2PINSTEXE32}"
         StrCpy $I2PINSTEXE "${I2PINSTEXE32}"
     ${EndIf}
@@ -185,9 +186,31 @@ FunctionEnd
 
 Function routerDetect
     ${If} ${FileExists} "$I2PINSTEXE"
-        ## Abort directory
+        Abort directory
+    ${Else}
+        createDirectory $I2PINSTEXE
         SetOutPath $I2PINSTEXE
         File /a /r "I2P\"
+
+        createDirectory "$LOCALAPPDATA\I2P\"
+        SetOutPath "$LOCALAPPDATA\I2P\"
+        File "I2P\config\clients.config"
+        File "I2P\config\i2ptunnel.config"
+        File "I2P\config\wrapper.config"
+        File "I2P\config\hosts.txt"
+
+        createDirectory "$LOCALAPPDATA\I2P\webapps\"
+        SetOutPath "$LOCALAPPDATA\I2P\webapps\"
+        File /a /r "I2P\config\webapps\"
+
+        createDirectory "$LOCALAPPDATA\I2P\geoip\"
+        SetOutPath "$LOCALAPPDATA\I2P\geoip\"
+        File /a /r "I2P\config\geoip\"
+
+        createDirectory "$LOCALAPPDATA\I2P\certificates\"
+        SetOutPath "$LOCALAPPDATA\I2P\certificates\"
+        File /a /r "I2P\config\certificates\"
+
     ${EndIf}
 FunctionEnd
 
@@ -206,7 +229,7 @@ Section Install
     FileWrite $0 "@echo off"
     FileWriteByte $0 "13"
     FileWriteByte $0 "10"
-    FileWrite $0 'start "" "$I2PINSTEXE\i2p.exe start"'
+    FileWrite $0 'start "" "$I2PINSTEXE\i2p.exe"'
     FileWriteByte $0 "13"
     FileWriteByte $0 "10"
     FileWriteByte $0 "13"
@@ -223,7 +246,7 @@ Section Install
     FileWrite $0 "@echo off"
     FileWriteByte $0 "13"
     FileWriteByte $0 "10"
-    FileWrite $0 'start "" "$I2PINSTEXE\i2p.exe start"'
+    FileWrite $0 'start "" "$I2PINSTEXE\i2p.exe"'
     FileWriteByte $0 "13"
     FileWriteByte $0 "10"
     FileWriteByte $0 "13"

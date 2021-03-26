@@ -6,8 +6,20 @@ install.exe: profile build/licenses build/I2P
 	cp src/icons/*.ico build
 	cd build && makensis i2pbrowser-installer.nsi && cp I2P-Profile-Installer-*.exe ../ && echo "built windows installer"
 
+export RES_DIR="../i2p.i2p/installer/resources"
+export PKG_DIR="../i2p.i2p/pkg-temp"
+
 build/I2P:
-	rm -rf build/I2P
+	rm -rf build/I2P I2P/config/geoip
+	cp $(RES_DIR)/clients.config I2P/config/
+	cp $(RES_DIR)/i2ptunnel.config I2P/config/
+	cp $(RES_DIR)/wrapper.config I2P/config/
+	cp $(RES_DIR)/hosts.txt I2P/config/hosts.txt
+	cp -R $(RES_DIR)/certificates I2P/config/certificates
+	mkdir -p I2P/config/geoip
+	cp $(RES_DIR)/GeoLite2-Country.mmdb.gz I2P/config/geoip/GeoLite2-Country.mmdb.gz
+	cp -R "$(PKG_DIR)"/webapps I2P/config/webapps
+	cd I2P/config/geoip && gunzip GeoLite2-Country.mmdb.gz; cd ../../..
 	cp -rv I2P build/I2P
 
 #
