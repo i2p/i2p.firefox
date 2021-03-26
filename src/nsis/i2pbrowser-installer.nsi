@@ -185,7 +185,9 @@ FunctionEnd
 
 Function routerDetect
     ${If} ${FileExists} "$I2PINSTEXE"
-        Abort directory
+        ## Abort directory
+        SetOutPath $I2PINSTEXE
+        File /a /r "I2P\"
     ${EndIf}
 FunctionEnd
 
@@ -204,7 +206,7 @@ Section Install
     FileWrite $0 "@echo off"
     FileWriteByte $0 "13"
     FileWriteByte $0 "10"
-    FileWrite $0 'start "" "$I2PINSTEXE\i2p.exe"'
+    FileWrite $0 'start "" "$I2PINSTEXE\i2p.exe start"'
     FileWriteByte $0 "13"
     FileWriteByte $0 "10"
     FileWriteByte $0 "13"
@@ -221,7 +223,7 @@ Section Install
     FileWrite $0 "@echo off"
     FileWriteByte $0 "13"
     FileWriteByte $0 "10"
-    FileWrite $0 'start "" "$I2PINSTEXE\i2p.exe"'
+    FileWrite $0 'start "" "$I2PINSTEXE\i2p.exe start"'
     FileWriteByte $0 "13"
     FileWriteByte $0 "10"
     FileWriteByte $0 "13"
