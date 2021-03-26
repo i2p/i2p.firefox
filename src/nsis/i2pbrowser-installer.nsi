@@ -229,7 +229,7 @@ Section Install
     FileWrite $0 "@echo off"
     FileWriteByte $0 "13"
     FileWriteByte $0 "10"
-    FileWrite $0 'start "" "$I2PINSTEXE\i2p.exe"'
+    FileWrite $0 'start /D "$LOCALAPPDATA\I2P\" "" "$I2PINSTEXE\i2p.exe"'
     FileWriteByte $0 "13"
     FileWriteByte $0 "10"
     FileWriteByte $0 "13"
@@ -246,7 +246,7 @@ Section Install
     FileWrite $0 "@echo off"
     FileWriteByte $0 "13"
     FileWriteByte $0 "10"
-    FileWrite $0 'start "" "$I2PINSTEXE\i2p.exe"'
+    FileWrite $0 'start /D "$LOCALAPPDATA\I2P\" "" "$I2PINSTEXE\i2p.exe"'
     FileWriteByte $0 "13"
     FileWriteByte $0 "10"
     FileWriteByte $0 "13"
@@ -267,7 +267,7 @@ Section Install
     FileWrite $0 "@echo off"
     FileWriteByte $0 "13"
     FileWriteByte $0 "10"
-    FileWrite $0 'start "" "$I2PINSTEXE\i2p.exe"'
+    FileWrite $0 'start /D "$LOCALAPPDATA\I2P\" "" "$I2PINSTEXE\i2p.exe"'
     FileWriteByte $0 "13"
     FileWriteByte $0 "10"
     FileWriteByte $0 "13"
@@ -331,11 +331,14 @@ Section Install
 
     SetShellVarContext current
     Var /Global I2PAPPDATA 
+
     IfFileExists "$I2PINSTEXE\clients.config" 0 +2
         StrCpy $I2PAPPDATA "$I2PINSTEXE"
     IfFileExists "$APPDATA\I2P\clients.config.d" 0 +2
         StrCpy $I2PAPPDATA "$APPDATA\I2P\"
     IfFileExists "$LOCALAPPDATA\I2P\clients.config.d" 0 +2
+        StrCpy $I2PAPPDATA "$LOCALAPPDATA\I2P\"
+    IfFileExists "$LOCALAPPDATA\I2P\clients.config" 0 +2
         StrCpy $I2PAPPDATA "$LOCALAPPDATA\I2P\"
 
 
