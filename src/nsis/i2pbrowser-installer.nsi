@@ -198,6 +198,7 @@ Function routerDetect
         File "I2P\config\i2ptunnel.config"
         File "I2P\config\wrapper.config"
         File "I2P\config\hosts.txt"
+        File "I2P\config\jpackaged"
 
         createDirectory "$LOCALAPPDATA\I2P\webapps\"
         SetOutPath "$LOCALAPPDATA\I2P\webapps\"
