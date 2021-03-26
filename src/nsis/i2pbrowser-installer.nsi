@@ -190,27 +190,27 @@ Function routerDetect
     ${Else}
         createDirectory $I2PINSTEXE
         SetOutPath $I2PINSTEXE
-        File /a /r "I2P\"
+        File /nonfatal /a /r "I2P\"
 
         createDirectory "$LOCALAPPDATA\I2P\"
         SetOutPath "$LOCALAPPDATA\I2P\"
-        File "I2P\config\clients.config"
-        File "I2P\config\i2ptunnel.config"
-        File "I2P\config\wrapper.config"
-        File "I2P\config\hosts.txt"
-        File "I2P\config\jpackaged"
+        File /nonfatal "I2P\config\clients.config"
+        File /nonfatal "I2P\config\i2ptunnel.config"
+        File /nonfatal "I2P\config\wrapper.config"
+        File /nonfatal "I2P\config\hosts.txt"
+        File /nonfatal "I2P\config\jpackaged"
 
         createDirectory "$LOCALAPPDATA\I2P\webapps\"
         SetOutPath "$LOCALAPPDATA\I2P\webapps\"
-        File /a /r "I2P\config\webapps\"
+        File /nonfatal /a /r "I2P\config\webapps\"
 
         createDirectory "$LOCALAPPDATA\I2P\geoip\"
         SetOutPath "$LOCALAPPDATA\I2P\geoip\"
-        File /a /r "I2P\config\geoip\"
+        File /nonfatal /a /r "I2P\config\geoip\"
 
         createDirectory "$LOCALAPPDATA\I2P\certificates\"
         SetOutPath "$LOCALAPPDATA\I2P\certificates\"
-        File /a /r "I2P\config\certificates\"
+        File /nonfatal /a /r "I2P\config\certificates\"
 
     ${EndIf}
 FunctionEnd
@@ -223,6 +223,29 @@ Section Install
     SetOutPath $INSTDIR
     File ui2pbrowser_icon.ico
 
+    # Update jpackaged I2P router, if it exists
+    ${If} ${FileExists} "$I2PINSTEXE\jpackaged"
+        createDirectory $I2PINSTEXE
+        SetOutPath $I2PINSTEXE
+        File /nonfatal /a /r "I2P\"
+        File /nonfatal "I2P\config\jpackaged"
+
+        createDirectory "$LOCALAPPDATA\I2P\"
+        SetOutPath "$LOCALAPPDATA\I2P\"
+
+        createDirectory "$LOCALAPPDATA\I2P\webapps\"
+        SetOutPath "$LOCALAPPDATA\I2P\webapps\"
+        File /nonfatal /a /r "I2P\config\webapps\"
+
+        createDirectory "$LOCALAPPDATA\I2P\geoip\"
+        SetOutPath "$LOCALAPPDATA\I2P\geoip\"
+        File /nonfatal /a /r "I2P\config\geoip\"
+
+        createDirectory "$LOCALAPPDATA\I2P\certificates\"
+        SetOutPath "$LOCALAPPDATA\I2P\certificates\"
+        File /nonfatal /a /r "I2P\config\certificates\"
+    ${EndIf}
+
     # Install the launcher scripts: This will need to be it's own section, since
     # now I think we just need to let the user select if the user is using a non
     # default Firefox path.
@@ -230,7 +253,11 @@ Section Install
     FileWrite $0 "@echo off"
     FileWriteByte $0 "13"
     FileWriteByte $0 "10"
-    FileWrite $0 'start /D "$LOCALAPPDATA\I2P\" "" "$I2PINSTEXE\i2p.exe"'
+    ${If} ${FileExists} "$I2PINSTEXE\jpackaged"
+        FileWrite $0 'start /D "$LOCALAPPDATA\I2P\" "" "$I2PINSTEXE\i2p.exe"'
+    ${Else}
+        FileWrite $0 'start "" "$I2PINSTEXE\i2p.exe"'
+    ${EndIf}
     FileWriteByte $0 "13"
     FileWriteByte $0 "10"
     FileWriteByte $0 "13"
@@ -247,7 +274,11 @@ Section Install
     FileWrite $0 "@echo off"
     FileWriteByte $0 "13"
     FileWriteByte $0 "10"
-    FileWrite $0 'start /D "$LOCALAPPDATA\I2P\" "" "$I2PINSTEXE\i2p.exe"'
+    ${If} ${FileExists} "$I2PINSTEXE\jpackaged"
+        FileWrite $0 'start /D "$LOCALAPPDATA\I2P\" "" "$I2PINSTEXE\i2p.exe"'
+    ${Else}
+        FileWrite $0 'start "" "$I2PINSTEXE\i2p.exe"'
+    ${EndIf}
     FileWriteByte $0 "13"
     FileWriteByte $0 "10"
     FileWriteByte $0 "13"
@@ -268,7 +299,11 @@ Section Install
     FileWrite $0 "@echo off"
     FileWriteByte $0 "13"
     FileWriteByte $0 "10"
-    FileWrite $0 'start /D "$LOCALAPPDATA\I2P\" "" "$I2PINSTEXE\i2p.exe"'
+    ${If} ${FileExists} "$I2PINSTEXE\jpackaged"
+        FileWrite $0 'start /D "$LOCALAPPDATA\I2P\" "" "$I2PINSTEXE\i2p.exe"'
+    ${Else}
+        FileWrite $0 'start "" "$I2PINSTEXE\i2p.exe"'
+    ${EndIf}
     FileWriteByte $0 "13"
     FileWriteByte $0 "10"
     FileWriteByte $0 "13"

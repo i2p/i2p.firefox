@@ -19,6 +19,7 @@ To build this, you will need the following software packages (all available in D
  * nsis
  * dos2unix
  * curl
+ * jq
 
 to build a Debian package, you'll also need
 
@@ -88,6 +89,30 @@ If you want to set up i2pconfig to run when you start the service
 with `sudo service i2p start` then you can run the script:
 
         /usr/local/bin/i2p-config-service-setup
+
+Including a jpackaged I2P Router(EXPERIMENTAL)
+----------------------------------------------
+
+In order to include a jpackaged(dependency-free) I2P router in the Profile
+Bundle you will need to build the jpackaged I2P router as an "App Image" on
+a Windows system and place it into a directory called `I2P` in your `i2p.firefox`
+checkout.
+
+Assuming a working java and jpackage environment on your Windows system, the
+following command should generate a suitable "App Image" in a directory
+called "I2P."
+
+        export I2P_VERSION=0.9.49
+        cp ../i2p.i2p/pkg-temp build
+        jpackage --type app-image --name I2P --app-version "$I2P_VERSION" \
+          --verbose \
+          --resource-dir build \
+          --input build --main-jar router.jar --main-class net.i2p.router.RouterLaunch
+
+Transfer the I2P directory to the machine where you build i2p.firefox if
+necessary, then complete the regular build instructions. If a jpackaged I2P router
+isn't present to use at build time, the inclusion will be skipped automatically
+with a non-fatal warning.
 
 Issues
 ------

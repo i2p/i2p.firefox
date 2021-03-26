@@ -11,16 +11,17 @@ export PKG_DIR="../i2p.i2p/pkg-temp"
 
 build/I2P:
 	rm -rf build/I2P I2P/config/geoip
-	cp $(RES_DIR)/clients.config I2P/config/
-	cp $(RES_DIR)/i2ptunnel.config I2P/config/
-	cp $(RES_DIR)/wrapper.config I2P/config/
-	cp $(RES_DIR)/hosts.txt I2P/config/hosts.txt
-	cp -R $(RES_DIR)/certificates I2P/config/certificates
-	mkdir -p I2P/config/geoip
-	cp $(RES_DIR)/GeoLite2-Country.mmdb.gz I2P/config/geoip/GeoLite2-Country.mmdb.gz
-	cp -R "$(PKG_DIR)"/webapps I2P/config/webapps
-	cd I2P/config/geoip && gunzip GeoLite2-Country.mmdb.gz; cd ../../..
-	cp -rv I2P build/I2P
+	echo true | tee I2P/config/jpackaged ; true
+	cp $(RES_DIR)/clients.config I2P/config/ ; true
+	cp $(RES_DIR)/i2ptunnel.config I2P/config/ ; true
+	cp $(RES_DIR)/wrapper.config I2P/config/ ; true
+	cp $(RES_DIR)/hosts.txt I2P/config/hosts.txt ; true
+	cp -R $(RES_DIR)/certificates I2P/config/certificates ; true
+	mkdir -p I2P/config/geoip ; true
+	cp $(RES_DIR)/GeoLite2-Country.mmdb.gz I2P/config/geoip/GeoLite2-Country.mmdb.gz ; true
+	cp -R "$(PKG_DIR)"/webapps I2P/config/webapps ; true
+	cd I2P/config/geoip && gunzip GeoLite2-Country.mmdb.gz; cd ../../.. ; true
+	cp -rv I2P build/I2P ; true
 
 #
 # Warning: a displayed license file of more than 28752 bytes
