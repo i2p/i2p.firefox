@@ -127,6 +127,8 @@ environment variable configured and `%ANT_HOME%/bin` on your `%PATH%`. You must 
 Cygwin installed. You must have `NSIS.exe` installed and available on your `%PATH%`.
 You must have Git for Windows installed. When installing git for Windows
 
+TODO: Add links to the respective instructions for each of these.
+
  1. Run the Cygwin `setup-$arch.exe` for your platform to set up new packages.
    Select the `make` `jq` `dos2unix` and `curl` packages.
  2. Open a cygwin terminal.
@@ -156,7 +158,16 @@ You must have Git for Windows installed. When installing git for Windows
           --input build/lib \
           --main-jar router.jar --main-class net.i2p.router.RouterLaunch
 
+ 5. Convert `amo-version.sh` back to Unix line-endings and fetch the extensions. Run
+   `make prep` to move the remaining files into the `build` directory.
 
+        unix2dos amo-version.sh
+        make clean-extensions extenions
+        make prep
+
+ 6. Change to the build directory and generate an installer with `makensis`.
+
+        "C:\Program Files (x86)\NSIS\Bin\makensis" i2pbrowser-installer.nsi
 
 Issues
 ------
