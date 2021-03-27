@@ -5,6 +5,7 @@ if [ -f "/etc/i2pbrowser/i2pbrowserrc" ]; then
 fi
 
 if [ ! -z $I2PROUTER ]; then
+  echo "$I2PROUTER" "$I2PCOMMAND"
   "$I2PROUTER" "$I2PCOMMAND"
 fi
 
