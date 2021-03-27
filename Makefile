@@ -1,9 +1,11 @@
 all: profile.tgz app-profile.tgz install.exe
 
-install.exe: profile build/licenses build/I2P
+prep:  profile build/licenses build/I2P
 	cp src/nsis/*.nsi build
 	cp src/nsis/*.nsh build
 	cp src/icons/*.ico build
+
+install.exe: prep
 	cd build && makensis i2pbrowser-installer.nsi && cp I2P-Profile-Installer-*.exe ../ && echo "built windows installer"
 
 export RES_DIR="../i2p.i2p/installer/resources"
