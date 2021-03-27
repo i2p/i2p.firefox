@@ -103,11 +103,11 @@ following command should generate a suitable "App Image" in a directory
 called "I2P."
 
         export I2P_VERSION=0.9.49
-        cp -R ../i2p.i2p/pkg-temp build
+        cp -R ../i2p.i2p/pkg-temp/lib build/lib
         jpackage --type app-image --name I2P --app-version "$I2P_VERSION" \
           --verbose \
-          --resource-dir build \
-          --input build --main-jar router.jar --main-class net.i2p.router.RouterLaunch
+          --resource-dir build/lib \
+          --input build/lib --main-jar router.jar --main-class net.i2p.router.RouterLaunch
 
 Transfer the I2P directory to the machine where you build i2p.firefox if
 necessary, then complete the regular build instructions. If a jpackaged I2P router
