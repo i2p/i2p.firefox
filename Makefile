@@ -1,6 +1,6 @@
-all: profile.tgz app-profile.tgz install.exe
+all: install.exe
 
-prep:  profile build/licenses build/I2P
+prep: profile.tgz app-profile.tgz profile build/licenses build/I2P
 	cp src/nsis/*.nsi build
 	cp src/nsis/*.nsh build
 	cp src/icons/*.ico build
