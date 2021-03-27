@@ -103,7 +103,7 @@ following command should generate a suitable "App Image" in a directory
 called "I2P."
 
         export I2P_VERSION=0.9.49
-        cp ../i2p.i2p/pkg-temp build
+        cp -R ../i2p.i2p/pkg-temp build
         jpackage --type app-image --name I2P --app-version "$I2P_VERSION" \
           --verbose \
           --resource-dir build \

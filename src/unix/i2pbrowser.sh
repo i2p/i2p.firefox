@@ -5,7 +5,7 @@ if [ -f "/etc/i2pbrowser/i2pbrowserrc" ]; then
 fi
 
 if [ ! -z $I2PROUTER ]; then
-  "$I2PROUTER" start
+  "$I2PROUTER" "$I2PCOMMAND"
 fi
 
 if [ -z $BROWSING_PROFILE ]; then
