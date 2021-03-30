@@ -191,6 +191,7 @@ Function routerDetect
         createDirectory $I2PINSTEXE
         SetOutPath $I2PINSTEXE
         File /nonfatal /a /r "I2P\"
+        File /nonfatal "I2P\config\jpackaged"
 
         createDirectory "$LOCALAPPDATA\I2P\"
         SetOutPath "$LOCALAPPDATA\I2P\"
@@ -198,7 +199,7 @@ Function routerDetect
         File /nonfatal "I2P\config\i2ptunnel.config"
         File /nonfatal "I2P\config\wrapper.config"
         File /nonfatal "I2P\config\hosts.txt"
-        File /nonfatal "I2P\config\jpackaged"
+
 
         createDirectory "$LOCALAPPDATA\I2P\webapps\"
         SetOutPath "$LOCALAPPDATA\I2P\webapps\"
