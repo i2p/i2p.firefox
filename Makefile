@@ -12,7 +12,11 @@ export RES_DIR="../i2p.i2p/installer/resources"
 export PKG_DIR="../i2p.i2p/pkg-temp"
 
 build/I2P: build
-	rm -rf build/I2P src/I2P/config/geoip src/I2P/config/webapps src/I2P/config/certificates
+	rm -rf build/I2P
+	cp -rv I2P build/I2P ; true
+
+src/I2P/config:
+	rm -rf src/I2P/config/geoip src/I2P/config/webapps src/I2P/config/certificates
 	echo true | tee src/I2P/config/jpackaged ; true
 	cp $(RES_DIR)/clients.config src/I2P/config/ ; true
 	cp $(RES_DIR)/i2ptunnel.config src/I2P/config/ ; true
@@ -23,9 +27,8 @@ build/I2P: build
 	cp $(RES_DIR)/GeoLite2-Country.mmdb.gz src/I2P/config/geoip/GeoLite2-Country.mmdb.gz ; true
 	cp -R "$(PKG_DIR)"/webapps src/I2P/config/webapps ; true
 	cd src/I2P/config/geoip && gunzip GeoLite2-Country.mmdb.gz; cd ../../.. ; true
-	cp -rv I2P build/I2P ; true
 
-build/I2P/config: build/I2P
+build/I2P/config: build/I2P src/I2P/config
 	cp -rv src/I2P/config build/I2P/config ; true
 
 #
