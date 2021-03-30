@@ -12,7 +12,7 @@ export RES_DIR="../i2p.i2p/installer/resources"
 export PKG_DIR="../i2p.i2p/pkg-temp"
 
 build/I2P:
-	rm -rf build/I2P src/I2P/config/geoip
+	rm -rf build/I2P src/I2P/config/geoip src/I2P/config/webapps src/I2P/config/certificates
 	echo true | tee src/I2P/config/jpackaged ; true
 	cp $(RES_DIR)/clients.config src/I2P/config/ ; true
 	cp $(RES_DIR)/i2ptunnel.config src/I2P/config/ ; true
