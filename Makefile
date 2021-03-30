@@ -1,6 +1,6 @@
 all: install.exe
 
-prep: profile.tgz app-profile.tgz profile build/licenses build/I2P
+prep: profile.tgz app-profile.tgz profile build/licenses build/I2P build/I2P/config
 	cp src/nsis/*.nsi build
 	cp src/nsis/*.nsh build
 	cp src/icons/*.ico build
@@ -24,6 +24,9 @@ build/I2P:
 	cp -R "$(PKG_DIR)"/webapps src/I2P/config/webapps ; true
 	cd src/I2P/config/geoip && gunzip GeoLite2-Country.mmdb.gz; cd ../../.. ; true
 	cp -rv I2P build/I2P ; true
+
+build/I2P/config: build/I2P
+	cp -rv src/I2P/config build/I2P/config ; true
 
 #
 # Warning: a displayed license file of more than 28752 bytes
