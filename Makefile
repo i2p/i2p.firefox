@@ -15,6 +15,8 @@ build/I2P: build
 	rm -rf build/I2P
 	cp -rv I2P build/I2P ; true
 
+configdir: src/I2P/config
+
 src/I2P/config:
 	rm -rf src/I2P/config/geoip src/I2P/config/webapps src/I2P/config/certificates
 	echo true | tee src/I2P/config/jpackaged ; true
@@ -28,7 +30,7 @@ src/I2P/config:
 	cp -R "$(PKG_DIR)"/webapps src/I2P/config/webapps ; true
 	cd src/I2P/config/geoip && gunzip GeoLite2-Country.mmdb.gz; cd ../../.. ; true
 
-build/I2P/config: build/I2P src/I2P/config
+build/I2P/config: build/I2P
 	cp -rv src/I2P/config build/I2P/config ; true
 
 #
