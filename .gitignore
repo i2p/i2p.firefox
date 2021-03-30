@@ -1,4 +1,4 @@
 build
 *.deb
 *.tgz
-I2P
+./I2P/
