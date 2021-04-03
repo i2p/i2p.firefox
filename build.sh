@@ -29,10 +29,10 @@ cd java
 "$JAVA_HOME"/bin/javac -d ../build -classpath "$HERE"/build/i2p.jar:"$HERE"/build/router.jar net/i2p/router/WinLauncher.java
 cd ..
 
-echo "building launcher.jar"
-cd build
-"$JAVA_HOME"/bin/jar -cf launcher.jar
-cd ..
+#echo "building launcher.jar"
+#cd build
+#"$JAVA_HOME"/bin/jar -cf launcher.jar
+#cd ..
 
 if [ -z $I2P_VERSION ]; then 
     I2P_VERSION=$("$JAVA_HOME"/bin/java -cp build/router.jar net.i2p.router.RouterVersion | sed "s/.*: //" | head -n 1)
