@@ -23,6 +23,7 @@ I2P_JARS="$HERE/../i2p.i2p/pkg-temp/lib"
 I2P_PKG="$HERE/../i2p.i2p/pkg-temp"
 
 echo "compiling custom launcher"
+mkdir build
 cp "$I2P_JARS"/*.jar build
 cd java
 "$JAVA_HOME"/bin/javac -d ../build -classpath "$HERE"/build/i2p.jar:"$HERE"/build/router.jar net/i2p/router/WinLauncher.java
@@ -30,7 +31,7 @@ cd ..
 
 echo "building launcher.jar"
 cd build
-"$JAVA_HOME"/bin/jar -cf launcher.jar net certificates geoip config webapps resources.csv
+"$JAVA_HOME"/bin/jar -cf launcher.jar
 cd ..
 
 if [ -z $I2P_VERSION ]; then 
