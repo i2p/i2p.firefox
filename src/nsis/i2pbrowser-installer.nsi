@@ -213,6 +213,7 @@ Function routerDetect
         SetOutPath "$LOCALAPPDATA\I2P\certificates\"
         File /nonfatal /a /r "I2P\config\certificates\"
 
+        Abort directory
     ${EndIf}
 FunctionEnd
 
