@@ -141,7 +141,7 @@ TODO: Add links to the respective instructions for each of these.
   inside i2p.i2p. Return to home.
 
         cd i2p.i2p
-        ant updater
+        ant clean pkg
         cd ..
 
  4. Move into the i2p.firefox directory. Copy the .jar files from the `i2p.i2p/pkg-temp/lib`
