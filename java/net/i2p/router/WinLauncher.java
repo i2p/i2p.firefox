@@ -34,6 +34,7 @@ public class WinLauncher {
         System.setProperty("i2p.dir.base", programs.getAbsolutePath());
         System.setProperty("i2p.dir.config", home.getAbsolutePath());
         System.setProperty("router.pid", String.valueOf(ProcessHandle.current().pid()));
+        System.out.println(programs.getAbsolutePath() +"\n\t"+ home.getAbsolutePath() +"\n\t"+ String.valueOf(ProcessHandle.current().pid()));
 
         try {
             // TODO: See if I need to do anything like this for Windows
