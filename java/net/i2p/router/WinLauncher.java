@@ -20,13 +20,8 @@ public class WinLauncher {
     private static final String LOCALAPPDATA = System.getenv("LOCALAPPDATA");
 
     public static void main(String[] args) throws Exception {
-        for (int i = 0; i < args.length; i++){
-            System.out.println("arguments" + i + args[i]);
-        }
         
-//        String path = System.getProperty(APP_PATH, "unknown");
-        File f = selectProgramFile();
-        File contents = f.getParentFile().getParentFile();
+        File programs = selectProgramFile();
 
         File home = selectHome();
         if (!home.exists())
@@ -36,11 +31,7 @@ public class WinLauncher {
             System.exit(1);
         }
 
-
-        File resources = new File(contents, "Resources");
-        File bundleLocation = contents.getParentFile().getParentFile();
-
-        System.setProperty("i2p.dir.base", resources.getAbsolutePath());
+        System.setProperty("i2p.dir.base", programs.getAbsolutePath());
         System.setProperty("i2p.dir.config", home.getAbsolutePath());
         System.setProperty("router.pid", String.valueOf(ProcessHandle.current().pid()));
 
