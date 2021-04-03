@@ -1,5 +1,5 @@
-# uncomment on v3
-# UniCode true
+# This now requires v3
+UniCode true
 
 !define APPNAME "I2PBrowser-Launcher"
 !define COMPANYNAME "I2P"
