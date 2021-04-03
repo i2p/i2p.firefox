@@ -29,10 +29,10 @@ public class WinLauncher {
             System.exit(1);
         }
 
-//        System.setProperty("i2p.dir.base", programs.getAbsolutePath());
+        System.setProperty("i2p.dir.base", programs.getAbsolutePath());
         System.setProperty("i2p.dir.config", home.getAbsolutePath());
         System.setProperty("router.pid", String.valueOf(ProcessHandle.current().pid()));
-        System.out.println("\t"+programs.getAbsolutePath() +"\n\t"+ home.getAbsolutePath() +"\n\t"+ String.valueOf(ProcessHandle.current().pid()));
+        System.out.println("\t"+System.getProperty("i2p.dir.base") +"\n\t"+System.getProperty("i2p.dir.config")+"\n\t"+ System.getProperty("router.pid"));
 
         try {
             // TODO: See if I need to do anything like this for Windows
@@ -57,7 +57,8 @@ public class WinLauncher {
     }
 
     private static File selectProgramFile() throws Exception {
-        File programs = new File(System.getenv("ProgramFiles"));
+        File jrehome = new File(System.getProperty("java.home"));
+        File programs = jrehome.getParentFile();
         File i2p;
         i2p = new File(programs, "I2P");
         return i2p.getAbsoluteFile();
