@@ -59,9 +59,7 @@ public class WinLauncher {
     private static File selectProgramFile() throws Exception {
         File jrehome = new File(System.getProperty("java.home"));
         File programs = jrehome.getParentFile();
-        File i2p;
-        i2p = new File(programs, "I2P");
-        return i2p.getAbsoluteFile();
+        return programs.getAbsoluteFile();
     }
 
 }
