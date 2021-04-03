@@ -328,36 +328,36 @@ Section Install
     # Install the profile
     createDirectory "$LOCALAPPDATA\${APPNAME}\firefox.profile.i2p"
     SetOutPath "$LOCALAPPDATA\${APPNAME}\firefox.profile.i2p"
-    File profile/user.js
-    File profile/prefs.js
-    File profile/bookmarks.html
-    File profile/storage-sync.sqlite
+    File profile\user.js
+    File profile\prefs.js
+    File profile\bookmarks.html
+    File profile\storage-sync.sqlite
 
     # Install the extensions
     createDirectory "$LOCALAPPDATA\${APPNAME}\firefox.profile.i2p\extensions"
     SetOutPath "$LOCALAPPDATA\${APPNAME}\firefox.profile.i2p\extensions"
-    File "profile/extensions/{73a6fe31-595d-460b-a920-fcc0f8843232}.xpi"
-    File profile/extensions/https-everywhere-eff@eff.org.xpi
-    File profile/extensions/i2ppb@eyedeekay.github.io.xpi
+    File "profile\extensions\{73a6fe31-595d-460b-a920-fcc0f8843232}.xpi"
+    File profile\extensions\https-everywhere-eff@eff.org.xpi
+    File profile\extensions\i2ppb@eyedeekay.github.io.xpi
 
     # Install the config profile
     createDirectory "$LOCALAPPDATA\${APPNAME}\firefox.profile.config.i2p"
     SetOutPath "$LOCALAPPDATA\${APPNAME}\firefox.profile.config.i2p"
-    File app-profile/user.js
-    File app-profile/prefs.js
-    File app-profile/bookmarks.html
-    File app-profile/storage-sync.sqlite
+    File app-profile\user.js
+    File app-profile\prefs.js
+    File app-profile\bookmarks.html
+    File app-profile\storage-sync.sqlite
 
     # Install the config extensions
     createDirectory "$LOCALAPPDATA\${APPNAME}\firefox.profile.config.i2p\extensions"
     SetOutPath "$LOCALAPPDATA\${APPNAME}\firefox.profile.config.i2p\extensions"
-    File profile/extensions/https-everywhere-eff@eff.org.xpi
-    File profile/extensions/i2ppb@eyedeekay.github.io.xpi
+    File profile\extensions\https-everywhere-eff@eff.org.xpi
+    File profile\extensions\i2ppb@eyedeekay.github.io.xpi
 
     # Install the config userChrome
     createDirectory "$LOCALAPPDATA\${APPNAME}\firefox.profile.config.i2p\chrome"
     SetOutPath "$LOCALAPPDATA\${APPNAME}\firefox.profile.config.i2p\chrome"
-    File app-profile/chrome/userChrome.css
+    File app-profile\chrome\userChrome.css
 
     SetOutPath "$INSTDIR"
     createDirectory "$SMPROGRAMS\${APPNAME}"
