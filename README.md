@@ -117,6 +117,42 @@ with a non-fatal warning.
 In the near future, I'll start providing a pre-built app image to ease the
 build process for non-Windows users.
 
+End-to-End Windows build process using WSL
+------------------------------------------
+
+**Prerequisites:** You need to have OpenJDK 14 or greater installed and configured
+with your `%JAVA_HOME%` environment variable configured and `%JAVA_HOME%/bin` on
+your `%PATH%`. You need to have Apache Ant installed and configured with `%ANT_HOME%`
+environment variable configured and `%ANT_HOME%/bin` on your `%PATH%`. You must have
+Cygwin installed. You must have `NSIS.exe` installed and available on your `%PATH%`.
+You must have Git for Windows installed. When installing git for Windows, you should
+select "Checkout as is, commit as is" and leave line-endings alone.
+
+ 1. [Set up Windows Subsystem for Linux per Microsoft's instructions](https://docs.microsoft.com/en-us/windows/wsl/install-win10#manual-installation-steps)
+ 2. [Install Ubuntu Focal per Microsoft's instructions](https://www.microsoft.com/store/apps/9n6svws3rx71)
+ 3. Open Git Bash.
+ 4. Install prerequisites `wsl sudo apt-get update && sudo apt-get install make nsis dos2unix curl jq`
+ 5. Clone `i2p.i2p` and `i2p.firefox`
+
+        git clone https://github.com/i2p/i2p.i2p
+        git clone https://github.com/i2p/i2p.firefox
+
+ 6. Move to the i2p.i2p directory. Build the .jar files required to build the App Image
+  inside i2p.i2p. Return to home.
+
+        cd i2p.i2p
+        ant clean pkg
+        cd ..
+
+ 7. Move into the i2p.firefox directory. Run the `./build.sh` script.
+
+        cd i2p.firefox
+        ./build.sh
+
+ 8. Compile the NSIS installer.
+
+        wsl make
+
 End-to-End Windows build process using Cygwin
 ---------------------------------------------
 
@@ -125,7 +161,8 @@ with your `%JAVA_HOME%` environment variable configured and `%JAVA_HOME%/bin` on
 your `%PATH%`. You need to have Apache Ant installed and configured with `%ANT_HOME%`
 environment variable configured and `%ANT_HOME%/bin` on your `%PATH%`. You must have
 Cygwin installed. You must have `NSIS.exe` installed and available on your `%PATH%`.
-You must have Git for Windows installed. When installing git for Windows
+You must have Git for Windows installed. When installing git for Windows, you should
+select "Checkout as is, commit as is" and leave line-endings alone.
 
 TODO: Add links to the respective instructions for each of these.
 
@@ -144,30 +181,12 @@ TODO: Add links to the respective instructions for each of these.
         ant clean pkg
         cd ..
 
- 4. Move into the i2p.firefox directory. Copy the .jar files from the `i2p.i2p/pkg-temp/lib`
-   directory into the build directory. Export a legal(For Windows jpackages) version
-   number. Build the App Image.
+ 7. Move into the i2p.firefox directory. Run the `./build.sh` script.
 
         cd i2p.firefox
-        mkdir -p build
-        cp -R ../i2p.i2p/pkg-temp/lib build/lib
-        export I2P_VERSION=0.9.49
-        $JAVA_HOME/bin/jpackage --type app-image --name I2P --app-version "$I2P_VERSION" \
-          --verbose \
-          --resource-dir build/lib \
-          --input build/lib \
-          --main-jar router.jar --main-class net.i2p.router.RouterLaunch
+        ./build.sh
 
- 5. Convert `amo-version.sh` back to Unix line-endings and fetch the extensions. Run
-   `make prep` to move the remaining files into the `build` directory.
-
-        unix2dos amo-version.sh
-        make clean-extensions extenions
-        make prep
-
- 6. Change to the build directory and generate an installer with `makensis`.
-
-        "C:\Program Files (x86)\NSIS\Bin\makensis" i2pbrowser-installer.nsi
+ 5. Run `make` to build the installer.
 
 Issues
 ------

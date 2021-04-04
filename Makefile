@@ -41,7 +41,7 @@ build/I2P/config: build/I2P
 build/licenses: build
 	mkdir -p build/licenses
 	cp license/* build/licenses
-	cp LICENSE build/licenses/MIT.txt
+	cp LICENSE.md build/licenses/MIT.txt
 	unix2dos build/licenses/LICENSE.index
 
 clean:
