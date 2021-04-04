@@ -15,14 +15,12 @@ UniCode true
 var FFINSTEXE
 var FFNONTORINSTEXE
 var I2PINSTEXE
-var USERLOCALAPPDATA
 
 
 !define FFINSTEXE
 !define FFNONTORINSTEXE
 !define FFINSTEXE32 "$PROGRAMFILES32\Mozilla Firefox\"
 !define FFINSTEXE64 "$PROGRAMFILES64\Mozilla Firefox\"
-!define USERLOCALAPPDATA "$LOCALAPPDATA"
 
 !define I2PINSTEXE
 !define I2PINSTEXE32 "$PROGRAMFILES32\i2p"
@@ -267,7 +265,7 @@ Section Install
     FileWriteByte $0 "10"
     FileWriteByte $0 "13"
     FileWriteByte $0 "10"
-    FileWrite $0 'start "" "$FFINSTEXE\firefox.exe" -no-remote -profile "$USERLOCALAPPDATA\${APPNAME}\firefox.profile.i2p" -url %1'
+    FileWrite $0 'start "" "$FFINSTEXE\firefox.exe" -no-remote -profile "$LOCALAPPDATA\${APPNAME}\firefox.profile.i2p" -url %1'
     FileWriteByte $0 "13"
     FileWriteByte $0 "10"
     FileWrite $0 exit
@@ -288,7 +286,7 @@ Section Install
     FileWriteByte $0 "10"
     FileWriteByte $0 "13"
     FileWriteByte $0 "10"
-    FileWrite $0 'start "" "$FFINSTEXE\firefox.exe" -no-remote -profile "$USERLOCALAPPDATA\${APPNAME}\firefox.profile.i2p" -private-window about:blank'
+    FileWrite $0 'start "" "$FFINSTEXE\firefox.exe" -no-remote -profile "$LOCALAPPDATA\${APPNAME}\firefox.profile.i2p" -private-window about:blank'
     FileWriteByte $0 "13"
     FileWriteByte $0 "10"
     FileWrite $0 exit
@@ -313,7 +311,7 @@ Section Install
     FileWriteByte $0 "10"
     FileWriteByte $0 "13"
     FileWriteByte $0 "10"
-    FileWrite $0 'start "" "$FFNONTORINSTEXE\firefox.exe" -no-remote -profile "$USERLOCALAPPDATA\${APPNAME}\firefox.profile.config.i2p" -url %1'
+    FileWrite $0 'start "" "$FFNONTORINSTEXE\firefox.exe" -no-remote -profile "$LOCALAPPDATA\${APPNAME}\firefox.profile.config.i2p" -url %1'
     FileWriteByte $0 "13"
     FileWriteByte $0 "10"
     FileWrite $0 exit
@@ -329,37 +327,37 @@ Section Install
     File /r licenses\*.*
 
     # Install the profile
-    createDirectory "$USERLOCALAPPDATA\${APPNAME}\firefox.profile.i2p"
-    SetOutPath "$USERLOCALAPPDATA\${APPNAME}\firefox.profile.i2p"
+    createDirectory "$LOCALAPPDATA\${APPNAME}\firefox.profile.i2p"
+    SetOutPath "$LOCALAPPDATA\${APPNAME}\firefox.profile.i2p"
     File profile\user.js
     File profile\prefs.js
     File profile\bookmarks.html
     File profile\storage-sync.sqlite
 
     # Install the extensions
-    createDirectory "$USERLOCALAPPDATA\${APPNAME}\firefox.profile.i2p\extensions"
-    SetOutPath "$USERLOCALAPPDATA\${APPNAME}\firefox.profile.i2p\extensions"
+    createDirectory "$LOCALAPPDATA\${APPNAME}\firefox.profile.i2p\extensions"
+    SetOutPath "$LOCALAPPDATA\${APPNAME}\firefox.profile.i2p\extensions"
     File "profile\extensions\{73a6fe31-595d-460b-a920-fcc0f8843232}.xpi"
     File profile\extensions\https-everywhere-eff@eff.org.xpi
     File profile\extensions\i2ppb@eyedeekay.github.io.xpi
 
     # Install the config profile
-    createDirectory "$USERLOCALAPPDATA\${APPNAME}\firefox.profile.config.i2p"
-    SetOutPath "$USERLOCALAPPDATA\${APPNAME}\firefox.profile.config.i2p"
+    createDirectory "$LOCALAPPDATA\${APPNAME}\firefox.profile.config.i2p"
+    SetOutPath "$LOCALAPPDATA\${APPNAME}\firefox.profile.config.i2p"
     File app-profile\user.js
     File app-profile\prefs.js
     File app-profile\bookmarks.html
     File app-profile\storage-sync.sqlite
 
     # Install the config extensions
-    createDirectory "$USERLOCALAPPDATA\${APPNAME}\firefox.profile.config.i2p\extensions"
-    SetOutPath "$USERLOCALAPPDATA\${APPNAME}\firefox.profile.config.i2p\extensions"
+    createDirectory "$LOCALAPPDATA\${APPNAME}\firefox.profile.config.i2p\extensions"
+    SetOutPath "$LOCALAPPDATA\${APPNAME}\firefox.profile.config.i2p\extensions"
     File profile\extensions\https-everywhere-eff@eff.org.xpi
     File profile\extensions\i2ppb@eyedeekay.github.io.xpi
 
     # Install the config userChrome
-    createDirectory "$USERLOCALAPPDATA\${APPNAME}\firefox.profile.config.i2p\chrome"
-    SetOutPath "$USERLOCALAPPDATA\${APPNAME}\firefox.profile.config.i2p\chrome"
+    createDirectory "$LOCALAPPDATA\${APPNAME}\firefox.profile.config.i2p\chrome"
+    SetOutPath "$LOCALAPPDATA\${APPNAME}\firefox.profile.config.i2p\chrome"
     File app-profile\chrome\userChrome.css
 
     SetOutPath "$INSTDIR"
@@ -377,10 +375,10 @@ Section Install
         StrCpy $I2PAPPDATA "$I2PINSTEXE"
     IfFileExists "$APPDATA\I2P\clients.config.d" 0 +2
         StrCpy $I2PAPPDATA "$APPDATA\I2P\"
-    IfFileExists "$USERLOCALAPPDATA\I2P\clients.config.d" 0 +2
-        StrCpy $I2PAPPDATA "$USERLOCALAPPDATA\I2P\"
-    IfFileExists "$USERLOCALAPPDATA\I2P\clients.config" 0 +2
-        StrCpy $I2PAPPDATA "$USERLOCALAPPDATA\I2P\"
+    IfFileExists "$LOCALAPPDATA\I2P\clients.config.d" 0 +2
+        StrCpy $I2PAPPDATA "$LOCALAPPDATA\I2P\"
+    IfFileExists "$LOCALAPPDATA\I2P\clients.config" 0 +2
+        StrCpy $I2PAPPDATA "$LOCALAPPDATA\I2P\"
 
 
     createDirectory "$I2PAPPDATA"
@@ -418,25 +416,25 @@ Section "uninstall"
     Delete $INSTDIR\ui2pbrowser_icon.ico
 
     # Uninstall the profile
-    Delete $USERLOCALAPPDATA\${APPNAME}\firefox.profile.i2p\prefs.js
-    Delete $USERLOCALAPPDATA\${APPNAME}\firefox.profile.i2p\user.js
-    Delete $USERLOCALAPPDATA\${APPNAME}\firefox.profile.i2p\bookmarks.html
-    Delete $USERLOCALAPPDATA\${APPNAME}\firefox.profile.i2p\storage-sync.sqlite
+    Delete $LOCALAPPDATA\${APPNAME}\firefox.profile.i2p\prefs.js
+    Delete $LOCALAPPDATA\${APPNAME}\firefox.profile.i2p\user.js
+    Delete $LOCALAPPDATA\${APPNAME}\firefox.profile.i2p\bookmarks.html
+    Delete $LOCALAPPDATA\${APPNAME}\firefox.profile.i2p\storage-sync.sqlite
 
-    Delete $USERLOCALAPPDATA\${APPNAME}\firefox.profile.config.i2p\prefs.js
-    Delete $USERLOCALAPPDATA\${APPNAME}\firefox.profile.config.i2p\user.js
-    Delete $USERLOCALAPPDATA\${APPNAME}\firefox.profile.config.i2p\bookmarks.html
-    Delete $USERLOCALAPPDATA\${APPNAME}\firefox.profile.config.i2p\storage-sync.sqlite
+    Delete $LOCALAPPDATA\${APPNAME}\firefox.profile.config.i2p\prefs.js
+    Delete $LOCALAPPDATA\${APPNAME}\firefox.profile.config.i2p\user.js
+    Delete $LOCALAPPDATA\${APPNAME}\firefox.profile.config.i2p\bookmarks.html
+    Delete $LOCALAPPDATA\${APPNAME}\firefox.profile.config.i2p\storage-sync.sqlite
 
     # Uninstall the extensions
-    Delete "$USERLOCALAPPDATA\${APPNAME}\firefox.profile.i2p\extensions\{73a6fe31-595d-460b-a920-fcc0f8843232}.xpi"
-    Delete "$USERLOCALAPPDATA\${APPNAME}\firefox.profile.i2p\extensions\https-everywhere-eff@eff.org.xpi"
-    Delete "$USERLOCALAPPDATA\${APPNAME}\firefox.profile.i2p\extensions\i2ppb@eyedeekay.github.io.xpi"
+    Delete "$LOCALAPPDATA\${APPNAME}\firefox.profile.i2p\extensions\{73a6fe31-595d-460b-a920-fcc0f8843232}.xpi"
+    Delete "$LOCALAPPDATA\${APPNAME}\firefox.profile.i2p\extensions\https-everywhere-eff@eff.org.xpi"
+    Delete "$LOCALAPPDATA\${APPNAME}\firefox.profile.i2p\extensions\i2ppb@eyedeekay.github.io.xpi"
 
-    Delete "$USERLOCALAPPDATA\${APPNAME}\firefox.profile.config.i2p\extensions\https-everywhere-eff@eff.org.xpi"
-    Delete "$USERLOCALAPPDATA\${APPNAME}\firefox.profile.config.i2p\extensions\i2ppb@eyedeekay.github.io.xpi"
+    Delete "$LOCALAPPDATA\${APPNAME}\firefox.profile.config.i2p\extensions\https-everywhere-eff@eff.org.xpi"
+    Delete "$LOCALAPPDATA\${APPNAME}\firefox.profile.config.i2p\extensions\i2ppb@eyedeekay.github.io.xpi"
 
-    Delete "$USERLOCALAPPDATA\${APPNAME}\firefox.profile.config.i2p\config\userChrome.css"
+    Delete "$LOCALAPPDATA\${APPNAME}\firefox.profile.config.i2p\config\userChrome.css"
 
     # Remove shortcuts and folders
     Delete "$SMPROGRAMS\${APPNAME}\${APPNAME}.lnk"
@@ -445,9 +443,9 @@ Section "uninstall"
     Delete "$DESKTOP\${APPNAME}.lnk"
     Delete "$DESKTOP\Private Browsing-${APPNAME}.lnk"
     rmDir "$SMPROGRAMS\${APPNAME}"
-    rmDir "$USERLOCALAPPDATA\${APPNAME}\firefox.profile.i2p\extensions"
-    rmDir "$USERLOCALAPPDATA\${APPNAME}\firefox.profile.i2p"
-    rmDir "$USERLOCALAPPDATA\${APPNAME}"
+    rmDir "$LOCALAPPDATA\${APPNAME}\firefox.profile.i2p\extensions"
+    rmDir "$LOCALAPPDATA\${APPNAME}\firefox.profile.i2p"
+    rmDir "$LOCALAPPDATA\${APPNAME}"
     rmDir "$INSTDIR"
 
     # delete the uninstaller
