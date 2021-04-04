@@ -367,6 +367,15 @@ Section Install
     CreateShortCut "$DESKTOP\${APPNAME}.lnk" "C:\Windows\system32\cmd.exe" "/c $\"$INSTDIR\i2pbrowser.bat$\" ${CONSOLE_URL}" "$INSTDIR\ui2pbrowser_icon.ico"
     CreateShortCut "$DESKTOP\Private Browsing-${APPNAME}.lnk" "C:\Windows\system32\cmd.exe" "/c $\"$INSTDIR\i2pbrowser-private.bat$\"" "$INSTDIR\ui2pbrowser_icon.ico"
 
+    ;# Point the browser config setting in the base router.config
+    FileOpen $0 "$I2PINSTEXE\router.config" a
+    FileSeek $0 0 END
+    FileWriteByte $0 "13"
+    FileWriteByte $0 "10"
+    FileWrite $0 "routerconsole.browser=$\"$INSTDIR\i2pconfig.bat$\""
+    FileWriteByte $0 "13"
+    FileWriteByte $0 "10"
+    FileClose $0
 
     SetShellVarContext current
     Var /Global I2PAPPDATA 
@@ -380,11 +389,10 @@ Section Install
     IfFileExists "$LOCALAPPDATA\I2P\clients.config" 0 +2
         StrCpy $I2PAPPDATA "$LOCALAPPDATA\I2P\"
 
-
     createDirectory "$I2PAPPDATA"
     SetOutPath "$I2PAPPDATA"
-    
-    ;# Point the browser config setting
+
+    ;# Point the browser config setting in the working config
     FileOpen $0 "$I2PAPPDATA\router.config" a
     FileSeek $0 0 END
     FileWriteByte $0 "13"
@@ -393,6 +401,9 @@ Section Install
     FileWriteByte $0 "13"
     FileWriteByte $0 "10"
     FileClose $0
+
+    createDirectory "$I2PINSTEXE"
+    SetOutPath "$I2PINSTEXE"
 
     SetOutPath "$INSTDIR"
     # create the uninstaller
