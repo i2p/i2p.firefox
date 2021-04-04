@@ -171,10 +171,10 @@ Function .onInit
         ${EndIf}
     ${EndIf}
     StrCpy $I2PINSTEXE "${I2PINSTEXE64}"
-    ${If} ${FileExists} "${I2PINSTEXE32}"
+    ${If} ${FileExists} "${I2PINSTEXE32}\i2p.exe"
         StrCpy $I2PINSTEXE "${I2PINSTEXE32}"
     ${EndIf}
-    ${If} ${FileExists} "${I2PINSTEXE64}"
+    ${If} ${FileExists} "${I2PINSTEXE64}\i2p.exe"
         StrCpy $I2PINSTEXE "${I2PINSTEXE64}"
     ${EndIf}
 FunctionEnd
