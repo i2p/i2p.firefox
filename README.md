@@ -149,7 +149,7 @@ select "Checkout as is, commit as is" and leave line-endings alone.
         cd i2p.firefox
         ./build.sh
 
- 8. Compile the NSIS installer.
+ 8. Compile the NSIS installer using WSL.
 
         wsl make
 
