@@ -318,13 +318,6 @@ Section Install
     FileWrite $0 "@echo off"
     FileWriteByte $0 "13"
     FileWriteByte $0 "10"
-    ${If} ${FileExists} "$I2PINSTEXE\jpackaged"
-        FileWrite $0 'start /D "%LOCALAPPDATA%\${APPNAME}" "" "$I2PINSTEXE\i2p.exe"'
-    ${Else}
-        FileWrite $0 'start "" "$I2PINSTEXE\i2p.exe"'
-    ${EndIf}
-    FileWriteByte $0 "13"
-    FileWriteByte $0 "10"
     FileWrite $0 'if exist "%LOCALAPPDATA%\${APPNAME}\firefox.profile.config.i2p\" ('
     FileWrite $0 '  echo "profile is configured"'
     FileWrite $0 ') else ('
