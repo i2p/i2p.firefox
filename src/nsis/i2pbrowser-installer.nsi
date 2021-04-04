@@ -267,6 +267,8 @@ Section Install
     FileWrite $0 '  echo "profile is configured"'
     FileWrite $0 ') else ('
     FileWrite $0 '  echo "configuring profile"'
+    FileWriteByte $0 "13"
+    FileWriteByte $0 "10"
     FileWrite $0 '  xcopy /s "$INSTDIR\firefox.profile.config" "%LOCALAPPDATA%\${APPNAME}\firefox.profile.config"'
     FileWrite $0 ')'
     FileWriteByte $0 "13"
@@ -294,6 +296,8 @@ Section Install
     FileWrite $0 '  echo "profile is configured"'
     FileWrite $0 ') else ('
     FileWrite $0 '  echo "configuring profile"'
+    FileWriteByte $0 "13"
+    FileWriteByte $0 "10"
     FileWrite $0 '  xcopy /s "$INSTDIR\firefox.profile.config" "%LOCALAPPDATA%\${APPNAME}\firefox.profile.config"'
     FileWrite $0 ')'
     FileWriteByte $0 "13"
@@ -325,6 +329,8 @@ Section Install
     FileWrite $0 '  echo "profile is configured"'
     FileWrite $0 ') else ('
     FileWrite $0 '  echo "configuring profile"'
+    FileWriteByte $0 "13"
+    FileWriteByte $0 "10"
     FileWrite $0 '  xcopy /s "$INSTDIR\firefox.profile.config.i2p" "%LOCALAPPDATA%\${APPNAME}\firefox.profile.config.i2p"'
     FileWrite $0 ')'
     FileWriteByte $0 "13"
