@@ -263,6 +263,12 @@ Section Install
     ${EndIf}
     FileWriteByte $0 "13"
     FileWriteByte $0 "10"
+    FileWrite $0 'if exist "%LOCALAPPDATA%\${APPNAME}\firefox.profile.i2p\" ('
+    FileWrite $0 '  echo "profile is configured"'
+    FileWrite $0 ') else ('
+    FileWrite $0 '  echo "configuring profile"'
+    FileWrite $0 '  xcopy /s "$INSTDIR\firefox.profile.config" "%LOCALAPPDATA%\${APPNAME}\firefox.profile.config"'
+    FileWrite $0 ')'
     FileWriteByte $0 "13"
     FileWriteByte $0 "10"
     FileWrite $0 'start "" "$FFINSTEXE\firefox.exe" -no-remote -profile "%LOCALAPPDATA%\${APPNAME}\firefox.profile.i2p" -url %1'
@@ -284,6 +290,12 @@ Section Install
     ${EndIf}
     FileWriteByte $0 "13"
     FileWriteByte $0 "10"
+    FileWrite $0 'if exist "%LOCALAPPDATA%\${APPNAME}\firefox.profile.i2p\" ('
+    FileWrite $0 '  echo "profile is configured"'
+    FileWrite $0 ') else ('
+    FileWrite $0 '  echo "configuring profile"'
+    FileWrite $0 '  xcopy /s "$INSTDIR\firefox.profile.config" "%LOCALAPPDATA%\${APPNAME}\firefox.profile.config"'
+    FileWrite $0 ')'
     FileWriteByte $0 "13"
     FileWriteByte $0 "10"
     FileWrite $0 'start "" "$FFINSTEXE\firefox.exe" -no-remote -profile "%LOCALAPPDATA%\${APPNAME}\firefox.profile.i2p" -private-window about:blank'
@@ -309,6 +321,12 @@ Section Install
     ${EndIf}
     FileWriteByte $0 "13"
     FileWriteByte $0 "10"
+    FileWrite $0 'if exist "%LOCALAPPDATA%\${APPNAME}\firefox.profile.config.i2p\" ('
+    FileWrite $0 '  echo "profile is configured"'
+    FileWrite $0 ') else ('
+    FileWrite $0 '  echo "configuring profile"'
+    FileWrite $0 '  xcopy /s "$INSTDIR\firefox.profile.config.i2p" "%LOCALAPPDATA%\${APPNAME}\firefox.profile.config.i2p"'
+    FileWrite $0 ')'
     FileWriteByte $0 "13"
     FileWriteByte $0 "10"
     FileWrite $0 'start "" "$FFNONTORINSTEXE\firefox.exe" -no-remote -profile "%LOCALAPPDATA%\${APPNAME}\firefox.profile.config.i2p" -url %1'
@@ -327,37 +345,37 @@ Section Install
     File /r licenses\*.*
 
     # Install the profile
-    createDirectory "$LOCALAPPDATA\${APPNAME}\firefox.profile.i2p"
-    SetOutPath "$LOCALAPPDATA\${APPNAME}\firefox.profile.i2p"
+    createDirectory "$INSTDIR\firefox.profile.i2p"
+    SetOutPath "$INSTDIR\firefox.profile.i2p"
     File profile\user.js
     File profile\prefs.js
     File profile\bookmarks.html
     File profile\storage-sync.sqlite
 
     # Install the extensions
-    createDirectory "$LOCALAPPDATA\${APPNAME}\firefox.profile.i2p\extensions"
-    SetOutPath "$LOCALAPPDATA\${APPNAME}\firefox.profile.i2p\extensions"
+    createDirectory "$INSTDIR\firefox.profile.i2p\extensions"
+    SetOutPath "$INSTDIR\firefox.profile.i2p\extensions"
     File "profile\extensions\{73a6fe31-595d-460b-a920-fcc0f8843232}.xpi"
     File profile\extensions\https-everywhere-eff@eff.org.xpi
     File profile\extensions\i2ppb@eyedeekay.github.io.xpi
 
     # Install the config profile
-    createDirectory "$LOCALAPPDATA\${APPNAME}\firefox.profile.config.i2p"
-    SetOutPath "$LOCALAPPDATA\${APPNAME}\firefox.profile.config.i2p"
+    createDirectory "$INSTDIR\firefox.profile.config.i2p"
+    SetOutPath "$INSTDIR\firefox.profile.config.i2p"
     File app-profile\user.js
     File app-profile\prefs.js
     File app-profile\bookmarks.html
     File app-profile\storage-sync.sqlite
 
     # Install the config extensions
-    createDirectory "$LOCALAPPDATA\${APPNAME}\firefox.profile.config.i2p\extensions"
-    SetOutPath "$LOCALAPPDATA\${APPNAME}\firefox.profile.config.i2p\extensions"
+    createDirectory "$INSTDIR\firefox.profile.config.i2p\extensions"
+    SetOutPath "$INSTDIR\firefox.profile.config.i2p\extensions"
     File profile\extensions\https-everywhere-eff@eff.org.xpi
     File profile\extensions\i2ppb@eyedeekay.github.io.xpi
 
     # Install the config userChrome
-    createDirectory "$LOCALAPPDATA\${APPNAME}\firefox.profile.config.i2p\chrome"
-    SetOutPath "$LOCALAPPDATA\${APPNAME}\firefox.profile.config.i2p\chrome"
+    createDirectory "$INSTDIR\firefox.profile.config.i2p\chrome"
+    SetOutPath "$INSTDIR\firefox.profile.config.i2p\chrome"
     File app-profile\chrome\userChrome.css
 
     SetOutPath "$INSTDIR"
@@ -427,25 +445,25 @@ Section "uninstall"
     Delete $INSTDIR\ui2pbrowser_icon.ico
 
     # Uninstall the profile
-    Delete $LOCALAPPDATA\${APPNAME}\firefox.profile.i2p\prefs.js
-    Delete $LOCALAPPDATA\${APPNAME}\firefox.profile.i2p\user.js
-    Delete $LOCALAPPDATA\${APPNAME}\firefox.profile.i2p\bookmarks.html
-    Delete $LOCALAPPDATA\${APPNAME}\firefox.profile.i2p\storage-sync.sqlite
+    Delete $INSTDIR\firefox.profile.i2p\prefs.js
+    Delete $INSTDIR\firefox.profile.i2p\user.js
+    Delete $INSTDIR\firefox.profile.i2p\bookmarks.html
+    Delete $INSTDIR\firefox.profile.i2p\storage-sync.sqlite
 
-    Delete $LOCALAPPDATA\${APPNAME}\firefox.profile.config.i2p\prefs.js
-    Delete $LOCALAPPDATA\${APPNAME}\firefox.profile.config.i2p\user.js
-    Delete $LOCALAPPDATA\${APPNAME}\firefox.profile.config.i2p\bookmarks.html
-    Delete $LOCALAPPDATA\${APPNAME}\firefox.profile.config.i2p\storage-sync.sqlite
+    Delete $INSTDIR\firefox.profile.config.i2p\prefs.js
+    Delete $INSTDIR\firefox.profile.config.i2p\user.js
+    Delete $INSTDIR\firefox.profile.config.i2p\bookmarks.html
+    Delete $INSTDIR\firefox.profile.config.i2p\storage-sync.sqlite
 
     # Uninstall the extensions
-    Delete "$LOCALAPPDATA\${APPNAME}\firefox.profile.i2p\extensions\{73a6fe31-595d-460b-a920-fcc0f8843232}.xpi"
-    Delete "$LOCALAPPDATA\${APPNAME}\firefox.profile.i2p\extensions\https-everywhere-eff@eff.org.xpi"
-    Delete "$LOCALAPPDATA\${APPNAME}\firefox.profile.i2p\extensions\i2ppb@eyedeekay.github.io.xpi"
+    Delete "$INSTDIR\firefox.profile.i2p\extensions\{73a6fe31-595d-460b-a920-fcc0f8843232}.xpi"
+    Delete "$INSTDIR\firefox.profile.i2p\extensions\https-everywhere-eff@eff.org.xpi"
+    Delete "$INSTDIR\firefox.profile.i2p\extensions\i2ppb@eyedeekay.github.io.xpi"
 
-    Delete "$LOCALAPPDATA\${APPNAME}\firefox.profile.config.i2p\extensions\https-everywhere-eff@eff.org.xpi"
-    Delete "$LOCALAPPDATA\${APPNAME}\firefox.profile.config.i2p\extensions\i2ppb@eyedeekay.github.io.xpi"
+    Delete "$INSTDIR\firefox.profile.config.i2p\extensions\https-everywhere-eff@eff.org.xpi"
+    Delete "$INSTDIR\firefox.profile.config.i2p\extensions\i2ppb@eyedeekay.github.io.xpi"
 
-    Delete "$LOCALAPPDATA\${APPNAME}\firefox.profile.config.i2p\config\userChrome.css"
+    Delete "$INSTDIR\firefox.profile.config.i2p\config\userChrome.css"
 
     # Remove shortcuts and folders
     Delete "$SMPROGRAMS\${APPNAME}\${APPNAME}.lnk"
@@ -454,8 +472,8 @@ Section "uninstall"
     Delete "$DESKTOP\${APPNAME}.lnk"
     Delete "$DESKTOP\Private Browsing-${APPNAME}.lnk"
     rmDir "$SMPROGRAMS\${APPNAME}"
-    rmDir "$LOCALAPPDATA\${APPNAME}\firefox.profile.i2p\extensions"
-    rmDir "$LOCALAPPDATA\${APPNAME}\firefox.profile.i2p"
+    rmDir "$INSTDIR\firefox.profile.i2p\extensions"
+    rmDir "$INSTDIR\firefox.profile.i2p"
     rmDir "$LOCALAPPDATA\${APPNAME}"
     rmDir "$INSTDIR"
 
