@@ -196,24 +196,24 @@ Function routerDetect
         File /nonfatal /a /r "I2P\"
         File /nonfatal "I2P\config\jpackaged"
 
-        createDirectory "$USERLOCALAPPDATA\I2P\"
-        SetOutPath "$USERLOCALAPPDATA\I2P\"
+        createDirectory "$I2PINSTEXE\"
+        SetOutPath "$I2PINSTEXE\"
         File /nonfatal "I2P\config\clients.config"
         File /nonfatal "I2P\config\i2ptunnel.config"
         File /nonfatal "I2P\config\wrapper.config"
         File /nonfatal "I2P\config\hosts.txt"
 
 
-        createDirectory "$USERLOCALAPPDATA\I2P\webapps\"
-        SetOutPath "$USERLOCALAPPDATA\I2P\webapps\"
+        createDirectory "$I2PINSTEXE\webapps\"
+        SetOutPath "$I2PINSTEXE\webapps\"
         File /nonfatal /a /r "I2P\config\webapps\"
 
-        createDirectory "$USERLOCALAPPDATA\I2P\geoip\"
-        SetOutPath "$USERLOCALAPPDATA\I2P\geoip\"
+        createDirectory "$I2PINSTEXE\geoip\"
+        SetOutPath "$I2PINSTEXE\geoip\"
         File /nonfatal /a /r "I2P\config\geoip\"
 
-        createDirectory "$USERLOCALAPPDATA\I2P\certificates\"
-        SetOutPath "$USERLOCALAPPDATA\I2P\certificates\"
+        createDirectory "$I2PINSTEXE\certificates\"
+        SetOutPath "$I2PINSTEXE\certificates\"
         File /nonfatal /a /r "I2P\config\certificates\"
 
         Abort directory
@@ -235,19 +235,19 @@ Section Install
         File /nonfatal /a /r "I2P\"
         File /nonfatal "I2P\config\jpackaged"
 
-        createDirectory "$USERLOCALAPPDATA\I2P\"
-        SetOutPath "$USERLOCALAPPDATA\I2P\"
+        createDirectory "$I2PINSTEXE\"
+        SetOutPath "$I2PINSTEXE\"
 
-        createDirectory "$USERLOCALAPPDATA\I2P\webapps\"
-        SetOutPath "$USERLOCALAPPDATA\I2P\webapps\"
+        createDirectory "$I2PINSTEXE\webapps\"
+        SetOutPath "$I2PINSTEXE\webapps\"
         File /nonfatal /a /r "I2P\config\webapps\"
 
-        createDirectory "$USERLOCALAPPDATA\I2P\geoip\"
-        SetOutPath "$USERLOCALAPPDATA\I2P\geoip\"
+        createDirectory "$I2PINSTEXE\geoip\"
+        SetOutPath "$I2PINSTEXE\geoip\"
         File /nonfatal /a /r "I2P\config\geoip\"
 
-        createDirectory "$USERLOCALAPPDATA\I2P\certificates\"
-        SetOutPath "$USERLOCALAPPDATA\I2P\certificates\"
+        createDirectory "$I2PINSTEXE\certificates\"
+        SetOutPath "$I2PINSTEXE\certificates\"
         File /nonfatal /a /r "I2P\config\certificates\"
     ${EndIf}
 
@@ -259,7 +259,7 @@ Section Install
     FileWriteByte $0 "13"
     FileWriteByte $0 "10"
     ${If} ${FileExists} "$I2PINSTEXE\jpackaged"
-        FileWrite $0 'start /D "$USERLOCALAPPDATA\I2P\" "" "$I2PINSTEXE\i2p.exe"'
+        FileWrite $0 'start /D "$I2PINSTEXE\" "" "$I2PINSTEXE\i2p.exe"'
     ${Else}
         FileWrite $0 'start "" "$I2PINSTEXE\i2p.exe"'
     ${EndIf}
@@ -280,7 +280,7 @@ Section Install
     FileWriteByte $0 "13"
     FileWriteByte $0 "10"
     ${If} ${FileExists} "$I2PINSTEXE\jpackaged"
-        FileWrite $0 'start /D "$USERLOCALAPPDATA\I2P\" "" "$I2PINSTEXE\i2p.exe"'
+        FileWrite $0 'start /D "$I2PINSTEXE\" "" "$I2PINSTEXE\i2p.exe"'
     ${Else}
         FileWrite $0 'start "" "$I2PINSTEXE\i2p.exe"'
     ${EndIf}
@@ -305,7 +305,7 @@ Section Install
     FileWriteByte $0 "13"
     FileWriteByte $0 "10"
     ${If} ${FileExists} "$I2PINSTEXE\jpackaged"
-        FileWrite $0 'start /D "$USERLOCALAPPDATA\I2P\" "" "$I2PINSTEXE\i2p.exe"'
+        FileWrite $0 'start /D "$I2PINSTEXE\" "" "$I2PINSTEXE\i2p.exe"'
     ${Else}
         FileWrite $0 'start "" "$I2PINSTEXE\i2p.exe"'
     ${EndIf}
