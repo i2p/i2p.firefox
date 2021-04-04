@@ -257,7 +257,7 @@ Section Install
     FileWriteByte $0 "13"
     FileWriteByte $0 "10"
     ${If} ${FileExists} "$I2PINSTEXE\jpackaged"
-        FileWrite $0 'start /D "$I2PINSTEXE\" "" "$I2PINSTEXE\i2p.exe"'
+        FileWrite $0 'start /D "%LOCALAPPDATA%\${APPNAME}" "" "$I2PINSTEXE\i2p.exe"'
     ${Else}
         FileWrite $0 'start "" "$I2PINSTEXE\i2p.exe"'
     ${EndIf}
@@ -265,7 +265,7 @@ Section Install
     FileWriteByte $0 "10"
     FileWriteByte $0 "13"
     FileWriteByte $0 "10"
-    FileWrite $0 'start "" "$FFINSTEXE\firefox.exe" -no-remote -profile "$LOCALAPPDATA\${APPNAME}\firefox.profile.i2p" -url %1'
+    FileWrite $0 'start "" "$FFINSTEXE\firefox.exe" -no-remote -profile "%LOCALAPPDATA%\${APPNAME}\firefox.profile.i2p" -url %1'
     FileWriteByte $0 "13"
     FileWriteByte $0 "10"
     FileWrite $0 exit
@@ -278,7 +278,7 @@ Section Install
     FileWriteByte $0 "13"
     FileWriteByte $0 "10"
     ${If} ${FileExists} "$I2PINSTEXE\jpackaged"
-        FileWrite $0 'start /D "$I2PINSTEXE\" "" "$I2PINSTEXE\i2p.exe"'
+        FileWrite $0 'start /D "%LOCALAPPDATA%\${APPNAME}" "" "$I2PINSTEXE\i2p.exe"'
     ${Else}
         FileWrite $0 'start "" "$I2PINSTEXE\i2p.exe"'
     ${EndIf}
@@ -286,7 +286,7 @@ Section Install
     FileWriteByte $0 "10"
     FileWriteByte $0 "13"
     FileWriteByte $0 "10"
-    FileWrite $0 'start "" "$FFINSTEXE\firefox.exe" -no-remote -profile "$LOCALAPPDATA\${APPNAME}\firefox.profile.i2p" -private-window about:blank'
+    FileWrite $0 'start "" "$FFINSTEXE\firefox.exe" -no-remote -profile "%LOCALAPPDATA%\${APPNAME}\firefox.profile.i2p" -private-window about:blank'
     FileWriteByte $0 "13"
     FileWriteByte $0 "10"
     FileWrite $0 exit
@@ -303,7 +303,7 @@ Section Install
     FileWriteByte $0 "13"
     FileWriteByte $0 "10"
     ${If} ${FileExists} "$I2PINSTEXE\jpackaged"
-        FileWrite $0 'start /D "$I2PINSTEXE\" "" "$I2PINSTEXE\i2p.exe"'
+        FileWrite $0 'start /D "%LOCALAPPDATA%\${APPNAME}" "" "$I2PINSTEXE\i2p.exe"'
     ${Else}
         FileWrite $0 'start "" "$I2PINSTEXE\i2p.exe"'
     ${EndIf}
@@ -311,7 +311,7 @@ Section Install
     FileWriteByte $0 "10"
     FileWriteByte $0 "13"
     FileWriteByte $0 "10"
-    FileWrite $0 'start "" "$FFNONTORINSTEXE\firefox.exe" -no-remote -profile "$LOCALAPPDATA\${APPNAME}\firefox.profile.config.i2p" -url %1'
+    FileWrite $0 'start "" "$FFNONTORINSTEXE\firefox.exe" -no-remote -profile "%LOCALAPPDATA%\${APPNAME}\firefox.profile.config.i2p" -url %1'
     FileWriteByte $0 "13"
     FileWriteByte $0 "10"
     FileWrite $0 exit
