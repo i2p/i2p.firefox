@@ -107,10 +107,10 @@ build/i2ppb@eyedeekay.github.io.xpi:
 	curl -L `cat i2psetproxy.url` > build/i2ppb@eyedeekay.github.io.xpi
 
 build/NoScript.xpi: NoScript.url
-	curl `cat NoScript.url` > build/NoScript.xpi
+	curl -L `cat NoScript.url` > build/NoScript.xpi
 
 build/HTTPSEverywhere.xpi : HTTPSEverywhere.url
-	curl `cat HTTPSEverywhere.url` > build/HTTPSEverywhere.xpi
+	curl -L `cat HTTPSEverywhere.url` > build/HTTPSEverywhere.xpi
 
 clean-extensions:
 	rm -fv i2psetproxy.url NoScript.url HTTPSEverywhere.url
