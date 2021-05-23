@@ -22,7 +22,7 @@ echo "cleaning"
 HERE="$PWD"
 cd "$HERE/../i2p.i2p/"
 git checkout "$VERSION"
-ant pkg
+ant updater
 
 cd "$HERE"
 RES_DIR="$HERE/../i2p.i2p/installer/resources"
