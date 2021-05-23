@@ -1,7 +1,7 @@
 #! /usr/bin/env sh
 
 I2P_VERSION=0.9.50
-export I2P_VERSION=0.9.59
+export I2P_VERSION=0.9.50
 
 VERSION=i2p-$I2P_VERSION
 export VERSION="$VERSION"
