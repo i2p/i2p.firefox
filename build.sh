@@ -1,6 +1,8 @@
 #!/bin/bash
 set -e 
 
+. i2pversion
+
 JAVA=$(java --version | tr -d 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ\n' | cut -d ' ' -f 2 | cut -d '.' -f 1 | tr -d '\n\t ')
 
 if [ "$JAVA" -lt "14" ]; then
@@ -18,6 +20,11 @@ echo "cleaning"
 ./clean.sh
 
 HERE="$PWD"
+cd "$HERE/../i2p.i2p/"
+git checkout "$VERSION"
+ant pkg
+
+cd "$HERE"
 RES_DIR="$HERE/../i2p.i2p/installer/resources"
 I2P_JARS="$HERE/../i2p.i2p/pkg-temp/lib"
 I2P_PKG="$HERE/../i2p.i2p/pkg-temp"

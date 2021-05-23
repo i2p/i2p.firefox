@@ -1,0 +1,4 @@
+#! /usr/bin/env sh
+
+VERSION=0.9.50
+export VERSION="$VERSION"
