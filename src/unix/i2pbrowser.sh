@@ -6,7 +6,10 @@ fi
 
 if [ ! -z $I2PROUTER ]; then
   echo "$I2PROUTER" "$I2PCOMMAND"
-  "$I2PROUTER" "$I2PCOMMAND"
+  http_proxy=http://127.0.0.1:4444 curl http://proxy.i2p || "$I2PROUTER" "$I2PCOMMAND"
+else if [ -d "I2P/bin" ]; then
+  http_proxy=http://127.0.0.1:4444 curl http://proxy.i2p || ./I2P/bin/I2P; \
+  echo "running the jpackaged I2P router since we can't find another one to use."
 fi
 
 if [ -z $BROWSING_PROFILE ]; then

@@ -3,6 +3,7 @@ package net.i2p.router;
 import java.io.*;
 import java.util.*;
 import net.i2p.router.RouterLaunch;
+import net.i2p.util.SystemVersion;
 
 /**
  * Launches a router from %PROGRAMFILES%/I2P using configuration data in
@@ -48,18 +49,30 @@ public class WinLauncher {
     }
 
     private static File selectHome() throws Exception {
-        File home = new File(System.getProperty("user.home"));
-        File i2p;
-        File appData = new File(home, "AppData");
-        File local = new File(appData, "Local");
-        i2p = new File(local, "I2P");
-        return i2p.getAbsoluteFile();
+        if (SystemVersion.isWindows()) {
+            File home = new File(System.getProperty("user.home"));
+            File i2p;
+            File appData = new File(home, "AppData");
+            File local = new File(appData, "Local");
+            i2p = new File(local, "I2P");
+            return i2p.getAbsoluteFile();
+        } else {
+            File jrehome = new File(System.getProperty("java.home"));
+            File programs = new File(jrehome.getParentFile().getParentFile(), ".i2p");
+            return programs.getAbsoluteFile();
+        }
     }
 
     private static File selectProgramFile() throws Exception {
-        File jrehome = new File(System.getProperty("java.home"));
-        File programs = jrehome.getParentFile();
-        return programs.getAbsoluteFile();
+        if (SystemVersion.isWindows()) {
+            File jrehome = new File(System.getProperty("java.home"));
+            File programs = jrehome.getParentFile();
+            return programs.getAbsoluteFile();
+        } else {
+            File jrehome = new File(System.getProperty("java.home"));
+            File programs = new File(jrehome.getParentFile().getParentFile(), "i2p");
+            return programs.getAbsoluteFile();
+        }
     }
 
 }

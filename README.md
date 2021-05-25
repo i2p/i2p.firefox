@@ -120,6 +120,9 @@ build process for non-Windows users.
 End-to-End Windows build process using WSL
 ------------------------------------------
 
+**If you've already done this once, you can just use:** `./build.sh && wsl make`
+**in `git bash`** to automatically build an installer.
+
 **Prerequisites:** You need to have OpenJDK 14 or greater installed and configured
 with your `%JAVA_HOME%` environment variable configured and `%JAVA_HOME%/bin` on
 your `%PATH%`. You need to have Apache Ant installed and configured with `%ANT_HOME%`
