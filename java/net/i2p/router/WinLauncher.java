@@ -35,16 +35,6 @@ public class WinLauncher {
         System.setProperty("router.pid", String.valueOf(ProcessHandle.current().pid()));
         System.out.println("\t"+System.getProperty("i2p.dir.base") +"\n\t"+System.getProperty("i2p.dir.config")+"\n\t"+ System.getProperty("router.pid"));
 
-        try {
-            // TODO: See if I need to do anything like this for Windows
-            //System.load(resources.getAbsolutePath() + "/libMacLauncher.jnilib");
-            //disableAppNap();
-        } catch (Throwable bad) {
-            // this is pretty bad - I2P is very slow if AppNap kicks in.
-            // TODO: hook up to a console warning or similar.
-            //bad.printStackTrace(); 
-        }
-
         RouterLaunch.main(args);
     }
 
