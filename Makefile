@@ -56,7 +56,7 @@ profile: build/profile/user.js build/profile/prefs.js build/profile/bookmarks.ht
 profile.tgz: profile
 	$(eval PROFILE_VERSION := $(shell cat src/profile/version.txt))
 	@echo "building profile tarball $(PROFILE_VERSION)"
-	bash -c 'ls I2P && cp -rv I2P build/app-profile/I2P'; true
+	bash -c 'ls I2P && cp -rv I2P build/profile/I2P'; true
 	install -m755 src/unix/i2pbrowser.sh build/profile/i2pbrowser.sh
 	cd build && tar -czf profile-$(PROFILE_VERSION).tgz profile && cp profile-$(PROFILE_VERSION).tgz ../
 
