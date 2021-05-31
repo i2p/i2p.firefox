@@ -1,10 +1,37 @@
-all: profile.tgz app-profile.tgz install.exe
+all: install.exe
 
-install.exe: profile build/licenses
+prep: profile.tgz app-profile.tgz profile build/licenses build/I2P build/I2P/config
 	cp src/nsis/*.nsi build
 	cp src/nsis/*.nsh build
 	cp src/icons/*.ico build
+
+install.exe: prep
 	cd build && makensis i2pbrowser-installer.nsi && cp I2P-Profile-Installer-*.exe ../ && echo "built windows installer"
+
+export RES_DIR="../i2p.i2p/installer/resources"
+export PKG_DIR="../i2p.i2p/pkg-temp"
+
+build/I2P: build
+	rm -rf build/I2P
+	cp -rv I2P build/I2P ; true
+
+configdir: src/I2P/config
+
+src/I2P/config:
+	rm -rf src/I2P/config/geoip src/I2P/config/webapps src/I2P/config/certificates
+	echo true | tee src/I2P/config/jpackaged ; true
+	cp $(RES_DIR)/clients.config src/I2P/config/ ; true
+	cp $(RES_DIR)/i2ptunnel.config src/I2P/config/ ; true
+	cp $(RES_DIR)/wrapper.config src/I2P/config/ ; true
+	cp $(RES_DIR)/hosts.txt src/I2P/config/hosts.txt ; true
+	cp -R $(RES_DIR)/certificates src/I2P/config/certificates ; true
+	mkdir -p src/I2P/config/geoip ; true
+	cp $(RES_DIR)/GeoLite2-Country.mmdb.gz src/I2P/config/geoip/GeoLite2-Country.mmdb.gz ; true
+	cp -R "$(PKG_DIR)"/webapps src/I2P/config/webapps ; true
+	cd src/I2P/config/geoip && gunzip GeoLite2-Country.mmdb.gz; cd ../../.. ; true
+
+build/I2P/config: build/I2P
+	cp -rv src/I2P/config build/I2P/config ; true
 
 #
 # Warning: a displayed license file of more than 28752 bytes
@@ -14,7 +41,7 @@ install.exe: profile build/licenses
 build/licenses: build
 	mkdir -p build/licenses
 	cp license/* build/licenses
-	cp LICENSE build/licenses/MIT.txt
+	cp LICENSE.md build/licenses/MIT.txt
 	unix2dos build/licenses/LICENSE.index
 
 clean:
@@ -80,10 +107,10 @@ build/i2ppb@eyedeekay.github.io.xpi:
 	curl -L `cat i2psetproxy.url` > build/i2ppb@eyedeekay.github.io.xpi
 
 build/NoScript.xpi: NoScript.url
-	curl `cat NoScript.url` > build/NoScript.xpi
+	curl -L `cat NoScript.url` > build/NoScript.xpi
 
 build/HTTPSEverywhere.xpi : HTTPSEverywhere.url
-	curl `cat HTTPSEverywhere.url` > build/HTTPSEverywhere.xpi
+	curl -L `cat HTTPSEverywhere.url` > build/HTTPSEverywhere.xpi
 
 clean-extensions:
 	rm -fv i2psetproxy.url NoScript.url HTTPSEverywhere.url
