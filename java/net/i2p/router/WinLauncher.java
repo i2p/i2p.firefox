@@ -2,9 +2,15 @@ package net.i2p.router;
 
 import java.io.*;
 import java.util.*;
+
+import net.i2p.app.ClientAppManager;
 import net.i2p.router.RouterLaunch;
 import net.i2p.router.Router;
+import net.i2p.update.UpdateManager;
+import net.i2p.update.UpdatePostProcessor;
 import net.i2p.util.SystemVersion;
+
+import static net.i2p.update.UpdateType.*;
 
 /**
  * Launches a router from %PROGRAMFILES%/I2P using configuration data in
@@ -16,8 +22,9 @@ import net.i2p.util.SystemVersion;
  * router.pid - the pid of the java process.
  */
 public class WinLauncher extends WindowsUpdatePostProcessor {
+    WindowsUpdatePostProcessor wupp = new WindowsUpdatePostProcessor();
 
-    public static void main(String[] args) throws Exception {
+    public void main(String[] args) throws Exception {
         File programs = selectProgramFile();
 
         File home = selectHome();
@@ -35,10 +42,18 @@ public class WinLauncher extends WindowsUpdatePostProcessor {
 
         i2pRouter = new Router(System.getProperties());
 
+        UpdateManager upmgr = updateManagerClient();
+        if (upmgr != null) {
+            upmgr.register(this.wupp, ROUTER_SIGNED_SU3, 6);
+            upmgr.register(this.wupp, ROUTER_DEV_SU3, 6);
+        }else{
+            System.out.println("\t unable to register updates");
+        }
+
         i2pRouter.runRouter();
     }
 
-    private static File selectHome() { //throws Exception {
+    private File selectHome() { //throws Exception {
         if (SystemVersion.isWindows()) {
             File home = new File(System.getProperty("user.home"));
             File appData = new File(home, "AppData");
@@ -51,6 +66,20 @@ public class WinLauncher extends WindowsUpdatePostProcessor {
             File programs = new File(jrehome.getParentFile().getParentFile(), ".i2p");
             return programs.getAbsoluteFile();
         }
+    }
+
+    private UpdateManager updateManagerClient() {
+        ClientAppManager clmgr = i2pRouter.getContext().getCurrentContext().clientAppManager();
+        if (clmgr == null) {
+            return null;
+        }
+
+        UpdateManager upmgr = (UpdateManager) clmgr.getRegisteredApp(UpdateManager.APP_NAME);
+        if (upmgr == null) {
+            return null;
+        }
+
+        return upmgr;
     }
 
 }

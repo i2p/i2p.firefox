@@ -2,23 +2,28 @@ package net.i2p.router;
 
 import java.io.*;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 import static net.i2p.update.UpdateType.*;
 import net.i2p.update.UpdateType;
+import net.i2p.update.UpdatePostProcessor;
 import net.i2p.util.SystemVersion;
 
 import java.lang.ProcessBuilder;
 import java.lang.Process;
 import java.lang.InterruptedException;
 
-public class WindowsUpdatePostProcessor {
-    protected static Router i2pRouter = null;
+public class WindowsUpdatePostProcessor implements UpdatePostProcessor {
+    protected Router i2pRouter = null;
     public void updateDownloadedandVerified(UpdateType type, int fileType, String version, File file) throws IOException {
         if (fileType == 6) {
             if (runUpdate(file)) {
-                if (shutdownGracefullyAndRerun()) {
+                try {
+                    if (shutdownGracefullyAndRerun()) {
+                    }
+                } catch (InterruptedException ie) {
+                    i2pRouter.cancelGracefulShutdown();
                 }
-            } else {
             }
         }
     }
@@ -45,10 +50,11 @@ public class WindowsUpdatePostProcessor {
         return true;
     }
 
-    private boolean shutdownGracefullyAndRerun() {
+    private boolean shutdownGracefullyAndRerun() throws InterruptedException {
         i2pRouter.shutdownGracefully();
         ProcessBuilder pb = new ProcessBuilder("cmd", "/c", selectProgramFile().getAbsolutePath());
-        while (i2pRouter.gracefulShutdownInProgress()){
+        while (i2pRouter.gracefulShutdownInProgress()) {
+            TimeUnit.MILLISECONDS.sleep(125);
         }
         if (i2pRouter.isFinalShutdownInProgress()) {
             try {
@@ -62,7 +68,7 @@ public class WindowsUpdatePostProcessor {
         return false;
     }
 
-    protected static File selectProgramFile() {
+    protected File selectProgramFile() {
         if (SystemVersion.isWindows()) {
             File jrehome = new File(System.getProperty("java.home"));
             File programs = jrehome.getParentFile();
@@ -74,7 +80,7 @@ public class WindowsUpdatePostProcessor {
         }
     }
 
-    protected static File selectProgramFileExe() {
+    protected File selectProgramFileExe() {
 	File pfpath = selectProgramFile();
         if (SystemVersion.isWindows()) {
             File app = new File(pfpath, "I2P.exe");
