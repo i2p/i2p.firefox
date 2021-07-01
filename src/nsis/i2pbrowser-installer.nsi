@@ -264,7 +264,10 @@ Section Install
     FileWriteByte $0 "13"
     FileWriteByte $0 "10"
     FileWrite $0 'if exist "%LOCALAPPDATA%\${APPNAME}\firefox.profile.i2p\" ('
-    FileWrite $0 '  echo "profile is configured"'
+    FileWrite $0 '  echo "profile is configured, updating extensions"'
+    FileWriteByte $0 "13"
+    FileWriteByte $0 "10"
+    FileWrite $0 '  xcopy /s /i /y "$INSTDIR\firefox.profile.i2p\extensions" "%LOCALAPPDATA%\${APPNAME}\firefox.profile.i2p\extensions"'
     FileWrite $0 ') else ('
     FileWrite $0 '  echo "configuring profile"'
     FileWriteByte $0 "13"
@@ -294,6 +297,9 @@ Section Install
     FileWriteByte $0 "10"
     FileWrite $0 'if exist "%LOCALAPPDATA%\${APPNAME}\firefox.profile.i2p\" ('
     FileWrite $0 '  echo "profile is configured"'
+    FileWriteByte $0 "13"
+    FileWriteByte $0 "10"
+    FileWrite $0 '  xcopy /s /i /y "$INSTDIR\firefox.profile.i2p\extensions" "%LOCALAPPDATA%\${APPNAME}\firefox.profile.i2p\extensions"'
     FileWrite $0 ') else ('
     FileWrite $0 '  echo "configuring profile"'
     FileWriteByte $0 "13"
@@ -320,6 +326,9 @@ Section Install
     FileWriteByte $0 "10"
     FileWrite $0 'if exist "%LOCALAPPDATA%\${APPNAME}\firefox.profile.config.i2p\" ('
     FileWrite $0 '  echo "profile is configured"'
+    FileWriteByte $0 "13"
+    FileWriteByte $0 "10"
+    FileWrite $0 '  xcopy /s /i /y "$INSTDIR\firefox.profile.i2p\extensions" "%LOCALAPPDATA%\${APPNAME}\firefox.profile.i2p\extensions"'
     FileWrite $0 ') else ('
     FileWrite $0 '  echo "configuring profile"'
     FileWriteByte $0 "13"
@@ -356,7 +365,7 @@ Section Install
     SetOutPath "$INSTDIR\firefox.profile.i2p\extensions"
     File "profile\extensions\{73a6fe31-595d-460b-a920-fcc0f8843232}.xpi"
     File profile\extensions\https-everywhere-eff@eff.org.xpi
-    File profile\extensions\i2ppb@eyedeekay.github.io.xpi
+    File profile\extensions\i2prhz@eyedeekay.github.io.xpi
 
     # Install the config profile
     createDirectory "$INSTDIR\firefox.profile.config.i2p"
@@ -370,7 +379,7 @@ Section Install
     createDirectory "$INSTDIR\firefox.profile.config.i2p\extensions"
     SetOutPath "$INSTDIR\firefox.profile.config.i2p\extensions"
     File profile\extensions\https-everywhere-eff@eff.org.xpi
-    File profile\extensions\i2ppb@eyedeekay.github.io.xpi
+    File profile\extensions\i2prhz@eyedeekay.github.io.xpi
 
     # Install the config userChrome
     createDirectory "$INSTDIR\firefox.profile.config.i2p\chrome"
@@ -457,10 +466,10 @@ Section "uninstall"
     # Uninstall the extensions
     Delete "$INSTDIR\firefox.profile.i2p\extensions\{73a6fe31-595d-460b-a920-fcc0f8843232}.xpi"
     Delete "$INSTDIR\firefox.profile.i2p\extensions\https-everywhere-eff@eff.org.xpi"
-    Delete "$INSTDIR\firefox.profile.i2p\extensions\i2ppb@eyedeekay.github.io.xpi"
+    Delete "$INSTDIR\firefox.profile.i2p\extensions\i2prhz@eyedeekay.github.io.xpi"
 
     Delete "$INSTDIR\firefox.profile.config.i2p\extensions\https-everywhere-eff@eff.org.xpi"
-    Delete "$INSTDIR\firefox.profile.config.i2p\extensions\i2ppb@eyedeekay.github.io.xpi"
+    Delete "$INSTDIR\firefox.profile.config.i2p\extensions\i2prhz@eyedeekay.github.io.xpi"
 
     Delete "$INSTDIR\firefox.profile.config.i2p\config\userChrome.css"
 

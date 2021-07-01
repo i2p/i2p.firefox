@@ -35,6 +35,8 @@ fi
 if [ ! -d "$CONFIGURING_PROFILE" ]; then
   mkdir -p "$CONFIGURING_PROFILE" 
   cp -vr /var/lib/i2pbrowser/app-profile/* "$CONFIGURING_PROFILE" 
+else
+  cp -vr /var/lib/i2pbrowser/profile/extensions/* "$CONFIGURING_PROFILE/extensions"
 fi
 
 if [ ! -f "$CONFIGURING_PROFILE/user.js" ]; then

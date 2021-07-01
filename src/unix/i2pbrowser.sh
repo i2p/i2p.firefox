@@ -19,6 +19,8 @@ fi
 if [ ! -d "$BROWSING_PROFILE" ]; then
   mkdir -p "$BROWSING_PROFILE" 
   cp -vr /var/lib/i2pbrowser/profile/* "$BROWSING_PROFILE" 
+else
+  cp -vr /var/lib/i2pbrowser/profile/extensions/* "$BROWSING_PROFILE/extensions"
 fi
 
 if [ ! -f "$BROWSING_PROFILE/user.js" ]; then
