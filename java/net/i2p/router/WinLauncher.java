@@ -3,6 +3,7 @@ package net.i2p.router;
 import java.io.*;
 import java.util.*;
 import net.i2p.router.RouterLaunch;
+import net.i2p.router.Router;
 import net.i2p.util.SystemVersion;
 
 /**
@@ -14,12 +15,9 @@ import net.i2p.util.SystemVersion;
  * i2p.dir.config this points to the (read-write) config directory in local appdata
  * router.pid - the pid of the java process.
  */
-public class WinLauncher {
-
-    private static final String LOCALAPPDATA = System.getenv("LOCALAPPDATA");
+public class WinLauncher extends WindowsUpdatePostProcessor {
 
     public static void main(String[] args) throws Exception {
-        
         File programs = selectProgramFile();
 
         File home = selectHome();
@@ -35,32 +33,22 @@ public class WinLauncher {
         System.setProperty("router.pid", String.valueOf(ProcessHandle.current().pid()));
         System.out.println("\t"+System.getProperty("i2p.dir.base") +"\n\t"+System.getProperty("i2p.dir.config")+"\n\t"+ System.getProperty("router.pid"));
 
-        RouterLaunch.main(args);
+        i2pRouter = new Router(System.getProperties());
+
+        i2pRouter.runRouter();
     }
 
-    private static File selectHome() throws Exception {
+    private static File selectHome() { //throws Exception {
         if (SystemVersion.isWindows()) {
             File home = new File(System.getProperty("user.home"));
-            File i2p;
             File appData = new File(home, "AppData");
             File local = new File(appData, "Local");
+            File i2p;
             i2p = new File(local, "I2P");
             return i2p.getAbsoluteFile();
         } else {
             File jrehome = new File(System.getProperty("java.home"));
             File programs = new File(jrehome.getParentFile().getParentFile(), ".i2p");
-            return programs.getAbsoluteFile();
-        }
-    }
-
-    private static File selectProgramFile() throws Exception {
-        if (SystemVersion.isWindows()) {
-            File jrehome = new File(System.getProperty("java.home"));
-            File programs = jrehome.getParentFile();
-            return programs.getAbsoluteFile();
-        } else {
-            File jrehome = new File(System.getProperty("java.home"));
-            File programs = new File(jrehome.getParentFile().getParentFile(), "i2p");
             return programs.getAbsoluteFile();
         }
     }

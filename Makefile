@@ -1,5 +1,7 @@
 all: install.exe
 
+jpackage: I2P all
+
 prep: profile.tgz app-profile.tgz profile build/licenses build/I2P build/I2P/config
 	cp src/nsis/*.nsi build
 	cp src/nsis/*.nsh build
@@ -10,6 +12,9 @@ install.exe: prep
 
 export RES_DIR="../i2p.i2p/installer/resources"
 export PKG_DIR="../i2p.i2p/pkg-temp"
+
+I2P:
+	./build.sh
 
 build/I2P: build
 	rm -rf build/I2P
