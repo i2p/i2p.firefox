@@ -22,7 +22,6 @@ import static net.i2p.update.UpdateType.*;
  * router.pid - the pid of the java process.
  */
 public class WinLauncher extends WindowsUpdatePostProcessor {
-    WindowsUpdatePostProcessor wupp = new WindowsUpdatePostProcessor();
 
     public void main(String[] args) throws Exception {
         File programs = selectProgramFile();
@@ -44,8 +43,8 @@ public class WinLauncher extends WindowsUpdatePostProcessor {
 
         UpdateManager upmgr = updateManagerClient();
         if (upmgr != null) {
-            upmgr.register(this.wupp, ROUTER_SIGNED_SU3, 6);
-            upmgr.register(this.wupp, ROUTER_DEV_SU3, 6);
+            upmgr.register(this, ROUTER_SIGNED_SU3, 6);
+            upmgr.register(this, ROUTER_DEV_SU3, 6);
         }else{
             System.out.println("\t unable to register updates");
         }
