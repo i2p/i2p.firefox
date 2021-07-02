@@ -30,7 +30,7 @@ public class WindowsUpdatePostProcessor implements UpdatePostProcessor {
 
     private boolean runUpdate(File file){
         Process updateProcess = null;
-        ProcessBuilder pb = new ProcessBuilder("cmd", "/c", file.getAbsolutePath(), "/S", "/D="+selectProgramFile());
+        ProcessBuilder pb = new ProcessBuilder("cmd", "/c", file.getAbsolutePath(), "/S");
         try {
             updateProcess = pb.start();
         } catch (IOException ex) {
