@@ -53,7 +53,7 @@ public class WindowsUpdatePostProcessor implements UpdatePostProcessor {
 
     private boolean shutdownGracefullyAndRerun() throws InterruptedException {
         i2pRouter.shutdownGracefully();
-        ProcessBuilder pb = new ProcessBuilder("cmd", "/c", selectProgramFile().getAbsolutePath());
+        ProcessBuilder pb = new ProcessBuilder("cmd", "/c", selectProgramFileExe().getAbsolutePath());
         while (i2pRouter.gracefulShutdownInProgress()) {
             TimeUnit.MILLISECONDS.sleep(125);
         }
