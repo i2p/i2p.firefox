@@ -19,7 +19,8 @@ public class WindowsUpdatePostProcessor implements UpdatePostProcessor {
         if (fileType == 6) {
             if (runUpdate(file)) {
                 try {
-                    if (shutdownGracefullyAndRerun()) {
+                    if (!shutdownGracefullyAndRerun()) {
+                        i2pRouter.cancelGracefulShutdown();
                     }
                 } catch (InterruptedException ie) {
                     i2pRouter.cancelGracefulShutdown();
