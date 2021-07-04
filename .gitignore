@@ -1,7 +1,6 @@
 build
 *.deb
 *.tgz
-I2P-Profile-Installer-0.03.exe
-I2P/
-router.info
-router.keys.dat
+./I2P/
+debian/*.ex
+debian/*.EX
