@@ -13,6 +13,9 @@ install.exe: prep
 export RES_DIR="../i2p.i2p/installer/resources"
 export PKG_DIR="../i2p.i2p/pkg-temp"
 
+distclean: clean
+	rm -rf I2P
+
 I2P:
 	./build.sh
 

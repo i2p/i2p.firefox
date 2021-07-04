@@ -82,7 +82,7 @@ public class WindowsUpdatePostProcessor implements UpdatePostProcessor {
     }
 
     protected File selectProgramFileExe() {
-	File pfpath = selectProgramFile();
+        File pfpath = selectProgramFile();
         if (SystemVersion.isWindows()) {
             File app = new File(pfpath, "I2P.exe");
             return app.getAbsoluteFile();

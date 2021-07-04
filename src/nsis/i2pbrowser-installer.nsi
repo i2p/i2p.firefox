@@ -11,6 +11,7 @@ UniCode true
 !define CONSOLE_URL "http://127.0.0.1:7657/home"
 
 !include i2pbrowser-version.nsi
+!include FindProcess.nsh
 
 var FFINSTEXE
 var FFNONTORINSTEXE
@@ -220,6 +221,13 @@ FunctionEnd
 
 # start default section
 Section Install
+
+    ${If} ${Silent}
+        ${Do}
+            ${FindProcess} "I2P.exe" $0
+            Sleep 500
+        ${LoopWhile} $0 <> 0
+    ${EndIf}
 
     # set the installation directory as the destination for the following actions
     createDirectory $INSTDIR

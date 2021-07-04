@@ -42,12 +42,11 @@ public class WinLauncher extends WindowsUpdatePostProcessor {
         i2pRouter = new Router(System.getProperties());
 
         UpdateManager upmgr = updateManagerClient();
-        if (upmgr != null) {
-            upmgr.register(this, ROUTER_SIGNED_SU3, 6);
-            upmgr.register(this, ROUTER_DEV_SU3, 6);
-        }else{
-            System.out.println("\t unable to register updates");
+        while (upmgr == null) {
+            System.out.println("Waiting for update manager so we can pull our own updates");;
         }
+        upmgr.register(this, ROUTER_SIGNED_SU3, 6);
+        upmgr.register(this, ROUTER_DEV_SU3, 6);
 
         i2pRouter.runRouter();
     }
