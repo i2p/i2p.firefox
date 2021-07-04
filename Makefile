@@ -1,3 +1,6 @@
+
+PROFILE_VERSION=0.04
+
 all: install.exe
 
 prep: profile.tgz app-profile.tgz profile build/licenses build/I2P build/I2P/config
@@ -143,15 +146,11 @@ build/app-profile: build
 	mkdir -p build/app-profile
 
 install:
-	rm -rfv /etc/i2pbrowser \
-		/var/lib/i2pbrowser
-	mkdir -p /etc/i2pbrowser \
-		/var/lib/i2pbrowser
-	install -m644 src/unix/i2pbrowserrc /etc/i2pbrowser/i2pbrowserrc
-	install -m644 src/unix/i2pbrowserdebianrc /etc/i2pbrowser/i2pbrowserdebianrc
-	install -m755 build/profile/i2pbrowser.sh /usr/local/bin/i2pbrowser
-	install -m755 build/app-profile/i2pconfig.sh /usr/local/bin/i2pconfig
-	install -m755 src/unix/i2p-config-service-setup.sh /usr/local/bin/i2p-config-service-setup
+	install -D -m644 src/unix/i2pbrowserrc /etc/i2pbrowser/i2pbrowserrc
+	install -D -m644 src/unix/i2pbrowserdebianrc /etc/i2pbrowser/i2pbrowserdebianrc
+	install -D -m755 build/profile/i2pbrowser.sh /usr/local/bin/i2pbrowser
+	install -D -m755 build/app-profile/i2pconfig.sh /usr/local/bin/i2pconfig
+	install -D -m755 src/unix/i2p-config-service-setup.sh /usr/local/bin/i2p-config-service-setup
 	cp -vr build/profile /var/lib/i2pbrowser/profile
 	cp -vr build/app-profile /var/lib/i2pbrowser/app-profile
 	cp -vr src/icons /var/lib/i2pbrowser/icons
@@ -185,3 +184,7 @@ checkinstall:
 		--deldoc=yes \
 		--deldesc=yes \
 		--backup=no
+
+orig:
+	rm -fv ../i2p-firefox-profile_$(PROFILE_VERSION).orig.tar.gz
+	tar cvzf ../i2p-firefox-profile_$(PROFILE_VERSION).orig.tar.gz .

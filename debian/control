@@ -1,5 +1,5 @@
 Source: i2p-firefox-profile
-Section: network
+Section: net
 Priority: optional
 Maintainer: idk <hankhill19580@gmail.com>
 Build-Depends: debhelper-compat (= 13)
@@ -11,8 +11,8 @@ Rules-Requires-Root: no
 
 Package: i2p-firefox-profile
 Architecture: all
-Depends: firefox,wget,i2p,i2p-router,${misc:Depends}
-Suggest: i2p,i2p-router,syndie,tor,tsocks
+Depends: firefox,wget,${misc:Depends}
+Suggests: i2p,i2p-router,syndie,tor,tsocks
 Description: A browser profile for Firefox+I2P and script to launch it
  A Debian/Ubuntu port of the I2P Browser Profile for Firefox/Windows
  systems. It is built from the same source and has identical

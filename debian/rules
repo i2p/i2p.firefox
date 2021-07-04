@@ -23,3 +23,9 @@
 #override_dh_auto_configure:
 #	dh_auto_configure -- \
 #	-DCMAKE_LIBRARY_PATH=$(DEB_HOST_MULTIARCH)
+
+override_dh_auto_build:
+	@echo "no need to do the windows build"
+
+override_dh_auto_install:
+	@echo "use debian/install"

@@ -4,3 +4,9 @@ build
 ./I2P/
 debian/*.ex
 debian/*.EX
+debian/i2p-firefox-profile
+*.crl
+*.crt
+*.pem
+*.info
+*.keys.dat
