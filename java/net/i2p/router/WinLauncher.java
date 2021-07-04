@@ -43,6 +43,7 @@ public class WinLauncher extends WindowsUpdatePostProcessor {
 
         UpdateManager upmgr = updateManagerClient();
         while (upmgr == null) {
+            upmgr = updateManagerClient();
             System.out.println("Waiting for update manager so we can pull our own updates");;
         }
         upmgr.register(this, ROUTER_SIGNED_SU3, 6);
