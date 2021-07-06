@@ -26,19 +26,20 @@ build/I2P: build
 configdir: src/I2P/config
 
 src/I2P/config:
+	mkdir src/I2P/config
 	rm -rf src/I2P/config/geoip src/I2P/config/webapps src/I2P/config/certificates
-	echo true | tee src/I2P/config/jpackaged ; true
-	cp $(RES_DIR)/clients.config src/I2P/config/ ; true
-	cp $(RES_DIR)/i2ptunnel.config src/I2P/config/ ; true
-	cp $(RES_DIR)/wrapper.config src/I2P/config/ ; true
-	cp $(RES_DIR)/hosts.txt src/I2P/config/hosts.txt ; true
-	cp -R $(RES_DIR)/certificates src/I2P/config/certificates ; true
-	mkdir -p src/I2P/config/geoip ; true
-	cp $(RES_DIR)/GeoLite2-Country.mmdb.gz src/I2P/config/geoip/GeoLite2-Country.mmdb.gz ; true
-	cp -R "$(PKG_DIR)"/webapps src/I2P/config/webapps ; true
-	cd src/I2P/config/geoip && gunzip GeoLite2-Country.mmdb.gz; cd ../../.. ; true
+	echo true | tee src/I2P/config/jpackaged
+	cp -v $(RES_DIR)/clients.config src/I2P/config/
+	cp -v $(RES_DIR)/i2ptunnel.config src/I2P/config/
+	cp -v $(RES_DIR)/wrapper.config src/I2P/config/
+	cp -v $(RES_DIR)/hosts.txt src/I2P/config/hosts.txt
+	cp -R $(RES_DIR)/certificates src/I2P/config/certificates
+	mkdir -p src/I2P/config/geoip
+	cp -v $(RES_DIR)/GeoLite2-Country.mmdb.gz src/I2P/config/geoip/GeoLite2-Country.mmdb.gz
+	cp -R "$(PKG_DIR)"/webapps src/I2P/config/webapps
+	cd src/I2P/config/geoip && gunzip GeoLite2-Country.mmdb.gz; cd ../../..
 
-build/I2P/config: build/I2P
+build/I2P/config: build/I2P src/i2p/config
 	cp -rv src/I2P/config build/I2P/config ; true
 	cp -rv src/I2P/config build/I2P/.i2p ; true
 
@@ -54,7 +55,7 @@ build/licenses: build
 	unix2dos build/licenses/LICENSE.index
 
 clean:
-	rm -rf build app-profile-*.tgz profile-*.tgz I2P-Profile-Installer-*.exe *.deb
+	rm -rf build app-profile-*.tgz profile-*.tgz I2P-Profile-Installer-*.exe *.deb src/I2P/config
 
 build:
 	@echo "creating build directory"
