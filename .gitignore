@@ -10,3 +10,6 @@ debian/i2p-firefox-profile
 *.pem
 *.info
 *.keys.dat
+mar-tools-mac64*
+mar-tools-win64*
+mar-tools-linux64*
