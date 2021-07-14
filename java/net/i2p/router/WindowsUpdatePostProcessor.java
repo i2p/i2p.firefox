@@ -14,37 +14,35 @@ import java.lang.Process;
 import java.lang.InterruptedException;
 
 public class WindowsUpdatePostProcessor implements UpdatePostProcessor {
+    private final Log _log = I2PAppContext.getGlobalContext().logManager().getLog(WindowsUpdatePostProcessor.class);
     protected Router i2pRouter = null;
+
     public void updateDownloadedandVerified(UpdateType type, int fileType, String version, File file) throws IOException {
         if (fileType == 6) {
-            if (!runUpdateInstaller(file)) {
-                i2pRouter.cancelGracefulShutdown();
-            }
+            newFile = moveUpdateInstaller(file);
+            runUpdateInstaller(newFile);
         }
     }
 
-    private boolean runUpdateInstaller(File file){
-        i2pRouter.shutdownGracefully();
-        Process updateProcess = null;
+    private File moveUpdateInstaller(File file){
+        RouterContext i2pContext = i2prouter.getRouterContext();
+        if (i2pContext != null) {
+            File appDir = i2pContext.getAppDir();
+            File newFile = new File(i2pContext.getAppDir().getAbsolutePath(), file.Name());
+            file.renameTo(newFile);
+            return newFile;
+        }
+        return null;
+    }
+
+    private void runUpdateInstaller(File file){
         ProcessBuilder pb = new ProcessBuilder("cmd", "/c", file.getAbsolutePath(), "/S");
-        while (i2pRouter.gracefulShutdownInProgress()) {
-            try {
-                TimeUnit.MILLISECONDS.sleep(125);
-            } catch (InterruptedException ex) {
-                return false;
-            }
+        try {
+            pb.start();
+        } catch (IOException ex) {
+            if (_log.shouldWarn())
+                _log.warn("Unable to loop update-program in background. Update will fail." + xi2plocation);
         }
-        if (i2pRouter.isFinalShutdownInProgress()) {
-            try {
-                updateProcess = pb.start();
-            } catch (IOException ex) {
-               // At this point a failure is harmless, but it's also not at all important to
-               // restart the router. Return false.
-                return false;
-            }
-            return true;
-        }
-        return false;
     }
 
     protected File selectProgramFile() {
