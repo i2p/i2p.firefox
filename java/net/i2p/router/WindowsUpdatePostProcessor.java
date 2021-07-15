@@ -5,13 +5,16 @@ import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 import static net.i2p.update.UpdateType.*;
+import net.i2p.I2PAppContext;
 import net.i2p.update.UpdateType;
 import net.i2p.update.UpdatePostProcessor;
+import net.i2p.util.Log;
 import net.i2p.util.SystemVersion;
 
 import java.lang.ProcessBuilder;
 import java.lang.Process;
 import java.lang.InterruptedException;
+
 
 public class WindowsUpdatePostProcessor implements UpdatePostProcessor {
     private final Log _log = I2PAppContext.getGlobalContext().logManager().getLog(WindowsUpdatePostProcessor.class);
@@ -19,16 +22,16 @@ public class WindowsUpdatePostProcessor implements UpdatePostProcessor {
 
     public void updateDownloadedandVerified(UpdateType type, int fileType, String version, File file) throws IOException {
         if (fileType == 6) {
-            newFile = moveUpdateInstaller(file);
+            File newFile = moveUpdateInstaller(file);
             runUpdateInstaller(newFile);
         }
     }
 
     private File moveUpdateInstaller(File file){
-        RouterContext i2pContext = i2prouter.getRouterContext();
+        RouterContext i2pContext = i2pRouter.getContext();
         if (i2pContext != null) {
             File appDir = i2pContext.getAppDir();
-            File newFile = new File(i2pContext.getAppDir().getAbsolutePath(), file.Name());
+            File newFile = new File(i2pContext.getAppDir().getAbsolutePath(), file.getName());
             file.renameTo(newFile);
             return newFile;
         }
@@ -41,7 +44,7 @@ public class WindowsUpdatePostProcessor implements UpdatePostProcessor {
             pb.start();
         } catch (IOException ex) {
             if (_log.shouldWarn())
-                _log.warn("Unable to loop update-program in background. Update will fail." + xi2plocation);
+                _log.warn("Unable to loop update-program in background. Update will fail.");
         }
     }
 

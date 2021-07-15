@@ -2,3 +2,4 @@ build
 *.deb
 *.tgz
 ./I2P/
+i2pversion_override

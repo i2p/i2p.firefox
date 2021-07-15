@@ -3,6 +3,10 @@ set -e
 
 . i2pversion
 
+if [ -f i2pversion_override ]; then
+  . i2pversion_override
+fi
+
 JAVA=$(java --version | tr -d 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ\n' | cut -d ' ' -f 2 | cut -d '.' -f 1 | tr -d '\n\t\- ')
 
 if [ "$JAVA" -lt "14" ]; then
