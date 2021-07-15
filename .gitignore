@@ -3,3 +3,6 @@ build
 *.tgz
 ./I2P/
 i2pversion_override
+*.crl
+*.crt
+*.pem

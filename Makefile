@@ -1,3 +1,8 @@
+-include i2pversion
+-include i2pversion_override
+
+-include config.mk
+
 all: install.exe
 
 jpackage: I2P all
@@ -190,10 +195,13 @@ checkinstall:
 		--pkggroup=net \
 		--pkgrelease=1 \
 		--pkgsource="https://i2pgit.org/i2p-hackers/i2p.firefox" \
-		--maintainer="hankhill19580@gmail.com" \
+		--maintainer="$(SIGNER)" \
 		--requires="firefox,wget,i2p,i2p-router" \
 		--suggests="i2p,i2p-router,syndie,tor,tsocks" \
 		--nodoc \
 		--deldoc=yes \
 		--deldesc=yes \
 		--backup=no
+
+su3:
+	su3-tools -name "I2P-Profile-Installer-$(PROFILE_VERSION)" -signer "$(SIGNER)" -version "$(I2P_VERSION)"
