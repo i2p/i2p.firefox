@@ -10,14 +10,14 @@ fi
 JAVA=$(java --version | tr -d 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ\n' | cut -d ' ' -f 2 | cut -d '.' -f 1 | tr -d '\n\t\- ')
 
 if [ "$JAVA" -lt "14" ]; then
-	echo "Java 14+ must be used to compile with jpackage, java is $JAVA"
-	exit 1
+  echo "Java 14+ must be used to compile with jpackage, java is $JAVA"
+  exit 1
 fi
 sleep 2s
 
 if [ -z "${JAVA_HOME}" ]; then
-	JAVA_HOME=`type -p java|xargs readlink -f|xargs dirname|xargs dirname`
-	echo "Building with: $JAVA, $JAVA_HOME"
+  JAVA_HOME=`type -p java|xargs readlink -f|xargs dirname|xargs dirname`
+  echo "Building with: $JAVA, $JAVA_HOME"
 fi
 
 echo "cleaning"
