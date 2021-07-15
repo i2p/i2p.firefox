@@ -1,3 +1,3 @@
 !define VERSIONMAJOR 0
 !define VERSIONMINOR 04
-!define VERSIONBUILD 
+!define VERSIONBUILD 0

@@ -3,9 +3,30 @@
 
 -include config.mk
 
-all: install.exe
+preset=`rm .version; make .version`
 
-jpackage: I2P all
+include .version
+
+PROFILE_VERSION=$(MAJOR).$(MINOR).$(BUILD)
+
+all: .version install.exe
+
+.version:
+	sed 's|!define VERSION||g' src/nsis/i2pbrowser-version.nsi | sed 's| |=|g' > .version
+	make version.txt
+
+version.txt:
+	echo "$(PROFILE_VERSION)" > src/profile/version.txt
+	echo "$(PROFILE_VERSION)" > src/app-profile/version.txt
+
+jpackage: .version I2P all
+
+help: .version
+	@echo "I2P-Profile-Installer-$(PROFILE_VERSION)"
+	@echo "$(SIGNER)"
+	@echo "$(I2P_VERSION)"
+	@echo "$(MAJOR).$(MINOR).$(BUILD)"
+	@echo "$(preset)"
 
 prep: profile.tgz app-profile.tgz profile build/licenses build/I2P build/I2P/config
 	cp src/nsis/*.nsi build
@@ -60,7 +81,7 @@ build/licenses: build
 	unix2dos build/licenses/LICENSE.index
 
 clean:
-	rm -rf build app-profile-*.tgz profile-*.tgz I2P-Profile-Installer-*.exe *.deb src/I2P/config
+	rm -rf build app-profile-*.tgz profile-*.tgz I2P-Profile-Installer-*.exe *.deb src/I2P/config *.su3
 
 build:
 	@echo "creating build directory"
@@ -68,8 +89,8 @@ build:
 
 profile: build/profile/user.js build/profile/prefs.js build/profile/bookmarks.html build/profile/storage-sync.sqlite copy-xpi
 
-profile.tgz: profile
-	$(eval PROFILE_VERSION := $(shell cat src/profile/version.txt))
+profile.tgz: .version profile
+#	$(eval PROFILE_VERSION := $(shell cat src/profile/version.txt))
 	@echo "building profile tarball $(PROFILE_VERSION)"
 	bash -c 'ls I2P && cp -rv build/I2P build/profile/I2P'; true
 	install -m755 src/unix/i2pbrowser.sh build/profile/i2pbrowser.sh
@@ -92,10 +113,10 @@ copy-xpi: build/NoScript.xpi build/HTTPSEverywhere.xpi build/i2prhz@eyedeekay.gi
 	cp build/HTTPSEverywhere.xpi "build/profile/extensions/https-everywhere-eff@eff.org.xpi"
 	cp build/i2prhz@eyedeekay.github.io.xpi build/profile/extensions/i2prhz@eyedeekay.github.io.xpi
 
-app-profile: build/app-profile/user.js build/app-profile/prefs.js build/app-profile/chrome/userChrome.css build/app-profile/bookmarks.html build/app-profile/storage-sync.sqlite copy-app-xpi
+app-profile: .version build/app-profile/user.js build/app-profile/prefs.js build/app-profile/chrome/userChrome.css build/app-profile/bookmarks.html build/app-profile/storage-sync.sqlite copy-app-xpi
 
 app-profile.tgz: app-profile
-	$(eval PROFILE_VERSION := $(shell cat src/app-profile/version.txt))
+#	$(eval PROFILE_VERSION := $(shell cat src/app-profile/version.txt))
 	@echo "building app-profile tarball $(PROFILE_VERSION)"
 	bash -c 'ls I2P && cp -rv build/I2P build/app-profile/I2P'; true
 	install -m755 src/unix/i2pconfig.sh build/app-profile/i2pconfig.sh
@@ -185,7 +206,7 @@ uninstall:
 		/usr/share/applications/i2pbrowser.desktop \
 		/usr/share/applications/i2pconfig.desktop
 
-checkinstall:
+checkinstall: version
 	checkinstall \
 		--default \
 		--install=no \
@@ -203,5 +224,5 @@ checkinstall:
 		--deldesc=yes \
 		--backup=no
 
-su3:
+su3: jpackage
 	su3-tools -name "I2P-Profile-Installer-$(PROFILE_VERSION)" -signer "$(SIGNER)" -version "$(I2P_VERSION)"
