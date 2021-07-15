@@ -39,7 +39,7 @@ src/I2P/config:
 	cp -R "$(PKG_DIR)"/webapps src/I2P/config/webapps
 	cd src/I2P/config/geoip && gunzip GeoLite2-Country.mmdb.gz; cd ../../..
 
-build/I2P/config: build/I2P src/i2p/config
+build/I2P/config: build/I2P src/I2P/config
 	cp -rv src/I2P/config build/I2P/config ; true
 	cp -rv src/I2P/config build/I2P/.i2p ; true
 
