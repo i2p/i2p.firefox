@@ -5,12 +5,7 @@ if [ -f "/etc/i2pbrowser/i2pbrowserrc" ]; then
 fi
 
 if [ ! -z $I2PROUTER ]; then
-  echo "$I2PROUTER" "$I2PCOMMAND"
-  http_proxy=http://127.0.0.1:4444 curl http://proxy.i2p || "$I2PROUTER" "$I2PCOMMAND"
-else if [ -d "I2P/bin" ]; then
-  http_proxy=http://127.0.0.1:4444 curl http://proxy.i2p || ./I2P/bin/I2P; \
-  echo "running the jpackaged I2P router since we can't find another one to use."
-
+  "$I2PROUTER" start
 fi
 
 if [ -f "$HOME/.i2p/router.config" ]; then
@@ -35,8 +30,6 @@ fi
 if [ ! -d "$CONFIGURING_PROFILE" ]; then
   mkdir -p "$CONFIGURING_PROFILE" 
   cp -vr /var/lib/i2pbrowser/app-profile/* "$CONFIGURING_PROFILE" 
-else
-  cp -vr /var/lib/i2pbrowser/profile/extensions/* "$CONFIGURING_PROFILE/extensions"
 fi
 
 if [ ! -f "$CONFIGURING_PROFILE/user.js" ]; then

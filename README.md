@@ -127,9 +127,9 @@ End-to-End Windows build process using WSL
 with your `%JAVA_HOME%` environment variable configured and `%JAVA_HOME%/bin` on
 your `%PATH%`. You need to have Apache Ant installed and configured with `%ANT_HOME%`
 environment variable configured and `%ANT_HOME%/bin` on your `%PATH%`. You must have
-Cygwin installed. You must have `NSIS.exe` installed and available on your `%PATH%`.
-You must have Git for Windows installed. When installing git for Windows, you should
-select "Checkout as is, commit as is" and leave line-endings alone.
+Cygwin installed. You must have `NSIS.exe` installed and `makensis` available on your
+`%PATH%`. You must have Git for Windows installed. When installing git for Windows,
+you should select "Checkout as is, commit as is" and leave line-endings alone.
 
  1. [Set up Windows Subsystem for Linux per Microsoft's instructions](https://docs.microsoft.com/en-us/windows/wsl/install-win10#manual-installation-steps)
  2. [Install Ubuntu Focal per Microsoft's instructions](https://www.microsoft.com/store/apps/9n6svws3rx71)
@@ -163,8 +163,8 @@ End-to-End Windows build process using Cygwin
 with your `%JAVA_HOME%` environment variable configured and `%JAVA_HOME%/bin` on
 your `%PATH%`. You need to have Apache Ant installed and configured with `%ANT_HOME%`
 environment variable configured and `%ANT_HOME%/bin` on your `%PATH%`. You must have
-Cygwin installed. You must have `NSIS.exe` installed and available on your `%PATH%`.
-You must have Git for Windows installed. When installing git for Windows, you should
+WSL and git bash installed. You must have `NSIS.exe` installed and `makensis` available on your
+`%PATH%`. You must have Git for Windows installed. When installing git for Windows, you should
 select "Checkout as is, commit as is" and leave line-endings alone.
 
 TODO: Add links to the respective instructions for each of these.

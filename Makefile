@@ -217,12 +217,12 @@ checkinstall: version
 		--pkgrelease=1 \
 		--pkgsource="https://i2pgit.org/i2p-hackers/i2p.firefox" \
 		--maintainer="$(SIGNER)" \
-		--requires="firefox,wget,i2p,i2p-router" \
+		--requires="firefox,wget" \
 		--suggests="i2p,i2p-router,syndie,tor,tsocks" \
 		--nodoc \
 		--deldoc=yes \
 		--deldesc=yes \
 		--backup=no
 
-su3: jpackage
+su3: distclean jpackage
 	su3-tools -name "I2P-Profile-Installer-$(PROFILE_VERSION)" -signer "$(SIGNER)" -version "$(I2P_VERSION)"

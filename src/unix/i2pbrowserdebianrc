@@ -1,29 +1,17 @@
 
 I2PROUTER=$(which i2prouter)
-I2PCOMMAND="start"
 
 if [ -z $I2PROUTER ]; then
   I2PROUTER=/usr/sbin/i2prouter
-  I2PCOMMAND="start"
-fi
-
-if [ ! -f $I2PROUTER ]; then
-  I2PROUTER="/opt/i2p/bin/I2P"
-  I2PCOMMAND=""
 fi
 
 if [ ! -f $I2PROUTER ]; then
   I2PROUTER="$HOME/i2p/i2prouter"
-  I2PCOMMAND="start"
 fi
 
 if [ ! -f $I2PROUTER ]; then
   I2PROUTER=""
-  I2PCOMMAND=""
-  echo "no i2prouter detected"
 fi
 
-
-
-wget -q -O - "http://localhost:7657" >/dev/null  && I2PROUTER="" && I2PCOMMAND=""
-echo command: "$I2PROUTER" "$I2PCOMMAND"
+wget -q -O - "http://localhost:7657" >/dev/null  && I2PROUTER=""
+echo "$I2PROUTER"
