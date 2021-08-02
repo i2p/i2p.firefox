@@ -1,7 +1,7 @@
 @echo on
 
 if not exist "%ProgramFiles%\I2P\" (
-  set ProgramFiles="C:\Program Files"
+  set "ProgramFiles=C:\Program Files"
 )
 
 if exist "%ProgramFiles%\I2P\jpackaged" (
