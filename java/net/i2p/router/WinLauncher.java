@@ -9,6 +9,7 @@ import net.i2p.router.Router;
 import net.i2p.update.UpdateManager;
 import net.i2p.update.UpdatePostProcessor;
 import net.i2p.util.SystemVersion;
+import net.i2p.update.*;
 
 import static net.i2p.update.UpdateType.*;
 
@@ -25,6 +26,12 @@ public class WinLauncher {
     private static WindowsUpdatePostProcessor wupp = new WindowsUpdatePostProcessor();
     public static void main(String[] args) throws Exception {
         File programs = wupp.selectProgramFile();
+        if (!programs.exists())
+            programs.mkdirs();
+        else if (!programs.isDirectory()) {
+            System.err.println(programs + " exists but is not a directory. Please get it out of the way");
+            System.exit(1);
+        }
 
         File home = selectHome();
         if (!home.exists())
@@ -42,18 +49,43 @@ public class WinLauncher {
         wupp.i2pRouter = new Router(System.getProperties());
         System.out.println("Router is configured");
 
-        UpdateManager upmgr = updateManagerClient();
-        while (upmgr == null) {
-            upmgr = updateManagerClient();
-            System.out.println("Waiting for update manager so we can pull our own updates");
-        }
-        upmgr.register(wupp, ROUTER_SIGNED_SU3, 6);
-        System.out.println("Registered signed updates");
-        upmgr.register(wupp, ROUTER_DEV_SU3, 6);
-        System.out.println("Registered dev updates");
+        Thread registrationThread = new Thread(REGISTER_UPP);
+        registrationThread.setName("UPP Registration");
+        registrationThread.setDaemon(true);
+        registrationThread.start();
 
         wupp.i2pRouter.runRouter();
     }
+
+    private static final Runnable REGISTER_UPP = () -> {
+
+        // first wait for the RouterContext to appear
+        RouterContext ctx;
+        while ((ctx = (RouterContext) wupp.i2pRouter.getContext().getCurrentContext()) == null) {
+            sleep(1000);
+        }
+
+        // then wait for the update manager
+        ClientAppManager cam = ctx.clientAppManager();
+        UpdateManager um;
+        while ((um = (UpdateManager) cam.getRegisteredApp(UpdateManager.APP_NAME)) == null) {
+            sleep(1000);
+        }
+
+        wupp = new WindowsUpdatePostProcessor();        
+        um.register(wupp, UpdateType.ROUTER_SIGNED_SU3, 6);//SU3File.TYPE_EXE);
+        um.register(wupp, UpdateType.ROUTER_DEV_SU3, 6);//SU3File.TYPE_EXE);
+    };
+
+    private static void sleep(int millis) {
+        try {
+            Thread.sleep(millis);
+        } catch (InterruptedException bad) {
+            bad.printStackTrace();
+            throw new RuntimeException(bad);
+        }
+    }
+
 
     private static File selectHome() { //throws Exception {
         if (SystemVersion.isWindows()) {
@@ -62,28 +94,14 @@ public class WinLauncher {
             File local = new File(appData, "Local");
             File i2p;
             i2p = new File(local, "I2P");
-            System.out.println("Windows jpackage wrapper started, using: " + i2p + "as config");
+            System.out.println("Windows jpackage wrapper started, using: " + i2p + " as base config");
             return i2p.getAbsoluteFile();
         } else {
             File jrehome = new File(System.getProperty("java.home"));
             File programs = new File(jrehome.getParentFile().getParentFile(), ".i2p");
-            System.out.println("Linux portable jpackage wrapper started, using: " + programs + "as config");
+            System.out.println("Linux portable jpackage wrapper started, using: " + programs + " as base config");
             return programs.getAbsoluteFile();
         }
-    }
-
-    private static UpdateManager updateManagerClient() {
-        ClientAppManager clmgr = wupp.i2pRouter.getContext().getCurrentContext().clientAppManager();
-        if (clmgr == null) {
-            return null;
-        }
-
-        UpdateManager upmgr = (UpdateManager) clmgr.getRegisteredApp(UpdateManager.APP_NAME);
-        if (upmgr == null) {
-            return null;
-        }
-
-        return upmgr;
     }
 
 }

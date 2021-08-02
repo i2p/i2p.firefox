@@ -52,10 +52,12 @@ public class WindowsUpdatePostProcessor implements UpdatePostProcessor {
         if (SystemVersion.isWindows()) {
             File jrehome = new File(System.getProperty("java.home"));
             File programs = jrehome.getParentFile();
+            System.out.println("Windows portable jpackage wrapper started, using: " + programs + " as working config");            
             return programs.getAbsoluteFile();
         } else {
             File jrehome = new File(System.getProperty("java.home"));
             File programs = new File(jrehome.getParentFile().getParentFile(), "i2p");
+            System.out.println("Linux portable jpackage wrapper started, using: " + programs + " as working config");            
             return programs.getAbsoluteFile();
         }
     }
