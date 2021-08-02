@@ -415,5 +415,6 @@ SectionEnd
 !insertmacro MUI_PAGE_FINISH
 
 Function LaunchLink
-  ExecShell "" "$SMPROGRAMS\${APPNAME}\${APPNAME}.lnk"
+  #ExecShell "" "$SMPROGRAMS\${APPNAME}\${APPNAME}.lnk"
+  Exec "$INSTDIR\i2pbrowser.bat"
 FunctionEnd
