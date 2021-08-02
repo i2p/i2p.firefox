@@ -169,7 +169,20 @@ build/profile/extensions: build/profile
 
 build/profile: build
 	mkdir -p build/profile
-	
+
+build/win:
+	mkdir -p build/win/
+
+build/win/i2pbrowser.bat:
+	cp src/win/i2pbrowser.bat build/win/i2pbrowser.bat
+
+build/win/i2pconfig.bat:
+	cp src/win/i2pconfig.bat build/win/i2pconfig.bat
+
+build/win/i2pbrowser-private.bat:
+	cp src/win/i2pbrowser-private.bat build/win/i2pbrowser-private.bat
+
+launchers: build/win build/win/i2pbrowser.bat build/win/i2pbrowser-private.bat build/win/i2pconfig.bat
 
 build/app-profile/chrome: build/app-profile
 	mkdir -p build/app-profile/chrome
@@ -224,5 +237,5 @@ checkinstall: version
 		--deldesc=yes \
 		--backup=no
 
-su3: distclean jpackage
+su3:
 	su3-tools -name "I2P-Profile-Installer-$(PROFILE_VERSION)" -signer "$(SIGNER)" -version "$(I2P_VERSION)"

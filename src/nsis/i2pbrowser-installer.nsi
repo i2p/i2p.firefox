@@ -36,7 +36,7 @@ LicenseData "licenses\LICENSE.index"
 # This will be in the installer/uninstaller's title bar
 Name "${COMPANYNAME} - ${APPNAME}"
 Icon ui2pbrowser_icon.ico
-OutFile "I2P-Profile-Installer-${VERSIONMAJOR}.${VERSIONMINOR}${VERSIONBUILD}.exe"
+OutFile "I2P-Profile-Installer-${VERSIONMAJOR}.${VERSIONMINOR}.${VERSIONBUILD}.exe"
 
 RequestExecutionLevel admin
 
@@ -257,103 +257,12 @@ Section Install
         File /nonfatal /a /r "I2P\config\certificates\"
     ${EndIf}
 
-    # Install the launcher scripts: This will need to be it's own section, since
-    # now I think we just need to let the user select if the user is using a non
-    # default Firefox path.
-    FileOpen $0 "$INSTDIR\i2pbrowser.bat" w
-    FileWrite $0 "@echo off"
-    FileWriteByte $0 "13"
-    FileWriteByte $0 "10"
-    ${If} ${FileExists} "$I2PINSTEXE\jpackaged"
-        FileWrite $0 'start /D "%LOCALAPPDATA%\${APPNAME}" "" "$I2PINSTEXE\i2p.exe"'
-    ${Else}
-        FileWrite $0 'start "" "$I2PINSTEXE\i2p.exe"'
-    ${EndIf}
-    FileWriteByte $0 "13"
-    FileWriteByte $0 "10"
-    FileWrite $0 'if exist "%LOCALAPPDATA%\${APPNAME}\firefox.profile.i2p\" ('
-    FileWrite $0 '  echo "profile is configured, updating extensions"'
-    FileWriteByte $0 "13"
-    FileWriteByte $0 "10"
-    FileWrite $0 '  xcopy /s /i /y "$INSTDIR\firefox.profile.i2p\extensions" "%LOCALAPPDATA%\${APPNAME}\firefox.profile.i2p\extensions"'
-    FileWrite $0 ') else ('
-    FileWrite $0 '  echo "configuring profile"'
-    FileWriteByte $0 "13"
-    FileWriteByte $0 "10"
-    FileWrite $0 '  xcopy /s /i /y "$INSTDIR\firefox.profile.i2p" "%LOCALAPPDATA%\${APPNAME}\firefox.profile.i2p"'
-    FileWrite $0 ')'
-    FileWriteByte $0 "13"
-    FileWriteByte $0 "10"
-    FileWrite $0 'start "" "$FFINSTEXE\firefox.exe" -no-remote -profile "%LOCALAPPDATA%\${APPNAME}\firefox.profile.i2p" -url %1'
-    FileWriteByte $0 "13"
-    FileWriteByte $0 "10"
-    FileWrite $0 exit
-    FileWriteByte $0 "13"
-    FileWriteByte $0 "10"
-    FileClose $0
-
-    FileOpen $0 "$INSTDIR\i2pbrowser-private.bat" w
-    FileWrite $0 "@echo off"
-    FileWriteByte $0 "13"
-    FileWriteByte $0 "10"
-    ${If} ${FileExists} "$I2PINSTEXE\jpackaged"
-        FileWrite $0 'start /D "%LOCALAPPDATA%\${APPNAME}" "" "$I2PINSTEXE\i2p.exe"'
-    ${Else}
-        FileWrite $0 'start "" "$I2PINSTEXE\i2p.exe"'
-    ${EndIf}
-    FileWriteByte $0 "13"
-    FileWriteByte $0 "10"
-    FileWrite $0 'if exist "%LOCALAPPDATA%\${APPNAME}\firefox.profile.i2p\" ('
-    FileWrite $0 '  echo "profile is configured"'
-    FileWriteByte $0 "13"
-    FileWriteByte $0 "10"
-    FileWrite $0 '  xcopy /s /i /y "$INSTDIR\firefox.profile.i2p\extensions" "%LOCALAPPDATA%\${APPNAME}\firefox.profile.i2p\extensions"'
-    FileWrite $0 ') else ('
-    FileWrite $0 '  echo "configuring profile"'
-    FileWriteByte $0 "13"
-    FileWriteByte $0 "10"
-    FileWrite $0 '  xcopy /s /i /y "$INSTDIR\firefox.profile.i2p" "%LOCALAPPDATA%\${APPNAME}\firefox.profile.i2p"'
-    FileWrite $0 ')'
-    FileWriteByte $0 "13"
-    FileWriteByte $0 "10"
-    FileWrite $0 'start "" "$FFINSTEXE\firefox.exe" -no-remote -profile "%LOCALAPPDATA%\${APPNAME}\firefox.profile.i2p" -private-window about:blank'
-    FileWriteByte $0 "13"
-    FileWriteByte $0 "10"
-    FileWrite $0 exit
-    FileWriteByte $0 "13"
-    FileWriteByte $0 "10"
-    FileClose $0
-
-
-    # Install the launcher scripts: This will need to be it's own section, since
-    # now I think we just need to let the user select if the user is using a non
-    # default Firefox path.
-    FileOpen $0 "$INSTDIR\i2pconfig.bat" w
-    FileWrite $0 "@echo off"
-    FileWriteByte $0 "13"
-    FileWriteByte $0 "10"
-    FileWrite $0 'if exist "%LOCALAPPDATA%\${APPNAME}\firefox.profile.config.i2p\" ('
-    FileWrite $0 '  echo "profile is configured"'
-    FileWriteByte $0 "13"
-    FileWriteByte $0 "10"
-    FileWrite $0 '  xcopy /s /i /y "$INSTDIR\firefox.profile.i2p\extensions" "%LOCALAPPDATA%\${APPNAME}\firefox.profile.i2p\extensions"'
-    FileWrite $0 ') else ('
-    FileWrite $0 '  echo "configuring profile"'
-    FileWriteByte $0 "13"
-    FileWriteByte $0 "10"
-    FileWrite $0 '  xcopy /s /i /y "$INSTDIR\firefox.profile.config.i2p" "%LOCALAPPDATA%\${APPNAME}\firefox.profile.config.i2p"'
-    FileWrite $0 ')'
-    FileWriteByte $0 "13"
-    FileWriteByte $0 "10"
-    FileWrite $0 'start "" "$FFNONTORINSTEXE\firefox.exe" -no-remote -profile "%LOCALAPPDATA%\${APPNAME}\firefox.profile.config.i2p" -url %1'
-    FileWriteByte $0 "13"
-    FileWriteByte $0 "10"
-    FileWrite $0 exit
-    FileWriteByte $0 "13"
-    FileWriteByte $0 "10"
-    FileClose $0
-
-
+    # Install the launcher scripts
+    createDirectory "$INSTDIR\licenses"
+    SetOutPath "$INSTDIR"
+    File win/i2pbrowser.bat
+    File win/i2pbrowser-private.bat
+    File win/i2pconfig.bat
 
     # Install the licenses
     createDirectory "$INSTDIR\licenses"
