@@ -18,7 +18,7 @@ import java.lang.InterruptedException;
 
 public class WindowsUpdatePostProcessor implements UpdatePostProcessor {
     private final Log _log = I2PAppContext.getGlobalContext().logManager().getLog(WindowsUpdatePostProcessor.class);
-    protected Router i2pRouter = null;
+    protected static Router i2pRouter = null;
 
     public void updateDownloadedandVerified(UpdateType type, int fileType, String version, File file) throws IOException {
         if (fileType == 6) {

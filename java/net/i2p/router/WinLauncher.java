@@ -21,10 +21,10 @@ import static net.i2p.update.UpdateType.*;
  * i2p.dir.config this points to the (read-write) config directory in local appdata
  * router.pid - the pid of the java process.
  */
-public class WinLauncher extends WindowsUpdatePostProcessor {
-
-    public void main(String[] args) throws Exception {
-        File programs = selectProgramFile();
+public class WinLauncher {
+    private static WindowsUpdatePostProcessor wupp = new WindowsUpdatePostProcessor();
+    public static void main(String[] args) throws Exception {
+        File programs = wupp.selectProgramFile();
 
         File home = selectHome();
         if (!home.exists())
@@ -39,36 +39,41 @@ public class WinLauncher extends WindowsUpdatePostProcessor {
         System.setProperty("router.pid", String.valueOf(ProcessHandle.current().pid()));
         System.out.println("\t"+System.getProperty("i2p.dir.base") +"\n\t"+System.getProperty("i2p.dir.config")+"\n\t"+ System.getProperty("router.pid"));
 
-        i2pRouter = new Router(System.getProperties());
+        wupp.i2pRouter = new Router(System.getProperties());
+        System.out.println("Router is configured");
 
         UpdateManager upmgr = updateManagerClient();
         while (upmgr == null) {
             upmgr = updateManagerClient();
-            System.out.println("Waiting for update manager so we can pull our own updates");;
+            System.out.println("Waiting for update manager so we can pull our own updates");
         }
-        upmgr.register(this, ROUTER_SIGNED_SU3, 6);
-        upmgr.register(this, ROUTER_DEV_SU3, 6);
+        upmgr.register(wupp, ROUTER_SIGNED_SU3, 6);
+        System.out.println("Registered signed updates");
+        upmgr.register(wupp, ROUTER_DEV_SU3, 6);
+        System.out.println("Registered dev updates");
 
-        i2pRouter.runRouter();
+        wupp.i2pRouter.runRouter();
     }
 
-    private File selectHome() { //throws Exception {
+    private static File selectHome() { //throws Exception {
         if (SystemVersion.isWindows()) {
             File home = new File(System.getProperty("user.home"));
             File appData = new File(home, "AppData");
             File local = new File(appData, "Local");
             File i2p;
             i2p = new File(local, "I2P");
+            System.out.println("Windows jpackage wrapper started, using: " + i2p + "as config");
             return i2p.getAbsoluteFile();
         } else {
             File jrehome = new File(System.getProperty("java.home"));
             File programs = new File(jrehome.getParentFile().getParentFile(), ".i2p");
+            System.out.println("Linux portable jpackage wrapper started, using: " + programs + "as config");
             return programs.getAbsoluteFile();
         }
     }
 
-    private UpdateManager updateManagerClient() {
-        ClientAppManager clmgr = i2pRouter.getContext().getCurrentContext().clientAppManager();
+    private static UpdateManager updateManagerClient() {
+        ClientAppManager clmgr = wupp.i2pRouter.getContext().getCurrentContext().clientAppManager();
         if (clmgr == null) {
             return null;
         }

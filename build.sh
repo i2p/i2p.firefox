@@ -37,7 +37,7 @@ echo "compiling custom launcher"
 mkdir build
 cp "$I2P_JARS"/*.jar build
 cd java
-"$JAVA_HOME"/bin/javac -d ../build -classpath "$HERE"/build/i2p.jar:"$HERE"/build/router.jar:"$HERE"/build/routerconsole.jar net/i2p/router/*.java #WinLauncher.java
+"$JAVA_HOME"/bin/javac -d ../build -classpath "$HERE"/build/i2p.jar:"$HERE"/build/router.jar:"$HERE"/build/routerconsole.jar net/i2p/router/WinLauncher.java net/i2p/router/WindowsUpdatePostProcessor.java
 cd ..
 
 #echo "building launcher.jar"
