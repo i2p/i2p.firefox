@@ -29,7 +29,7 @@ var I2PINSTEXE
 
 !define RAM_NEEDED_FOR_64BIT 0x80000000
 
-InstallDir "$PROGRAMFILES\${COMPANYNAME}\${APPNAME}"
+InstallDir "$PROGRAMFILES64\${COMPANYNAME}\${APPNAME}"
 
 # rtf or txt file - remember if it is txt, it must be in the DOS text format (\r\n)
 LicenseData "licenses\LICENSE.index"
