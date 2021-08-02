@@ -1,7 +1,7 @@
 @echo off
 
 if exist "%ProgramFiles%\I2P\jpackaged" (
-  start /D "%LOCALAPPDATA%\I2P" "%ProgramFiles%\I2P\i2p.exe"
+  start "i2p" /D "%LOCALAPPDATA%\I2P" "%ProgramFiles%\I2P\i2p.exe"
 ) else (
   start "i2p" "%ProgramFiles%\I2P\i2p.exe"
 )
