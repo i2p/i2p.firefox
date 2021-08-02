@@ -416,11 +416,5 @@ SectionEnd
 
 Function LaunchLink
   #ExecShell "" "$SMPROGRAMS\${APPNAME}\${APPNAME}.lnk"
-  System::Call 'Kernel32::SetEnvironmentVariable(t, t)i ("ProgramFiles", "$PROGRAMFILES64").r0'
-  StrCmp $0 0 error
-    Exec "$INSTDIR\i2pbrowser.bat"
-    Goto done
-  error:
-    MessageBox MB_OK "Can't set environment variable"
-  done:
+  Exec "$INSTDIR\i2pbrowser.bat"
 FunctionEnd

@@ -1,4 +1,8 @@
-@echo off
+@echo on
+
+if not exist "%ProgramFiles%\I2P\" (
+  set ProgramFiles="C:\Program Files"
+)
 
 if exist "%ProgramFiles%\I2P\jpackaged" (
   start "i2p" /D "%LOCALAPPDATA%\I2P" "%ProgramFiles%\I2P\i2p.exe"
