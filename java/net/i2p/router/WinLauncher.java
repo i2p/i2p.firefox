@@ -86,7 +86,6 @@ public class WinLauncher {
         }
     }
 
-
     private static File selectHome() { //throws Exception {
         if (SystemVersion.isWindows()) {
             File home = new File(System.getProperty("user.home"));
