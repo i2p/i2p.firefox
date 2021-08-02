@@ -10,6 +10,8 @@ if exist "%ProgramFiles%\I2P\jpackaged" (
   start "i2p" "%ProgramFiles%\I2P\i2p.exe"
 )
 
+timeout /t 3
+
 if exist "%LOCALAPPDATA%\I2PBrowser-Launcher\firefox.profile.i2p\" (
   echo "profile is configured, updating extensions"
   xcopy /s /i /y "%ProgramFiles%\I2P\I2PBrowser-Launcher\firefox.profile.i2p\extensions" "%LOCALAPPDATA%\I2PBrowser-Launcher\firefox.profile.i2p\extensions"
