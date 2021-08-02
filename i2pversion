@@ -9,7 +9,7 @@
 #export VERSION="$VERSION"
 
 #Uncomment this to build from the tip of the master.
-I2P_VERSION=master
-export I2P_VERSION=master
-VERSION=$I2P_VERSION
+I2P_VERSION=0.9.50
+export I2P_VERSION=0.9.50
+VERSION=master
 export VERSION="$VERSION"

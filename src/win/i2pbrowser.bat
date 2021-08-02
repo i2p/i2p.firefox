@@ -11,4 +11,5 @@ if exist "%LOCALAPPDATA%\I2PBrowser-Launcher\firefox.profile.i2p\" (
 )
 
 start "" "$FFINSTEXE\firefox.exe" -no-remote -profile "%LOCALAPPDATA%\I2PBrowser-Launcher\firefox.profile.i2p" -url %1
+
 exit

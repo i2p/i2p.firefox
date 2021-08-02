@@ -28,7 +28,7 @@ help: .version
 	@echo "$(MAJOR).$(MINOR).$(BUILD)"
 	@echo "$(preset)"
 
-prep: profile.tgz app-profile.tgz profile build/licenses build/I2P build/I2P/config
+prep: profile.tgz app-profile.tgz profile build/licenses build/I2P build/I2P/config launchers
 	cp src/nsis/*.nsi build
 	cp src/nsis/*.nsh build
 	cp src/icons/*.ico build
