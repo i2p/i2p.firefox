@@ -31,7 +31,7 @@ ant distclean preppkg-windows || true
 cd "$HERE"
 RES_DIR="$HERE/../i2p.i2p/installer/resources"
 I2P_JARS="$HERE/../i2p.i2p/pkg-temp/lib"
-I2P_JBIGI="$HERE/../i2p.i2p/installer/lib/resources/jbigi"
+I2P_JBIGI="$HERE/../i2p.i2p/installer/lib/jbigi"
 I2P_PKG="$HERE/../i2p.i2p/pkg-temp"
 
 echo "compiling custom launcher"
