@@ -49,7 +49,7 @@ I2P:
 build/I2P: build
 	rm -rf build/I2P
 	cp -rv I2P build/I2P ; true
-	cp "$(I2P_JBIGI)"/*windows*.dll build/I2P/runtime/bin
+	cp "$(I2P_JBIGI)"/*windows*.dll build/I2P/runtime/lib
 
 configdir: src/I2P/config
 
@@ -62,6 +62,7 @@ src/I2P/config:
 	cp -v $(RES_DIR)/wrapper.config src/I2P/config/
 	cp -v $(RES_DIR)/hosts.txt src/I2P/config/hosts.txt
 	cp -R $(RES_DIR)/certificates src/I2P/config/certificates
+	cp -R $(RES_DIR)/eepsite src/I2P/config/eepsite
 	mkdir -p src/I2P/config/geoip
 	cp -v $(RES_DIR)/GeoLite2-Country.mmdb.gz src/I2P/config/geoip/GeoLite2-Country.mmdb.gz
 	cp -R "$(PKG_DIR)"/webapps src/I2P/config/webapps
