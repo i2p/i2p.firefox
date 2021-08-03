@@ -31,13 +31,13 @@ ant distclean preppkg-windows || true
 cd "$HERE"
 RES_DIR="$HERE/../i2p.i2p/installer/resources"
 I2P_JARS="$HERE/../i2p.i2p/pkg-temp/lib"
-I2P_JBIGI="$HERE/../i2p.i2p/installer/lib/jbigi"
+I2P_JBIGI="$HERE/../i2p.i2p/installer/lib//jbigi"
 I2P_PKG="$HERE/../i2p.i2p/pkg-temp"
 
 echo "compiling custom launcher"
 mkdir build
 cp "$I2P_JARS"/*.jar build
-cp "$I2P_JBIGI"/*windows*.dll build
+
 cd java
 "$JAVA_HOME"/bin/javac -d ../build -classpath "$HERE"/build/i2p.jar:"$HERE"/build/router.jar:"$HERE"/build/routerconsole.jar net/i2p/router/WinLauncher.java net/i2p/router/WindowsUpdatePostProcessor.java
 cd ..

@@ -38,6 +38,7 @@ install.exe: prep
 
 export RES_DIR="../i2p.i2p/installer/resources"
 export PKG_DIR="../i2p.i2p/pkg-temp"
+export I2P_JBIGI="../i2p.i2p/installer/lib/jbigi"
 
 distclean: clean
 	rm -rf I2P
@@ -48,6 +49,7 @@ I2P:
 build/I2P: build
 	rm -rf build/I2P
 	cp -rv I2P build/I2P ; true
+	cp "$(I2P_JBIGI)"/*windows*.dll build/I2P/
 
 configdir: src/I2P/config
 
