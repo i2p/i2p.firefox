@@ -3,6 +3,8 @@ package net.i2p.router;
 import java.io.*;
 import java.util.*;
 
+import net.i2p.crypto.*;
+
 import net.i2p.app.ClientAppManager;
 import net.i2p.router.RouterLaunch;
 import net.i2p.router.Router;
@@ -72,9 +74,9 @@ public class WinLauncher {
             sleep(1000);
         }
 
-        wupp = new WindowsUpdatePostProcessor();        
-        um.register(wupp, UpdateType.ROUTER_SIGNED_SU3, 6);//SU3File.TYPE_EXE);
-        um.register(wupp, UpdateType.ROUTER_DEV_SU3, 6);//SU3File.TYPE_EXE);
+        wupp = new WindowsUpdatePostProcessor(ctx);
+        um.register(wupp, UpdateType.ROUTER_SIGNED_SU3, SU3File.TYPE_EXE);
+        um.register(wupp, UpdateType.ROUTER_DEV_SU3, SU3File.TYPE_EXE);
     };
 
     private static void sleep(int millis) {

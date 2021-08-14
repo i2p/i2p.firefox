@@ -49,7 +49,7 @@ I2P:
 build/I2P: build
 	rm -rf build/I2P
 	cp -rv I2P build/I2P ; true
-	cp "$(I2P_JBIGI)"/*windows*.dll build/I2P/runtime/lib
+	cp "$(I2P_JBIGI)"/*windows*.dll build/I2P/runtime/lib; true
 
 configdir: src/I2P/config
 

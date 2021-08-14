@@ -215,9 +215,9 @@ Function routerDetect
         SetOutPath "$I2PINSTEXE\certificates\"
         File /nonfatal /a /r "I2P\config\certificates\"
 
-        createDirectory "$I2PINSTEXE\certificates\"
-        SetOutPath "$I2PINSTEXE\certificates\"
-        File /nonfatal /a /r "I2P\config\certificates\"
+        createDirectory "$I2PINSTEXE\eepsite\"
+        SetOutPath "$I2PINSTEXE\eepsite\"
+        File /nonfatal /a /r "I2P\config\eepsite\"
 
         Abort directory
     ${EndIf}
