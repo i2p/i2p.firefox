@@ -18,11 +18,26 @@ class WinUpdateProcess implements Runnable {
         this.versionSupplier = versionSupplier;
         this.file = file;
     }
+    
+    private File workDir() throws IOException{
+        if (ctx != null) {
+            File workDir = new File(ctx.getConfigDir().getAbsolutePath(), "i2p_update_win");
+            if (workDir.exists()) {
+                if (workDir.isFile())
+                    throw new IOException(workDir + " exists but is a file, get it out of the way");
+                    return null;
+            } else {
+                workDir.mkdirs();
+            }
+            return workDir;
+        }
+        return null;
+    }
 
-    private void runUpdateInstaller(File file){
+    private void runUpdateInstaller(File file) throws IOException {
         String version = versionSupplier.get();
 
-        var workingDir = new File(ctx.getConfigDir(), "mac_updates");
+        var workingDir = workDir();
         var logFile = new File(workingDir, "log-" + version + ".txt");
 
         ProcessBuilder pb = new ProcessBuilder(file.getAbsolutePath());
@@ -47,6 +62,10 @@ class WinUpdateProcess implements Runnable {
 
     @Override
     public void run() {
-        runUpdateInstaller(file);
+        try {
+            runUpdateInstaller(file);
+        } catch(IOException ioe) {
+            _log.error("Error running updater, update may fail.", ioe);
+        }
     }
 }

@@ -203,7 +203,6 @@ Function routerDetect
         File /nonfatal "I2P\config\wrapper.config"
         File /nonfatal "I2P\config\hosts.txt"
 
-
         createDirectory "$I2PINSTEXE\webapps\"
         SetOutPath "$I2PINSTEXE\webapps\"
         File /nonfatal /a /r "I2P\config\webapps\"
@@ -285,10 +284,6 @@ Section Install
           File /nonfatal /a /r "I2P\config\certificates\"
         ${EndIf}
     ${EndIf}
-
-
-
-
 
     # Install the launcher scripts
     createDirectory "$INSTDIR\licenses"

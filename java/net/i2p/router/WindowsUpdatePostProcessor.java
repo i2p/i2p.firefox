@@ -67,7 +67,7 @@ public class WindowsUpdatePostProcessor implements UpdatePostProcessor {
     private File moveUpdateInstaller(File file) throws IOException{
         RouterContext i2pContext = i2pRouter.getContext();
         if (i2pContext != null) {
-            File appDir = i2pContext.getAppDir();
+            File appDir = i2pContext.getConfigDir();
             File newFile = new File(workDir(), file.getName());
             file.renameTo(newFile);
             return newFile;
@@ -78,7 +78,7 @@ public class WindowsUpdatePostProcessor implements UpdatePostProcessor {
     private File workDir() throws IOException{
         RouterContext i2pContext = i2pRouter.getContext();
         if (i2pContext != null) {
-            File workDir = new File(i2pContext.getAppDir().getAbsolutePath(), "i2p_update_win");
+            File workDir = new File(i2pContext.getConfigDir().getAbsolutePath(), "i2p_update_win");
             if (workDir.exists()) {
                 if (workDir.isFile())
                     throw new IOException(workDir + " exists but is a file, get it out of the way");
@@ -96,12 +96,12 @@ public class WindowsUpdatePostProcessor implements UpdatePostProcessor {
         if (SystemVersion.isWindows()) {
             File jrehome = new File(System.getProperty("java.home"));
             File programs = jrehome.getParentFile();
-            System.out.println("Windows portable jpackage wrapper started, using: " + programs + " as working config");            
+            System.out.println("Windows portable jpackage wrapper found, using: " + programs + " as working config");            
             return programs.getAbsoluteFile();
         } else {
             File jrehome = new File(System.getProperty("java.home"));
             File programs = new File(jrehome.getParentFile().getParentFile(), "i2p");
-            System.out.println("Linux portable jpackage wrapper started, using: " + programs + " as working config");            
+            System.out.println("Linux portable jpackage wrapper found, using: " + programs + " as working config");            
             return programs.getAbsoluteFile();
         }
     }
