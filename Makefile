@@ -13,11 +13,14 @@ all: .version install.exe
 
 .version:
 	sed 's|!define VERSION||g' src/nsis/i2pbrowser-version.nsi | sed 's| |=|g' > .version
-	make version.txt
+	make version.txt src/nsis/i2pbrowser_jpackage.nsi
 
 version.txt:
 	echo "$(PROFILE_VERSION)" > src/profile/version.txt
 	echo "$(PROFILE_VERSION)" > src/app-profile/version.txt
+
+src/nsis/i2pbrowser_jpackage.nsi:
+	echo "!define I2P_VERSION $(I2P_VERSION)" > src/nsis/i2pbrowser_jpackage.nsi
 
 jpackage: .version I2P all
 

@@ -1,0 +1,1 @@
+!define I2P_VERSION 0.9.50

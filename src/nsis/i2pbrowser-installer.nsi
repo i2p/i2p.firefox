@@ -11,6 +11,7 @@ UniCode true
 !define CONSOLE_URL "http://127.0.0.1:7657/home"
 
 !include i2pbrowser-version.nsi
+!include i2pbrowser-jpackage.nsi
 !include FindProcess.nsh
 
 var FFINSTEXE
@@ -242,24 +243,52 @@ Section Install
     ${If} ${FileExists} "$I2PINSTEXE\jpackaged"
         createDirectory $I2PINSTEXE
         SetOutPath $I2PINSTEXE
-        File /nonfatal /a /r "I2P\"
-        File /nonfatal "I2P\config\jpackaged"
 
-        createDirectory "$I2PINSTEXE\"
-        SetOutPath "$I2PINSTEXE\"
+        ${If} ${Silent}
+          ReadEnvStr $0 OLD_I2P_VERSION
+          ${If} $0 < ${I2P_VERSION}
+            File /nonfatal /a /r "I2P\"
+            File /nonfatal "I2P\config\jpackaged"
 
-        createDirectory "$I2PINSTEXE\webapps\"
-        SetOutPath "$I2PINSTEXE\webapps\"
-        File /nonfatal /a /r "I2P\config\webapps\"
+            createDirectory "$I2PINSTEXE\"
+            SetOutPath "$I2PINSTEXE\"
 
-        createDirectory "$I2PINSTEXE\geoip\"
-        SetOutPath "$I2PINSTEXE\geoip\"
-        File /nonfatal /a /r "I2P\config\geoip\"
+            createDirectory "$I2PINSTEXE\webapps\"
+            SetOutPath "$I2PINSTEXE\webapps\"
+            File /nonfatal /a /r "I2P\config\webapps\"
 
-        createDirectory "$I2PINSTEXE\certificates\"
-        SetOutPath "$I2PINSTEXE\certificates\"
-        File /nonfatal /a /r "I2P\config\certificates\"
+            createDirectory "$I2PINSTEXE\geoip\"
+            SetOutPath "$I2PINSTEXE\geoip\"
+            File /nonfatal /a /r "I2P\config\geoip\"
+
+            createDirectory "$I2PINSTEXE\certificates\"
+            SetOutPath "$I2PINSTEXE\certificates\"
+            File /nonfatal /a /r "I2P\config\certificates\"
+          ${EndIf}  
+        ${Else}
+          File /nonfatal /a /r "I2P\"
+          File /nonfatal "I2P\config\jpackaged"
+
+          createDirectory "$I2PINSTEXE\"
+          SetOutPath "$I2PINSTEXE\"
+
+          createDirectory "$I2PINSTEXE\webapps\"
+          SetOutPath "$I2PINSTEXE\webapps\"
+          File /nonfatal /a /r "I2P\config\webapps\"
+
+          createDirectory "$I2PINSTEXE\geoip\"
+          SetOutPath "$I2PINSTEXE\geoip\"
+          File /nonfatal /a /r "I2P\config\geoip\"
+
+          createDirectory "$I2PINSTEXE\certificates\"
+          SetOutPath "$I2PINSTEXE\certificates\"
+          File /nonfatal /a /r "I2P\config\certificates\"
+        ${EndIf}
     ${EndIf}
+
+
+
+
 
     # Install the launcher scripts
     createDirectory "$INSTDIR\licenses"
@@ -419,6 +448,12 @@ SectionEnd
 !insertmacro MUI_PAGE_FINISH
 
 Function LaunchLink
-  #ExecShell "" "$SMPROGRAMS\${APPNAME}\${APPNAME}.lnk"
-  Exec "$INSTDIR\i2pbrowser.bat"
+  ${If} ${Silent}
+    ReadEnvStr $0 RESTART_I2P
+    ${If} $0 != ""
+      Exec "$INSTDIR\i2pbrowser.bat"
+    ${EndIf}  
+  ${Else}
+    Exec "$INSTDIR\i2pbrowser.bat"
+  ${EndIf}
 FunctionEnd
