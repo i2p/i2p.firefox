@@ -25,6 +25,7 @@ public class WindowsUpdatePostProcessor implements UpdatePostProcessor {
     protected static Router i2pRouter = null;
     private final AtomicBoolean hook = new AtomicBoolean();
     private volatile String version;
+    private volatile File positionedFile = null;
     WindowsUpdatePostProcessor() {
     	this.ctx = null;
     }
@@ -35,6 +36,10 @@ public class WindowsUpdatePostProcessor implements UpdatePostProcessor {
 
     public String getVersion() {
         return version;
+    }
+    
+    public File getFile() {
+        return positionedFile;
     }
 
     public void updateDownloadedandVerified(UpdateType type, int fileType, String version, File file) throws IOException {
@@ -49,9 +54,13 @@ public class WindowsUpdatePostProcessor implements UpdatePostProcessor {
             _log.warn("Unsupported file type " + fileType);
             return;
         }
-
-        File positionedFile = moveUpdateInstaller(file);
         
+        try {
+            this.positionedFile = moveUpdateInstaller(file);
+        } catch(IOException ioe) {
+            _log.error("Error positioning update installer", ioe);
+            return;
+        }
         this.version = version;
         
         if (!hook.compareAndSet(false,true)) {
@@ -60,11 +69,11 @@ public class WindowsUpdatePostProcessor implements UpdatePostProcessor {
         }
 
         _log.info("adding shutdown hook");
-        ctx.addFinalShutdownTask(new WinUpdateProcess(ctx, this::getVersion, positionedFile));
+        ctx.addFinalShutdownTask(new WinUpdateProcess(ctx, this::getVersion, this::getFile));
 
     }
     
-    private File moveUpdateInstaller(File file) throws IOException{
+    private File moveUpdateInstaller(File file) throws IOException {
         RouterContext i2pContext = i2pRouter.getContext();
         if (i2pContext != null) {
             File appDir = i2pContext.getConfigDir();
@@ -91,7 +100,6 @@ public class WindowsUpdatePostProcessor implements UpdatePostProcessor {
         return null;
     }
 
-
     protected File selectProgramFile() {
         if (SystemVersion.isWindows()) {
             File jrehome = new File(System.getProperty("java.home"));
@@ -103,17 +111,6 @@ public class WindowsUpdatePostProcessor implements UpdatePostProcessor {
             File programs = new File(jrehome.getParentFile().getParentFile(), "i2p");
             System.out.println("Linux portable jpackage wrapper found, using: " + programs + " as working config");            
             return programs.getAbsoluteFile();
-        }
-    }
-
-    protected File selectProgramFileExe() {
-        File pfpath = selectProgramFile();
-        if (SystemVersion.isWindows()) {
-            File app = new File(pfpath, "I2P.exe");
-            return app.getAbsoluteFile();
-        } else {
-            File app = new File(pfpath, "bin/I2P");
-            return app.getAbsoluteFile();
         }
     }
 

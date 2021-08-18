@@ -8,15 +8,14 @@ import java.io.*;
 import net.i2p.util.Log;
 
 class WinUpdateProcess implements Runnable {
-    private final Log _log = I2PAppContext.getGlobalContext().logManager().getLog(WinUpdateProcess.class);
     private final RouterContext ctx;
     private final Supplier<String> versionSupplier;
-    private final File file;
+    private final Supplier<File> fileSupplier;
     
-    WinUpdateProcess(RouterContext ctx, Supplier<String> versionSupplier, File file) {
+    WinUpdateProcess(RouterContext ctx, Supplier<String> versionSupplier, Supplier<File> fileSupplier) {
         this.ctx = ctx;
         this.versionSupplier = versionSupplier;
-        this.file = file;
+        this.fileSupplier = fileSupplier;
     }
     
     private File workDir() throws IOException{
@@ -34,8 +33,11 @@ class WinUpdateProcess implements Runnable {
         return null;
     }
 
-    private void runUpdateInstaller(File file) throws IOException {
+    private void runUpdateInstaller() throws IOException {
         String version = versionSupplier.get();
+	File file = fileSupplier.get();
+	if (file == null)
+	    return;
 
         var workingDir = workDir();
         var logFile = new File(workingDir, "log-" + version + ".txt");
@@ -55,17 +57,16 @@ class WinUpdateProcess implements Runnable {
                 redirectOutput(logFile).
                 start();
         } catch (IOException ex) {
-            if (_log.shouldWarn())
-                _log.warn("Unable to run update-program in background. Update will fail.");
+                System.out.println("Unable to run update-program in background. Update will fail.");
         }
     }
 
     @Override
     public void run() {
         try {
-            runUpdateInstaller(file);
+            runUpdateInstaller();
         } catch(IOException ioe) {
-            _log.error("Error running updater, update may fail.", ioe);
+            System.out.println("Error running updater, update may fail." + ioe);
         }
     }
 }
