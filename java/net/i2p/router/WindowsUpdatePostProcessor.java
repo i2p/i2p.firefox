@@ -55,12 +55,7 @@ public class WindowsUpdatePostProcessor implements UpdatePostProcessor {
             return;
         }
         
-        try {
-            this.positionedFile = moveUpdateInstaller(file);
-        } catch(IOException ioe) {
-            _log.error("Error positioning update installer", ioe);
-            return;
-        }
+        this.positionedFile = moveUpdateInstaller(file);
         this.version = version;
         
         if (!hook.compareAndSet(false,true)) {
@@ -76,12 +71,14 @@ public class WindowsUpdatePostProcessor implements UpdatePostProcessor {
     private File moveUpdateInstaller(File file) throws IOException {
         RouterContext i2pContext = i2pRouter.getContext();
         if (i2pContext != null) {
-            File appDir = i2pContext.getConfigDir();
             File newFile = new File(workDir(), file.getName());
-            file.renameTo(newFile);
-            return newFile;
+            boolean renamedStatus = file.renameTo(newFile);
+            if (renamedStatus)
+              return newFile;
+            else
+              throw new IOException("WindowsUpdatePostProcesssor unable to move file to working directory, update will fail");
         }
-        return null;
+        throw new IOException("Router context not available to WindowsUpdatePostProcesssor, unable to find working directory, update will fail");
     }
 
     private File workDir() throws IOException{
