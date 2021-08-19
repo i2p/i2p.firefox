@@ -23,9 +23,14 @@ public class WindowsUpdatePostProcessor implements UpdatePostProcessor {
     private final Log _log = I2PAppContext.getGlobalContext().logManager().getLog(WindowsUpdatePostProcessor.class);
     private final RouterContext ctx;
     protected static Router i2pRouter = null;
+    
     private final AtomicBoolean hook = new AtomicBoolean();
+
     private volatile String version;
+
     private volatile File positionedFile = null;
+    private final String fileName = "i2p-jpackage-update.exe";
+
     WindowsUpdatePostProcessor() {
     	this.ctx = null;
     }
@@ -71,7 +76,7 @@ public class WindowsUpdatePostProcessor implements UpdatePostProcessor {
     private File moveUpdateInstaller(File file) throws IOException {
         RouterContext i2pContext = i2pRouter.getContext();
         if (i2pContext != null) {
-            File newFile = new File(workDir(), file.getName());
+            File newFile = new File(workDir(), fileName);
             boolean renamedStatus = file.renameTo(newFile);
             if (renamedStatus)
               return newFile;
