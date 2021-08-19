@@ -57,4 +57,5 @@ echo "preparing to invoke jpackage for I2P version $I2P_VERSION"
   --verbose \
   $JPACKAGE_OPTS \
   --resource-dir build \
+  --java-options "--illegal-access=permit" \
   --input build --main-jar launcher.jar --main-class net.i2p.router.WinLauncher
