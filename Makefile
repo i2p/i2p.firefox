@@ -64,7 +64,7 @@ src/I2P/config:
 	cp -v $(RES_DIR)/i2ptunnel.config src/I2P/config/
 	cp -v $(RES_DIR)/wrapper.config src/I2P/config/
 	#grep -v 'router.updateURL' $(RES_DIR)/router.config > src/I2P/config/router.config
-	echo router.updateURL=http://nredpqdimaifunjvgmegejjbcgolzup6ryregdyxkvga2el4wgvq.b32.i2p/i2pwinupdate.su3 >> src/I2P/config/router.config
+	echo router.updateURL=http://ekm3fu6fr5pxudhwjmdiea5dovc3jdi66hjgop4c7z7dfaw7spca.b32.i2p/i2pwinupdate.su3 >> src/I2P/config/router.config
 	cp -v $(RES_DIR)/hosts.txt src/I2P/config/hosts.txt
 	cp -R $(RES_DIR)/certificates src/I2P/config/certificates
 	cp -R $(RES_DIR)/eepsite src/I2P/config/eepsite
