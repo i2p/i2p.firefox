@@ -1,4 +1,4 @@
-# uncomment on v3
+# This now requires v3
 UniCode true
 
 !define APPNAME "I2PBrowser-Launcher"
@@ -11,10 +11,13 @@ UniCode true
 !define CONSOLE_URL "http://127.0.0.1:7657/home"
 
 !include i2pbrowser-version.nsi
+!include i2pbrowser-jpackage.nsi
+!include FindProcess.nsh
 
 var FFINSTEXE
 var FFNONTORINSTEXE
 var I2PINSTEXE
+
 
 !define FFINSTEXE
 !define FFNONTORINSTEXE
@@ -27,14 +30,14 @@ var I2PINSTEXE
 
 !define RAM_NEEDED_FOR_64BIT 0x80000000
 
-InstallDir "$PROGRAMFILES\${COMPANYNAME}\${APPNAME}"
+InstallDir "$PROGRAMFILES64\${COMPANYNAME}\${APPNAME}"
 
 # rtf or txt file - remember if it is txt, it must be in the DOS text format (\r\n)
 LicenseData "licenses\LICENSE.index"
 # This will be in the installer/uninstaller's title bar
 Name "${COMPANYNAME} - ${APPNAME}"
 Icon ui2pbrowser_icon.ico
-OutFile "I2P-Profile-Installer-${VERSIONMAJOR}.${VERSIONMINOR}${VERSIONBUILD}.exe"
+OutFile "I2P-Profile-Installer-${VERSIONMAJOR}.${VERSIONMINOR}.${VERSIONBUILD}.exe"
 
 RequestExecutionLevel admin
 
@@ -169,10 +172,11 @@ Function .onInit
             StrCpy $FFINSTEXE "$PROFILE/Desktop/Tor Browser/Browser/"
         ${EndIf}
     ${EndIf}
-    ${If} ${FileExists} "${I2PINSTEXE32}/i2p.exe"
+    StrCpy $I2PINSTEXE "${I2PINSTEXE64}"
+    ${If} ${FileExists} "${I2PINSTEXE32}\i2p.exe"
         StrCpy $I2PINSTEXE "${I2PINSTEXE32}"
     ${EndIf}
-    ${If} ${FileExists} "${I2PINSTEXE64}/i2p.exe"
+    ${If} ${FileExists} "${I2PINSTEXE64}\i2p.exe"
         StrCpy $I2PINSTEXE "${I2PINSTEXE64}"
     ${EndIf}
 FunctionEnd
@@ -186,103 +190,107 @@ FunctionEnd
 Function routerDetect
     ${If} ${FileExists} "$I2PINSTEXE"
         Abort directory
+    ${Else}
+        createDirectory $I2PINSTEXE
+        SetOutPath $I2PINSTEXE
+        File /nonfatal /a /r "I2P\"
+        File /nonfatal "I2P\config\jpackaged"
+
+        createDirectory "$I2PINSTEXE\"
+        SetOutPath "$I2PINSTEXE\"
+        File /nonfatal "I2P\config\clients.config"
+        File /nonfatal "I2P\config\i2ptunnel.config"
+        File /nonfatal "I2P\config\wrapper.config"
+        File /nonfatal "I2P\config\hosts.txt"
+
+        createDirectory "$I2PINSTEXE\webapps\"
+        SetOutPath "$I2PINSTEXE\webapps\"
+        File /nonfatal /a /r "I2P\config\webapps\"
+
+        createDirectory "$I2PINSTEXE\geoip\"
+        SetOutPath "$I2PINSTEXE\geoip\"
+        File /nonfatal /a /r "I2P\config\geoip\"
+
+        createDirectory "$I2PINSTEXE\certificates\"
+        SetOutPath "$I2PINSTEXE\certificates\"
+        File /nonfatal /a /r "I2P\config\certificates\"
+
+        createDirectory "$I2PINSTEXE\eepsite\"
+        SetOutPath "$I2PINSTEXE\eepsite\"
+        File /nonfatal /a /r "I2P\config\eepsite\"
+
+        Abort directory
     ${EndIf}
 FunctionEnd
 
 # start default section
 Section Install
 
+    ${If} ${Silent}
+        ${Do}
+            ${FindProcess} "I2P.exe" $0
+            Sleep 500
+        ${LoopWhile} $0 <> 0
+    ${EndIf}
+
     # set the installation directory as the destination for the following actions
     createDirectory $INSTDIR
     SetOutPath $INSTDIR
     File ui2pbrowser_icon.ico
 
-    # Install the launcher scripts: This will need to be it's own section, since
-    # now I think we just need to let the user select if the user is using a non
-    # default Firefox path.
-    FileOpen $0 "$INSTDIR\i2pbrowser.bat" w
-    FileWrite $0 "@echo off"
-    FileWriteByte $0 "13"
-    FileWriteByte $0 "10"
+    # Update jpackaged I2P router, if it exists
     ${If} ${FileExists} "$I2PINSTEXE\jpackaged"
-        FileWrite $0 'start /D "%LOCALAPPDATA%\${APPNAME}" "" "$I2PINSTEXE\i2p.exe"'
-    ${Else}
-        FileWrite $0 'start "" "$I2PINSTEXE\i2p.exe"'
+        createDirectory $I2PINSTEXE
+        SetOutPath $I2PINSTEXE
+
+        ${If} ${Silent}
+          ReadEnvStr $0 OLD_I2P_VERSION
+          ${If} $0 < ${I2P_VERSION}
+            File /nonfatal /a /r "I2P\"
+            File /nonfatal "I2P\config\jpackaged"
+
+            createDirectory "$I2PINSTEXE\"
+            SetOutPath "$I2PINSTEXE\"
+
+            createDirectory "$I2PINSTEXE\webapps\"
+            SetOutPath "$I2PINSTEXE\webapps\"
+            File /nonfatal /a /r "I2P\config\webapps\"
+
+            createDirectory "$I2PINSTEXE\geoip\"
+            SetOutPath "$I2PINSTEXE\geoip\"
+            File /nonfatal /a /r "I2P\config\geoip\"
+
+            createDirectory "$I2PINSTEXE\certificates\"
+            SetOutPath "$I2PINSTEXE\certificates\"
+            File /nonfatal /a /r "I2P\config\certificates\"
+          ${EndIf}  
+        ${Else}
+          File /nonfatal /a /r "I2P\"
+          File /nonfatal "I2P\config\jpackaged"
+
+          createDirectory "$I2PINSTEXE\"
+          SetOutPath "$I2PINSTEXE\"
+
+          createDirectory "$I2PINSTEXE\webapps\"
+          SetOutPath "$I2PINSTEXE\webapps\"
+          File /nonfatal /a /r "I2P\config\webapps\"
+
+          createDirectory "$I2PINSTEXE\geoip\"
+          SetOutPath "$I2PINSTEXE\geoip\"
+          File /nonfatal /a /r "I2P\config\geoip\"
+
+          createDirectory "$I2PINSTEXE\certificates\"
+          SetOutPath "$I2PINSTEXE\certificates\"
+          File /nonfatal /a /r "I2P\config\certificates\"
+        ${EndIf}
     ${EndIf}
-    FileWriteByte $0 "13"
-    FileWriteByte $0 "10"
-    FileWrite $0 'if exist "%LOCALAPPDATA%\${APPNAME}\firefox.profile.i2p\" ('
-    FileWrite $0 '  echo "profile is configured"'
-    FileWrite $0 ') else ('
-    FileWrite $0 '  echo "configuring profile"'
-    FileWriteByte $0 "13"
-    FileWriteByte $0 "10"
-    FileWrite $0 '  xcopy /s /i /y "$INSTDIR\firefox.profile.i2p" "%LOCALAPPDATA%\${APPNAME}\firefox.profile.i2p"'
-    FileWrite $0 ')'
-    FileWriteByte $0 "13"
-    FileWriteByte $0 "10"
-    FileWrite $0 'start "" "$FFINSTEXE\firefox.exe" -no-remote -profile "%LOCALAPPDATA%\${APPNAME}\firefox.profile.i2p" -url %1'
-    FileWriteByte $0 "13"
-    FileWriteByte $0 "10"
-    FileWrite $0 exit
-    FileWriteByte $0 "13"
-    FileWriteByte $0 "10"
-    FileClose $0
 
-    FileOpen $0 "$INSTDIR\i2pbrowser-private.bat" w
-    FileWrite $0 "@echo off"
-    FileWriteByte $0 "13"
-    FileWriteByte $0 "10"
-    ${If} ${FileExists} "$I2PINSTEXE\jpackaged"
-        FileWrite $0 'start /D "%LOCALAPPDATA%\${APPNAME}" "" "$I2PINSTEXE\i2p.exe"'
-    ${Else}
-        FileWrite $0 'start "" "$I2PINSTEXE\i2p.exe"'
-    ${EndIf}
-    FileWriteByte $0 "13"
-    FileWriteByte $0 "10"
-    FileWrite $0 'if exist "%LOCALAPPDATA%\${APPNAME}\firefox.profile.i2p\" ('
-    FileWrite $0 '  echo "profile is configured"'
-    FileWrite $0 ') else ('
-    FileWrite $0 '  echo "configuring profile"'
-    FileWriteByte $0 "13"
-    FileWriteByte $0 "10"
-    FileWrite $0 '  xcopy /s /i /y "$INSTDIR\firefox.profile.i2p" "%LOCALAPPDATA%\${APPNAME}\firefox.profile.i2p"'
-    FileWrite $0 ')'
-    FileWriteByte $0 "13"
-    FileWriteByte $0 "10"
-    FileWrite $0 'start "" "$FFINSTEXE\firefox.exe" -no-remote -profile "%LOCALAPPDATA%\${APPNAME}\firefox.profile.i2p" -private-window about:blank'
-    FileWriteByte $0 "13"
-    FileWriteByte $0 "10"
-    FileWrite $0 exit
-    FileWriteByte $0 "13"
-    FileWriteByte $0 "10"
-    FileClose $0
-
-
-    # Install the launcher scripts: This will need to be it's own section, since
-    # now I think we just need to let the user select if the user is using a non
-    # default Firefox path.
-    FileOpen $0 "$INSTDIR\i2pconfig.bat" w
-    FileWrite $0 "@echo off"
-    FileWriteByte $0 "13"
-    FileWriteByte $0 "10"
-    FileWrite $0 'if exist "%LOCALAPPDATA%\${APPNAME}\firefox.profile.config.i2p\" ('
-    FileWrite $0 '  echo "profile is configured"'
-    FileWrite $0 ') else ('
-    FileWrite $0 '  echo "configuring profile"'
-    FileWriteByte $0 "13"
-    FileWriteByte $0 "10"
-    FileWrite $0 '  xcopy /s /i /y "$INSTDIR\firefox.profile.config.i2p" "%LOCALAPPDATA%\${APPNAME}\firefox.profile.config.i2p"'
-    FileWrite $0 ')'
-    FileWriteByte $0 "13"
-    FileWriteByte $0 "10"
-    FileWrite $0 'start "" "$FFNONTORINSTEXE\firefox.exe" -no-remote -profile "%LOCALAPPDATA%\${APPNAME}\firefox.profile.config.i2p" -url %1'
-    FileWriteByte $0 "13"
-    FileWriteByte $0 "10"
-    FileWrite $0 exit
-    FileWriteByte $0 "13"
-    FileWriteByte $0 "10"
-    FileClose $0
+    # Install the launcher scripts
+    createDirectory "$INSTDIR\licenses"
+    SetOutPath "$INSTDIR"
+    File win/i2pbrowser.bat
+    File win/i2pbrowser-private.bat
+    File win/i2pconfig.bat
 
     # Install the licenses
     createDirectory "$INSTDIR\licenses"
@@ -325,10 +333,13 @@ Section Install
 
     SetOutPath "$INSTDIR"
     createDirectory "$SMPROGRAMS\${APPNAME}"
-    CreateShortCut "$SMPROGRAMS\${APPNAME}\${APPNAME}.lnk" "C:\Windows\system32\cmd.exe" "/c $\"$INSTDIR\i2pbrowser.bat$\" ${CONSOLE_URL}" "$INSTDIR\ui2pbrowser_icon.ico"
-    CreateShortCut "$SMPROGRAMS\${APPNAME}\Private Browsing-${APPNAME}.lnk" "C:\Windows\system32\cmd.exe" "/c $\"$INSTDIR\i2pbrowser-private.bat$\"" "$INSTDIR\ui2pbrowser_icon.ico"
-    CreateShortCut "$DESKTOP\${APPNAME}.lnk" "C:\Windows\system32\cmd.exe" "/c $\"$INSTDIR\i2pbrowser.bat$\" ${CONSOLE_URL}" "$INSTDIR\ui2pbrowser_icon.ico"
-    CreateShortCut "$DESKTOP\Private Browsing-${APPNAME}.lnk" "C:\Windows\system32\cmd.exe" "/c $\"$INSTDIR\i2pbrowser-private.bat$\"" "$INSTDIR\ui2pbrowser_icon.ico"
+    CreateShortCut "$SMPROGRAMS\${APPNAME}\Browse I2P.lnk" "C:\Windows\system32\cmd.exe" "/c $\"$INSTDIR\i2pbrowser.bat$\" ${CONSOLE_URL}" "$INSTDIR\ui2pbrowser_icon.ico"
+    CreateShortCut "$SMPROGRAMS\${APPNAME}\Browse I2P - Temporary Identity.lnk" "C:\Windows\system32\cmd.exe" "/c $\"$INSTDIR\i2pbrowser-private.bat$\"" "$INSTDIR\ui2pbrowser_icon.ico"
+;    CreateShortCut "$SMPROGRAMS\${APPNAME}\I2P Applications.lnk" "C:\Windows\system32\cmd.exe" "/c $\"$INSTDIR\i2pconfig.bat$\"" "$INSTDIR\ui2pbrowser_icon.ico"
+
+    CreateShortCut "$DESKTOP\Browse I2P.lnk" "C:\Windows\system32\cmd.exe" "/c $\"$INSTDIR\i2pbrowser.bat$\" ${CONSOLE_URL}" "$INSTDIR\ui2pbrowser_icon.ico"
+    CreateShortCut "$DESKTOP\Browse I2P - Temporary Identity.lnk" "C:\Windows\system32\cmd.exe" "/c $\"$INSTDIR\i2pbrowser-private.bat$\"" "$INSTDIR\ui2pbrowser_icon.ico"
+;    CreateShortCut "$DESKTOP\I2P Applications.lnk" "C:\Windows\system32\cmd.exe" "/c $\"$INSTDIR\i2pconfig.bat$\"" "$INSTDIR\ui2pbrowser_icon.ico"
 
     ;# Point the browser config setting in the base router.config
     FileOpen $0 "$I2PINSTEXE\router.config" a
@@ -421,7 +432,10 @@ Section "uninstall"
     rmDir "$INSTDIR\firefox.profile.i2p"
     rmDir "$LOCALAPPDATA\${APPNAME}"
     rmDir "$INSTDIR"
-
+    
+    ${If} ${FileExists} "$I2PINSTEXE\jpackaged"
+        rmDir "$I2PINSTEXE"
+    ${EndIf}
     # delete the uninstaller
     Delete "$INSTDIR\uninstall-i2pbrowser.exe"
 
@@ -435,5 +449,12 @@ SectionEnd
 !insertmacro MUI_PAGE_FINISH
 
 Function LaunchLink
-  ExecShell "" "$SMPROGRAMS\${APPNAME}\${APPNAME}.lnk"
+  ${If} ${Silent}
+    ReadEnvStr $0 RESTART_I2P
+    ${If} $0 != ""
+      Exec "$INSTDIR\i2pbrowser.bat"
+    ${EndIf}  
+  ${Else}
+    Exec "$INSTDIR\i2pbrowser.bat"
+  ${EndIf}
 FunctionEnd

@@ -2,14 +2,7 @@ build
 *.deb
 *.tgz
 ./I2P/
-debian/*.ex
-debian/*.EX
-debian/i2p-firefox-profile
+i2pversion_override
 *.crl
 *.crt
 *.pem
-*.info
-*.keys.dat
-mar-tools-mac64*
-mar-tools-win64*
-mar-tools-linux64*
