@@ -11,6 +11,9 @@ PROFILE_VERSION=$(MAJOR).$(MINOR).$(BUILD)
 
 all: .version install.exe
 
+tag:
+	git tag $(PROFILE_VERSION)
+
 .version:
 	sed 's|!define VERSION||g' src/nsis/i2pbrowser-version.nsi | sed 's| |=|g' > .version
 	make version.txt src/nsis/i2pbrowser_jpackage.nsi
