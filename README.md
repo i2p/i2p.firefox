@@ -191,6 +191,22 @@ TODO: Add links to the respective instructions for each of these.
 
  5. Run `make` to build the installer.
 
+Building a signed update file
+-----------------------------
+
+Building a signed update file for automatically updating a Windows I2P router
+requires you to also have Go installed in your Cygwin or WSL environment.
+With WSL, you can do this using the command:
+
+        wsl sudo apt-get install golang-go
+
+With that dependency satisfied, you can then run:
+
+        wsl make su3
+
+to build the signing tool if necessary and then package the installer in a
+signed update file.
+
 Issues
 ------
 
