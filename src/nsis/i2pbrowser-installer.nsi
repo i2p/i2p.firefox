@@ -432,7 +432,10 @@ Section "uninstall"
     rmDir "$INSTDIR\firefox.profile.i2p"
     rmDir "$LOCALAPPDATA\${APPNAME}"
     rmDir "$INSTDIR"
-
+    
+    ${If} ${FileExists} "$I2PINSTEXE\jpackaged"
+        rmDir "$I2PINSTEXE"
+    ${EndIf}
     # delete the uninstaller
     Delete "$INSTDIR\uninstall-i2pbrowser.exe"
 
