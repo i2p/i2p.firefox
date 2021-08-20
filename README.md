@@ -207,6 +207,25 @@ With that dependency satisfied, you can then run:
 to build the signing tool if necessary and then package the installer in a
 signed update file.
 
+Docker Support
+--------------
+
+You can use a Docker container to install this browser profile as well. In order
+to do this, you can run the commands:
+
+        xhost + local:docker
+        docker run -it --rm \
+          --net=host \
+          -e DISPLAY=unix$(DISPLAY) \
+          -v /tmp/.X11-unix:/tmp/.X11-unix \
+          geti2p/i2p.firefox firefox --profile /src/build/profile
+
+To build and run the container locally, clone this repository and run the
+
+        make run
+
+target.
+
 Issues
 ------
 

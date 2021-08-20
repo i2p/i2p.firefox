@@ -40,4 +40,5 @@ if [ -z $FIREFOX ]; then
   exit 1
 fi
 
+echo $FIREFOX --profile "$BROWSING_PROFILE" $@
 $FIREFOX --profile "$BROWSING_PROFILE" $@

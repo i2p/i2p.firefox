@@ -100,7 +100,7 @@ profile: build/profile/user.js build/profile/prefs.js build/profile/bookmarks.ht
 profile.tgz: .version profile
 #	$(eval PROFILE_VERSION := $(shell cat src/profile/version.txt))
 	@echo "building profile tarball $(PROFILE_VERSION)"
-	bash -c 'ls I2P && cp -rv build/I2P build/profile/I2P'; true
+	sh -c 'ls I2P && cp -rv build/I2P build/profile/I2P'; true
 	install -m755 src/unix/i2pbrowser.sh build/profile/i2pbrowser.sh
 	cd build && tar -czf profile-$(PROFILE_VERSION).tgz profile && cp profile-$(PROFILE_VERSION).tgz ../
 
@@ -126,7 +126,7 @@ app-profile: .version build/app-profile/user.js build/app-profile/prefs.js build
 app-profile.tgz: app-profile
 #	$(eval PROFILE_VERSION := $(shell cat src/app-profile/version.txt))
 	@echo "building app-profile tarball $(PROFILE_VERSION)"
-	bash -c 'ls I2P && cp -rv build/I2P build/app-profile/I2P'; true
+	sh -c 'ls I2P && cp -rv build/I2P build/app-profile/I2P'; true
 	install -m755 src/unix/i2pconfig.sh build/app-profile/i2pconfig.sh
 	cd build && tar -czf app-profile-$(PROFILE_VERSION).tgz app-profile && cp app-profile-$(PROFILE_VERSION).tgz ../
 
@@ -149,13 +149,15 @@ copy-app-xpi: build/NoScript.xpi build/HTTPSEverywhere.xpi build/i2prhz@eyedeeka
 	cp build/HTTPSEverywhere.xpi "build/app-profile/extensions/https-everywhere-eff@eff.org.xpi"
 	cp build/i2prhz@eyedeekay.github.io.xpi build/app-profile/extensions/i2prhz@eyedeekay.github.io.xpi
 
-build/i2prhz@eyedeekay.github.io.xpi:
+build-extensions: build/i2prhz@eyedeekay.github.io.xpi build/NoScript.xpi build/HTTPSEverywhere.xpi
+
+build/i2prhz@eyedeekay.github.io.xpi: i2psetproxy.url
 	curl -L `cat i2psetproxy.url` > build/i2prhz@eyedeekay.github.io.xpi
 
 build/NoScript.xpi: NoScript.url
 	curl -L `cat NoScript.url` > build/NoScript.xpi
 
-build/HTTPSEverywhere.xpi : HTTPSEverywhere.url
+build/HTTPSEverywhere.xpi: HTTPSEverywhere.url
 	curl -L `cat HTTPSEverywhere.url` > build/HTTPSEverywhere.xpi
 
 clean-extensions:
@@ -171,6 +173,8 @@ NoScript.url:
 
 i2psetproxy.url:
 	@echo "https://addons.mozilla.org/firefox/downloads/file/3784917/"`./amo-version.sh i2pipb-rhizome-variant`"/i2prhz@eyedeekay.github.io" > i2psetproxy.url
+
+#i2ppb@eyedeekay.github.io.xpi
 
 build/profile/extensions: build/profile
 	mkdir -p build/profile/extensions
@@ -255,3 +259,17 @@ $(GOPATH)/src/i2pgit.org/idk/su3-tools/su3-tools:
 
 su3: $(GOPATH)/src/i2pgit.org/idk/su3-tools/su3-tools
 	$(GOPATH)/src/i2pgit.org/idk/su3-tools/su3-tools -name "I2P-Profile-Installer-$(PROFILE_VERSION)" -signer "$(SIGNER)" -version "$(I2P_VERSION)"
+
+docker:
+	docker build -t geti2p/i2p.firefox .
+
+xhost:
+	xhost + local:docker
+
+run: docker xhost
+	docker run -it --rm \
+		--net=host \
+		-e DISPLAY=unix$(DISPLAY) \
+		-v /tmp/.X11-unix:/tmp/.X11-unix \
+		geti2p/i2p.firefox firefox --profile /src/build/profile
+		
