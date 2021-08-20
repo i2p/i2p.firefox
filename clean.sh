@@ -11,7 +11,6 @@ rm -rf \
 	logs \
 	peerProfiles \
 	prngseed.rnd \
-	router.config \
 	wrapper.log \
 	*.jar \
 	*.exe \
