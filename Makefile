@@ -245,11 +245,11 @@ checkinstall: version
 		--deldesc=yes \
 		--backup=no
 
-GOPATH=$(HOME)
+GOPATH=$(HOME)/go
 
 $(GOPATH)/src/i2pgit.org/idk/su3-tools/su3-tools:
 	git clone https://i2pgit.org/idk/su3-tools $(GOPATH)/src/i2pgit.org/idk/su3-tools
-	cd $(GOPATH)/src/i2pgit.org/idk/su3-tools && go build && go install
+	cd $(GOPATH)/src/i2pgit.org/idk/su3-tools && go mod vendor && go build
 
 su3: $(GOPATH)/src/i2pgit.org/idk/su3-tools/su3-tools
 	$(GOPATH)/src/i2pgit.org/idk/su3-tools/su3-tools -name "I2P-Profile-Installer-$(PROFILE_VERSION)" -signer "$(SIGNER)" -version "$(I2P_VERSION)"
