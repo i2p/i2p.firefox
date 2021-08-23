@@ -1,5 +1,5 @@
-i2p-firefox-profile (0.04.0-1) unstable; urgency=medium
+i2p-firefox-profile (0.04.0-1) stable; urgency=medium
 
   * Initial release. Closes i2pgit.org/i2p-hackers/i2p.firefox #5
 
- -- idk <hankhill19580@gmail.com>  Sun, 22 Aug 2021 22:27:37 -0400
+ -- eyedeekay <hankhill19580@gmail.com>  Sun, 22 Aug 2021 22:27:37 -0400

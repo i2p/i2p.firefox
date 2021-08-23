@@ -273,4 +273,7 @@ run: docker xhost
 		geti2p/i2p.firefox firefox --profile /src/build/profile
 
 orig:
-	tar -cvzf ../i2p-firefox-profile_$(PROFILE_VERSION).orig.tar.gz .
+	tar --exclude=debian --exclude=.git -cvzf ../i2p-firefox-profile_$(PROFILE_VERSION).orig.tar.gz .
+
+dput:
+	dput ppa:i2p-community/ppa ../i2p-firefox-profile_$(PROFILE_VERSION)-1_source.changes
