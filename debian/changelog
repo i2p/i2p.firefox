@@ -1,5 +1,5 @@
-i2p-firefox-profile (0.04-1) unstable; urgency=medium
+i2p-firefox-profile (0.04.0-1) unstable; urgency=medium
 
-  * Initial release (Closes: #nnnn)  <nnnn is the bug number of your ITP>
+  * Initial release. Closes i2pgit.org/i2p-hackers/i2p.firefox #5
 
- -- idk <hankhill19580@gmail.com>  Sat, 03 Jul 2021 23:32:29 -0400
+ -- idk <hankhill19580@gmail.com>  Sun, 22 Aug 2021 22:27:37 -0400

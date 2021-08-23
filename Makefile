@@ -271,4 +271,6 @@ run: docker xhost
 		-e DISPLAY=unix$(DISPLAY) \
 		-v /tmp/.X11-unix:/tmp/.X11-unix \
 		geti2p/i2p.firefox firefox --profile /src/build/profile
-		
+
+orig:
+	tar -cvzf ../i2p-firefox-profile_$(PROFILE_VERSION).orig.tar.gz .

@@ -1,6 +1,9 @@
 i2p-firefox-profile for Debian
 -----------------------------
 
-<possible notes regarding this package - if none, delete this file>
+This is a Firefox Profile and a bundle of Open-Source extensions which are
+packaged for convenience as a Debian-style package. The extensions themselves
+may not be packaged in Debian. They are side-loaded on the first run of the
+browser profile.
 
  -- idk <hankhill19580@gmail.com>  Sat, 03 Jul 2021 23:32:29 -0400
