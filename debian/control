@@ -2,7 +2,7 @@ Source: i2p-firefox-profile
 Section: net
 Priority: optional
 Maintainer: idk <hankhill19580@gmail.com>
-Build-Depends: debhelper-compat (= 13)
+Build-Depends: debhelper-compat (= 11)
 Standards-Version: 4.5.1
 Homepage: https://i2pgit.org/i2p-hackers/i2p.firefox
 Vcs-Browser: https://i2pgit.org/i2p-hackers/i2p.firefox
