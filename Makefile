@@ -119,10 +119,10 @@ build/profile/bookmarks.html: build/profile src/profile/bookmarks.html
 build/profile/storage-sync.sqlite: build/profile src/profile/storage-sync.sqlite
 	cp src/profile/storage-sync.sqlite build/profile/storage-sync.sqlite
 
-copy-xpi: build/NoScript.xpi build/HTTPSEverywhere.xpi build/i2prhz@eyedeekay.github.io.xpi build/profile/extensions
+copy-xpi: build/NoScript.xpi build/HTTPSEverywhere.xpi build/i2ppb@eyedeekay.github.io.xpi build/profile/extensions
 	cp build/NoScript.xpi "build/profile/extensions/{73a6fe31-595d-460b-a920-fcc0f8843232}.xpi"
 	cp build/HTTPSEverywhere.xpi "build/profile/extensions/https-everywhere-eff@eff.org.xpi"
-	cp build/i2prhz@eyedeekay.github.io.xpi build/profile/extensions/i2prhz@eyedeekay.github.io.xpi
+	cp build/i2ppb@eyedeekay.github.io.xpi build/profile/extensions/i2ppb@eyedeekay.github.io.xpi
 
 app-profile: .version build/app-profile/user.js build/app-profile/prefs.js build/app-profile/chrome/userChrome.css build/app-profile/bookmarks.html build/app-profile/storage-sync.sqlite copy-app-xpi
 
@@ -148,14 +148,14 @@ build/app-profile/bookmarks.html: build/app-profile src/app-profile/bookmarks.ht
 build/app-profile/storage-sync.sqlite: build/app-profile src/app-profile/storage-sync.sqlite
 	cp src/app-profile/storage-sync.sqlite build/app-profile/storage-sync.sqlite
 
-copy-app-xpi: build/NoScript.xpi build/HTTPSEverywhere.xpi build/i2prhz@eyedeekay.github.io.xpi build/app-profile/extensions
+copy-app-xpi: build/NoScript.xpi build/HTTPSEverywhere.xpi build/i2ppb@eyedeekay.github.io.xpi build/app-profile/extensions
 	cp build/HTTPSEverywhere.xpi "build/app-profile/extensions/https-everywhere-eff@eff.org.xpi"
-	cp build/i2prhz@eyedeekay.github.io.xpi build/app-profile/extensions/i2prhz@eyedeekay.github.io.xpi
+	cp build/i2ppb@eyedeekay.github.io.xpi build/app-profile/extensions/i2ppb@eyedeekay.github.io.xpi
 
-build-extensions: build/i2prhz@eyedeekay.github.io.xpi build/NoScript.xpi build/HTTPSEverywhere.xpi
+build-extensions: build/i2ppb@eyedeekay.github.io.xpi build/NoScript.xpi build/HTTPSEverywhere.xpi
 
-build/i2prhz@eyedeekay.github.io.xpi: i2psetproxy.url
-	curl -L `cat i2psetproxy.url` > build/i2prhz@eyedeekay.github.io.xpi
+build/i2ppb@eyedeekay.github.io.xpi: i2psetproxy.url
+	curl -L `cat i2psetproxy.url` > build/i2ppb@eyedeekay.github.io.xpi
 
 build/NoScript.xpi: NoScript.url
 	curl -L `cat NoScript.url` > build/NoScript.xpi
@@ -169,14 +169,15 @@ clean-extensions:
 extensions:HTTPSEverywhere.url NoScript.url i2psetproxy.url
 
 HTTPSEverywhere.url:
-	@echo "https://addons.mozilla.org/firefox/downloads/file/3716461/"`./amo-version.sh https-everywhere`"/https_everywhere-"`./amo-version.sh https-everywhere`"-an+fx.xpi" > HTTPSEverywhere.url
+	@echo "https://addons.mozilla.org/firefox/downloads/file/3809748/"`./amo-version.sh https-everywhere`"/https-everywhere-eff@eff.org.xpi" > HTTPSEverywhere.url
 
 NoScript.url:
 	@echo "https://addons.mozilla.org/firefox/downloads/file/3534184/"`./amo-version.sh noscript`"/{73a6fe31-595d-460b-a920-fcc0f8843232}.xpi" > NoScript.url
 
 i2psetproxy.url:
-	@echo "https://addons.mozilla.org/firefox/downloads/file/3784917/"`./amo-version.sh i2pipb-rhizome-variant`"/i2prhz@eyedeekay.github.io" > i2psetproxy.url
+	@echo "https://addons.mozilla.org/firefox/downloads/file/3821635/"`./amo-version.sh i2p-in-private-browsing`"/i2ppb@eyedeekay.github.io.xpi" > i2psetproxy.url
 
+#https://addons.mozilla.org/firefox/downloads/file/3821635/i2p_in_private_browsing-0.112.1-an+fx.xpi
 #i2ppb@eyedeekay.github.io.xpi
 
 build/profile/extensions: build/profile
