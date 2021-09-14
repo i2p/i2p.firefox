@@ -46,7 +46,7 @@ export RES_DIR="../i2p.i2p/installer/resources"
 export PKG_DIR="../i2p.i2p/pkg-temp"
 export I2P_JBIGI="../i2p.i2p/installer/lib/jbigi"
 
-distclean: clean
+distclean: clean clean-extensions
 	rm -rf I2P
 
 I2P:
@@ -92,7 +92,7 @@ build/licenses: build
 	unix2dos build/licenses/LICENSE.index
 
 clean:
-	rm -rf build app-profile-*.tgz profile-*.tgz I2P-Profile-Installer-*.exe *.deb src/I2P/config *.su3
+	rm -rf build app-profile-*.tgz profile-*.tgz I2P-Profile-Installer-*.exe *.deb src/I2P/config *.su3 .version
 
 build:
 	@echo "creating build directory"
@@ -235,7 +235,7 @@ uninstall:
 		/usr/share/applications/i2pbrowser.desktop \
 		/usr/share/applications/i2pconfig.desktop
 
-checkinstall: version
+checkinstall: .version
 	checkinstall \
 		--default \
 		--install=no \
@@ -262,7 +262,7 @@ $(GOPATH)/src/i2pgit.org/idk/su3-tools/su3-tools:
 		go mod vendor && go build
 
 su3: $(GOPATH)/src/i2pgit.org/idk/su3-tools/su3-tools
-	$(GOPATH)/src/i2pgit.org/idk/su3-tools/su3-tools -name "I2P-Profile-Installer-$(PROFILE_VERSION)" -signer "$(SIGNER)" -version "$(I2P_VERSION)"
+	$(GOPATH)/src/i2pgit.org/idk/su3-tools/su3-tools -name "I2P-Profile-Installer-$(PROFILE_VERSION)-signed" -signer "$(SIGNER)" -version "$(I2P_VERSION)"
 
 docker:
 	docker build -t geti2p/i2p.firefox .
