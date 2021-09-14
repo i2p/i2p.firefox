@@ -184,12 +184,20 @@ TODO: Add links to the respective instructions for each of these.
         ant clean pkg
         cd ..
 
- 7. Move into the i2p.firefox directory. Run the `./build.sh` script.
+ 4. Move into the i2p.firefox directory. Run the `./build.sh` script.
 
         cd i2p.firefox
         ./build.sh
 
  5. Run `make` to build the installer.
+
+Doing a Release
+---------------
+
+Once you have the installer `.exe` file produced by NSIS, you're almost ready to
+do a release. As a final step, someone must sign the `.exe` file using a
+Certificate which Windows will recognize. The current signer of the Windows
+bundle is Zlatinb. Standard Windows signing tools are used.
 
 Building a signed update file
 -----------------------------
@@ -206,6 +214,9 @@ With that dependency satisfied, you can then run:
 
 to build the signing tool if necessary and then package the installer in a
 signed update file.
+
+It's also probably possible to do this with the Java I2P distribution and a
+`.bat` script.
 
 Docker Support
 --------------
