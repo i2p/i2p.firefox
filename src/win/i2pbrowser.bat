@@ -1,13 +1,17 @@
 @echo on
 
-if not exist "%ProgramFiles%\I2P\" (
-  set "ProgramFiles=C:\Program Files"
+if exist "%ProgramFiles%\I2P\" (
+  set "I2PPath=%ProgramFiles%\I2P\"
 )
 
+if exist "%ProgramFiles(x86)%\I2P" {
+  set "I2PPath=%ProgramFiles(x86)%\I2P"
+}
+
 if exist "%ProgramFiles%\I2P\jpackaged" (
-  start "i2p" /D "%LOCALAPPDATA%\I2P" "%ProgramFiles%\I2P\i2p.exe"
+  start "i2p" /D "%LOCALAPPDATA%\I2P" "%I2PPath%\i2p.exe"
 ) else (
-  start "i2p" "%ProgramFiles%\I2P\i2p.exe"
+  start "i2p" "%I2PPath%\i2p.exe"
 )
 
 timeout /t 3
