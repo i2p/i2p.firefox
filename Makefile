@@ -290,19 +290,19 @@ torrent: i2pwinupdate.su3
 MAGNET=`bttools torrent printinfo i2pwinupdate.su3.torrent | grep 'MagNet' | sed 's|MagNet: ||g'`
 
 releases.json: torrent
-	@echo "["		| tee ../i2p.newsxml/data/win/stable/releases.json
-	@echo "  {"		| tee -a ../i2p.newsxml/data/win/stable/releases.json
-	@echo "    \"date\": \"$(I2P_DATE)\","			| tee -a ../i2p.newsxml/data/win/stable/releases.json
-	@echo "    \"version\": \"$(I2P_VERSION)\","	| tee -a ../i2p.newsxml/data/win/stable/releases.json
-	@echo "    \"minVersion\": \"1.5.0\","			| tee -a ../i2p.newsxml/data/win/stable/releases.json
-	@echo "    \"minJavaVersion\": \"1.8\","		| tee -a ../i2p.newsxml/data/win/stable/releases.json
-	@echo "    \"updates\": {"		| tee -a ../i2p.newsxml/data/win/stable/releases.json
-	@echo "      \"su3\": {"		| tee -a ../i2p.newsxml/data/win/stable/releases.json
-	@echo "        \"torrent\": \"$(MAGNET)\","		| tee -a ../i2p.newsxml/data/win/stable/releases.json
-	@echo "        \"url\": ["		| tee -a ../i2p.newsxml/data/win/stable/releases.json
-	@echo "          \"http://ekm3fu6fr5pxudhwjmdiea5dovc3jdi66hjgop4c7z7dfaw7spca.b32.i2p/i2pwinupdate.su3\""	| tee -a ../i2p.newsxml/data/win/stable/releases.json
-	@echo "        ]"	| tee -a ../i2p.newsxml/data/win/stable/releases.json
-	@echo "      }"		| tee -a ../i2p.newsxml/data/win/stable/releases.json
-	@echo "    }"		| tee -a ../i2p.newsxml/data/win/stable/releases.json
-	@echo "  }"			| tee -a ../i2p.newsxml/data/win/stable/releases.json
-	@echo "]"			| tee -a ../i2p.newsxml/data/win/stable/releases.json
+	@echo "["		| tee ../i2p.newsxml/data/win/beta/releases.json
+	@echo "  {"		| tee -a ../i2p.newsxml/data/win/beta/releases.json
+	@echo "    \"date\": \"$(I2P_DATE)\","			| tee -a ../i2p.newsxml/data/win/beta/releases.json
+	@echo "    \"version\": \"$(I2P_VERSION)\","	| tee -a ../i2p.newsxml/data/win/beta/releases.json
+	@echo "    \"minVersion\": \"1.5.0\","			| tee -a ../i2p.newsxml/data/win/beta/releases.json
+	@echo "    \"minJavaVersion\": \"1.8\","		| tee -a ../i2p.newsxml/data/win/beta/releases.json
+	@echo "    \"updates\": {"		| tee -a ../i2p.newsxml/data/win/beta/releases.json
+	@echo "      \"su3\": {"		| tee -a ../i2p.newsxml/data/win/beta/releases.json
+	@echo "        \"torrent\": \"$(MAGNET)\","		| tee -a ../i2p.newsxml/data/win/beta/releases.json
+	@echo "        \"url\": ["		| tee -a ../i2p.newsxml/data/win/beta/releases.json
+	@echo "          \"http://ekm3fu6fr5pxudhwjmdiea5dovc3jdi66hjgop4c7z7dfaw7spca.b32.i2p/i2pwinupdate.su3\""	| tee -a ../i2p.newsxml/data/win/beta/releases.json
+	@echo "        ]"	| tee -a ../i2p.newsxml/data/win/beta/releases.json
+	@echo "      }"		| tee -a ../i2p.newsxml/data/win/beta/releases.json
+	@echo "    }"		| tee -a ../i2p.newsxml/data/win/beta/releases.json
+	@echo "  }"			| tee -a ../i2p.newsxml/data/win/beta/releases.json
+	@echo "]"			| tee -a ../i2p.newsxml/data/win/beta/releases.json
