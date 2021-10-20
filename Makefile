@@ -67,7 +67,7 @@ src/I2P/config:
 	cp -v $(RES_DIR)/i2ptunnel.config src/I2P/config/
 	cp -v $(RES_DIR)/wrapper.config src/I2P/config/
 	#grep -v 'router.updateURL' $(RES_DIR)/router.config > src/I2P/config/router.config
-	cat router.config  >> src/I2P/config/router.config
+	cat router.config >> src/I2P/config/router.config
 	cp -v $(RES_DIR)/hosts.txt src/I2P/config/hosts.txt
 	cp -R $(RES_DIR)/certificates src/I2P/config/certificates
 	cp -R $(RES_DIR)/eepsite src/I2P/config/eepsite
@@ -276,4 +276,33 @@ run: docker xhost
 		-e DISPLAY=unix$(DISPLAY) \
 		-v /tmp/.X11-unix:/tmp/.X11-unix \
 		geti2p/i2p.firefox firefox --profile /src/build/profile
-		
+
+I2P_DATE=`date +%Y-%m-%d`
+
+prepupdate:
+	cp -v "I2P-Profile-Installer-$(PROFILE_VERSION)-signed.exe" i2pwinupdate.su3
+
+i2pwinupdate.su3.torrent: prepupdate
+	mktorrent --announce=http://mb5ir7klpc2tj6ha3xhmrs3mseqvanauciuoiamx2mmzujvg67uq.b32.i2p/a i2pwinupdate.su3
+
+torrent: i2pwinupdate.su3
+
+MAGNET=`bttools torrent printinfo i2pwinupdate.su3.torrent | grep 'MagNet' | sed 's|MagNet: ||g'`
+
+releases.json: torrent
+	@echo "["		| tee ../i2p.newsxml/data/win/stable/releases.json
+	@echo "  {"		| tee -a ../i2p.newsxml/data/win/stable/releases.json
+	@echo "    \"date\": \"$(I2P_DATE)\","			| tee -a ../i2p.newsxml/data/win/stable/releases.json
+	@echo "    \"version\": \"$(I2P_VERSION)\","	| tee -a ../i2p.newsxml/data/win/stable/releases.json
+	@echo "    \"minVersion\": \"1.5.0\","			| tee -a ../i2p.newsxml/data/win/stable/releases.json
+	@echo "    \"minJavaVersion\": \"1.8\","		| tee -a ../i2p.newsxml/data/win/stable/releases.json
+	@echo "    \"updates\": {"		| tee -a ../i2p.newsxml/data/win/stable/releases.json
+	@echo "      \"su3\": {"		| tee -a ../i2p.newsxml/data/win/stable/releases.json
+	@echo "        \"torrent\": \"$(MAGNET)\","		| tee -a ../i2p.newsxml/data/win/stable/releases.json
+	@echo "        \"url\": ["		| tee -a ../i2p.newsxml/data/win/stable/releases.json
+	@echo "          \"http://ekm3fu6fr5pxudhwjmdiea5dovc3jdi66hjgop4c7z7dfaw7spca.b32.i2p/i2pwinupdate.su3\""	| tee -a ../i2p.newsxml/data/win/stable/releases.json
+	@echo "        ]"	| tee -a ../i2p.newsxml/data/win/stable/releases.json
+	@echo "      }"		| tee -a ../i2p.newsxml/data/win/stable/releases.json
+	@echo "    }"		| tee -a ../i2p.newsxml/data/win/stable/releases.json
+	@echo "  }"			| tee -a ../i2p.newsxml/data/win/stable/releases.json
+	@echo "]"			| tee -a ../i2p.newsxml/data/win/stable/releases.json
