@@ -34,7 +34,7 @@ help: .version
 	@echo "$(MAJOR).$(MINOR).$(BUILD)"
 	@echo "$(preset)"
 
-prep: profile.tgz app-profile.tgz profile build/licenses build/I2P build/I2P/config launchers
+prep: profile.tgz app-profile.tgz build/licenses build/I2P build/I2P/config launchers
 	cp src/nsis/*.nsi build
 	cp src/nsis/*.nsh build
 	cp src/icons/*.ico build
@@ -92,11 +92,15 @@ build/licenses: build
 	unix2dos build/licenses/LICENSE.index
 
 clean:
-	rm -rf build app-profile-*.tgz profile-*.tgz I2P-Profile-Installer-*.exe *.deb src/I2P/config *.su3 .version
+	rm -rf build app-profile-*.tgz profile-*.tgz I2P-Profile-Installer-*.exe *.deb src/I2P/config/* *.su3 .version
 
 build:
 	@echo "creating build directory"
 	mkdir -p build
+
+portable-profile: .version I2P build/I2P
+	make profile.tgz
+	cp -rv build/profile build/portable-profile
 
 profile: build/profile/user.js build/profile/prefs.js build/profile/bookmarks.html build/profile/storage-sync.sqlite copy-xpi
 
@@ -123,6 +127,10 @@ copy-xpi: build/NoScript.xpi build/HTTPSEverywhere.xpi build/i2ppb@eyedeekay.git
 	cp build/NoScript.xpi "build/profile/extensions/{73a6fe31-595d-460b-a920-fcc0f8843232}.xpi"
 	cp build/HTTPSEverywhere.xpi "build/profile/extensions/https-everywhere-eff@eff.org.xpi"
 	cp build/i2ppb@eyedeekay.github.io.xpi build/profile/extensions/i2ppb@eyedeekay.github.io.xpi
+
+portable-app-profile: .version I2P build/I2P
+	make app-profile.tgz
+	cp -rv build/app-profile build/portable-app-profile
 
 app-profile: .version build/app-profile/user.js build/app-profile/prefs.js build/app-profile/chrome/userChrome.css build/app-profile/bookmarks.html build/app-profile/storage-sync.sqlite copy-app-xpi
 

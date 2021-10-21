@@ -93,6 +93,10 @@ with `sudo service i2p start` then you can run the script:
 Including a jpackaged I2P Router(EXPERIMENTAL)
 ----------------------------------------------
 
+It is strongly advised that you use an up-to-date JDK 17 to build your
+jpackage! Releases will be built with an up-to-date OpenJDK LTS. Builds occur
+on a Windows 10 laptop, hashed, and transferred to a Linux laptop for signing.
+
 In order to include a jpackaged(dependency-free) I2P router in the Profile
 Bundle you will need to build the jpackaged I2P router as an "App Image" on
 a Windows system and place it into a directory called `I2P` in your `i2p.firefox`
