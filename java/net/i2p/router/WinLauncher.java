@@ -26,7 +26,13 @@ import static net.i2p.update.UpdateType.*;
  */
 public class WinLauncher {
     private static WindowsUpdatePostProcessor wupp = new WindowsUpdatePostProcessor();
+    private static boolean portable;
     public static void main(String[] args) throws Exception {
+        for (int i = 0; i < args.length; i++) {
+            if (args[i] == "portable") {
+            	portable = true;
+            }
+        }
         File programs = wupp.selectProgramFile();
         if (!programs.exists())
             programs.mkdirs();
@@ -89,7 +95,7 @@ public class WinLauncher {
     }
 
     private static File selectHome() { //throws Exception {
-        if (SystemVersion.isWindows()) {
+        if (SystemVersion.isWindows() && !portable) {
             File home = new File(System.getProperty("user.home"));
             File appData = new File(home, "AppData");
             File local = new File(appData, "Local");
@@ -100,7 +106,7 @@ public class WinLauncher {
         } else {
             File jrehome = new File(System.getProperty("java.home"));
             File programs = new File(jrehome.getParentFile().getParentFile(), ".i2p");
-            System.out.println("Linux portable jpackage wrapper started, using: " + programs + " as base config");
+            System.out.println("portable jpackage wrapper started, using: " + programs + " as base config");
             return programs.getAbsoluteFile();
         }
     }
