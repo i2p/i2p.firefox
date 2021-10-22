@@ -101,6 +101,8 @@ build:
 portable-profile: .version I2P build/I2P
 	make profile.tgz
 	cp -rv build/profile build/portable-profile
+	cp src/win/i2pbrowser.bat build/portable-profile
+	cp src/win/i2pbrowser-private.bat build/portable-profile	
 
 profile: build/profile/user.js build/profile/prefs.js build/profile/bookmarks.html build/profile/storage-sync.sqlite copy-xpi
 
@@ -131,6 +133,9 @@ copy-xpi: build/NoScript.xpi build/HTTPSEverywhere.xpi build/i2ppb@eyedeekay.git
 portable-app-profile: .version I2P build/I2P
 	make app-profile.tgz
 	cp -rv build/app-profile build/portable-app-profile
+	cp src/win/i2pbrowser.bat build/portable-app-profile
+	cp src/win/i2pbrowser-private.bat build/portable-app-profile
+	cp src/win/i2pconfig.bat build/portable-app-profile
 
 app-profile: .version build/app-profile/user.js build/app-profile/prefs.js build/app-profile/chrome/userChrome.css build/app-profile/bookmarks.html build/app-profile/storage-sync.sqlite copy-app-xpi
 
