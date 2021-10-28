@@ -8,6 +8,7 @@ preset=`rm .version; make .version`
 include .version
 
 PROFILE_VERSION=$(MAJOR).$(MINOR).$(BUILD)
+OS=`uname -s | tr '[:upper:]' '[:lower:]'`
 
 all: .version install.exe
 
@@ -100,9 +101,9 @@ build:
 
 portable-profile: .version I2P build/I2P
 	make profile.tgz
-	cp -rv build/profile build/portable-profile
-	cp src/win/i2pbrowser.bat build/portable-profile
-	cp src/win/i2pbrowser-private.bat build/portable-profile	
+	cp -rv build/profile build/portable-profile-$(OS)
+	cp src/win/i2pbrowser.bat build/portable-profile-$(OS)
+	cp src/win/i2pbrowser-private.bat build/portable-profile-$(OS)
 
 profile: build/profile/user.js build/profile/prefs.js build/profile/bookmarks.html build/profile/storage-sync.sqlite copy-xpi
 
@@ -132,10 +133,10 @@ copy-xpi: build/NoScript.xpi build/HTTPSEverywhere.xpi build/i2ppb@eyedeekay.git
 
 portable-app-profile: .version I2P build/I2P
 	make app-profile.tgz
-	cp -rv build/app-profile build/portable-app-profile
-	cp src/win/i2pbrowser.bat build/portable-app-profile
-	cp src/win/i2pbrowser-private.bat build/portable-app-profile
-	cp src/win/i2pconfig.bat build/portable-app-profile
+	cp -rv build/app-profile build/portable-app-profile-$(OS)
+	cp src/win/i2pbrowser.bat build/portable-app-profile-$(OS)
+	cp src/win/i2pbrowser-private.bat build/portable-app-profile-$(OS)
+	cp src/win/i2pconfig.bat build/portable-app-profile-$(OS)
 
 app-profile: .version build/app-profile/user.js build/app-profile/prefs.js build/app-profile/chrome/userChrome.css build/app-profile/bookmarks.html build/app-profile/storage-sync.sqlite copy-app-xpi
 
