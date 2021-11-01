@@ -1,3 +1,45 @@
+2021-11-1 idk
+* HTTPS Everywhere will now self-disable on some Firefox versions. This is not
+ an issue since HTTPS Everywhere is deprecated in favor of Firefox built-in
+ HTTPS enforcement features.
+* .bat Script: Detect location of C:\Program Files\I2P or
+ C\Program Files(x86)\I2P in launcher scripts
+* NSIS changes
+ - Make launcher scripts static artifacts instead of generating them during
+  the install process
+ - If a jpackaged I2P router is present in $checkout/I2P, include it in an
+  installer.
+ - If a running installer doesn't find an I2P router in Program Files, install
+  the jpackaged I2P router. Mark it as jpackaged so we can quickly determine
+  from other applications.
+* I2P in Private Browsing changes
+ - bugfix for `reset()` of dynamic theme
+ - bugfix for erroneous redirect/contain of mis-identified I2PSnark containers
+ - improve support for in-I2P HTTPS
+ - use global CSS on pageAction panels for HTTP, HTTPS, and Bittorrent
+ - improve support for I2PSnark web handler in
+ - icon update(@sadie)
+ - contain android-incompatible features so they won't be executed on Fennec
+ - translate into Spanish
+ - visually conceal/reveal features based on whether they are enabled/configured.
+* I2P Jpackage
+ - support for building an I2P Jpackage has been added to the build system
+  Note that support is platform-specific, to build a Windows jpackage one must
+  use a Windows OS, to build a Linux jpackage one must use a Linux OS. Only
+  Windows jpackages are used for a release product.
+ - For information about how releases are built see README.md and UPDATES.md
+ - The jpackaged router has the following differences from mainline I2P:
+  - The jars are installed to a different directory.
+  - The native libraries are installed to a different directory
+  - The wrapper script is not installed and not used, and replaced by the
+   browser launcher.
+  - The I2P executable is %programfiles%/I2P/I2P.exe, command-line flags are not
+   compatible but configuration files are.
+  - wrapper.config is unused
+  - The built-by entry will reflect that idk built the package
+  - Use flags to achieve compatibility with plugins that use Reflection on Java
+   17 jpackages
+
 2021-01-17 idk
 * Use Local Application Data instead of Roaming application data for router.config file
 * Use Roaming Application Daya only if a clients.config.d is present, indicating that the
