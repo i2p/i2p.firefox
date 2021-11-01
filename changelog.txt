@@ -16,8 +16,8 @@
  - bugfix for `reset()` of dynamic theme
  - bugfix for erroneous redirect/contain of mis-identified I2PSnark containers
  - improve support for in-I2P HTTPS
- - use global CSS on pageAction panels for HTTP, HTTPS, and Bittorrent
- - improve support for I2PSnark web handler in
+ - use global CSS on pageAction panels for HTTP, HTTPS, and Bittorrent(@sadie)
+ - improve support for I2PSnark web handler in HTTPS tabs
  - icon update(@sadie)
  - contain android-incompatible features so they won't be executed on Fennec
  - translate into Spanish
