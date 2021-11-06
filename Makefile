@@ -309,6 +309,8 @@ releases.json: torrent
 
 BLANK=`awk '! NF { print NR; exit }' changelog.txt`
 
+I2P.zip: I2P-jpackage-windows-$(I2P_VERSION).zip
+
 I2P-jpackage-windows-$(I2P_VERSION).zip:
 	zip I2P-jpackage-windows-$(I2P_VERSION).zip I2P
 
