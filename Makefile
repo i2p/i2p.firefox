@@ -306,3 +306,25 @@ releases.json: torrent
 	@echo "    }"		| tee -a ../i2p.newsxml/data/win/beta/releases.json
 	@echo "  }"			| tee -a ../i2p.newsxml/data/win/beta/releases.json
 	@echo "]"			| tee -a ../i2p.newsxml/data/win/beta/releases.json
+
+BLANK=`awk '! NF { print NR; exit }' changelog.txt`
+
+I2P-jpackage-windows-$(I2P_VERSION).zip:
+	zip I2P-jpackage-windows-$(I2P_VERSION).zip I2P
+
+changelog:
+	head -n "$(BLANK)" changelog.txt
+
+release-jpackage: I2P-jpackage-windows-$(I2P_VERSION).zip
+	head -n "$(BLANK)" changelog.txt | gothub release -p -u eyedeekay -r i2p -t i2p-jpackage-windows-$(I2P_VERSION) -n i2p-jpackage-windows-$(I2P_VERSION) -d -; true
+
+update-release-jpackage:
+	head -n "$(BLANK)" changelog.txt | gothub edit -p -u eyedeekay -r i2p -t i2p-jpackage-windows-$(I2P_VERSION) -n i2p-jpackage-windows-$(I2P_VERSION) -d -; true
+
+delete-release-jpackage:
+	gothub delete -u eyedeekay -r i2p -t i2p-jpackage-windows-$(I2P_VERSION); true
+
+upload-release-jpackage:
+	gothub upload -R -u eyedeekay -r i2p -t i2p-jpackage-windows-$(I2P_VERSION) -n "i2p-jpackage-windows-$(I2P_VERSION)" -f "./I2P-jpackage-windows-$(I2P_VERSION).zip"
+
+jpackage-release: release-jpackage upload-release-jpackage
