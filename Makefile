@@ -185,3 +185,22 @@ checkinstall:
 		--deldoc=yes \
 		--deldesc=yes \
 		--backup=no
+
+plugin.su3:
+	mkdir -p build/plugin
+	cp -v build/profile build/plugin/profile -r
+	i2p.plugin.native -name=firefox \
+		-signer=hankhill19580@gmail.com \
+		-version="1.05.1" \
+		-author=hankhill19580@gmail.com \
+		-autostart=false \
+		-clientname=firefox \
+		-consolename="I2P Browser" \
+		-name="i2pbrowser" \
+		-delaystart="1" \
+		-desc="`cat desc`" \
+		-exename=firefox \
+		-icondata=icon/icon.png \
+		-command="firefox --profile \$$PLUGIN\profile " \
+		-license=MIT \
+		-res=build/plugin
