@@ -6,3 +6,4 @@ i2pversion_override
 *.crl
 *.crt
 *.pem
+*.p12
