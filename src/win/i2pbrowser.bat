@@ -1,5 +1,6 @@
 @echo on
 
+set "I2PPath=%ProgramFiles%\I2P\"
 if exist "%ProgramFiles%\I2P\" (
   set "I2PPath=%ProgramFiles%\I2P\"
 )
