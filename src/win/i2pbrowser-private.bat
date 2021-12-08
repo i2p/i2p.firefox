@@ -4,9 +4,9 @@ if exist "%ProgramFiles%\I2P\" (
   set "I2PPath=%ProgramFiles%\I2P\"
 )
 
-if exist "%ProgramFiles(x86)%\I2P" {
+if exist "%ProgramFiles(x86)%\I2P" (
   set "I2PPath=%ProgramFiles(x86)%\I2P"
-}
+)
 
 if exist "%ProgramFiles%\I2P\jpackaged" (
   start "i2p" /D "%LOCALAPPDATA%\I2P" "%I2PPath%\i2p.exe"
