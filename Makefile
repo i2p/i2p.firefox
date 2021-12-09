@@ -281,12 +281,12 @@ run: docker xhost
 I2P_DATE=`date +%Y-%m-%d`
 
 prepupdate:
-	cp -v "I2P-Profile-Installer-$(PROFILE_VERSION)-signed.exe" i2pwinupdate.su3
+	cp -v "I2P-Profile-Installer-$(PROFILE_VERSION)-signed.su3" i2pwinupdate.su3
 
 i2pwinupdate.su3.torrent: prepupdate
 	mktorrent --announce=http://mb5ir7klpc2tj6ha3xhmrs3mseqvanauciuoiamx2mmzujvg67uq.b32.i2p/a i2pwinupdate.su3
 
-torrent: i2pwinupdate.su3
+torrent: i2pwinupdate.su3.torrent
 
 MAGNET=`bttools torrent printinfo i2pwinupdate.su3.torrent | grep 'MagNet' | sed 's|MagNet: ||g'`
 
