@@ -263,7 +263,7 @@ $(GOPATH)/src/i2pgit.org/idk/su3-tools/su3-tools:
 
 su3: $(GOPATH)/src/i2pgit.org/idk/su3-tools/su3-tools
 	$(GOPATH)/src/i2pgit.org/idk/su3-tools/su3-tools -name "I2P-Profile-Installer-$(PROFILE_VERSION)-signed" -signer "$(SIGNER)" -version "$(I2P_VERSION)"
-	java -cp "$(HOME)/i2p/lib/*" net.i2p.crypto.SU3File sign -c ROUTER -f EXE i2pbrowser.zip I2P-Profile-Installer-$(PROFILE_VERSION)-signed.su3 "$(HOME)/.i2p-plugin-keys/news-su3-keystore.ks" "$(I2P_VERSION)" $(SIGNER)
+	java -cp "$(HOME)/i2p/lib/*" net.i2p.crypto.SU3File sign -c ROUTER -f EXE I2P-Profile-Installer-$(PROFILE_VERSION)-signed.exe I2P-Profile-Installer-$(PROFILE_VERSION)-signed.su3 "$(HOME)/.i2p-plugin-keys/news-su3-keystore.ks" "$(I2P_VERSION)" $(SIGNER)
 
 docker:
 	docker build -t geti2p/i2p.firefox .
