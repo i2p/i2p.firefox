@@ -284,11 +284,11 @@ prepupdate:
 	cp -v "I2P-Profile-Installer-$(PROFILE_VERSION)-signed.su3" i2pwinupdate.su3
 
 i2pwinupdate.su3.torrent: prepupdate
-	mktorrent --announce=http://mb5ir7klpc2tj6ha3xhmrs3mseqvanauciuoiamx2mmzujvg67uq.b32.i2p/a i2pwinupdate.su3
+	mktorrent --announce=http://w7tpbzncbcocrqtwwm3nezhnnsw4ozadvi2hmvzdhrqzfxfum7wa.b32.i2p/a --announce=http://mb5ir7klpc2tj6ha3xhmrs3mseqvanauciuoiamx2mmzujvg67uq.b32.i2p/a i2pwinupdate.su3
 
 torrent: i2pwinupdate.su3.torrent
 
-MAGNET=`bttools torrent printinfo i2pwinupdate.su3.torrent | grep 'MagNet' | sed 's|MagNet: ||g'`
+MAGNET=`bttools torrent printinfo i2pwinupdate.su3.torrent | grep 'MagNet' | sed 's|MagNet: ||g' | sed 's|%3A|:|g'| sed 's|%2F|/|g'`
 
 releases.json: torrent
 	@echo "["		| tee ../i2p.newsxml/data/win/beta/releases.json
