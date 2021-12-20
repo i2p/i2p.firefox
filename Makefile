@@ -284,7 +284,7 @@ prepupdate:
 	cp -v "I2P-Profile-Installer-$(PROFILE_VERSION)-signed.su3" i2pwinupdate.su3
 
 i2pwinupdate.su3.torrent: prepupdate
-	mktorrent --announce=http://w7tpbzncbcocrqtwwm3nezhnnsw4ozadvi2hmvzdhrqzfxfum7wa.b32.i2p/a --announce=http://mb5ir7klpc2tj6ha3xhmrs3mseqvanauciuoiamx2mmzujvg67uq.b32.i2p/a i2pwinupdate.su3
+	mktorrent --announce=http://tracker2.postman.i2p/announce.php --announce=http://w7tpbzncbcocrqtwwm3nezhnnsw4ozadvi2hmvzdhrqzfxfum7wa.b32.i2p/a --announce=http://mb5ir7klpc2tj6ha3xhmrs3mseqvanauciuoiamx2mmzujvg67uq.b32.i2p/a i2pwinupdate.su3
 
 torrent: i2pwinupdate.su3.torrent
 
