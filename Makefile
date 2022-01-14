@@ -48,6 +48,7 @@ export I2P_JBIGI="../i2p.i2p/installer/lib/jbigi"
 
 distclean: clean clean-extensions
 	rm -rf I2P
+	git clean -fd
 
 I2P:
 	./build.sh
@@ -176,7 +177,11 @@ NoScript.url:
 	@echo "https://addons.mozilla.org/firefox/downloads/file/3534184/"`./amo-version.sh noscript`"/{73a6fe31-595d-460b-a920-fcc0f8843232}.xpi" > NoScript.url
 
 i2psetproxy.url:
-	@echo "https://addons.mozilla.org/firefox/downloads/file/3821635/"`./amo-version.sh i2p-in-private-browsing`"/i2ppb@eyedeekay.github.io.xpi" > i2psetproxy.url
+	@echo "https://addons.mozilla.org/firefox/downloads/file/3887295/"`./amo-version.sh i2p-in-private-browsing`"/i2ppb@eyedeekay.github.io.xpi" > i2psetproxy.url
+#
+#	TODO: switch to the "Rhizome" variant which has extended permission to do things like set the homepage.
+#	@echo "https://addons.mozilla.org/firefox/downloads/file/3799074/"`./amo-version.sh i2pipb-rhizome-variant`"/i2prhz@eyedeekay.github.io.xpi" > i2psetproxy.url
+
 
 #https://addons.mozilla.org/firefox/downloads/file/3821635/i2p_in_private_browsing-0.112.1-an+fx.xpi
 #i2ppb@eyedeekay.github.io.xpi
