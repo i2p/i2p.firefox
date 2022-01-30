@@ -1,0 +1,5 @@
+i2p-firefox-profile (1.05.0-1) sid; urgency=medium
+
+  * Initial release. Closes i2pgit.org/i2p-hackers/i2p.firefox #5
+
+ -- eyedeekay <hankhill19580@gmail.com>  Sun, 22 Aug 2021 22:27:37 -0400
