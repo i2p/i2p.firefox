@@ -259,6 +259,7 @@ $(GOPATH)/src/i2pgit.org/idk/su3-tools/su3-tools:
 
 su3: $(GOPATH)/src/i2pgit.org/idk/su3-tools/su3-tools
 	$(GOPATH)/src/i2pgit.org/idk/su3-tools/su3-tools -name "I2P-Profile-Installer-$(PROFILE_VERSION)-signed" -signer "$(SIGNER)" -version "$(I2P_VERSION)"
+	java -cp "$(HOME)/i2p/lib/*" net.i2p.crypto.SU3File sign -c ROUTER -f EXE I2P-Profile-Installer-$(PROFILE_VERSION)-signed.exe I2P-Profile-Installer-$(PROFILE_VERSION)-signed.su3 "$(HOME)/.i2p-plugin-keys/news-su3-keystore.ks" "$(I2P_VERSION)" $(SIGNER)
 
 docker:
 	docker build -t geti2p/i2p.firefox .
@@ -332,14 +333,14 @@ launchpad: bionic
 I2P_DATE=`date +%Y-%m-%d`
 
 prepupdate:
-	cp -v "I2P-Profile-Installer-$(PROFILE_VERSION)-signed.exe" i2pwinupdate.su3
+	cp -v "I2P-Profile-Installer-$(PROFILE_VERSION)-signed.su3" i2pwinupdate.su3
 
 i2pwinupdate.su3.torrent: prepupdate
-	mktorrent --announce=http://mb5ir7klpc2tj6ha3xhmrs3mseqvanauciuoiamx2mmzujvg67uq.b32.i2p/a i2pwinupdate.su3
+	mktorrent --announce=http://tracker2.postman.i2p/announce.php --announce=http://w7tpbzncbcocrqtwwm3nezhnnsw4ozadvi2hmvzdhrqzfxfum7wa.b32.i2p/a --announce=http://mb5ir7klpc2tj6ha3xhmrs3mseqvanauciuoiamx2mmzujvg67uq.b32.i2p/a i2pwinupdate.su3
 
-torrent: i2pwinupdate.su3
+torrent: i2pwinupdate.su3.torrent
 
-MAGNET=`bttools torrent printinfo i2pwinupdate.su3.torrent | grep 'MagNet' | sed 's|MagNet: ||g'`
+MAGNET=`bttools torrent printinfo i2pwinupdate.su3.torrent | grep 'MagNet' | sed 's|MagNet: ||g' | sed 's|%3A|:|g'| sed 's|%2F|/|g'`
 
 releases.json: torrent
 	@echo "["		| tee ../i2p.newsxml/data/win/beta/releases.json
@@ -359,3 +360,26 @@ releases.json: torrent
 	@echo "  }"			| tee -a ../i2p.newsxml/data/win/beta/releases.json
 	@echo "]"			| tee -a ../i2p.newsxml/data/win/beta/releases.json
 
+BLANK=`awk '! NF { print NR; exit }' changelog.txt`
+
+I2P.zip: I2P-jpackage-windows-$(I2P_VERSION).zip
+
+I2P-jpackage-windows-$(I2P_VERSION).zip:
+	zip I2P-jpackage-windows-$(I2P_VERSION).zip -r I2P
+
+changelog:
+	head -n "$(BLANK)" changelog.txt
+
+release-jpackage: I2P-jpackage-windows-$(I2P_VERSION).zip
+	head -n "$(BLANK)" changelog.txt | gothub release -p -u eyedeekay -r i2p -t i2p-jpackage-windows-$(I2P_VERSION) -n i2p-jpackage-windows-$(I2P_VERSION) -d -; true
+
+update-release-jpackage:
+	head -n "$(BLANK)" changelog.txt | gothub edit -p -u eyedeekay -r i2p -t i2p-jpackage-windows-$(I2P_VERSION) -n i2p-jpackage-windows-$(I2P_VERSION) -d -; true
+
+delete-release-jpackage:
+	gothub delete -u eyedeekay -r i2p -t i2p-jpackage-windows-$(I2P_VERSION); true
+
+upload-release-jpackage:
+	gothub upload -R -u eyedeekay -r i2p -t i2p-jpackage-windows-$(I2P_VERSION) -n "i2p-jpackage-windows-$(I2P_VERSION)" -f "./I2P-jpackage-windows-$(I2P_VERSION).zip"
+
+jpackage-release: release-jpackage upload-release-jpackage

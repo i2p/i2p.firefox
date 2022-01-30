@@ -13,6 +13,10 @@ if [ "$JAVA" -lt "14" ]; then
   echo "Java 14+ must be used to compile with jpackage, java is $JAVA"
   exit 1
 fi
+if [ "$JAVA" -lt "17" ]; then
+  echo "It is highly recommended that you use Java 17+ to build release packages"
+  sleep 5s
+fi
 sleep 2s
 
 if [ -z "${JAVA_HOME}" ]; then
@@ -55,6 +59,10 @@ echo "preparing to invoke jpackage for I2P version $I2P_VERSION"
 
 "$JAVA_HOME"/bin/jpackage --type app-image --name I2P --app-version "$I2P_VERSION" \
   --verbose \
+  --java-options "-Xmx512m" \
+  --java-options "--add-opens java.base/java.lang=ALL-UNNAMED" \
+  --java-options "--add-opens java.base/sun.nio.fs=ALL-UNNAMED" \
+  --java-options "--add-opens java.base/java.nio=ALL-UNNAMED" \
   $JPACKAGE_OPTS \
   --resource-dir build \
   --java-options "--illegal-access=permit" \
