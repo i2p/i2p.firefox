@@ -216,15 +216,11 @@ build/app-profile: build
 	mkdir -p build/app-profile
 
 install:
-	rm -rfv /etc/i2pbrowser \
-		/var/lib/i2pbrowser
-	mkdir -p /etc/i2pbrowser \
-		/var/lib/i2pbrowser
-	install -m644 src/unix/i2pbrowserrc /etc/i2pbrowser/i2pbrowserrc
-	install -m644 src/unix/i2pbrowserdebianrc /etc/i2pbrowser/i2pbrowserdebianrc
-	install -m755 build/profile/i2pbrowser.sh /usr/local/bin/i2pbrowser
-	install -m755 build/app-profile/i2pconfig.sh /usr/local/bin/i2pconfig
-	install -m755 src/unix/i2p-config-service-setup.sh /usr/local/bin/i2p-config-service-setup
+	install -D -m644 src/unix/i2pbrowserrc /etc/i2pbrowser/i2pbrowserrc
+	install -D -m644 src/unix/i2pbrowserdebianrc /etc/i2pbrowser/i2pbrowserdebianrc
+	install -D -m755 build/profile/i2pbrowser.sh /usr/local/bin/i2pbrowser
+	install -D -m755 build/app-profile/i2pconfig.sh /usr/local/bin/i2pconfig
+	install -D -m755 src/unix/i2p-config-service-setup.sh /usr/local/bin/i2p-config-service-setup
 	cp -vr build/profile /var/lib/i2pbrowser/profile
 	cp -vr build/app-profile /var/lib/i2pbrowser/app-profile
 	cp -vr src/icons /var/lib/i2pbrowser/icons
@@ -283,6 +279,62 @@ run: docker xhost
 		-e DISPLAY=unix$(DISPLAY) \
 		-v /tmp/.X11-unix:/tmp/.X11-unix \
 		geti2p/i2p.firefox firefox --profile /src/build/profile
+
+orig:
+	tar --exclude=debian --exclude=.git -cvzf ../i2p-firefox-profile_$(PROFILE_VERSION).orig.tar.gz .
+
+## HOWTO: If you need to release a package to launchpad, build for the oldest
+## release launchpad supports(bionic AFIACT). Then, after the build is
+## published, copy it to the other distributions. When bionic is out of date,
+## update it to the new LTS.
+
+bionic:
+	@sed -i "s|`head -n 1 debian/changelog`|i2p-firefox-profile ($(PROFILE_VERSION)-1) bionic; urgency=medium|g" debian/changelog
+	make orig
+	debuild -S
+	make dput
+
+focal:
+	@sed -i "s|`head -n 1 debian/changelog`|i2p-firefox-profile ($(PROFILE_VERSION)-1) focal; urgency=medium|g" debian/changelog
+	make orig
+	debuild -S
+	make dput
+
+groovy:
+	@sed -i "s|`head -n 1 debian/changelog`|i2p-firefox-profile ($(PROFILE_VERSION)-1) groovy; urgency=medium|g" debian/changelog
+	make orig
+	debuild -S
+	make dput
+
+buster:
+	@sed -i "s|`head -n 1 debian/changelog`|i2p-firefox-profile ($(PROFILE_VERSION)-1) buster; urgency=medium|g" debian/changelog
+	make orig
+	debuild -S
+	make dput
+
+bullseye:
+	@sed -i "s|`head -n 1 debian/changelog`|i2p-firefox-profile ($(PROFILE_VERSION)-1) bullseye; urgency=medium|g" debian/changelog
+	make orig
+	debuild -S
+	make dput
+
+trixie:
+	@sed -i "s|`head -n 1 debian/changelog`|i2p-firefox-profile ($(PROFILE_VERSION)-1) trixie; urgency=medium|g" debian/changelog
+	make orig
+	debuild -S
+	make dput
+
+sid:
+	@sed -i "s|`head -n 1 debian/changelog`|i2p-firefox-profile ($(PROFILE_VERSION)-1) sid; urgency=medium|g" debian/changelog
+	make orig
+	debuild -S
+	make dput
+
+dput:
+	dput --simulate --force ppa:i2p-community/ppa ../i2p-firefox-profile_$(PROFILE_VERSION)-1_source.changes || exit
+	dput --force ppa:i2p-community/ppa ../i2p-firefox-profile_$(PROFILE_VERSION)-1_source.changes
+
+launchpad: bionic
 
 I2P_DATE=`date +%Y-%m-%d`
 
