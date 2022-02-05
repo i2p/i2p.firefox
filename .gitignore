@@ -7,3 +7,4 @@ i2pversion_override
 *.crt
 *.pem
 *.p12
+.stfolder
