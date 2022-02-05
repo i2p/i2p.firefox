@@ -16,13 +16,13 @@ tag:
 
 .version:
 	sed 's|!define VERSION||g' src/nsis/i2pbrowser-version.nsi | sed 's| |=|g' > .version
-	make version.txt src/nsis/i2pbrowser_jpackage.nsi
+	make version.txt i2pbrowser_jpackage.nsi
 
 version.txt:
 	echo "$(PROFILE_VERSION)" > src/profile/version.txt
 	echo "$(PROFILE_VERSION)" > src/app-profile/version.txt
 
-src/nsis/i2pbrowser_jpackage.nsi:
+i2pbrowser_jpackage.nsi:
 	echo "!define I2P_VERSION $(I2P_VERSION)" > src/nsis/i2pbrowser_jpackage.nsi
 
 jpackage: .version I2P all
@@ -95,6 +95,7 @@ build/licenses: build
 
 clean:
 	rm -rf build app-profile-*.tgz profile-*.tgz I2P-Profile-Installer-*.exe *.deb src/I2P/config *.su3 .version
+	git clean -fdx src build
 
 build:
 	@echo "creating build directory"
