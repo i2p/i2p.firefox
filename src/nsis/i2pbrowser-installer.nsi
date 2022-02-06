@@ -6,7 +6,7 @@ UniCode true
 !define DESCRIPTION "This launches Firefox with a browser profile pre-configured to use i2p"
 !define FIREFOX_MESSAGE "Could not find Firefox.  Please point to where you have installed Firefox.  If you have not installed Firefox yet, exit this installer and install Firefox, then start this installer again."
 !define I2P_MESSAGE "Could not find I2P.  Please point to where you have installed I2P.  If you have not installed I2P yet, exit this installer and install I2P, then start this installer again."
-!define LAUNCH_TEXT "Launch the i2p browser?"
+!define LAUNCH_TEXT "Start I2P?"
 !define LICENSE_TITLE "Many Licenses"
 !define CONSOLE_URL "http://127.0.0.1:7657/home"
 
@@ -18,7 +18,7 @@ var FFINSTEXE
 var FFNONTORINSTEXE
 var I2PINSTEXE
 
-
+SetOverwrite on
 !define FFINSTEXE
 !define FFNONTORINSTEXE
 !define FFINSTEXE32 "$PROGRAMFILES32\Mozilla Firefox\"
@@ -264,6 +264,10 @@ Section Install
             createDirectory "$I2PINSTEXE\certificates\"
             SetOutPath "$I2PINSTEXE\certificates\"
             File /nonfatal /a /r "I2P\config\certificates\"
+
+            createDirectory "$I2PINSTEXE\eepsite\"
+            SetOutPath "$I2PINSTEXE\eepsite\"
+            File /nonfatal /a /r "I2P\config\eepsite\"
           ${EndIf}  
         ${Else}
           File /nonfatal /a /r "I2P\"
@@ -283,6 +287,10 @@ Section Install
           createDirectory "$I2PINSTEXE\certificates\"
           SetOutPath "$I2PINSTEXE\certificates\"
           File /nonfatal /a /r "I2P\config\certificates\"
+
+          createDirectory "$I2PINSTEXE\eepsite\"
+          SetOutPath "$I2PINSTEXE\eepsite\"
+          File /nonfatal /a /r "I2P\config\eepsite\"
         ${EndIf}
     ${EndIf}
 
@@ -350,6 +358,9 @@ Section Install
     FileWrite $0 "routerconsole.browser=$\"$INSTDIR\i2pconfig.bat$\""
     FileWriteByte $0 "13"
     FileWriteByte $0 "10"
+    FileWrite $0 "router.disableTunnelTesting=false"
+    FileWriteByte $0 "13"
+    FileWriteByte $0 "10"
     FileClose $0
 
     SetShellVarContext current
@@ -373,6 +384,9 @@ Section Install
     FileWriteByte $0 "13"
     FileWriteByte $0 "10"
     FileWrite $0 "routerconsole.browser=$\"$INSTDIR\i2pconfig.bat$\""
+    FileWriteByte $0 "13"
+    FileWriteByte $0 "10"
+    FileWrite $0 "router.disableTunnelTesting=false"
     FileWriteByte $0 "13"
     FileWriteByte $0 "10"
     FileClose $0
@@ -453,9 +467,9 @@ Function LaunchLink
   ${If} ${Silent}
     ReadEnvStr $0 RESTART_I2P
     ${If} $0 != ""
-      Exec "$INSTDIR\i2pbrowser.bat"
+      Exec "$I2PINSTEXE\I2P.exe"
     ${EndIf}  
   ${Else}
-    Exec "$INSTDIR\i2pbrowser.bat"
+    Exec "$I2PINSTEXE\I2P.exe"
   ${EndIf}
 FunctionEnd
