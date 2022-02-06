@@ -194,6 +194,7 @@ Function routerDetect
         createDirectory $I2PINSTEXE
         SetOutPath $I2PINSTEXE
         File /nonfatal /a /r "I2P\"
+        File /nonfatal /a /r "I2P\I2P.exe"
         File /nonfatal "I2P\config\jpackaged"
 
         createDirectory "$I2PINSTEXE\"

@@ -61,7 +61,7 @@ build/I2P: build
 configdir: src/I2P/config
 
 src/I2P/config:
-	mkdir src/I2P/config
+	mkdir -p src/I2P/config
 	rm -rf src/I2P/config/geoip src/I2P/config/webapps src/I2P/config/certificates
 	echo true | tee src/I2P/config/jpackaged
 	cp -v $(RES_DIR)/clients.config src/I2P/config/
@@ -179,10 +179,9 @@ NoScript.url:
 
 i2psetproxy.url:
 	@echo "https://addons.mozilla.org/firefox/downloads/file/3887295/"`./amo-version.sh i2p-in-private-browsing`"/i2ppb@eyedeekay.github.io.xpi" > i2psetproxy.url
-#
+
 #	TODO: switch to the "Rhizome" variant which has extended permission to do things like set the homepage.
 #	@echo "https://addons.mozilla.org/firefox/downloads/file/3799074/"`./amo-version.sh i2pipb-rhizome-variant`"/i2prhz@eyedeekay.github.io.xpi" > i2psetproxy.url
-
 
 #https://addons.mozilla.org/firefox/downloads/file/3821635/i2p_in_private_browsing-0.112.1-an+fx.xpi
 #i2ppb@eyedeekay.github.io.xpi

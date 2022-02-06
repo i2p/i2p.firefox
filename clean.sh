@@ -1,5 +1,9 @@
 #! /usr/bin/env sh
 
+here=$(pwd)
+cd ../i2p.i2p/
+ant distclean
+cd "$here"
 rm -rf \
 	build \
 	eventlog.txt \

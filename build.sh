@@ -30,6 +30,7 @@ echo "cleaning"
 HERE="$PWD"
 cd "$HERE/../i2p.i2p/"
 git checkout "$VERSION"
+sleep 20s
 ant distclean preppkg-windows || true
 
 cd "$HERE"
