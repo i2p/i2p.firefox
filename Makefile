@@ -373,6 +373,7 @@ releases.json: torrent
 	@echo "]"			| tee -a ../i2p.newsxml/data/win/beta/releases.json
 
 testing-releases.json: su3-unsigned-exe torrent
+	mkdir -p ../i2p.newsxml/data/win/testing/
 	@echo "["		| tee ../i2p.newsxml/data/win/testing/releases.json
 	@echo "  {"		| tee -a ../i2p.newsxml/data/win/testing/releases.json
 	@echo "    \"date\": \"$(I2P_DATE)\","			| tee -a ../i2p.newsxml/data/win/testing/releases.json
