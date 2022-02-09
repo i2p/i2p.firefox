@@ -16,14 +16,14 @@ tag:
 
 .version:
 	sed 's|!define VERSION||g' src/nsis/i2pbrowser-version.nsi | sed 's| |=|g' > .version
-	make version.txt i2pbrowser_jpackage.nsi
+	make version.txt i2pbrowser-jpackage.nsi
 
 version.txt:
 	echo "$(PROFILE_VERSION)" > src/profile/version.txt
 	echo "$(PROFILE_VERSION)" > src/app-profile/version.txt
 
-i2pbrowser_jpackage.nsi:
-	echo "!define I2P_VERSION $(I2P_VERSION)" > src/nsis/i2pbrowser_jpackage.nsi
+i2pbrowser-jpackage.nsi:
+	echo "!define I2P_VERSION $(I2P_VERSION)" > src/nsis/i2pbrowser-jpackage.nsi
 
 jpackage: .version I2P all
 
@@ -170,6 +170,8 @@ clean-extensions:
 	rm -fv i2psetproxy.url NoScript.url HTTPSEverywhere.url
 
 extensions:HTTPSEverywhere.url NoScript.url i2psetproxy.url
+
+-include new-extensions.mk
 
 HTTPSEverywhere.url:
 	@echo "https://addons.mozilla.org/firefox/downloads/file/3809748/"`./amo-version.sh https-everywhere`"/https-everywhere-eff@eff.org.xpi" > HTTPSEverywhere.url

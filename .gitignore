@@ -8,3 +8,4 @@ i2pversion_override
 *.pem
 *.p12
 .stfolder
+*.url
