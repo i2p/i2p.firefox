@@ -269,6 +269,10 @@ su3: $(GOPATH)/src/i2pgit.org/idk/su3-tools/su3-tools
 	$(GOPATH)/src/i2pgit.org/idk/su3-tools/su3-tools -name "I2P-Profile-Installer-$(PROFILE_VERSION)-signed" -signer "$(SIGNER)" -version "$(I2P_VERSION)"
 	java -cp "$(HOME)/i2p/lib/*" net.i2p.crypto.SU3File sign -c ROUTER -f EXE I2P-Profile-Installer-$(PROFILE_VERSION)-signed.exe I2P-Profile-Installer-$(PROFILE_VERSION)-signed.su3 "$(HOME)/.i2p-plugin-keys/news-su3-keystore.ks" "$(I2P_VERSION)" $(SIGNER)
 
+su3-unsigned-exe:
+	$(GOPATH)/src/i2pgit.org/idk/su3-tools/su3-tools -name "I2P-Profile-Installer-$(PROFILE_VERSION)" -signer "$(SIGNER)" -version "$(I2P_VERSION)"
+	java -cp "$(HOME)/i2p/lib/*" net.i2p.crypto.SU3File sign -c ROUTER -f EXE I2P-Profile-Installer-$(PROFILE_VERSION).exe I2P-Profile-Installer-$(PROFILE_VERSION)-signed.su3 "$(HOME)/.i2p-plugin-keys/news-su3-keystore.ks" "$(I2P_VERSION)" $(SIGNER)
+
 docker:
 	docker build -t geti2p/i2p.firefox .
 
@@ -341,7 +345,7 @@ launchpad: bionic
 I2P_DATE=`date +%Y-%m-%d`
 
 prepupdate:
-	cp -v "I2P-Profile-Installer-$(PROFILE_VERSION)-signed.su3" i2pwinupdate.su3
+	cp -v "I2P-Profile-Installer-$(PROFILE_VERSION)-signed.su3" i2pwinupdate.su3 || cp -v "I2P-Profile-Installer-$(PROFILE_VERSION).su3" i2pwinupdate.su3
 
 i2pwinupdate.su3.torrent: prepupdate
 	mktorrent --announce=http://tracker2.postman.i2p/announce.php --announce=http://w7tpbzncbcocrqtwwm3nezhnnsw4ozadvi2hmvzdhrqzfxfum7wa.b32.i2p/a --announce=http://mb5ir7klpc2tj6ha3xhmrs3mseqvanauciuoiamx2mmzujvg67uq.b32.i2p/a i2pwinupdate.su3
@@ -368,7 +372,7 @@ releases.json: torrent
 	@echo "  }"			| tee -a ../i2p.newsxml/data/win/beta/releases.json
 	@echo "]"			| tee -a ../i2p.newsxml/data/win/beta/releases.json
 
-testing-releases.json: torrent
+testing-releases.json: su3-unsigned-exe torrent
 	@echo "["		| tee ../i2p.newsxml/data/win/testing/releases.json
 	@echo "  {"		| tee -a ../i2p.newsxml/data/win/testing/releases.json
 	@echo "    \"date\": \"$(I2P_DATE)\","			| tee -a ../i2p.newsxml/data/win/testing/releases.json
