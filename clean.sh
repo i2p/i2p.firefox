@@ -1,7 +1,7 @@
 #! /usr/bin/env sh
 
 here=$(pwd)
-cd ../i2p.i2p/
+cd ../i2p.i2p.jpackage-build/
 ant distclean
 cd "$here"
 rm -rf \
