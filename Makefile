@@ -92,7 +92,7 @@ build/licenses: build
 	unix2dos build/licenses/LICENSE.index
 
 clean:
-	rm -rf build app-profile-*.tgz profile-*.tgz I2P-Profile-Installer-*.exe *.deb src/I2P/config *.su3 .version
+	rm -rf build app-profile-*.tgz profile-*.tgz I2P-Profile-Installer-*.exe *.deb src/I2P/config *.su3 .version *.url
 	git clean -fdx src build
 
 build:
