@@ -25,7 +25,7 @@ version.txt:
 i2pbrowser-jpackage.nsi:
 	echo "!define I2P_VERSION $(I2P_VERSION)" > src/nsis/i2pbrowser-jpackage.nsi
 
-jpackage: .version I2P all
+jpackage: .version I2P build/I2P/config all
 
 help: .version
 	@echo "I2P-Profile-Installer-$(PROFILE_VERSION)"
@@ -58,8 +58,6 @@ build/I2P: build
 	cp -rv I2P build/I2P ; true
 	cp "$(I2P_JBIGI)"/*windows*.dll build/I2P/runtime/lib; true
 
-configdir: src/I2P/config
-
 src/I2P/config:
 	mkdir -p src/I2P/config
 	rm -rf src/I2P/config/geoip src/I2P/config/webapps src/I2P/config/certificates
@@ -79,7 +77,7 @@ src/I2P/config:
 
 build/I2P/config: build/I2P 
 	make src/I2P/config; true
-	cp -rv src/I2P/config build/I2P/config ; true
+	cp -rv src/I2P/config/* build/I2P/config ; true
 	cp -rv src/I2P/config build/I2P/.i2p ; true
 
 #
@@ -101,295 +99,30 @@ build:
 	@echo "creating build directory"
 	mkdir -p build
 
-profile: build/profile/user.js build/profile/prefs.js build/profile/bookmarks.html build/profile/storage-sync.sqlite copy-xpi
+include makefiles/profile.mk
 
-profile.tgz: .version profile
-#	$(eval PROFILE_VERSION := $(shell cat src/profile/version.txt))
-	@echo "building profile tarball $(PROFILE_VERSION)"
-	sh -c 'ls I2P && cp -rv build/I2P build/profile/I2P'; true
-	install -m755 src/unix/i2pbrowser.sh build/profile/i2pbrowser.sh
-	cd build && tar -czf profile-$(PROFILE_VERSION).tgz profile && cp profile-$(PROFILE_VERSION).tgz ../
+include makefiles/app-profile.mk
 
-build/profile/user.js: build/profile src/profile/user.js
-	cp src/profile/user.js build/profile/user.js
+-include makefiles/new-extensions.mk
 
-build/profile/prefs.js: build/profile src/profile/prefs.js
-	cp src/profile/prefs.js build/profile/prefs.js
+include makefiles/extensions.mk
 
-build/profile/bookmarks.html: build/profile src/profile/bookmarks.html
-	cp src/profile/bookmarks.html build/profile/bookmarks.html
+include makefiles/build.mk
 
-build/profile/storage-sync.sqlite: build/profile src/profile/storage-sync.sqlite
-	cp src/profile/storage-sync.sqlite build/profile/storage-sync.sqlite
+include makefiles/install.mk
 
-copy-xpi: build/NoScript.xpi build/HTTPSEverywhere.xpi build/i2ppb@eyedeekay.github.io.xpi build/profile/extensions
-	cp build/NoScript.xpi "build/profile/extensions/{73a6fe31-595d-460b-a920-fcc0f8843232}.xpi"
-	cp build/HTTPSEverywhere.xpi "build/profile/extensions/https-everywhere-eff@eff.org.xpi"
-	cp build/i2ppb@eyedeekay.github.io.xpi build/profile/extensions/i2ppb@eyedeekay.github.io.xpi
+include makefiles/su.mk
 
-app-profile: .version build/app-profile/user.js build/app-profile/prefs.js build/app-profile/chrome/userChrome.css build/app-profile/bookmarks.html build/app-profile/storage-sync.sqlite copy-app-xpi
+include makefiles/su-unsigned.mk
 
-app-profile.tgz: app-profile
-#	$(eval PROFILE_VERSION := $(shell cat src/app-profile/version.txt))
-	@echo "building app-profile tarball $(PROFILE_VERSION)"
-	sh -c 'ls I2P && cp -rv build/I2P build/app-profile/I2P'; true
-	install -m755 src/unix/i2pconfig.sh build/app-profile/i2pconfig.sh
-	cd build && tar -czf app-profile-$(PROFILE_VERSION).tgz app-profile && cp app-profile-$(PROFILE_VERSION).tgz ../
+include makefiles/docker.mk
 
-build/app-profile/user.js: build/app-profile src/app-profile/user.js
-	cp src/app-profile/user.js build/app-profile/user.js
-
-build/app-profile/prefs.js: build/app-profile src/app-profile/prefs.js
-	cp src/app-profile/prefs.js build/app-profile/prefs.js
-
-build/app-profile/chrome/userChrome.css: build/app-profile/chrome src/app-profile/chrome/userChrome.css
-	cp src/app-profile/chrome/userChrome.css build/app-profile/chrome/userChrome.css
-
-build/app-profile/bookmarks.html: build/app-profile src/app-profile/bookmarks.html
-	cp src/app-profile/bookmarks.html build/app-profile/bookmarks.html
-
-build/app-profile/storage-sync.sqlite: build/app-profile src/app-profile/storage-sync.sqlite
-	cp src/app-profile/storage-sync.sqlite build/app-profile/storage-sync.sqlite
-
-copy-app-xpi: build/NoScript.xpi build/HTTPSEverywhere.xpi build/i2ppb@eyedeekay.github.io.xpi build/app-profile/extensions
-	cp build/HTTPSEverywhere.xpi "build/app-profile/extensions/https-everywhere-eff@eff.org.xpi"
-	cp build/i2ppb@eyedeekay.github.io.xpi build/app-profile/extensions/i2ppb@eyedeekay.github.io.xpi
-
-build-extensions: build/i2ppb@eyedeekay.github.io.xpi build/NoScript.xpi build/HTTPSEverywhere.xpi
-
-build/i2ppb@eyedeekay.github.io.xpi: i2psetproxy.url
-	curl -L `cat i2psetproxy.url` > build/i2ppb@eyedeekay.github.io.xpi
-
-build/NoScript.xpi: NoScript.url
-	curl -L `cat NoScript.url` > build/NoScript.xpi
-
-build/HTTPSEverywhere.xpi: HTTPSEverywhere.url
-	curl -L `cat HTTPSEverywhere.url` > build/HTTPSEverywhere.xpi
-
-clean-extensions:
-	rm -fv i2psetproxy.url NoScript.url HTTPSEverywhere.url
-
-extensions:HTTPSEverywhere.url NoScript.url i2psetproxy.url
-
--include new-extensions.mk
-
-HTTPSEverywhere.url:
-	@echo "https://addons.mozilla.org/firefox/downloads/file/3809748/"`./amo-version.sh https-everywhere`"/https-everywhere-eff@eff.org.xpi" > HTTPSEverywhere.url
-
-NoScript.url:
-	@echo "https://addons.mozilla.org/firefox/downloads/file/3534184/"`./amo-version.sh noscript`"/{73a6fe31-595d-460b-a920-fcc0f8843232}.xpi" > NoScript.url
-
-i2psetproxy.url:
-	@echo "https://addons.mozilla.org/firefox/downloads/file/3887295/"`./amo-version.sh i2p-in-private-browsing`"/i2ppb@eyedeekay.github.io.xpi" > i2psetproxy.url
-
-#	TODO: switch to the "Rhizome" variant which has extended permission to do things like set the homepage.
-#	@echo "https://addons.mozilla.org/firefox/downloads/file/3799074/"`./amo-version.sh i2pipb-rhizome-variant`"/i2prhz@eyedeekay.github.io.xpi" > i2psetproxy.url
-
-#https://addons.mozilla.org/firefox/downloads/file/3821635/i2p_in_private_browsing-0.112.1-an+fx.xpi
-#i2ppb@eyedeekay.github.io.xpi
-
-build/profile/extensions: build/profile
-	mkdir -p build/profile/extensions
-
-build/profile: build
-	mkdir -p build/profile
-
-build/win:
-	mkdir -p build/win/
-
-build/win/i2pbrowser.bat:
-	cp src/win/i2pbrowser.bat build/win/i2pbrowser.bat
-
-build/win/i2pconfig.bat:
-	cp src/win/i2pconfig.bat build/win/i2pconfig.bat
-
-build/win/i2pbrowser-private.bat:
-	cp src/win/i2pbrowser-private.bat build/win/i2pbrowser-private.bat
-
-launchers: build/win build/win/i2pbrowser.bat build/win/i2pbrowser-private.bat build/win/i2pconfig.bat
-
-build/app-profile/chrome: build/app-profile
-	mkdir -p build/app-profile/chrome
-	
-build/app-profile/extensions: build/app-profile
-	mkdir -p build/app-profile/extensions
-
-build/app-profile: build
-	mkdir -p build/app-profile
-
-install:
-	install -D -m644 src/unix/i2pbrowserrc /etc/i2pbrowser/i2pbrowserrc
-	install -D -m644 src/unix/i2pbrowserdebianrc /etc/i2pbrowser/i2pbrowserdebianrc
-	install -D -m755 build/profile/i2pbrowser.sh /usr/local/bin/i2pbrowser
-	install -D -m755 build/app-profile/i2pconfig.sh /usr/local/bin/i2pconfig
-	install -D -m755 src/unix/i2p-config-service-setup.sh /usr/local/bin/i2p-config-service-setup
-	cp -vr build/profile /var/lib/i2pbrowser/profile
-	cp -vr build/app-profile /var/lib/i2pbrowser/app-profile
-	cp -vr src/icons /var/lib/i2pbrowser/icons
-	cp src/unix/desktop/i2pbrowser.desktop /usr/share/applications
-	cp src/unix/desktop/i2pconfig.desktop /usr/share/applications
-
-uninstall:
-	rm -rfv /etc/i2pbrowser \
-		/var/lib/i2pbrowser \
-		/etc/i2pbrowser/i2pbrowserrc \
-		/usr/local/bin/i2pbrowser \
-		/usr/local/bin/i2pconfig \
-		/usr/local/bin/i2p-config-service-setup \
-		/usr/share/applications/i2pbrowser.desktop \
-		/usr/share/applications/i2pconfig.desktop
-
-checkinstall: .version
-	checkinstall \
-		--default \
-		--install=no \
-		--fstrans=yes \
-		--pkgname=i2p-firefox \
-		--pkgversion=$(PROFILE_VERSION) \
-		--pkggroup=net \
-		--pkgrelease=1 \
-		--pkgsource="https://i2pgit.org/i2p-hackers/i2p.firefox" \
-		--maintainer="$(SIGNER)" \
-		--requires="firefox,wget" \
-		--suggests="i2p,i2p-router,syndie,tor,tsocks" \
-		--nodoc \
-		--deldoc=yes \
-		--deldesc=yes \
-		--backup=no
-
-GOPATH=$(HOME)/go
-
-$(GOPATH)/src/i2pgit.org/idk/su3-tools/su3-tools:
-	git clone https://i2pgit.org/idk/su3-tools $(GOPATH)/src/i2pgit.org/idk/su3-tools; true
-	git pull --all
-	cd $(GOPATH)/src/i2pgit.org/idk/su3-tools && \
-		go mod vendor && go build
-
-su3: $(GOPATH)/src/i2pgit.org/idk/su3-tools/su3-tools
-	$(GOPATH)/src/i2pgit.org/idk/su3-tools/su3-tools -name "I2P-Profile-Installer-$(PROFILE_VERSION)-signed" -signer "$(SIGNER)" -version "$(I2P_VERSION)"
-	java -cp "$(HOME)/i2p/lib/*" net.i2p.crypto.SU3File sign -c ROUTER -f EXE I2P-Profile-Installer-$(PROFILE_VERSION)-signed.exe I2P-Profile-Installer-$(PROFILE_VERSION)-signed.su3 "$(HOME)/.i2p-plugin-keys/news-su3-keystore.ks" "$(I2P_VERSION)" $(SIGNER)
-
-su3-unsigned-exe:
-	$(GOPATH)/src/i2pgit.org/idk/su3-tools/su3-tools -name "I2P-Profile-Installer-$(PROFILE_VERSION)" -signer "$(SIGNER)" -version "$(I2P_VERSION)"
-	java -cp "$(HOME)/i2p/lib/*" net.i2p.crypto.SU3File sign -c ROUTER -f EXE I2P-Profile-Installer-$(PROFILE_VERSION).exe I2P-Profile-Installer-$(PROFILE_VERSION)-signed.su3 "$(HOME)/.i2p-plugin-keys/news-su3-keystore.ks" "$(I2P_VERSION)" $(SIGNER)
-
-docker:
-	docker build -t geti2p/i2p.firefox .
-
-xhost:
-	xhost + local:docker
-
-run: docker xhost
-	docker run -it --rm \
-		--net=host \
-		-e DISPLAY=unix$(DISPLAY) \
-		-v /tmp/.X11-unix:/tmp/.X11-unix \
-		geti2p/i2p.firefox firefox --profile /src/build/profile
-
-orig:
-	tar --exclude=debian --exclude=.git -cvzf ../i2p-firefox-profile_$(PROFILE_VERSION).orig.tar.gz .
-
-## HOWTO: If you need to release a package to launchpad, build for the oldest
-## release launchpad supports(bionic AFIACT). Then, after the build is
-## published, copy it to the other distributions. When bionic is out of date,
-## update it to the new LTS.
-
-bionic:
-	@sed -i "s|`head -n 1 debian/changelog`|i2p-firefox-profile ($(PROFILE_VERSION)-1) bionic; urgency=medium|g" debian/changelog
-	make orig
-	debuild -S
-	make dput
-
-focal:
-	@sed -i "s|`head -n 1 debian/changelog`|i2p-firefox-profile ($(PROFILE_VERSION)-1) focal; urgency=medium|g" debian/changelog
-	make orig
-	debuild -S
-	make dput
-
-groovy:
-	@sed -i "s|`head -n 1 debian/changelog`|i2p-firefox-profile ($(PROFILE_VERSION)-1) groovy; urgency=medium|g" debian/changelog
-	make orig
-	debuild -S
-	make dput
-
-buster:
-	@sed -i "s|`head -n 1 debian/changelog`|i2p-firefox-profile ($(PROFILE_VERSION)-1) buster; urgency=medium|g" debian/changelog
-	make orig
-	debuild -S
-	make dput
-
-bullseye:
-	@sed -i "s|`head -n 1 debian/changelog`|i2p-firefox-profile ($(PROFILE_VERSION)-1) bullseye; urgency=medium|g" debian/changelog
-	make orig
-	debuild -S
-	make dput
-
-trixie:
-	@sed -i "s|`head -n 1 debian/changelog`|i2p-firefox-profile ($(PROFILE_VERSION)-1) trixie; urgency=medium|g" debian/changelog
-	make orig
-	debuild -S
-	make dput
-
-sid:
-	@sed -i "s|`head -n 1 debian/changelog`|i2p-firefox-profile ($(PROFILE_VERSION)-1) sid; urgency=medium|g" debian/changelog
-	make orig
-	debuild -S
-	make dput
-
-dput:
-	dput --simulate --force ppa:i2p-community/ppa ../i2p-firefox-profile_$(PROFILE_VERSION)-1_source.changes || exit
-	dput --force ppa:i2p-community/ppa ../i2p-firefox-profile_$(PROFILE_VERSION)-1_source.changes
-
-launchpad: bionic
+include makefiles/debian.mk
 
 I2P_DATE=`date +%Y-%m-%d`
 
-prepupdate:
-	cp -v "I2P-Profile-Installer-$(PROFILE_VERSION)-signed.su3" i2pwinupdate.su3 || cp -v "I2P-Profile-Installer-$(PROFILE_VERSION).su3" i2pwinupdate.su3
-
-i2pwinupdate.su3.torrent: prepupdate
-	mktorrent --announce=http://tracker2.postman.i2p/announce.php --announce=http://w7tpbzncbcocrqtwwm3nezhnnsw4ozadvi2hmvzdhrqzfxfum7wa.b32.i2p/a --announce=http://mb5ir7klpc2tj6ha3xhmrs3mseqvanauciuoiamx2mmzujvg67uq.b32.i2p/a i2pwinupdate.su3
-
-torrent: i2pwinupdate.su3.torrent
-
 MAGNET=`bttools torrent printinfo i2pwinupdate.su3.torrent | grep 'MagNet' | sed 's|MagNet: ||g' | sed 's|%3A|:|g'| sed 's|%2F|/|g'`
-
-releases.json: torrent
-	@echo "["		| tee ../i2p.newsxml/data/win/beta/releases.json
-	@echo "  {"		| tee -a ../i2p.newsxml/data/win/beta/releases.json
-	@echo "    \"date\": \"$(I2P_DATE)\","			| tee -a ../i2p.newsxml/data/win/beta/releases.json
-	@echo "    \"version\": \"$(I2P_VERSION)\","	| tee -a ../i2p.newsxml/data/win/beta/releases.json
-	@echo "    \"minVersion\": \"1.5.0\","			| tee -a ../i2p.newsxml/data/win/beta/releases.json
-	@echo "    \"minJavaVersion\": \"1.8\","		| tee -a ../i2p.newsxml/data/win/beta/releases.json
-	@echo "    \"updates\": {"		| tee -a ../i2p.newsxml/data/win/beta/releases.json
-	@echo "      \"su3\": {"		| tee -a ../i2p.newsxml/data/win/beta/releases.json
-	@echo "        \"torrent\": \"$(MAGNET)\","		| tee -a ../i2p.newsxml/data/win/beta/releases.json
-	@echo "        \"url\": ["		| tee -a ../i2p.newsxml/data/win/beta/releases.json
-	@echo "          \"http://ekm3fu6fr5pxudhwjmdiea5dovc3jdi66hjgop4c7z7dfaw7spca.b32.i2p/i2pwinupdate.su3\""	| tee -a ../i2p.newsxml/data/win/beta/releases.json
-	@echo "        ]"	| tee -a ../i2p.newsxml/data/win/beta/releases.json
-	@echo "      }"		| tee -a ../i2p.newsxml/data/win/beta/releases.json
-	@echo "    }"		| tee -a ../i2p.newsxml/data/win/beta/releases.json
-	@echo "  }"			| tee -a ../i2p.newsxml/data/win/beta/releases.json
-	@echo "]"			| tee -a ../i2p.newsxml/data/win/beta/releases.json
-
-testing-releases.json: su3-unsigned-exe torrent
-	mkdir -p ../i2p.newsxml/data/win/testing/
-	@echo "["		| tee ../i2p.newsxml/data/win/testing/releases.json
-	@echo "  {"		| tee -a ../i2p.newsxml/data/win/testing/releases.json
-	@echo "    \"date\": \"$(I2P_DATE)\","			| tee -a ../i2p.newsxml/data/win/testing/releases.json
-	@echo "    \"version\": \"$(I2P_VERSION)\","	| tee -a ../i2p.newsxml/data/win/testing/releases.json
-	@echo "    \"minVersion\": \"1.5.0\","			| tee -a ../i2p.newsxml/data/win/testing/releases.json
-	@echo "    \"minJavaVersion\": \"1.8\","		| tee -a ../i2p.newsxml/data/win/testing/releases.json
-	@echo "    \"updates\": {"		| tee -a ../i2p.newsxml/data/win/testing/releases.json
-	@echo "      \"su3\": {"		| tee -a ../i2p.newsxml/data/win/testing/releases.json
-	@echo "        \"torrent\": \"$(MAGNET)\","		| tee -a ../i2p.newsxml/data/win/testing/releases.json
-	@echo "        \"url\": ["		| tee -a ../i2p.newsxml/data/win/testing/releases.json
-	@echo "          \"http://ekm3fu6fr5pxudhwjmdiea5dovc3jdi66hjgop4c7z7dfaw7spca.b32.i2p/i2pwinupdate.su3\""	| tee -a ../i2p.newsxml/data/win/testing/releases.json
-	@echo "        ]"	| tee -a ../i2p.newsxml/data/win/testing/releases.json
-	@echo "      }"		| tee -a ../i2p.newsxml/data/win/testing/releases.json
-	@echo "    }"		| tee -a ../i2p.newsxml/data/win/testing/releases.json
-	@echo "  }"			| tee -a ../i2p.newsxml/data/win/testing/releases.json
-	@echo "]"			| tee -a ../i2p.newsxml/data/win/testing/releases.json
+MAGNET_TESTING=`bttools torrent printinfo i2pwinupdate-testing.su3.torrent | grep 'MagNet' | sed 's|MagNet: ||g' | sed 's|%3A|:|g'| sed 's|%2F|/|g'`
 
 BLANK=`awk '! NF { print NR; exit }' changelog.txt`
 

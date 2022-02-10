@@ -7,6 +7,8 @@ if [ -f i2pversion_override ]; then
   . i2pversion_override
 fi
 
+COUNT="Ten Nine Eight Seven Six Five Four Three Two One"
+
 JAVA=$(java --version | tr -d 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ\n' | cut -d ' ' -f 2 | cut -d '.' -f 1 | tr -d '\n\t\- ')
 
 if [ "$JAVA" -lt "14" ]; then
@@ -15,9 +17,8 @@ if [ "$JAVA" -lt "14" ]; then
 fi
 if [ "$JAVA" -lt "17" ]; then
   echo "It is highly recommended that you use Java 17+ to build release packages"
-  sleep 5s
 fi
-sleep 2s
+sleep 5s
 
 if [ -z "${JAVA_HOME}" ]; then
   JAVA_HOME=`type -p java|xargs readlink -f|xargs dirname|xargs dirname`
@@ -28,16 +29,22 @@ echo "cleaning"
 ./clean.sh
 
 HERE="$PWD"
-cd "$HERE/../i2p.i2p/"
+if [ ! -d "$HERE/../i2p.i2p.jpackage-build/" ]; then
+  git clone https://i2pgit.org/i2p-hackers/i2p.i2p "$HERE/../i2p.i2p.jpackage-build/"
+fi
+cd "$HERE/../i2p.i2p.jpackage-build/"
 git checkout "$VERSION"
-sleep 20s
+for i in $COUNT; do
+  echo -n "$i...."; sleep 1s
+done
 ant distclean preppkg-windows || true
 
 cd "$HERE"
-RES_DIR="$HERE/../i2p.i2p/installer/resources"
-I2P_JARS="$HERE/../i2p.i2p/pkg-temp/lib"
-I2P_JBIGI="$HERE/../i2p.i2p/installer/lib//jbigi"
-I2P_PKG="$HERE/../i2p.i2p/pkg-temp"
+I2P_PKG="$HERE/../i2p.i2p.jpackage-build/pkg-temp"
+RES_DIR="$HERE/../i2p.i2p.jpackage-build/installer/resources"
+I2P_JARS="$I2P_PKG/lib"
+I2P_JBIGI="$HERE/../i2p.i2p.jpackage-build/installer/lib/jbigi"
+
 
 echo "compiling custom launcher"
 mkdir build

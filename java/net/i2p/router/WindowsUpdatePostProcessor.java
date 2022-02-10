@@ -5,7 +5,6 @@ import java.util.*;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.*;
 
-
 import net.i2p.crypto.*;
 import static net.i2p.update.UpdateType.*;
 import net.i2p.I2PAppContext;
@@ -18,12 +17,11 @@ import java.lang.ProcessBuilder;
 import java.lang.Process;
 import java.lang.InterruptedException;
 
-
 public class WindowsUpdatePostProcessor implements UpdatePostProcessor {
     private final Log _log = I2PAppContext.getGlobalContext().logManager().getLog(WindowsUpdatePostProcessor.class);
     private final RouterContext ctx;
     protected static Router i2pRouter = null;
-    
+
     private final AtomicBoolean hook = new AtomicBoolean();
 
     private volatile String version;
@@ -32,7 +30,7 @@ public class WindowsUpdatePostProcessor implements UpdatePostProcessor {
     private final String fileName = "i2p-jpackage-update.exe";
 
     WindowsUpdatePostProcessor() {
-    	this.ctx = null;
+        this.ctx = null;
     }
 
     WindowsUpdatePostProcessor(RouterContext ctx) {
@@ -42,12 +40,13 @@ public class WindowsUpdatePostProcessor implements UpdatePostProcessor {
     public String getVersion() {
         return version;
     }
-    
+
     public File getFile() {
         return positionedFile;
     }
 
-    public void updateDownloadedandVerified(UpdateType type, int fileType, String version, File file) throws IOException {
+    public void updateDownloadedandVerified(UpdateType type, int fileType, String version, File file)
+            throws IOException {
         _log.info("Got an update to post-process");
 
         if (type != UpdateType.ROUTER_SIGNED_SU3 && type != UpdateType.ROUTER_DEV_SU3) {
@@ -59,11 +58,11 @@ public class WindowsUpdatePostProcessor implements UpdatePostProcessor {
             _log.warn("Unsupported file type " + fileType);
             return;
         }
-        
+
         this.positionedFile = moveUpdateInstaller(file);
         this.version = version;
-        
-        if (!hook.compareAndSet(false,true)) {
+
+        if (!hook.compareAndSet(false, true)) {
             _log.info("shutdown hook was already set");
             return;
         }
@@ -72,28 +71,30 @@ public class WindowsUpdatePostProcessor implements UpdatePostProcessor {
         ctx.addFinalShutdownTask(new WinUpdateProcess(ctx, this::getVersion, this::getFile));
 
     }
-    
+
     private File moveUpdateInstaller(File file) throws IOException {
         RouterContext i2pContext = i2pRouter.getContext();
         if (i2pContext != null) {
             File newFile = new File(workDir(), fileName);
             boolean renamedStatus = file.renameTo(newFile);
             if (renamedStatus)
-              return newFile;
+                return newFile;
             else
-              throw new IOException("WindowsUpdatePostProcesssor unable to move file to working directory, update will fail");
+                throw new IOException(
+                        "WindowsUpdatePostProcesssor unable to move file to working directory, update will fail");
         }
-        throw new IOException("Router context not available to WindowsUpdatePostProcesssor, unable to find working directory, update will fail");
+        throw new IOException(
+                "Router context not available to WindowsUpdatePostProcesssor, unable to find working directory, update will fail");
     }
 
-    private File workDir() throws IOException{
+    private File workDir() throws IOException {
         RouterContext i2pContext = i2pRouter.getContext();
         if (i2pContext != null) {
             File workDir = new File(i2pContext.getConfigDir().getAbsolutePath(), "i2p_update_win");
             if (workDir.exists()) {
                 if (workDir.isFile())
                     throw new IOException(workDir + " exists but is a file, get it out of the way");
-                    return null;
+                return null;
             } else {
                 workDir.mkdirs();
             }
@@ -106,12 +107,12 @@ public class WindowsUpdatePostProcessor implements UpdatePostProcessor {
         if (SystemVersion.isWindows()) {
             File jrehome = new File(System.getProperty("java.home"));
             File programs = jrehome.getParentFile();
-            System.out.println("Windows portable jpackage wrapper found, using: " + programs + " as working config");            
+            System.out.println("Windows portable jpackage wrapper found, using: " + programs + " as working config");
             return programs.getAbsoluteFile();
         } else {
             File jrehome = new File(System.getProperty("java.home"));
             File programs = new File(jrehome.getParentFile().getParentFile(), "i2p");
-            System.out.println("Linux portable jpackage wrapper found, using: " + programs + " as working config");            
+            System.out.println("Linux portable jpackage wrapper found, using: " + programs + " as working config");
             return programs.getAbsoluteFile();
         }
     }
