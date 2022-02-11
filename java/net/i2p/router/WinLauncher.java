@@ -26,10 +26,11 @@ import static net.i2p.update.UpdateType.*;
  * router.pid - the pid of the java process.
  */
 public class WinLauncher {
-    private static WindowsUpdatePostProcessor wupp = new WindowsUpdatePostProcessor();
+    // private static WindowsUpdatePostProcessor wupp = new
+    // WindowsUpdatePostProcessor();
 
     public static void main(String[] args) throws Exception {
-        File programs = wupp.selectProgramFile();
+        File programs = selectProgramFile();
         if (!programs.exists())
             programs.mkdirs();
         else if (!programs.isDirectory()) {
@@ -51,7 +52,7 @@ public class WinLauncher {
         System.out.println("\t" + System.getProperty("i2p.dir.base") + "\n\t" + System.getProperty("i2p.dir.config")
                 + "\n\t" + System.getProperty("router.pid"));
 
-        wupp.i2pRouter = new Router(System.getProperties());
+        // wupp.i2pRouter = new Router(System.getProperties());
         System.out.println("Router is configured");
 
         Thread registrationThread = new Thread(REGISTER_UPP);
@@ -59,7 +60,8 @@ public class WinLauncher {
         registrationThread.setDaemon(true);
         registrationThread.start();
 
-        wupp.i2pRouter.runRouter();
+        // wupp.i2pRouter.runRouter();
+        RouterLaunch.main(args);
     }
 
     private static final Runnable REGISTER_UPP = () -> {
@@ -77,7 +79,7 @@ public class WinLauncher {
             sleep(1000);
         }
 
-        wupp = new WindowsUpdatePostProcessor(ctx);
+        WindowsUpdatePostProcessor wupp = new WindowsUpdatePostProcessor(ctx);
         um.register(wupp, UpdateType.ROUTER_SIGNED_SU3, SU3File.TYPE_EXE);
         um.register(wupp, UpdateType.ROUTER_DEV_SU3, SU3File.TYPE_EXE);
     };
@@ -108,4 +110,17 @@ public class WinLauncher {
         }
     }
 
+    private static File selectProgramFile() {
+        if (SystemVersion.isWindows()) {
+            File jrehome = new File(System.getProperty("java.home"));
+            File programs = jrehome.getParentFile();
+            System.out.println("Windows portable jpackage wrapper found, using: " + programs + " as working config");
+            return programs.getAbsoluteFile();
+        } else {
+            File jrehome = new File(System.getProperty("java.home"));
+            File programs = new File(jrehome.getParentFile().getParentFile(), "i2p");
+            System.out.println("Linux portable jpackage wrapper found, using: " + programs + " as working config");
+            return programs.getAbsoluteFile();
+        }
+    }
 }

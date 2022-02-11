@@ -103,18 +103,4 @@ public class WindowsUpdatePostProcessor implements UpdatePostProcessor {
         return null;
     }
 
-    protected File selectProgramFile() {
-        if (SystemVersion.isWindows()) {
-            File jrehome = new File(System.getProperty("java.home"));
-            File programs = jrehome.getParentFile();
-            System.out.println("Windows portable jpackage wrapper found, using: " + programs + " as working config");
-            return programs.getAbsoluteFile();
-        } else {
-            File jrehome = new File(System.getProperty("java.home"));
-            File programs = new File(jrehome.getParentFile().getParentFile(), "i2p");
-            System.out.println("Linux portable jpackage wrapper found, using: " + programs + " as working config");
-            return programs.getAbsoluteFile();
-        }
-    }
-
 }
