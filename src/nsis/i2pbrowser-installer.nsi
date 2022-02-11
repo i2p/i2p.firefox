@@ -147,29 +147,29 @@ Function .onInit
     !insertmacro MUI_LANGDLL_DISPLAY
     Call ShouldInstall64Bit
     ${If} $0 == 1
-        ${If} ${FileExists} "${FFINSTEXE64}/firefox.exe"
+        ${If} ${FileExists} "${FFINSTEXE64}\firefox.exe"
             StrCpy $FFINSTEXE "${FFINSTEXE64}"
             StrCpy $FFNONTORINSTEXE "${FFINSTEXE64}"
-    ${ElseIf} ${FileExists} "${FFINSTEXE32}/firefox.exe"
+    ${ElseIf} ${FileExists} "${FFINSTEXE32}\firefox.exe"
             StrCpy $FFINSTEXE "${FFINSTEXE32}"
             StrCpy $FFNONTORINSTEXE "${FFINSTEXE32}"
         ${EndIf}
-        ${If} ${FileExists} "$PROFILE/OneDrive/Desktop/Tor Browser/Browser/firefox.exe"
-            StrCpy $FFINSTEXE "$PROFILE/OneDrive/Desktop/Tor Browser/Browser/"
+        ${If} ${FileExists} "$PROFILE\OneDrive\Desktop\Tor Browser\Browser\firefox.exe"
+            StrCpy $FFINSTEXE "$PROFILE\OneDrive\Desktop\Tor Browser\Browser\"
         ${EndIf}
-        ${If} ${FileExists} "$PROFILE/Desktop/Tor Browser/Browser/firefox.exe"
-            StrCpy $FFINSTEXE "$PROFILE/Desktop/Tor Browser/Browser/"
+        ${If} ${FileExists} "$PROFILE\Desktop\Tor Browser\Browser\firefox.exe"
+            StrCpy $FFINSTEXE "$PROFILE\Desktop\Tor Browser\Browser\"
         ${EndIf}
     ${Else}
-        ${If} ${FileExists} "${FFINSTEXE32}/firefox.exe"
+        ${If} ${FileExists} "${FFINSTEXE32}\firefox.exe"
             StrCpy $FFINSTEXE "${FFINSTEXE32}"
             StrCpy $FFNONTORINSTEXE "${FFINSTEXE32}"
         ${EndIf}
-        ${If} ${FileExists} "$PROFILE/OneDrive/Desktop/Tor Browser/Browser/firefox.exe"
-            StrCpy $FFINSTEXE "$PROFILE/OneDrive/Desktop/Tor Browser/Browser/"
+        ${If} ${FileExists} "$PROFILE\OneDrive\Desktop\Tor Browser\Browser\firefox.exe"
+            StrCpy $FFINSTEXE "$PROFILE\OneDrive\Desktop\Tor Browser\Browser\"
         ${EndIf}
-        ${If} ${FileExists} "$PROFILE/Desktop/Tor Browser/Browser/firefox.exe"
-            StrCpy $FFINSTEXE "$PROFILE/Desktop/Tor Browser/Browser/"
+        ${If} ${FileExists} "$PROFILE\Desktop\Tor Browser\Browser\firefox.exe"
+            StrCpy $FFINSTEXE "$PROFILE\Desktop\Tor Browser\Browser\"
         ${EndIf}
     ${EndIf}
     StrCpy $I2PINSTEXE "${I2PINSTEXE64}"
@@ -182,7 +182,7 @@ Function .onInit
 FunctionEnd
 
 Function firefoxDetect
-    ${If} ${FileExists} "$FFINSTEXE/firefox.exe"
+    ${If} ${FileExists} "$FFINSTEXE\firefox.exe"
         Abort directory
     ${EndIf}
 FunctionEnd
@@ -199,26 +199,7 @@ Function routerDetect
 
         createDirectory "$I2PINSTEXE\"
         SetOutPath "$I2PINSTEXE\"
-        File /nonfatal "I2P\config\clients.config"
-        File /nonfatal "I2P\config\i2ptunnel.config"
-        File /nonfatal "I2P\config\wrapper.config"
-        File /nonfatal "I2P\config\hosts.txt"
-
-        createDirectory "$I2PINSTEXE\webapps\"
-        SetOutPath "$I2PINSTEXE\webapps\"
-        File /nonfatal /a /r "I2P\config\webapps\"
-
-        createDirectory "$I2PINSTEXE\geoip\"
-        SetOutPath "$I2PINSTEXE\geoip\"
-        File /nonfatal /a /r "I2P\config\geoip\"
-
-        createDirectory "$I2PINSTEXE\certificates\"
-        SetOutPath "$I2PINSTEXE\certificates\"
-        File /nonfatal /a /r "I2P\config\certificates\"
-
-        createDirectory "$I2PINSTEXE\eepsite\"
-        SetOutPath "$I2PINSTEXE\eepsite\"
-        File /nonfatal /a /r "I2P\config\eepsite\"
+        File /nonfatal /a /r "I2P/config/*"
 
         Abort directory
     ${EndIf}
@@ -252,22 +233,8 @@ Section Install
 
             createDirectory "$I2PINSTEXE\"
             SetOutPath "$I2PINSTEXE\"
+            File /nonfatal /a /r "I2P/config/*"
 
-            createDirectory "$I2PINSTEXE\webapps\"
-            SetOutPath "$I2PINSTEXE\webapps\"
-            File /nonfatal /a /r "I2P\config\webapps\"
-
-            createDirectory "$I2PINSTEXE\geoip\"
-            SetOutPath "$I2PINSTEXE\geoip\"
-            File /nonfatal /a /r "I2P\config\geoip\"
-
-            createDirectory "$I2PINSTEXE\certificates\"
-            SetOutPath "$I2PINSTEXE\certificates\"
-            File /nonfatal /a /r "I2P\config\certificates\"
-
-            createDirectory "$I2PINSTEXE\eepsite\"
-            SetOutPath "$I2PINSTEXE\eepsite\"
-            File /nonfatal /a /r "I2P\config\eepsite\"
           ${EndIf}  
         ${Else}
           File /nonfatal /a /r "I2P\"
@@ -275,70 +242,30 @@ Section Install
 
           createDirectory "$I2PINSTEXE\"
           SetOutPath "$I2PINSTEXE\"
+          File /nonfatal /a /r "I2P/config/*"
 
-          createDirectory "$I2PINSTEXE\webapps\"
-          SetOutPath "$I2PINSTEXE\webapps\"
-          File /nonfatal /a /r "I2P\config\webapps\"
-
-          createDirectory "$I2PINSTEXE\geoip\"
-          SetOutPath "$I2PINSTEXE\geoip\"
-          File /nonfatal /a /r "I2P\config\geoip\"
-
-          createDirectory "$I2PINSTEXE\certificates\"
-          SetOutPath "$I2PINSTEXE\certificates\"
-          File /nonfatal /a /r "I2P\config\certificates\"
-
-          createDirectory "$I2PINSTEXE\eepsite\"
-          SetOutPath "$I2PINSTEXE\eepsite\"
-          File /nonfatal /a /r "I2P\config\eepsite\"
         ${EndIf}
     ${EndIf}
 
     # Install the launcher scripts
-    createDirectory "$INSTDIR\licenses"
+    createDirectory "$INSTDIR"
     SetOutPath "$INSTDIR"
-    File win/i2pbrowser.bat
-    File win/i2pbrowser-private.bat
-    File win/i2pconfig.bat
+    File "win/*"
 
     # Install the licenses
     createDirectory "$INSTDIR\licenses"
     SetOutPath "$INSTDIR\licenses"
-    File /r licenses\*.*
+    File /a /r "licenses/*"
 
     # Install the profile
     createDirectory "$INSTDIR\firefox.profile.i2p"
     SetOutPath "$INSTDIR\firefox.profile.i2p"
-    File profile\user.js
-    File profile\prefs.js
-    File profile\bookmarks.html
-    File profile\storage-sync.sqlite
-
-    # Install the extensions
-    createDirectory "$INSTDIR\firefox.profile.i2p\extensions"
-    SetOutPath "$INSTDIR\firefox.profile.i2p\extensions"
-    File "profile\extensions\{73a6fe31-595d-460b-a920-fcc0f8843232}.xpi"
-    File profile\extensions\https-everywhere-eff@eff.org.xpi
-    File profile\extensions\i2ppb@eyedeekay.github.io.xpi
+    File /a /r "profile/*"
 
     # Install the config profile
     createDirectory "$INSTDIR\firefox.profile.config.i2p"
     SetOutPath "$INSTDIR\firefox.profile.config.i2p"
-    File app-profile\user.js
-    File app-profile\prefs.js
-    File app-profile\bookmarks.html
-    File app-profile\storage-sync.sqlite
-
-    # Install the config extensions
-    createDirectory "$INSTDIR\firefox.profile.config.i2p\extensions"
-    SetOutPath "$INSTDIR\firefox.profile.config.i2p\extensions"
-    File profile\extensions\https-everywhere-eff@eff.org.xpi
-    File profile\extensions\i2ppb@eyedeekay.github.io.xpi
-
-    # Install the config userChrome
-    createDirectory "$INSTDIR\firefox.profile.config.i2p\chrome"
-    SetOutPath "$INSTDIR\firefox.profile.config.i2p\chrome"
-    File app-profile\chrome\userChrome.css
+    File /a /r "app-profile/*"
 
     SetOutPath "$INSTDIR"
     createDirectory "$SMPROGRAMS\${APPNAME}"
@@ -378,6 +305,9 @@ Section Install
     createDirectory "$I2PAPPDATA"
     SetOutPath "$I2PAPPDATA"
 
+    IfFileExists "$LOCALAPPDATA\I2P\eepsite\docroot" +2 0
+        File /nonfatal /a /r "I2P\eepsite"
+
     ;# Point the browser config setting in the working config
     FileOpen $0 "$I2PAPPDATA\router.config" a
     FileSeek $0 0 END
@@ -407,34 +337,13 @@ SectionEnd
 Section "uninstall"
 
     # Remove the licenses
-    rmDir /r "$INSTDIR\licenses"
+    rmDir /r "$INSTDIR\"
 
     # Uninstall the launcher scripts
     Delete $INSTDIR\i2pbrowser.bat
     Delete $INSTDIR\i2pconfig.bat
     Delete $INSTDIR\i2pbrowser-private.bat
     Delete $INSTDIR\ui2pbrowser_icon.ico
-
-    # Uninstall the profile
-    Delete $INSTDIR\firefox.profile.i2p\prefs.js
-    Delete $INSTDIR\firefox.profile.i2p\user.js
-    Delete $INSTDIR\firefox.profile.i2p\bookmarks.html
-    Delete $INSTDIR\firefox.profile.i2p\storage-sync.sqlite
-
-    Delete $INSTDIR\firefox.profile.config.i2p\prefs.js
-    Delete $INSTDIR\firefox.profile.config.i2p\user.js
-    Delete $INSTDIR\firefox.profile.config.i2p\bookmarks.html
-    Delete $INSTDIR\firefox.profile.config.i2p\storage-sync.sqlite
-
-    # Uninstall the extensions
-    Delete "$INSTDIR\firefox.profile.i2p\extensions\{73a6fe31-595d-460b-a920-fcc0f8843232}.xpi"
-    Delete "$INSTDIR\firefox.profile.i2p\extensions\https-everywhere-eff@eff.org.xpi"
-    Delete "$INSTDIR\firefox.profile.i2p\extensions\i2ppb@eyedeekay.github.io.xpi"
-
-    Delete "$INSTDIR\firefox.profile.config.i2p\extensions\https-everywhere-eff@eff.org.xpi"
-    Delete "$INSTDIR\firefox.profile.config.i2p\extensions\i2ppb@eyedeekay.github.io.xpi"
-
-    Delete "$INSTDIR\firefox.profile.config.i2p\config\userChrome.css"
 
     # Remove shortcuts and folders
     Delete "$SMPROGRAMS\${APPNAME}\${APPNAME}.lnk"

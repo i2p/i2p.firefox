@@ -9,7 +9,7 @@ include .version
 
 PROFILE_VERSION=$(MAJOR).$(MINOR).$(BUILD)
 
-all: .version install.exe
+all: .version prep install.exe
 
 tag:
 	git tag $(PROFILE_VERSION)
@@ -39,12 +39,12 @@ prep: profile.tgz app-profile.tgz profile build/licenses build/I2P build/I2P/con
 	cp src/nsis/*.nsh build
 	cp src/icons/*.ico build
 
-install.exe: prep
+install.exe:
 	cd build && makensis i2pbrowser-installer.nsi && cp I2P-Profile-Installer-*.exe ../ && echo "built windows installer"
 
-export RES_DIR="../i2p.i2p/installer/resources"
-export PKG_DIR="../i2p.i2p/pkg-temp"
-export I2P_JBIGI="../i2p.i2p/installer/lib/jbigi"
+export RES_DIR="../i2p.i2p.jpackage-build/installer/resources"
+export PKG_DIR="../i2p.i2p.jpackage-build/pkg-temp"
+export I2P_JBIGI="../i2p.i2p.jpackage-build/installer/lib/jbigi"
 
 distclean: clean clean-extensions
 	rm -rf I2P
@@ -53,12 +53,12 @@ distclean: clean clean-extensions
 I2P:
 	./build.sh
 
-build/I2P: build
+build/I2P: I2P build
 	rm -rf build/I2P
 	cp -rv I2P build/I2P ; true
 	cp "$(I2P_JBIGI)"/*windows*.dll build/I2P/runtime/lib; true
 
-src/I2P/config:
+src/I2P/config: build/I2P
 	mkdir -p src/I2P/config
 	rm -rf src/I2P/config/geoip src/I2P/config/webapps src/I2P/config/certificates
 	echo true | tee src/I2P/config/jpackaged
@@ -75,10 +75,10 @@ src/I2P/config:
 	cp -R "$(PKG_DIR)"/webapps src/I2P/config/webapps
 	cd src/I2P/config/geoip && gunzip GeoLite2-Country.mmdb.gz; cd ../../..
 
-build/I2P/config: build/I2P 
-	make src/I2P/config; true
-	cp -rv src/I2P/config/* build/I2P/config ; true
-	cp -rv src/I2P/config build/I2P/.i2p ; true
+build/I2P/config: src/I2P/config build/I2P
+	cp -rv src/I2P/config build/I2P/config
+#	cp -rv build/I2P/* I2P/
+#	cp -rv src/I2P/config build/I2P/.i2p
 
 #
 # Warning: a displayed license file of more than 28752 bytes

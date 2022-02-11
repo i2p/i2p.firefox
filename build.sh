@@ -37,7 +37,7 @@ git checkout "$VERSION"
 for i in $COUNT; do
   echo -n "$i...."; sleep 1s
 done
-ant distclean preppkg-windows || true
+ant distclean pkg || true
 
 cd "$HERE"
 I2P_PKG="$HERE/../i2p.i2p.jpackage-build/pkg-temp"
@@ -73,5 +73,4 @@ echo "preparing to invoke jpackage for I2P version $I2P_VERSION"
   --java-options "--add-opens java.base/java.nio=ALL-UNNAMED" \
   $JPACKAGE_OPTS \
   --resource-dir build \
-  --java-options "--illegal-access=permit" \
   --input build --main-jar launcher.jar --main-class net.i2p.router.WinLauncher
