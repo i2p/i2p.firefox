@@ -1,3 +1,11 @@
+2022-02-10 idk
+* This release fixes automatic update using Bittorrent within the I2P network
+ and the custom Update PostProcessor.
+* Fixes the first-run launcher bug
+* Drastically simplifies the Windows build process
+* Adds support for development releases
+* Adds support for Debian packaging
+
 2021-11-1 idk
 * HTTPS Everywhere will now self-disable on some Firefox versions. This is not
  an issue since HTTPS Everywhere is deprecated in favor of Firefox built-in
