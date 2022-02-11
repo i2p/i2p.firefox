@@ -4,7 +4,7 @@
 * Fixes the first-run launcher bug
 * Drastically simplifies the Windows build process
 * Adds support for development releases
-* Adds support for Debian packaging
+* Adds support for Debian packaging(Of just the Firefox profile)
 
 2021-11-1 idk
 * HTTPS Everywhere will now self-disable on some Firefox versions. This is not
