@@ -18,23 +18,18 @@ import java.lang.Process;
 import java.lang.InterruptedException;
 
 public class WindowsUpdatePostProcessor implements UpdatePostProcessor {
-    private final Log _log = I2PAppContext.getGlobalContext().logManager().getLog(WindowsUpdatePostProcessor.class);
+    private final Log _log;
     private final RouterContext ctx;
-    protected static Router i2pRouter = null;
-
     private final AtomicBoolean hook = new AtomicBoolean();
+    private final String fileName = "i2p-jpackage-update.exe";
 
     private volatile String version;
 
     private volatile File positionedFile = null;
-    private final String fileName = "i2p-jpackage-update.exe";
-
-    WindowsUpdatePostProcessor() {
-        this.ctx = null;
-    }
 
     WindowsUpdatePostProcessor(RouterContext ctx) {
         this.ctx = ctx;
+        this._log = ctx.logManager().getLog(WindowsUpdatePostProcessor.class);
     }
 
     public String getVersion() {
@@ -73,8 +68,7 @@ public class WindowsUpdatePostProcessor implements UpdatePostProcessor {
     }
 
     private File moveUpdateInstaller(File file) throws IOException {
-        RouterContext i2pContext = i2pRouter.getContext();
-        if (i2pContext != null) {
+        if (this.ctx != null) {
             File newFile = new File(workDir(), fileName);
             boolean renamedStatus = file.renameTo(newFile);
             if (renamedStatus)
@@ -88,9 +82,8 @@ public class WindowsUpdatePostProcessor implements UpdatePostProcessor {
     }
 
     private File workDir() throws IOException {
-        RouterContext i2pContext = i2pRouter.getContext();
-        if (i2pContext != null) {
-            File workDir = new File(i2pContext.getConfigDir().getAbsolutePath(), "i2p_update_win");
+        if (this.ctx != null) {
+            File workDir = new File(this.ctx.getConfigDir().getAbsolutePath(), "i2p_update_win");
             if (workDir.exists()) {
                 if (workDir.isFile())
                     throw new IOException(workDir + " exists but is a file, get it out of the way");

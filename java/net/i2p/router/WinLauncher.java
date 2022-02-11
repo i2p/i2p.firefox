@@ -26,9 +26,6 @@ import static net.i2p.update.UpdateType.*;
  * router.pid - the pid of the java process.
  */
 public class WinLauncher {
-    // private static WindowsUpdatePostProcessor wupp = new
-    // WindowsUpdatePostProcessor();
-
     public static void main(String[] args) throws Exception {
         File programs = selectProgramFile();
         if (!programs.exists())
@@ -73,7 +70,7 @@ public class WinLauncher {
         }
 
         // then wait for the update manager
-        
+
         ClientAppManager cam;
         while ((cam = ctx.clientAppManager()) == null) {
             sleep(1000);
