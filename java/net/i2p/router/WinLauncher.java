@@ -73,7 +73,12 @@ public class WinLauncher {
         }
 
         // then wait for the update manager
-        ClientAppManager cam = ctx.clientAppManager();
+        
+        ClientAppManager cam;
+        while ((cam = ctx.clientAppManager()) == null) {
+            sleep(1000);
+        }
+
         UpdateManager um;
         while ((um = (UpdateManager) cam.getRegisteredApp(UpdateManager.APP_NAME)) == null) {
             sleep(1000);
