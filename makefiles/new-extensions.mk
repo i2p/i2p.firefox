@@ -1,10 +1,10 @@
 
-build-new-extensions: build/i2ppb@eyedeekay.github.io.xpi build/NoScript.xpi build/HTTPSEverywhere.xpi
+build-new-extensions: build/i2ppb@eyedeekay.github.io.xpi build/uBlock0@raymondhill.net.xpi build/jsr@javascriptrestrictor.xpi build/onioncbt@eyedeekay.github.io.xpi build/{b86e4813-687a-43e6-ab65-0bde4ab75758}.xpi
 
 build/uBlock0@raymondhill.net.xpi:
 	curl -L `cat UblockOrigin.url` > build/uBlock0@raymondhill.net.xpi
 
-build//jsr@javascriptrestrictor.xpi:
+build/jsr@javascriptrestrictor.xpi:
 	curl -L `cat JShelter.url` > build/jsr@javascriptrestrictor.xpi
 
 build/onioncbt@eyedeekay.github.io.xpi:
