@@ -14,16 +14,16 @@ build/{b86e4813-687a-43e6-ab65-0bde4ab75758}.xpi:
 	curl -L `cat LocalCDN.url` > build//{b86e4813-687a-43e6-ab65-0bde4ab75758}.xpi
 
 UBlockOrigin.url:
-	@echo "https://addons.mozilla.org/firefox/downloads/file/3892224/"`./amo-version.sh ublock-origin`"/uBlock0@raymondhill.net.xpi" > UBlockOrigin.url
+	@echo `./amo-version.sh ublock-origin` > UBlockOrigin.url
 
 JShelter.url:
-	@echo "https://addons.mozilla.org/firefox/downloads/file/3903890/"`./amo-version.sh javascript-restrictor`"/jsr@javascriptrestrictor.xpi" > JShelter.url
+	@echo "`./amo-version.sh javascript-restrictor`" > JShelter.url
 
 onioncontainer.url:
-	@echo "https://addons.mozilla.org/firefox/downloads/file/3904685/"`./amo-version.sh onion-in-container-browsing`"/onioncbt@eyedeekay.github.io.xpi" > onioncontainer.url
+	@echo `./amo-version.sh onion-in-container-browsing` > onioncontainer.url
 
 LocalCDN.url:
-	@echo "https://addons.mozilla.org/firefox/downloads/file/3902456/"`./amo-version.sh localcdn-fork-of-decentraleyes`"/{b86e4813-687a-43e6-ab65-0bde4ab75758}.xpi" > LocalCDN.url
+	@echo `./amo-version.sh localcdn-fork-of-decentraleyes` > LocalCDN.url
 
 clean-new-extensions:
 	rm -f UBlockOrigin.url JShelter.url onioncontainer.url LocalCDN.url build/i2ppb@eyedeekay.github.io.xpi build/onioncbt@eyedeekay.github.io.xpi
