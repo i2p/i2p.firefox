@@ -1,5 +1,5 @@
 
-build-extensions: build/i2ppb@eyedeekay.github.io.xpi build/NoScript.xpi build/HTTPSEverywhere.xpi
+build-extensions: build/i2ppb@eyedeekay.github.io.xpi build/{73a6fe31-595d-460b-a920-fcc0f8843232}.xpi build/https-everywhere-eff@eff.org.xpi
 
 build/i2ppb@eyedeekay.github.io.xpi: i2psetproxy.url
 	curl -L `cat i2psetproxy.url` > build/i2ppb@eyedeekay.github.io.xpi
