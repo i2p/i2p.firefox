@@ -1,6 +1,9 @@
 #!/bin/bash
 set -e 
 
+SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+cd "$SCRIPT_DIR" || exit 1
+
 . i2pversion
 
 if [ -f i2pversion_override ]; then
