@@ -96,6 +96,14 @@ public class WinLauncher {
     }
 
     private static File selectHome() { // throws Exception {
+        String path_override = System.getenv("I2P");
+        File path = new File(path_override);
+        if (path.exists()) {
+            if (path.isDirectory())
+                return path.getAbsoluteFile();
+            else
+                throw new RuntimeException("I2P is not a directory: " + path);
+        }
         if (SystemVersion.isWindows()) {
             File home = new File(System.getProperty("user.home"));
             File appData = new File(home, "AppData");
@@ -113,6 +121,14 @@ public class WinLauncher {
     }
 
     private static File selectProgramFile() {
+        String path_override = System.getenv("I2P_CONFIG");
+        File path = new File(path_override);
+        if (path.exists()) {
+            if (path.isDirectory())
+                return path.getAbsoluteFile();
+            else
+                throw new RuntimeException("I2P_CONFIG is not a directory: " + path);
+        }
         if (SystemVersion.isWindows()) {
             File jrehome = new File(System.getProperty("java.home"));
             File programs = jrehome.getParentFile();
