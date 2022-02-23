@@ -376,9 +376,9 @@ Function LaunchLink
   ${If} ${Silent}
     ReadEnvStr $0 RESTART_I2P
     ${If} $0 != ""
-      Exec "$I2PINSTEXE\I2P.exe"
+      ShellExecAsUser::ShellExecAsUser  "$I2PINSTEXE\I2P.exe"
     ${EndIf}  
   ${Else}
-    Exec "$I2PINSTEXE\I2P.exe"
+    ShellExecAsUser::ShellExecAsUser  "$I2PINSTEXE\I2P.exe"
   ${EndIf}
 FunctionEnd

@@ -21,7 +21,16 @@ To build this, you will need the following software packages (all available in D
  * curl
  * jq
 
-to build a Debian package, you'll also need
+In addition, you will need the NSIS plugin "ShellExecAsUser" which you can get from the
+[NSIS Wiki Page](https://nsis.sourceforge.io/ShellExecAsUser_plug-in). In order to install
+the plugin on Debian, you can download the: [7zip release](https://nsis.sourceforge.io/mediawiki/images/6/68/ShellExecAsUser_amd64-Unicode.7z)
+and copy the content of `Plugins` to `/usr/share/nsis/Plugins`.
+
+```sh
+cp -rv Plugins/* /usr/share/nsis/Plugins/
+```
+
+To build a Debian package, you'll also need
 
  * checkinstall
 
