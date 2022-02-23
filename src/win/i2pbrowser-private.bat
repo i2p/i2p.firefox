@@ -9,10 +9,14 @@ if exist "%ProgramFiles(x86)%\I2P" (
   set "I2PPath=%ProgramFiles(x86)%\I2P"
 )
 
-if exist "%ProgramFiles%\I2P\jpackaged" (
-  start "i2p" /D "%LOCALAPPDATA%\I2P" "%I2PPath%\i2p.exe"
-) else (
-  start "i2p" "%I2PPath%\i2p.exe"
+netstat /o /a | find /i "listening" | find ":7657" >nul 2>nul && (
+   echo I2P is already running
+) || (
+  if exist "%ProgramFiles%\I2P\jpackaged" (
+    start "i2p" /D "%LOCALAPPDATA%\I2P" "%I2PPath%\i2p.exe"
+  ) else (
+    start "i2p" "%I2PPath%\i2p.exe"
+  )
 )
 
 timeout /t 3
