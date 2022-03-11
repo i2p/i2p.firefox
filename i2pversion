@@ -3,8 +3,8 @@
 
 #Comment this out to build from an alternate branch or
 # the tip of the master branch.
-I2P_VERSION=1.6.1
-export I2P_VERSION=1.6.1
+I2P_VERSION=1.7.0
+export I2P_VERSION=1.7.0
 VERSION=i2p-"$I2P_VERSION"
 export VERSION="$VERSION"
 
