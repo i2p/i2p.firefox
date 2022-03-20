@@ -1,3 +1,5 @@
+package net.i2p.router;
+
 import java.util.*;
 
 import com.sun.jna.Native;
