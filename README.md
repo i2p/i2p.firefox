@@ -4,32 +4,31 @@ I2P Browsing Profile for Firefox
 Features:
 ---------
 
- - Automatically select an up-to-date, secure Firefox or Tor Browser(On Windows) variant
- - Automatically configure a profile for I2P
- - Automatically block-list all non-I2P local destinations
- - Enable first-party isolation, anti-fingerprinting, letterboxing
- - Automatically sandbox I2P, Non-I2P, and I2P-Application cookiestores
+- Automatically select an up-to-date, secure Firefox or Tor Browser(On Windows) variant
+- Automatically configure a profile for I2P
+- Automatically block-list all non-I2P local destinations
+- Enable first-party isolation, anti-fingerprinting, letterboxing
+- Automatically sandbox I2P, Non-I2P, and I2P-Application cookiestores
 
 Build Dependencies:
 -------------------
 
 To build this, you will need the following software packages (all available in Debian) :
 
- * make
- * nsis
- * dos2unix
- * curl
- * jq
+- make
+- nsis
+- dos2unix
+- curl
+- jq
 
 to build a Debian package, you'll also need
 
- * checkinstall
+- checkinstall
 
 Preparation
 -----------
 
 Before you build, run the targets
-
 
         make clean-extensions
         make extensions
@@ -172,27 +171,26 @@ select "Checkout as is, commit as is" and leave line-endings alone.
 
 TODO: Add links to the respective instructions for each of these.
 
- 1. Run the Cygwin `setup-$arch.exe` for your platform to set up new packages.
-   Select the `make` `jq` `dos2unix` and `curl` packages.
- 2. Open a cygwin terminal.
- 3. Clone `i2p.i2p` and `i2p.firefox`
+1. Run the Cygwin `setup-$arch.exe` for your platform to set up new packages. Select the `make` `jq` `dos2unix` and `curl` packages.
+2. Open a cygwin terminal.
+3. Clone `i2p.i2p` and `i2p.firefox`
 
         git clone https://github.com/i2p/i2p.i2p
         git clone https://github.com/i2p/i2p.firefox
 
- 3. Move to the i2p.i2p directory. Build the .jar files required to build the App Image
+4. Move to the i2p.i2p directory. Build the .jar files required to build the App Image
   inside i2p.i2p. Return to home.
 
         cd i2p.i2p
         ant clean pkg
         cd ..
 
- 4. Move into the i2p.firefox directory. Run the `./build.sh` script.
+5. Move into the i2p.firefox directory. Run the `./build.sh` script.
 
         cd i2p.firefox
         ./build.sh
 
- 5. Run `make` to build the installer.
+6. Run `make` to build the installer.
 
 Doing a Release
 ---------------
