@@ -42,20 +42,29 @@ class WinUpdateProcess implements Runnable {
         var workingDir = workDir();
         var logFile = new File(workingDir, "log-" + version + ".txt");
 
-        ProcessBuilder pb = new ProcessBuilder(file.getAbsolutePath());
-        var env = pb.environment();
-        env.put("OLD_I2P_VERSION", version);
-        env.remove("RESTART_I2P");
+        if (logFile.canWrite()) {
+            // check if we can write to the log file. If we can, use the ProcessBuilder to
+            // run the installer.
+            ProcessBuilder pb = new ProcessBuilder(file.getAbsolutePath(), "/S", "/D=" + workingDir.getAbsolutePath());
+            var env = pb.environment();
+            env.put("OLD_I2P_VERSION", version);
+            env.remove("RESTART_I2P");
 
-        int exitCode = ctx.router().scheduledGracefulExitCode();
-        if (exitCode == Router.EXIT_HARD_RESTART || exitCode == Router.EXIT_GRACEFUL_RESTART)
-            env.put("RESTART_I2P", "true");
+            int exitCode = ctx.router().scheduledGracefulExitCode();
+            if (exitCode == Router.EXIT_HARD_RESTART || exitCode == Router.EXIT_GRACEFUL_RESTART)
+                env.put("RESTART_I2P", "true");
 
-        try {
-            pb.directory(workingDir).redirectErrorStream(true).redirectOutput(logFile).start();
-        } catch (IOException ex) {
-            System.out.println("Unable to run update-program in background. Update will fail.");
+            try {
+                pb.directory(workingDir).redirectErrorStream(true).redirectOutput(logFile).start();
+            } catch (IOException ex) {
+                System.out.println("Unable to run update-program in background. Update will fail.");
+            }
+        } else {
+            // If we cant write to the log file and we're on Windows, use the elevator to
+            // execute the installer instead of the ProcessBuilder.
+            Elevator.executeAsAdministrator(file.getAbsolutePath(), " /S /D=" + workingDir.getAbsolutePath());
         }
+
     }
 
     @Override

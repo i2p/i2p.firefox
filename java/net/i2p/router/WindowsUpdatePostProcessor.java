@@ -43,28 +43,30 @@ public class WindowsUpdatePostProcessor implements UpdatePostProcessor {
     public void updateDownloadedandVerified(UpdateType type, int fileType, String version, File file)
             throws IOException {
         _log.info("Got an update to post-process");
+        if (SystemVersion.isWindows()) {
 
-        if (type != UpdateType.ROUTER_SIGNED_SU3 && type != UpdateType.ROUTER_DEV_SU3) {
-            _log.warn("Unsupported update type " + type);
-            return;
+            if (type != UpdateType.ROUTER_SIGNED_SU3 && type != UpdateType.ROUTER_DEV_SU3) {
+                _log.warn("Unsupported update type " + type);
+                return;
+            }
+
+            if (fileType != SU3File.TYPE_EXE) {
+                _log.warn("Unsupported file type " + fileType);
+                return;
+            }
+
+            this.positionedFile = moveUpdateInstaller(file);
+            this.version = version;
+
+            if (!hook.compareAndSet(false, true)) {
+                _log.info("shutdown hook was already set");
+                return;
+            }
+
+            _log.info("adding shutdown hook");
+
+            ctx.addFinalShutdownTask(new WinUpdateProcess(ctx, this::getVersion, this::getFile));
         }
-
-        if (fileType != SU3File.TYPE_EXE) {
-            _log.warn("Unsupported file type " + fileType);
-            return;
-        }
-
-        this.positionedFile = moveUpdateInstaller(file);
-        this.version = version;
-
-        if (!hook.compareAndSet(false, true)) {
-            _log.info("shutdown hook was already set");
-            return;
-        }
-
-        _log.info("adding shutdown hook");
-        ctx.addFinalShutdownTask(new WinUpdateProcess(ctx, this::getVersion, this::getFile));
-
     }
 
     private File moveUpdateInstaller(File file) throws IOException {

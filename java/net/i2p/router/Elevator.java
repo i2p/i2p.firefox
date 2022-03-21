@@ -10,6 +10,10 @@ public class Elevator {
     }
 
     public static void executeAsAdministrator(String command, String args) {
+        if (command == "" || command == null) {
+            System.out.println("No command specified");
+            return;
+        }
         Shell32X.SHELLEXECUTEINFO execInfo = new Shell32X.SHELLEXECUTEINFO();
         execInfo.lpFile = new WString(command);
         if (args != null)
