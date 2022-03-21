@@ -62,6 +62,7 @@ fi
 
 cd java
 "$JAVA_HOME"/bin/javac -d ../build -classpath "$HERE/build/jna.jar":"$HERE/build/jna-platform.jar":"$HERE/build/i2p.jar":"$HERE/build/router.jar":"$HERE/build/routerconsole.jar" \
+  net/i2p/router/Elevator.java \
   net/i2p/router/Shell32X.java \
   net/i2p/router/WinLauncher.java \
   net/i2p/router/WindowsUpdatePostProcessor.java \
