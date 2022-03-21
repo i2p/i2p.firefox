@@ -90,8 +90,8 @@ with `sudo service i2p start` then you can run the script:
 
         /usr/local/bin/i2p-config-service-setup
 
-Including a jpackaged I2P Router(EXPERIMENTAL)
-----------------------------------------------
+Including a jpackaged I2P Router
+--------------------------------
 
 In order to include a jpackaged(dependency-free) I2P router in the Profile
 Bundle you will need to build the jpackaged I2P router as an "App Image" on
@@ -158,6 +158,9 @@ you should select "Checkout as is, commit as is" and leave line-endings alone.
 
 End-to-End Windows build process using Cygwin
 ---------------------------------------------
+
+I highly recommend you look into the Chocolatey package manager, which makes it much
+easier to configure these tools and keep them up to date.
 
 **Prerequisites:** You need to have OpenJDK 14 or greater installed and configured
 with your `%JAVA_HOME%` environment variable configured and `%JAVA_HOME%/bin` on
