@@ -39,7 +39,7 @@ Name "${COMPANYNAME} - ${APPNAME}"
 Icon ui2pbrowser_icon.ico
 OutFile "I2P-Profile-Installer-${VERSIONMAJOR}.${VERSIONMINOR}.${VERSIONBUILD}.exe"
 
-RequestExecutionLevel admin
+# RequestExecutionLevel admin
 
 !include LogicLib.nsh
 !include x64.nsh
