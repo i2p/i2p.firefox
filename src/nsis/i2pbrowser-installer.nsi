@@ -144,6 +144,13 @@ Page instfiles
 !include i2pbrowser-mozcompat.nsi
 
 Function .onInit
+    UserInfo::GetAccountType
+    pop $0
+    ${If} $0 != "admin"
+        MessageBox mb_iconstop "Administrator rights required!"
+        SetErrorLevel 740 ;ERROR_ELEVATION_REQUIRED
+        Quit
+    ${EndIf}
     !insertmacro MUI_LANGDLL_DISPLAY
     Call ShouldInstall64Bit
     ${If} $0 == 1
