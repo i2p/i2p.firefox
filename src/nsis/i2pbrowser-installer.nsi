@@ -181,14 +181,16 @@ Function .onInit
             StrCpy $FFINSTEXE "$PROFILE\Desktop\Tor Browser\Browser\"
         ${EndIf}
     ${EndIf}
-    ${If} ${FileExists} "${I2PINSTEXE32}\i2p.exe"
-        StrCpy $I2PINSTEXE "${I2PINSTEXE32}"
-    ${EndIf}
-    ${If} ${FileExists} "${I2PINSTEXE64}\i2p.exe"
+    UserInfo::GetAccountType
+    pop $0
+    ${If} $0 == "admin"
         StrCpy $I2PINSTEXE "${I2PINSTEXE64}"
-    ${EndIf}
-    ${If} ${FileExists} "${I2PINSTEXE_USERMODE}\i2p.exe"
-        StrCpy $I2PINSTEXE "${I2PINSTEXE_USERMODE}"
+        ${If} ${FileExists} "${I2PINSTEXE32}\i2p.exe"
+            StrCpy $I2PINSTEXE "${I2PINSTEXE32}"
+        ${EndIf}
+        ${If} ${FileExists} "${I2PINSTEXE64}\i2p.exe"
+            StrCpy $I2PINSTEXE "${I2PINSTEXE64}"
+        ${EndIf}
     ${EndIf}
     # look for user installs
 FunctionEnd

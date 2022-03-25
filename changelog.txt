@@ -1,3 +1,11 @@
+2022-03-25 idk
+ * This release adds support for user-mode, non-privileged installation of the
+  jpackaged router and the browser profile. Admin installation is still supported
+  and detected automatically, to support existing bundles.
+ * On restart to update, will detect if a router requires admin rights to install
+  and will ask the user to authorize the update. In user-mode, no prompt will ever
+  be seen.
+
 2022-02-10 idk
 * This release fixes automatic update using Bittorrent within the I2P network
  and the custom Update PostProcessor.
