@@ -30,6 +30,9 @@ if exist "%LOCALAPPDATA%\I2PBrowser-Launcher\firefox.profile.i2p\" (
   xcopy /s /i /y "%I2PPath%\I2PBrowser-Launcher\firefox.profile.i2p" "%LOCALAPPDATA%\I2PBrowser-Launcher\firefox.profile.i2p"
 )
 
+xcopy /s /i /y "%I2PPath%\I2PBrowser-Launcher\firefox.profile.i2p\user.js" "%LOCALAPPDATA%\I2PBrowser-Launcher\firefox.profile.i2p\user.js"
+xcopy /s /i /y "%I2PPath%\I2PBrowser-Launcher\firefox.profile.i2p\prefs.js" "%LOCALAPPDATA%\I2PBrowser-Launcher\firefox.profile.i2p\prefs.js"
+
 if exist "%USERPROFILE%/Desktop/Tor Browser/Browser/firefox.exe" (
   start "i2pbrowser" "%USERPROFILE%/Desktop/Tor Browser/Browser/firefox.exe" -no-remote -profile "%LOCALAPPDATA%\I2PBrowser-Launcher\firefox.profile.i2p" -url %1
   exit
