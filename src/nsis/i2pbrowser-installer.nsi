@@ -30,7 +30,7 @@ SetOverwrite on
 
 !define RAM_NEEDED_FOR_64BIT 0x80000000
 
-InstallDir "$LOCALAPPDATA\${COMPANYNAME}\${APPNAME}"
+InstallDir "$PROGRAMFILES64\${COMPANYNAME}\${APPNAME}"
 
 # rtf or txt file - remember if it is txt, it must be in the DOS text format (\r\n)
 LicenseData "licenses\LICENSE.index"
@@ -147,10 +147,7 @@ Function .onInit
     UserInfo::GetAccountType
     pop $0
     ${If} $0 != "admin"
-        MessageBox mb_iconstop "Administrator rights required!"
-        SetErrorLevel 740 ;ERROR_ELEVATION_REQUIRED
-        Quit
-        #StrCpy INSTDIR "$PROGRAMFILES64\${COMPANYNAME}\${APPNAME}"
+        InstallDir "$LOCALAPPDATA\${COMPANYNAME}\${APPNAME}"
     ${EndIf}
     !insertmacro MUI_LANGDLL_DISPLAY
     Call ShouldInstall64Bit
