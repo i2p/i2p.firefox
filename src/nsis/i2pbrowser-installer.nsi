@@ -147,7 +147,7 @@ Function .onInit
     UserInfo::GetAccountType
     pop $0
     ${If} $0 != "admin"
-        StrCpy INSTDIR "$LOCALAPPDATA\${COMPANYNAME}\${APPNAME}"
+        StrCpy $INSTDIR "$LOCALAPPDATA\${COMPANYNAME}\${APPNAME}"
     ${EndIf}
     !insertmacro MUI_LANGDLL_DISPLAY
     Call ShouldInstall64Bit
