@@ -5,6 +5,7 @@
  * On restart to update, will detect if a router requires admin rights to install
   and will ask the user to authorize the update. In user-mode, no prompt will ever
   be seen.
+ * Updates to the Firefox profiles to improve compatibility with more Firefoxes
 
 2022-02-10 idk
 * This release fixes automatic update using Bittorrent within the I2P network
