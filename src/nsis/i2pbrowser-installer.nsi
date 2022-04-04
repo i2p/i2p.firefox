@@ -363,6 +363,9 @@ Section "uninstall"
     Delete "$SMPROGRAMS\${APPNAME}\${APPNAME}.lnk"
     Delete "$SMPROGRAMS\${APPNAME}\Private Browsing-${APPNAME}.lnk"
     Delete "$SMPROGRAMS\Uninstall-${APPNAME}.lnk"
+    Delete "$SMPROGRAMS\${APPNAME}\Browse I2P.lnk"
+    Delete "$DESKTOP\Browse I2P - Temporary Identity.lnk"
+    Delete "$DESKTOP\Browse I2P.lnk"
     Delete "$DESKTOP\${APPNAME}.lnk"
     Delete "$DESKTOP\Private Browsing-${APPNAME}.lnk"
     rmDir "$SMPROGRAMS\${APPNAME}"
@@ -390,9 +393,9 @@ Function LaunchLink
   ${If} ${Silent}
     ReadEnvStr $0 RESTART_I2P
     ${If} $0 != ""
-      Exec "$I2PINSTEXE\I2P.exe"
+      ShellExecAsUser::ShellExecAsUser "open" "$DESKTOP\Browse I2P.lnk"
     ${EndIf}  
   ${Else}
-    Exec "$I2PINSTEXE\I2P.exe"
+    ShellExecAsUser::ShellExecAsUser "open" "$DESKTOP\Browse I2P.lnk"
   ${EndIf}
 FunctionEnd
