@@ -221,3 +221,4 @@ user_pref("webgl.min_capability_mode", true);
 user_pref("webgl.disable-fail-if-major-performance-caveat", true);
 user_pref("webgl.enable-webgl2", false);
 user_pref("dom.w3c_touch_events.enabled", false);
+user_pref("browser.display.use_system_colors", false);

@@ -21,9 +21,6 @@ if exist "%I2PPath%\jpackaged" (
   start "i2p" "%I2PPath%\i2p.exe"
 )
 
-
-
-
 timeout /t 3
 
 if exist "%LOCALAPPDATA%\I2PBrowser-Launcher\firefox.profile.i2p\" (
