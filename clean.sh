@@ -16,6 +16,7 @@ rm -rf \
 	peerProfiles \
 	prngseed.rnd \
 	wrapper.log \
+	*.app \
 	*.jar \
 	*.exe \
 	*.dmg
