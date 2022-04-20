@@ -10,6 +10,12 @@ if [ -f i2pversion_override ]; then
   . i2pversion_override
 fi
 
+. config.sh
+
+if [ -f config_overide.sh ]; then
+  . config_override.sh
+fi
+
 COUNT="Ten Nine Eight Seven Six Five Four Three Two One"
 
 JAVA=$(java --version | tr -d 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ\n' | cut -d ' ' -f 2 | cut -d '.' -f 1 | tr -d '\n\t\- ')
