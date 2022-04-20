@@ -58,6 +58,5 @@ user_pref("webgl.disable-fail-if-major-performance-caveat", true);
 user_pref("webgl.enable-webgl2", false);
 user_pref("media.navigator.enabled", false);
 user_pref("dom.w3c_touch_events.enabled", false);
-user_pref("fission.autostart", true);
-user_pref("gfx.webrender.all", false);
-user_pref("privacy.resistFingerprinting.autoDeclineNoUserInputCanvasPrompts", false);
+user_pref("browser.privatebrowsing.autostart", false);
+user_pref("browser.display.use_system_colors", false);

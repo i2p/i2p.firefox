@@ -58,9 +58,22 @@ I2P_JBIGI="$HERE/../i2p.i2p.jpackage-build/installer/lib/jbigi"
 echo "compiling custom launcher"
 mkdir build
 cp "$I2P_JARS"/*.jar build
+if [ ! -f "$HERE/build/jna.jar" ]; then
+  wget -O "$HERE/build/jna.jar" "https://repo1.maven.org/maven2/net/java/dev/jna/jna/$JNA_VERSION/jna-$JNA_VERSION.jar"
+fi
+
+if [ ! -f "$HERE/build/jna-platform.jar" ]; then
+  wget -O "$HERE/build/jna-platform.jar" "https://repo1.maven.org/maven2/net/java/dev/jna/jna-platform/$JNA_VERSION/jna-platform-$JNA_VERSION.jar"
+fi
 
 cd java
-"$JAVA_HOME"/bin/javac -d ../build -classpath "$HERE"/build/i2p.jar:"$HERE"/build/router.jar:"$HERE"/build/routerconsole.jar net/i2p/router/WinLauncher.java net/i2p/router/WindowsUpdatePostProcessor.java net/i2p/router/WinUpdateProcess.java
+"$JAVA_HOME"/bin/javac -d ../build -classpath "$HERE/build/jna.jar":"$HERE/build/jna-platform.jar":"$HERE/build/i2p.jar":"$HERE/build/router.jar":"$HERE/build/routerconsole.jar" \
+  net/i2p/router/Elevator.java \
+  net/i2p/router/Shell32X.java \
+  net/i2p/router/WinLauncher.java \
+  net/i2p/router/WindowsUpdatePostProcessor.java \
+  net/i2p/router/WinUpdateProcess.java
+
 cd ..
 
 #echo "building launcher.jar"
