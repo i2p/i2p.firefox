@@ -5,7 +5,7 @@
 # the tip of the master branch.
 I2P_VERSION=1.7.1
 export I2P_VERSION=1.7.1
-VERSION=i2p-jpackage"$I2P_VERSION"
+VERSION=i2p-jpackage-"$I2P_VERSION"
 export VERSION="$VERSION"
 
 #Uncomment this to build from the tip of the master.
