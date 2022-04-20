@@ -6,14 +6,20 @@
 #export JAVA_HOME="/c/Program Files/Java/jdk-17.0.3"
 # to use it for Oracle OpenJDK17
 
-## Other potential values:
+## Other potential values(NOT exhaustive):
 
-#export PATH="$PATH:/c/Program Files/OpenJDK/jdk-17.0.3/bin/"
-#export JAVA_HOME="/c/Program Files/OpenJDK/jdk-17.0.3"
+#export PATH="$PATH:/c/Program Files/OpenJDK/jdk-17.0.2/bin/"
+#export JAVA_HOME="/c/Program Files/OpenJDK/jdk-17.0.2"
 #export PATH="$PATH:/c/Program Files/Java/jdk-18.0.1/bin/"
 #export JAVA_HOME="/c/Program Files/Java/jdk-18.0.1"
-#export PATH="$PATH:/c/Program Files/Eclipse Adoptium/jdk-17.0.3/bin/"
-#export JAVA_HOME="/c/Program Files/Eclipse Adoptium/jdk-17.0.3"
+#export PATH="$PATH:/c/Program Files/Eclipse Adoptium/jdk-17.0.2/bin/"
+#export JAVA_HOME="/c/Program Files/Eclipse Adoptium/jdk-17.0.2"
+#export PATH=/c/Program Files/GraalVM/graalvm-ce-java17-22.0.0.2/bin
+#export JAVA_HOME=/c/Program Files/GraalVM/graalvm-ce-java17-22.0.0.2
+#export PATH="$PATH:/c/Program Files/Amazon Corretto/jdk17.0.3_6/bin/"
+#export JAVA_HOME="/c/Program Files/Amazon Corretto/jdk17.0.3_6"
+
+# These are all things I built the package with today(April 20, 2022, idk)
 
 # Which will determine, of course, which java compilers you use and where
 # your JAVA_HOME(and thus your bootclasspath jars and stuff) come from.
