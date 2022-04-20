@@ -1,5 +1,7 @@
 #! /usr/bin/env sh
 
+JNA_VERSION=5.10.0
+export JNA_VERSION=5.10.0
 
 #Comment this out to build from an alternate branch or
 # the tip of the master branch.

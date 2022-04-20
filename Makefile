@@ -39,7 +39,7 @@ prep: profile.tgz app-profile.tgz profile build/licenses build/I2P build/I2P/con
 	cp src/nsis/*.nsh build
 	cp src/icons/*.ico build
 
-install.exe:
+install.exe: build/licenses
 	cd build && makensis i2pbrowser-installer.nsi && cp I2P-Profile-Installer-*.exe ../ && echo "built windows installer"
 
 export RES_DIR="../i2p.i2p.jpackage-build/installer/resources"
@@ -66,7 +66,7 @@ src/I2P/config: build/I2P
 	cp -v $(RES_DIR)/i2ptunnel.config src/I2P/config/
 	cp -v $(RES_DIR)/wrapper.config src/I2P/config/
 	#grep -v 'router.updateURL' $(RES_DIR)/router.config > src/I2P/config/router.config
-	cat router.config >> src/I2P/config/router.config
+	cat router.config > src/I2P/config/router.config
 	cp -v $(RES_DIR)/hosts.txt src/I2P/config/hosts.txt
 	cp -R $(RES_DIR)/certificates src/I2P/config/certificates
 	cp -R $(RES_DIR)/eepsite src/I2P/config/eepsite

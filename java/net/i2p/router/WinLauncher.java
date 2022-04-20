@@ -1,6 +1,8 @@
 package net.i2p.router;
 
 import java.io.*;
+import java.net.InetAddress;
+import java.net.Socket;
 import java.util.*;
 
 import net.i2p.crypto.*;
@@ -49,6 +51,12 @@ public class WinLauncher {
         System.out.println("\t" + System.getProperty("i2p.dir.base") + "\n\t" + System.getProperty("i2p.dir.config")
                 + "\n\t" + System.getProperty("router.pid"));
 
+        // do a quick check to see of port 7657 is already occupied
+        if (i2pIsRunning()) {
+            System.err.println("I2P is already running");
+            System.exit(0);
+        }
+
         // wupp.i2pRouter = new Router(System.getProperties());
         System.out.println("Router is configured");
 
@@ -59,6 +67,18 @@ public class WinLauncher {
 
         // wupp.i2pRouter.runRouter();
         RouterLaunch.main(args);
+    }
+
+    private static boolean i2pIsRunning() {
+        // check if there's something listening on port 7657
+        try {
+            InetAddress localhost = InetAddress.getLocalHost();
+            Socket s = new Socket(localhost, 7657);
+            s.close();
+            return true;
+        } catch (IOException e) {
+            return false;
+        }
     }
 
     private static final Runnable REGISTER_UPP = () -> {
@@ -96,6 +116,16 @@ public class WinLauncher {
     }
 
     private static File selectHome() { // throws Exception {
+        String path_override = System.getenv("I2P_CONFIG");
+        if (path_override != null) {
+            File path = new File(path_override);
+            if (path != null && path.exists()) {
+                if (path.isDirectory())
+                    return path.getAbsoluteFile();
+                else
+                    throw new RuntimeException("I2P_CONFIG is not a directory: " + path);
+            }
+        }
         if (SystemVersion.isWindows()) {
             File home = new File(System.getProperty("user.home"));
             File appData = new File(home, "AppData");
@@ -113,6 +143,16 @@ public class WinLauncher {
     }
 
     private static File selectProgramFile() {
+        String path_override = System.getenv("I2P");
+        if (path_override != null) {
+            File path = new File(path_override);
+            if (path.exists()) {
+                if (path.isDirectory())
+                    return path.getAbsoluteFile();
+                else
+                    throw new RuntimeException("I2P is not a directory: " + path);
+            }
+        }
         if (SystemVersion.isWindows()) {
             File jrehome = new File(System.getProperty("java.home"));
             File programs = jrehome.getParentFile();
