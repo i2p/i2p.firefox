@@ -1,3 +1,7 @@
+2022-05-5 idk
+ * Fix a bug where the I2P router detection inappropriately prioritized an easy
+  install bundle when a non-bundled instal was in use.
+
 2022-03-25 idk
  * This release adds support for user-mode, non-privileged installation of the
   jpackaged router and the browser profile. Admin installation is still supported
