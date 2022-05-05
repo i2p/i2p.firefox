@@ -19,3 +19,4 @@ rm -rf \
 	*.jar \
 	*.exe \
 	*.dmg
+make clean
