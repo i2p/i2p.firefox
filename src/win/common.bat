@@ -1,4 +1,7 @@
 
+SET MYPATH=%~dp0
+call %MYPATH%common.bat
+
 set "I2PPath=%ProgramFiles%\I2P\"
 if exist "%LocalAppData%\I2P\I2P.exe" (
   set "I2PPath=%LocalAppData%\I2P\"

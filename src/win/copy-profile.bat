@@ -1,4 +1,7 @@
 
+SET MYPATH=%~dp0
+call %MYPATH%common.bat
+
 if exist "%LOCALAPPDATA%\I2PBrowser-Launcher\firefox.profile.i2p\" (
   echo "profile is configured, updating extensions"
   xcopy /s /i /y "%I2PPath%\I2PBrowser-Launcher\firefox.profile.i2p\extensions" "%LOCALAPPDATA%\I2PBrowser-Launcher\firefox.profile.i2p\extensions"
