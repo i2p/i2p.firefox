@@ -34,12 +34,12 @@ help: .version
 	@echo "$(MAJOR).$(MINOR).$(BUILD)"
 	@echo "$(preset)"
 
-prep: profile.tgz app-profile.tgz profile build/licenses build/I2P build/I2P/config launchers
+prep: build/licenses profile.tgz app-profile.tgz profile build/I2P build/I2P/config launchers #
 	cp src/nsis/*.nsi build
 	cp src/nsis/*.nsh build
 	cp src/icons/*.ico build
 
-install.exe: build/licenses
+install.exe: #build/licenses
 	cd build && makensis i2pbrowser-installer.nsi && cp I2P-Profile-Installer-*.exe ../ && echo "built windows installer"
 
 export RES_DIR="../i2p.i2p.jpackage-build/installer/resources"

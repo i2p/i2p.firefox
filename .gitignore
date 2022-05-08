@@ -9,3 +9,7 @@ i2pversion_override
 *.p12
 .stfolder
 *.url
+.vscode
+.version
+*.su3
+*.su3.torrent

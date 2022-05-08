@@ -38,3 +38,6 @@
 # Windows session, and for setting ANT_HOME
 #export ANT_HOME="/c/apache-ant-1.10.9"
 #export PATH="$PATH:$ANT_HOME/bin/"
+
+# Uncomment this to add signtool to the path so you don't have to fight with Visual Studio.
+#export PATH="$PATH:/c/Program Files (x86)/Windows Kits/10/App Certification Kit/"

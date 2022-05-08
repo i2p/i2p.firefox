@@ -3,6 +3,8 @@
 here=$(pwd)
 cd ../i2p.i2p.jpackage-build/
 ant distclean
+git checkout .
+git checkout master
 cd "$here"
 rm -rf \
 	build \

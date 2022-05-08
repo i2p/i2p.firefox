@@ -1,3 +1,11 @@
+2022-05-8 idk
+ * Add translations for Arabic, German, French, Italian, Japanes, Portuguese, Russian,
+ and Chinese.
+ * Add support for I2P+ Router Console detection. Not an endorsement of I2P+, just
+ a convenience reuested by a helpful user.
+ * The build system has been radically improved in order to be simpler to set up and
+ configure.
+
 2022-05-5 idk
  * Fix a bug where the I2P router detection inappropriately prioritized an easy
   install bundle when a non-bundled instal was in use.
