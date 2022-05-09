@@ -5,6 +5,7 @@
  a convenience reuested by a helpful user.
  * The build system has been radically improved in order to be simpler to set up and
  configure.
+ * Fixed a bug where the build deleted a config file.
 
 2022-05-5 idk
  * Fix a bug where the I2P router detection inappropriately prioritized an easy
