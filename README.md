@@ -209,6 +209,11 @@ do a release. As a final step, someone must sign the `.exe` file using a
 Certificate which Windows will recognize. The current signer of the Windows
 bundle is Zlatinb. Standard Windows signing tools are used.
 
+```sh
+./clean.sh && wsl make clean && ./build.sh && make
+signtool sign I2P-Profile-Installer*.exe
+```
+
 Building a signed update file
 -----------------------------
 

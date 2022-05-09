@@ -34,9 +34,25 @@ help: .version
 	@echo "$(MAJOR).$(MINOR).$(BUILD)"
 	@echo "$(preset)"
 
-prep: build/licenses profile.tgz app-profile.tgz profile build/I2P build/I2P/config launchers #
+prep: #launchers build/licenses profile.tgz app-profile.tgz profile build/I2P build/I2P/config #
+	make launchers
+	echo "launchers" >make.log
+	make build/licenses
+	echo "licenses" >make.log
+	make profile.tgz
+	echo "profilezip" >make.log
+	make app-profile.tgz
+	echo "appprofile" >make.log
+	make profile 
+	echo "profile" >make.log
+	make build/I2P
+	echo "buildi2p" >make.log
+	make build/I2P/config
+	echo "buildi2pconfig" >make.log
 	cp src/nsis/*.nsi build
+	echo "nsi1" >make.log
 	cp src/nsis/*.nsh build
+	echo "nsi2" >make.log
 	cp src/icons/*.ico build
 
 install.exe: #build/licenses
@@ -92,7 +108,7 @@ build/licenses: build
 	unix2dos build/licenses/LICENSE.index
 
 clean:
-	rm -rf build app-profile-*.tgz profile-*.tgz I2P-Profile-Installer-*.exe *.deb src/I2P/config *.su3 .version *.url
+	rm -rf build app-profile-*.tgz profile-*.tgz I2P-Profile-Installer-*.exe *.deb src/I2P/config *.su3 .version *.url make.log
 	git clean -fdx src build
 
 build:
