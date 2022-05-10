@@ -11,11 +11,13 @@ class WinUpdateProcess implements Runnable {
     private final RouterContext ctx;
     private final Supplier<String> versionSupplier;
     private final Supplier<File> fileSupplier;
+    private final Log _log;
 
     WinUpdateProcess(RouterContext ctx, Supplier<String> versionSupplier, Supplier<File> fileSupplier) {
         this.ctx = ctx;
         this.versionSupplier = versionSupplier;
         this.fileSupplier = fileSupplier;
+        this._log = ctx.logManager().getLog(WinUpdateProcess.class);
     }
 
     private File workDir() throws IOException {
@@ -24,7 +26,7 @@ class WinUpdateProcess implements Runnable {
             if (workDir.exists()) {
                 if (workDir.isFile())
                     throw new IOException(workDir + " exists but is a file, get it out of the way");
-                return null;
+                return workDir;
             } else {
                 workDir.mkdirs();
             }
@@ -57,7 +59,7 @@ class WinUpdateProcess implements Runnable {
             try {
                 pb.directory(workingDir).redirectErrorStream(true).redirectOutput(logFile).start();
             } catch (IOException ex) {
-                System.out.println("Unable to run update-program in background. Update will fail.");
+                _log.Error("Unable to run update-program in background. Update will fail.");
             }
         } else {
             // If we cant write to the log file and we're on Windows, use the elevator to
@@ -72,7 +74,7 @@ class WinUpdateProcess implements Runnable {
         try {
             runUpdateInstaller();
         } catch (IOException ioe) {
-            System.out.println("Error running updater, update may fail." + ioe);
+            _log.Error("Error running updater, update may fail." + ioe);
         }
     }
 }

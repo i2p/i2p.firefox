@@ -1,8 +1,8 @@
 2022-05-8 idk
- * Add translations for Arabic, German, French, Italian, Japanes, Portuguese, Russian,
+ * Add translations for Arabic, German, French, Italian, Japanese, Portuguese, Russian,
  and Chinese.
  * Add support for I2P+ Router Console detection. Not an endorsement of I2P+, just
- a convenience reuested by a helpful user.
+ a convenience requested by a helpful user.
  * The build system has been radically improved in order to be simpler to set up and
  configure.
  * Fixed a bug where the build deleted a config file.

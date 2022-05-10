@@ -4,6 +4,9 @@ import java.io.*;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.util.*;
+import java.util.logging.FileHandler;
+import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
 
 import net.i2p.crypto.*;
 
@@ -28,12 +31,33 @@ import static net.i2p.update.UpdateType.*;
  * router.pid - the pid of the java process.
  */
 public class WinLauncher {
+    static Logger logger = Logger.getLogger("launcherlog");
+    static FileHandler fh = new FileHandler(logFile().toString());
+
     public static void main(String[] args) throws Exception {
+
+        try {
+
+            // This block configure the logger with handler and formatter
+            fh = new FileHandler("C:/temp/test/MyLogFile.log");
+            logger.addHandler(fh);
+            SimpleFormatter formatter = new SimpleFormatter();
+            fh.setFormatter(formatter);
+
+            // the following statement is used to log any messages
+            logger.info("My first log");
+
+        } catch (SecurityException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         File programs = selectProgramFile();
         if (!programs.exists())
             programs.mkdirs();
         else if (!programs.isDirectory()) {
-            System.err.println(programs + " exists but is not a directory. Please get it out of the way");
+            logger.warning(programs + " exists but is not a directory. Please get it out of the way");
             System.exit(1);
         }
 
@@ -41,24 +65,24 @@ public class WinLauncher {
         if (!home.exists())
             home.mkdirs();
         else if (!home.isDirectory()) {
-            System.err.println(home + " exists but is not a directory. Please get it out of the way");
+            logger.warning(home + " exists but is not a directory. Please get it out of the way");
             System.exit(1);
         }
 
         System.setProperty("i2p.dir.base", programs.getAbsolutePath());
         System.setProperty("i2p.dir.config", home.getAbsolutePath());
         System.setProperty("router.pid", String.valueOf(ProcessHandle.current().pid()));
-        System.out.println("\t" + System.getProperty("i2p.dir.base") + "\n\t" + System.getProperty("i2p.dir.config")
+        logger.info("\t" + System.getProperty("i2p.dir.base") + "\n\t" + System.getProperty("i2p.dir.config")
                 + "\n\t" + System.getProperty("router.pid"));
 
         // do a quick check to see of port 7657 is already occupied
         if (i2pIsRunning()) {
-            System.err.println("I2P is already running");
+            logger.warning("I2P is already running");
             System.exit(0);
         }
 
         // wupp.i2pRouter = new Router(System.getProperties());
-        System.out.println("Router is configured");
+        logger.info("Router is configured");
 
         Thread registrationThread = new Thread(REGISTER_UPP);
         registrationThread.setName("UPP Registration");
@@ -132,12 +156,12 @@ public class WinLauncher {
             File local = new File(appData, "Local");
             File i2p;
             i2p = new File(local, "I2P");
-            System.out.println("Windows jpackage wrapper started, using: " + i2p + " as base config");
+            logger.info("Windows jpackage wrapper started, using: " + i2p + " as base config");
             return i2p.getAbsoluteFile();
         } else {
             File jrehome = new File(System.getProperty("java.home"));
             File programs = new File(jrehome.getParentFile().getParentFile(), ".i2p");
-            System.out.println("Linux portable jpackage wrapper started, using: " + programs + " as base config");
+            logger.info("Linux portable jpackage wrapper started, using: " + programs + " as base config");
             return programs.getAbsoluteFile();
         }
     }
@@ -156,13 +180,20 @@ public class WinLauncher {
         if (SystemVersion.isWindows()) {
             File jrehome = new File(System.getProperty("java.home"));
             File programs = jrehome.getParentFile();
-            System.out.println("Windows portable jpackage wrapper found, using: " + programs + " as working config");
+            logger.info("Windows portable jpackage wrapper found, using: " + programs + " as working config");
             return programs.getAbsoluteFile();
         } else {
             File jrehome = new File(System.getProperty("java.home"));
             File programs = new File(jrehome.getParentFile().getParentFile(), "i2p");
-            System.out.println("Linux portable jpackage wrapper found, using: " + programs + " as working config");
+            logger.info("Linux portable jpackage wrapper found, using: " + programs + " as working config");
             return programs.getAbsoluteFile();
         }
+    }
+
+    private static File logFile() {
+        File log = new File(selectProgramFile(), "log");
+        if (!log.exists())
+            log.mkdirs();
+        return new File(log, "launcher.log");
     }
 }
