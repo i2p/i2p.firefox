@@ -34,9 +34,6 @@ fi
 echo "Building with: $JAVA, $JAVA_HOME"
 sleep 5s
 
-echo "cleaning"
-./clean.sh
-
 HERE="$PWD"
 if [ ! -d "$HERE/../i2p.i2p.jpackage-build/" ]; then
   git clone https://i2pgit.org/i2p-hackers/i2p.i2p "$HERE/../i2p.i2p.jpackage-build/"
