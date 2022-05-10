@@ -27,12 +27,12 @@ fi
 if [ "$JAVA" -lt "17" ]; then
   echo "It is highly recommended that you use Java 17+ to build release packages"
 fi
-sleep 5s
 
 if [ -z "${JAVA_HOME}" ]; then
   JAVA_HOME=`type -p java|xargs readlink -f|xargs dirname|xargs dirname`
-  echo "Building with: $JAVA, $JAVA_HOME"
 fi
+echo "Building with: $JAVA, $JAVA_HOME"
+sleep 5s
 
 echo "cleaning"
 ./clean.sh
