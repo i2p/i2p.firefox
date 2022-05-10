@@ -32,21 +32,17 @@ import static net.i2p.update.UpdateType.*;
  */
 public class WinLauncher {
     static Logger logger = Logger.getLogger("launcherlog");
-    static FileHandler fh = new FileHandler(logFile().toString());
+    static FileHandler fh;
 
     public static void main(String[] args) throws Exception {
-
         try {
-
             // This block configure the logger with handler and formatter
-            fh = new FileHandler("C:/temp/test/MyLogFile.log");
+            fh = new FileHandler(logFile().toString());
             logger.addHandler(fh);
             SimpleFormatter formatter = new SimpleFormatter();
             fh.setFormatter(formatter);
-
             // the following statement is used to log any messages
             logger.info("My first log");
-
         } catch (SecurityException e) {
             e.printStackTrace();
         } catch (IOException e) {
