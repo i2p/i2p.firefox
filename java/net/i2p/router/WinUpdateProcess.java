@@ -59,7 +59,7 @@ class WinUpdateProcess implements Runnable {
             try {
                 pb.directory(workingDir).redirectErrorStream(true).redirectOutput(logFile).start();
             } catch (IOException ex) {
-                _log.Error("Unable to run update-program in background. Update will fail.");
+                _log.error("Unable to run update-program in background. Update will fail.");
             }
         } else {
             // If we cant write to the log file and we're on Windows, use the elevator to
@@ -74,7 +74,7 @@ class WinUpdateProcess implements Runnable {
         try {
             runUpdateInstaller();
         } catch (IOException ioe) {
-            _log.Error("Error running updater, update may fail." + ioe);
+            _log.error("Error running updater, update may fail." + ioe);
         }
     }
 }
