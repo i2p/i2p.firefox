@@ -94,6 +94,8 @@ echo "preparing to invoke jpackage for I2P version $I2P_VERSION"
   --java-options "--add-opens java.base/java.lang=ALL-UNNAMED" \
   --java-options "--add-opens java.base/sun.nio.fs=ALL-UNNAMED" \
   --java-options "--add-opens java.base/java.nio=ALL-UNNAMED" \
+  --java-options "--add-opens java.base/java.util.Properties=ALL-UNNAMED" \
+  --java-options "--add-opens java.base/java.util.Properties.defaults=ALL-UNNAMED" \
   $JPACKAGE_OPTS \
   --resource-dir build \
   --input build --main-jar launcher.jar --main-class net.i2p.router.WinLauncher
