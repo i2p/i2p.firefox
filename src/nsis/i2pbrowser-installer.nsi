@@ -45,6 +45,7 @@ RequestExecutionLevel user
 
 !include LogicLib.nsh
 !include x64.nsh
+!include FileFunc.nsh
 !define MUI_ICON ui2pbrowser_icon.ico
 !define MUI_FINISHPAGE
 !include "MUI2.nsh"
@@ -342,10 +343,11 @@ FunctionEnd
 
 # start default section
 Section Install
+    ${GetOptions} $CMDLINE "/p" $PARENTOPTIONS
     ${If} ${FileExists} "${I2PINSTEXE64}\i2p.exe"
-        ExecShell runas /user:administrator "$EXEFILE"
+        ExecShell runas /user:administrator "$EXEFILE $PARENTOPTIONS"
     ${ElseIf} ${FileExists} "${I2PINSTEXE32}\i2p.exe"
-        ExecShell runas /user:administrator "$EXEFILE"
+        ExecShell runas /user:administrator "$EXEFILE $PARENTOPTIONS"
     ${Else}
         Call installerFunction
     ${EndIf}
