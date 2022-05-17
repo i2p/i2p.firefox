@@ -218,10 +218,8 @@ Function routerDetect
     ${EndIf}
 FunctionEnd
 
-# start default section
-Section Install
-
-    ${If} ${Silent}
+Function installerFunction
+${If} ${Silent}
         ${Do}
             ${FindProcess} "I2P.exe" $0
             Sleep 500
@@ -343,7 +341,11 @@ Section Install
 
     # create a shortcut to the uninstaller
     CreateShortCut "$SMPROGRAMS\${APPNAME}\Uninstall-${APPNAME}.lnk" "$INSTDIR\uninstall-i2pbrowser.exe"
+FunctionEnd
 
+# start default section
+Section Install
+    Call installerFunction
 SectionEnd
 
 # uninstaller section start

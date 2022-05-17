@@ -4,8 +4,6 @@ UniCode true
 !define APPNAME "I2PBrowser-Launcher"
 !define COMPANYNAME "I2P"
 !define DESCRIPTION "This launches Firefox with a browser profile pre-configured to use i2p"
-!define FIREFOX_MESSAGE "Could not find Firefox.  Please point to where you have installed Firefox.  If you have not installed Firefox yet, exit this installer and install Firefox, then start this installer again."
-!define I2P_MESSAGE "Could not find I2P.  Please point to where you have installed I2P.  If you have not installed I2P yet, exit this installer and install I2P, then start this installer again."
 !define LAUNCH_TEXT "Start I2P?"
 !define LICENSE_TITLE "Many Licenses"
 !define CONSOLE_URL "http://127.0.0.1:7657/home"
@@ -14,16 +12,10 @@ UniCode true
 !include i2pbrowser-jpackage.nsi
 !include FindProcess.nsh
 
-var FFINSTEXE
-var FFNONTORINSTEXE
 var I2PINSTEXE
+Var PARENTOPTIONS
 
 SetOverwrite on
-!define FFINSTEXE
-!define FFNONTORINSTEXE
-!define FFINSTEXE32 "$PROGRAMFILES32\Mozilla Firefox\"
-!define FFINSTEXE64 "$PROGRAMFILES64\Mozilla Firefox\"
-
 !define I2PINSTEXE
 !define I2PINSTEXE32 "$PROGRAMFILES32\i2p"
 !define I2PINSTEXE64 "$PROGRAMFILES64\i2p"
@@ -45,6 +37,8 @@ RequestExecutionLevel user
 
 !include LogicLib.nsh
 !include x64.nsh
+!include FileFunc.nsh
+
 !define MUI_ICON ui2pbrowser_icon.ico
 !define MUI_FINISHPAGE
 !include "MUI2.nsh"
@@ -156,6 +150,7 @@ Section Install
             Sleep 500
         ${LoopWhile} $0 <> 0
     ${EndIf}
+    ${GetOptions} $CMDLINE "/p" $PARENTOPTIONS
 
     # set the installation directory as the destination for the following actions
     createDirectory $INSTDIR
@@ -164,9 +159,9 @@ Section Install
     UserInfo::GetAccountType
     pop $0
     ${If} $I2PINSTEXE != "${I2PINSTEXE_USERMODE}"
-        ExecShell runas "I2P-Profile-Installer-${VERSIONMAJOR}.${VERSIONMINOR}.${VERSIONBUILD}-wrapped.exe"
+        ExecShell runas "I2P-Profile-Installer-${VERSIONMAJOR}.${VERSIONMINOR}.${VERSIONBUILD}-wrapped.exe" $PARENTOPTIONS
     ${Else}
-        ExecShell open "I2P-Profile-Installer-${VERSIONMAJOR}.${VERSIONMINOR}.${VERSIONBUILD}-wrapped.exe"
+        ExecShell open "I2P-Profile-Installer-${VERSIONMAJOR}.${VERSIONMINOR}.${VERSIONBUILD}-wrapped.exe" $PARENTOPTIONS
     ${EndIf}
 
     # create the uninstaller

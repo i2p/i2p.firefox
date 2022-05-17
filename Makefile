@@ -16,6 +16,7 @@ tag:
 
 .version:
 	sed 's|!define VERSION||g' src/nsis/i2pbrowser-version.nsi | sed 's| |=|g' > .version
+	rm -f version.txt
 	make version.txt i2pbrowser-jpackage.nsi
 
 version.txt:
