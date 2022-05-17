@@ -13,17 +13,22 @@ if [ -f config_overide.sh ]; then
 fi
 
 linuxsign() {
+    ## LINUX SIGNING IS EXPERIMENTAL AND SHOULD NOT BE USED IN DEFAULT STATE.
     if [ ! -f jsign-4.1.jar ]; then
         wget -O jsign-4.1.jar https://github.com/ebourg/jsign/releases/download/4.1/jsign-4.1.jar
     fi
+    if [ ! -f "$HOME/signingkeys/signing-key.jks" ]; then
+        mkdir -p "$HOME/signingkeys/"
+        keytool -genkey -alias server-alias -keyalg RSA -keypass changeit \
+            -storepass changeit -keystore "$HOME/signingkeys/signing-key.jks"
+    fi
     java -jar jsign-4.1.jar \
-    -keystore "$JAVA_HOME/lib/security/cacerts" \
-    -storepass changeit \
-    -keyfile "$HOME/signingkeys/signing-key.jks" \
-    -keypass changeit \
-    -tsaurl "http://timestamp.sectigo.com" \
-    -name "I2P-Browser-Installer" \
-    -alg "SHA-512" \
+    --keystore "$HOME/signingkeys/signing-key.jks" \
+    --storepass changeit \
+    --keypass changeit \
+    --tsaurl "http://timestamp.sectigo.com" \
+    --name "I2P-Browser-Installer" \
+    --alg "SHA-512" \
     "$1"
 }
 
