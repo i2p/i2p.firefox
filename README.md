@@ -210,7 +210,13 @@ Certificate which Windows will recognize. The current signer of the Windows
 bundle is Zlatinb. Standard Windows signing tools are used.
 
 ```sh
-./clean.sh && wsl make clean && ./build.sh && make
+# Release Copypasta
+./clean.sh
+wsl make distclean
+wsl make clean-extensions
+wsl make extensions
+./build.sh
+make
 ./sign.sh
 ```
 
@@ -218,20 +224,13 @@ Building a signed update file
 -----------------------------
 
 Building a signed update file for automatically updating a Windows I2P router
-requires you to also have Go installed in your Cygwin or WSL environment.
-With WSL, you can do this using the command:
+requires you to either be using linux, or have Go installed in your Cygwin or WSL environment.
+On Linux(Where I sign the su3 files), this works:
 
-        wsl sudo apt-get install golang-go
+        make su3
 
-With that dependency satisfied, you can then run:
-
-        wsl make su3
-
-to build the signing tool if necessary and then package the installer in a
+to run the signing tool if necessary and then package the installer in a
 signed update file.
-
-It's also probably possible to do this with the Java I2P distribution and a
-`.bat` script.
 
 Docker Support
 --------------
