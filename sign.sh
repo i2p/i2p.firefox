@@ -28,7 +28,7 @@ linuxsign() {
 }
 
 if [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
-  JAVA_HOME=`type -p java|xargs readlink -f|xargs dirname|xargs dirname`
+    JAVA_HOME=`type -p java|xargs readlink -f|xargs dirname|xargs dirname`
     linuxsign I2P-Profile-Installer-$I2P_VERSION.exe
     cp "I2P-Profile-Installer-$I2P_VERSION.exe" "I2P-Profile-Installer-$I2P_VERSION-signed.exe"
 else
