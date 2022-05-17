@@ -2,6 +2,7 @@ build
 *.deb
 *.tgz
 ./I2P/
+I2P/
 i2pversion_override
 *.crl
 *.crt
@@ -13,3 +14,7 @@ i2pversion_override
 .version
 *.su3
 *.su3.torrent
+*.exe
+*.log
+cmd
+*.so
