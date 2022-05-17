@@ -17,6 +17,7 @@ UniCode true
 var FFINSTEXE
 var FFNONTORINSTEXE
 var I2PINSTEXE
+Var PARENTOPTIONS
 
 SetOverwrite on
 !define FFINSTEXE
