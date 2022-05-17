@@ -21,9 +21,6 @@ SetOverwrite on
 !define I2PINSTEXE64 "$PROGRAMFILES64\i2p"
 !define I2PINSTEXE_USERMODE "$LOCALAPPDATA\i2p"
 
-
-!define RAM_NEEDED_FOR_64BIT 0x80000000
-
 InstallDir "$PROGRAMFILES64\${COMPANYNAME}\${APPNAME}"
 
 # rtf or txt file - remember if it is txt, it must be in the DOS text format (\r\n)
@@ -40,7 +37,6 @@ RequestExecutionLevel user
 !include FileFunc.nsh
 
 !define MUI_ICON ui2pbrowser_icon.ico
-!define MUI_FINISHPAGE
 !include "MUI2.nsh"
 
 ### Available languages
@@ -182,19 +178,3 @@ Section "uninstall"
     # uninstaller section end
 
 SectionEnd
-
-!define MUI_FINISHPAGE_RUN
-!define MUI_FINISHPAGE_RUN_TEXT "${LAUNCH_TEXT}"
-!define MUI_FINISHPAGE_RUN_FUNCTION "LaunchLink"
-!insertmacro MUI_PAGE_FINISH
-
-Function LaunchLink
-  ${If} ${Silent}
-    ReadEnvStr $0 RESTART_I2P
-    ${If} $0 != ""
-      ShellExecAsUser::ShellExecAsUser "open" "$DESKTOP\Browse I2P.lnk"
-    ${EndIf}  
-  ${Else}
-    ShellExecAsUser::ShellExecAsUser "open" "$DESKTOP\Browse I2P.lnk"
-  ${EndIf}
-FunctionEnd
