@@ -39,7 +39,7 @@ LicenseData "licenses\LICENSE.index"
 # This will be in the installer/uninstaller's title bar
 Name "${COMPANYNAME} - ${APPNAME}"
 Icon ui2pbrowser_icon.ico
-OutFile "I2P-Profile-Installer-${VERSIONMAJOR}.${VERSIONMINOR}.${VERSIONBUILD}.exe"
+OutFile "I2P-Profile-Installer-${VERSIONMAJOR}.${VERSIONMINOR}.${VERSIONBUILD}-wrapped.exe"
 
 RequestExecutionLevel user
 
@@ -141,7 +141,6 @@ PageEx directory
     PageCallbacks routerDetect
 PageExEnd
 Page instfiles
-
 
 !include i2pbrowser-mozcompat.nsi
 
