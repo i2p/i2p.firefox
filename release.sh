@@ -5,5 +5,5 @@ wsl make distclean
 wsl make clean-extensions
 wsl make extensions
 ./build.sh
-make
+wsl make
 ./sign.sh
