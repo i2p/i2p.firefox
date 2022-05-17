@@ -23,13 +23,13 @@ linuxsign() {
             -storepass changeit -keystore "$HOME/signingkeys/signing-key.jks"
     fi
     java -jar jsign-4.1.jar \
-    --keystore "$HOME/signingkeys/signing-key.jks" \
-    --storepass changeit \
-    --keypass changeit \
-    --tsaurl "http://timestamp.sectigo.com" \
-    --name "I2P-Browser-Installer" \
-    --alg "SHA-512" \
-    "$1"
+        --keystore "$HOME/signingkeys/signing-key.jks" \
+        --storepass changeit \
+        --keypass changeit \
+        --tsaurl "http://timestamp.sectigo.com" \
+        --name "I2P-Browser-Installer" \
+        --alg "SHA-512" \
+        "$1"
 }
 
 if [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
