@@ -47,4 +47,4 @@ export JAVA_HOME="/c/Program Files/Java/jdk-17.0.3"
 #export PATH="$PATH:$ANT_HOME/bin/"
 
 # Uncomment this to add signtool to the path so you don't have to fight with Visual Studio.
-#export PATH="$PATH:/c/Program Files (x86)/Windows Kits/10/App Certification Kit/"
+export PATH="$PATH:/c/Program Files (x86)/Windows Kits/10/App Certification Kit/"
