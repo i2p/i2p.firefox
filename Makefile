@@ -56,7 +56,7 @@ prep: #launchers build/licenses profile.tgz app-profile.tgz profile build/I2P bu
 	cp src/icons/*.ico build
 
 install.exe: #build/licenses
-	cd build && makensis i2pbrowser-installer.nsi && cp I2P-Profile-Installer-*.exe ../ && echo "built windows installer"
+	cd build && makensis i2pbrowser-installer.nsi && makensis i2pbrowser-installer-wrapper.nsi && cp I2P-Profile-Installer-*.exe ../ && echo "built windows installer"
 
 export RES_DIR="../i2p.i2p.jpackage-build/installer/resources"
 export PKG_DIR="../i2p.i2p.jpackage-build/pkg-temp"

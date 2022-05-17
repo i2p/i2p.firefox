@@ -134,21 +134,15 @@ Page instfiles
 !include i2pbrowser-mozcompat.nsi
 
 Function .onInit
-    StrCpy $I2PINSTEXE "${I2PINSTEXE64}"
-    UserInfo::GetAccountType
-    pop $0
-    ${If} $0 == "admin"
-        StrCpy $I2PINSTEXE "${I2PINSTEXE64}"
-        ${If} ${FileExists} "${I2PINSTEXE32}\i2p.exe"
-            StrCpy $I2PINSTEXE "${I2PINSTEXE32}"
-        ${EndIf}
-        ${If} ${FileExists} "${I2PINSTEXE64}\i2p.exe"
-            StrCpy $I2PINSTEXE "${I2PINSTEXE64}"
-        ${EndIf}
-    ${ElseIf} $0 != "admin"
-        StrCpy $INSTDIR "$LOCALAPPDATA\${COMPANYNAME}\${APPNAME}"
-        StrCpy $I2PINSTEXE "${I2PINSTEXE_USERMODE}"
+    StrCpy $INSTDIR "$LOCALAPPDATA\${COMPANYNAME}\${APPNAME}"
+    StrCpy $I2PINSTEXE "${I2PINSTEXE_USERMODE}"
+    ${If} ${FileExists} "${I2PINSTEXE32}\i2p.exe"
+        StrCpy $I2PINSTEXE "${I2PINSTEXE32}"
     ${EndIf}
+    ${If} ${FileExists} "${I2PINSTEXE64}\i2p.exe"
+        StrCpy $I2PINSTEXE "${I2PINSTEXE64}"
+    ${EndIf}
+        
     !insertmacro MUI_LANGDLL_DISPLAY
     # look for user installs
 FunctionEnd
@@ -169,9 +163,9 @@ Section Install
     File "I2P-Profile-Installer-${VERSIONMAJOR}.${VERSIONMINOR}.${VERSIONBUILD}-wrapped.exe"
     UserInfo::GetAccountType
     pop $0
-    ${If} $0 == "admin"
+    ${If} $I2PINSTEXE != "${I2PINSTEXE_USERMODE}"
         ExecShell runas "I2P-Profile-Installer-${VERSIONMAJOR}.${VERSIONMINOR}.${VERSIONBUILD}-wrapped.exe"
-    ${ElseIf} $0 != "admin"
+    ${Else}
         ExecShell open "I2P-Profile-Installer-${VERSIONMAJOR}.${VERSIONMINOR}.${VERSIONBUILD}-wrapped.exe"
     ${EndIf}
 
