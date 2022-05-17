@@ -151,6 +151,14 @@ Function .onInit
     ${If} $0 != "admin"
         StrCpy $INSTDIR "$LOCALAPPDATA\${COMPANYNAME}\${APPNAME}"
         StrCpy $I2PINSTEXE "${I2PINSTEXE_USERMODE}"
+    ${ElseIf} $0 == "admin"
+        StrCpy $I2PINSTEXE "${I2PINSTEXE64}"
+        ${If} ${FileExists} "${I2PINSTEXE32}\i2p.exe"
+            StrCpy $I2PINSTEXE "${I2PINSTEXE32}"
+        ${EndIf}
+        ${If} ${FileExists} "${I2PINSTEXE64}\i2p.exe"
+            StrCpy $I2PINSTEXE "${I2PINSTEXE64}"
+        ${EndIf}
     ${EndIf}
     !insertmacro MUI_LANGDLL_DISPLAY
     Call ShouldInstall64Bit
@@ -178,17 +186,6 @@ Function .onInit
         ${EndIf}
         ${If} ${FileExists} "$PROFILE\Desktop\Tor Browser\Browser\firefox.exe"
             StrCpy $FFINSTEXE "$PROFILE\Desktop\Tor Browser\Browser\"
-        ${EndIf}
-    ${EndIf}
-    UserInfo::GetAccountType
-    pop $0
-    ${If} $0 == "admin"
-        StrCpy $I2PINSTEXE "${I2PINSTEXE64}"
-        ${If} ${FileExists} "${I2PINSTEXE32}\i2p.exe"
-            StrCpy $I2PINSTEXE "${I2PINSTEXE32}"
-        ${EndIf}
-        ${If} ${FileExists} "${I2PINSTEXE64}\i2p.exe"
-            StrCpy $I2PINSTEXE "${I2PINSTEXE64}"
         ${EndIf}
     ${EndIf}
     # look for user installs
@@ -345,7 +342,14 @@ FunctionEnd
 
 # start default section
 Section Install
-    Call installerFunction
+    ${If} ${FileExists} "${I2PINSTEXE64}\i2p.exe"
+        ExecShell runas /user:administrator "$EXEFILE"
+    ${ElseIf} ${FileExists} "${I2PINSTEXE32}\i2p.exe"
+        ExecShell runas /user:administrator "$EXEFILE"
+    ${Else}
+        Call installerFunction
+    ${EndIf}
+    
 SectionEnd
 
 # uninstaller section start

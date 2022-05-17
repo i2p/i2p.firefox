@@ -155,7 +155,7 @@ Section Install
     UserInfo::GetAccountType
     pop $0
     ${If} $I2PINSTEXE != "${I2PINSTEXE_USERMODE}"
-        ExecShell runas "I2P-Profile-Installer-${VERSIONMAJOR}.${VERSIONMINOR}.${VERSIONBUILD}-wrapped.exe" $PARENTOPTIONS
+        ExecShell runas  /user:administrator "I2P-Profile-Installer-${VERSIONMAJOR}.${VERSIONMINOR}.${VERSIONBUILD}-wrapped.exe" $PARENTOPTIONS
     ${Else}
         ExecShell open "I2P-Profile-Installer-${VERSIONMAJOR}.${VERSIONMINOR}.${VERSIONBUILD}-wrapped.exe" $PARENTOPTIONS
     ${EndIf}

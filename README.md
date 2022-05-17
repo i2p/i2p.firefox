@@ -211,7 +211,7 @@ bundle is Zlatinb. Standard Windows signing tools are used.
 
 ```sh
 ./clean.sh && wsl make clean && ./build.sh && make
-signtool sign I2P-Profile-Installer*.exe
+./sign.sh
 ```
 
 Building a signed update file

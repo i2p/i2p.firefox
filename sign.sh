@@ -35,6 +35,3 @@ else
     signtool sign "I2P-Profile-Installer-$I2P_VERSION.exe"
     cp "I2P-Profile-Installer-$I2P_VERSION.exe" "I2P-Profile-Installer-$I2P_VERSION-signed.exe"
 fi
-
-
-
