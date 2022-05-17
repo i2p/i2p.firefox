@@ -18,3 +18,4 @@ i2pversion_override
 *.log
 cmd
 *.so
+*.jar

@@ -31,12 +31,15 @@ fi
 if [ -z "${JAVA_HOME}" ]; then
   JAVA_HOME=`type -p java|xargs readlink -f|xargs dirname|xargs dirname`
 fi
+if [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
+  JAVA_HOME=`type -p java|xargs readlink -f|xargs dirname|xargs dirname`
+fi
 echo "Building with: $JAVA, $JAVA_HOME"
 sleep 5s
 
 HERE="$PWD"
 if [ ! -d "$HERE/../i2p.i2p.jpackage-build/" ]; then
-  git clone https://i2pgit.org/i2p-hackers/i2p.i2p "$HERE/../i2p.i2p.jpackage-build/"
+  git clone --depth 1 -b "$VERSION" https://i2pgit.org/i2p-hackers/i2p.i2p "$HERE/../i2p.i2p.jpackage-build/"
 fi
 cd "$HERE/../i2p.i2p.jpackage-build/"
 git pull --tags
@@ -54,7 +57,7 @@ I2P_JBIGI="$HERE/../i2p.i2p.jpackage-build/installer/lib/jbigi"
 
 
 echo "compiling custom launcher"
-mkdir build
+mkdir -p build
 cp "$I2P_JARS"/*.jar build
 if [ ! -f "$HERE/build/jna.jar" ]; then
   wget -O "$HERE/build/jna.jar" "https://repo1.maven.org/maven2/net/java/dev/jna/jna/$JNA_VERSION/jna-$JNA_VERSION.jar"
