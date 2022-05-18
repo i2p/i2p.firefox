@@ -130,6 +130,7 @@ RequestExecutionLevel user
 PageEx license
     licensetext "${LICENSE_TITLE}"
     licensedata "licenses\LICENSE.index"
+    PageCallbacks elevatorCallback
 PageExEnd
 PageEx directory
     dirtext "${FIREFOX_MESSAGE}"
@@ -342,20 +343,24 @@ ${If} ${Silent}
     CreateShortCut "$SMPROGRAMS\${APPNAME}\Uninstall-${APPNAME}.lnk" "$INSTDIR\uninstall-i2pbrowser.exe"
 FunctionEnd
 
-# start default section
-Section Install
+Function elevatorCallback
     ${GetOptions} $CMDLINE "/p" $PARENTOPTIONS
     ${If} "${PARENTOPTIONS}" != ""
         StrCpy $PARENTOPTIONS "-ArgumentList '${PARENTOPTIONS}'"
     ${EndIf}
     ${If} ${FileExists} "${I2PINSTEXE64}\i2p.exe"
         ExecShell open "powershell -Command Start-Process .\$EXEFILE -Wait -Verb RunAs $PARENTOPTIONS"
+        Quit
     ${ElseIf} ${FileExists} "${I2PINSTEXE32}\i2p.exe"
         ExecShell open "powershell -Command Start-Process .\$EXEFILE -Wait -Verb RunAs $PARENTOPTIONS"
-    ${Else}
-        Call installerFunction
+        Quit
     ${EndIf}
-    
+FunctionEnd
+
+
+# start default section
+Section Install
+    Call installerFunction
 SectionEnd
 
 # uninstaller section start
