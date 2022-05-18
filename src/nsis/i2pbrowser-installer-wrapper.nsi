@@ -149,8 +149,8 @@ Section Install
     ${GetOptions} $CMDLINE "/p" $PARENTOPTIONS
 
     # if PARENTOPTIONS is not blank, prepend PARENTOPTIONS string with -ArgumentList
-    ${If} "${PARENTOPTIONS}" != ""
-        StrCpy $PARENTOPTIONS "-ArgumentList '${PARENTOPTIONS}'"
+    ${If} "$PARENTOPTIONS" != ""
+        StrCpy $PARENTOPTIONS "-ArgumentList '$PARENTOPTIONS'"
     ${EndIf}
 
 
