@@ -5,8 +5,11 @@ export JNA_VERSION=5.11.0
 
 #Comment this out to build from an alternate branch or
 # the tip of the master branch.
-I2P_VERSION=1.7.7
-export I2P_VERSION=1.7.7
+VERSIONMAJOR=1
+VERSIONMINOR=7
+VERSIONBUILD=7
+I2P_VERSION="$VERSIONMAJOR.$VERSIONMINOR.$VERSIONBUILD"
+export I2P_VERSION="$VERSIONMAJOR.$VERSIONMINOR.$VERSIONBUILD"
 VERSION=i2p-jpackage-1.7.1
 export VERSION=i2p-jpackage-1.7.1
 
