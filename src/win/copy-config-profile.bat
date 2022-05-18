@@ -8,5 +8,5 @@ if exist "%LOCALAPPDATA%\I2PBrowser-Launcher\firefox.profile.config.i2p\" (
   echo "configuring profile" & xcopy /s /i /y "%I2PData%I2PBrowser-Launcher\firefox.profile.config.i2p" "%LOCALAPPDATA%\I2PBrowser-Launcher\firefox.profile.config.i2p"
 )
 
-xcopy /s /i /y "%I2PData%I2PBrowser-Launcher\firefox.profile.config.i2p\user.js" "%LOCALAPPDATA%\I2PBrowser-Launcher\firefox.profile.config.i2p\user.js"
-xcopy /s /i /y "%I2PData%I2PBrowser-Launcher\firefox.profile.config.i2p\prefs.js" "%LOCALAPPDATA%\I2PBrowser-Launcher\firefox.profile.config.i2p\prefs.js"
+xcopy /s /i /y "%I2PData%I2PBrowser-Launcher\firefox.profile.config.i2p\user.js" "%LOCALAPPDATA%\I2PBrowser-Launcher\firefox.profile.config.i2p\user.js*"
+xcopy /s /i /y "%I2PData%I2PBrowser-Launcher\firefox.profile.config.i2p\prefs.js" "%LOCALAPPDATA%\I2PBrowser-Launcher\firefox.profile.config.i2p\prefs.js*"
