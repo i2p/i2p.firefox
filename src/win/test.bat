@@ -1,7 +1,7 @@
 
 SET MYPATH=%~dp0
 
-call %MYPATH%common.bat
+call "%MYPATH%common.bat"
 
 set TEST=TEST
 

@@ -1,6 +1,6 @@
 
 SET MYPATH=%~dp0
-call %MYPATH%common.bat
+call "%MYPATH%common.bat"
 
 ::only launch I2P if the proxy is not up on 4444
 netstat /o /a | find /i "listening" | find ":4444" >nul 2>nul && (

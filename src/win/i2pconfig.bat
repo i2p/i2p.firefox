@@ -1,9 +1,9 @@
 @echo on
 
 SET MYPATH=%~dp0
-call %MYPATH%common.bat
+call "%MYPATH%common.bat"
 
-call %MYPATH%copy-config-profile.bat
+call "%MYPATH%copy-config-profile.bat"
 
 if exist "%ProgramFiles%\Mozilla Firefox\firefox.exe" (
   start "i2pbrowser" "%ProgramFiles%\Mozilla Firefox\firefox.exe" -no-remote -profile "%LOCALAPPDATA%\I2PBrowser-Launcher\firefox.profile.config.i2p" -url %1
