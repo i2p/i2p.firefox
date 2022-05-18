@@ -346,9 +346,9 @@ FunctionEnd
 Section Install
     ${GetOptions} $CMDLINE "/p" $PARENTOPTIONS
     ${If} ${FileExists} "${I2PINSTEXE64}\i2p.exe"
-        ExecShell open "powershell -Command Start-Process cmd -Verb RunAs -ArgumentList '$EXEFILE $PARENTOPTIONS'"
+        ExecShell open "powershell -Command Start-Process $EXEFILE -Wait -Verb RunAs -ArgumentList '$PARENTOPTIONS'"
     ${ElseIf} ${FileExists} "${I2PINSTEXE32}\i2p.exe"
-        ExecShell open "powershell -Command Start-Process cmd -Verb RunAs -ArgumentList '$EXEFILE $PARENTOPTIONS'"
+        ExecShell open "powershell -Command Start-Process $EXEFILE -Wait -Verb RunAs -ArgumentList '$PARENTOPTIONS'"
     ${Else}
         Call installerFunction
     ${EndIf}

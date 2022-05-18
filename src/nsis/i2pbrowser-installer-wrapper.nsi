@@ -155,7 +155,7 @@ Section Install
     UserInfo::GetAccountType
     pop $0
     ${If} $I2PINSTEXE != "${I2PINSTEXE_USERMODE}"
-        ExecShell open "powershell -Command Start-Process cmd -Verb RunAs -ArgumentList 'I2P-Profile-Installer-${VERSIONMAJOR}.${VERSIONMINOR}.${VERSIONBUILD}-wrapped.exe $PARENTOPTIONS'"
+        ExecShell open "powershell -Command Start-Process .\I2P-Profile-Installer-${VERSIONMAJOR}.${VERSIONMINOR}.${VERSIONBUILD}-wrapped.exe -Verb RunAs -Wait -ArgumentList '$PARENTOPTIONS'"
     ${Else}
         ExecShell open "I2P-Profile-Installer-${VERSIONMAJOR}.${VERSIONMINOR}.${VERSIONBUILD}-wrapped.exe $PARENTOPTIONS"
     ${EndIf}
