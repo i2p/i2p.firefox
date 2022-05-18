@@ -148,6 +148,12 @@ Section Install
     ${EndIf}
     ${GetOptions} $CMDLINE "/p" $PARENTOPTIONS
 
+    # if PARENTOPTIONS is not blank, prepend PARENTOPTIONS string with -ArgumentList
+    ${If} "${PARENTOPTIONS}" != ""
+        StrCpy $PARENTOPTIONS "-ArgumentList '${PARENTOPTIONS}'"
+    ${EndIf}
+
+
     # set the installation directory as the destination for the following actions
     createDirectory $INSTDIR
     SetOutPath $INSTDIR
@@ -155,7 +161,7 @@ Section Install
     UserInfo::GetAccountType
     pop $0
     ${If} $I2PINSTEXE != "${I2PINSTEXE_USERMODE}"
-        ExecShell open "powershell -Command Start-Process .\I2P-Profile-Installer-${VERSIONMAJOR}.${VERSIONMINOR}.${VERSIONBUILD}-wrapped.exe -Verb RunAs -Wait -ArgumentList '$PARENTOPTIONS'"
+        ExecShell open "powershell -Command Start-Process .\I2P-Profile-Installer-${VERSIONMAJOR}.${VERSIONMINOR}.${VERSIONBUILD}-wrapped.exe -Verb RunAs -Wait $PARENTOPTIONS"
     ${Else}
         ExecShell open "I2P-Profile-Installer-${VERSIONMAJOR}.${VERSIONMINOR}.${VERSIONBUILD}-wrapped.exe $PARENTOPTIONS"
     ${EndIf}

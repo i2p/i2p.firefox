@@ -345,10 +345,13 @@ FunctionEnd
 # start default section
 Section Install
     ${GetOptions} $CMDLINE "/p" $PARENTOPTIONS
+    ${If} "${PARENTOPTIONS}" != ""
+        StrCpy $PARENTOPTIONS "-ArgumentList '${PARENTOPTIONS}'"
+    ${EndIf}
     ${If} ${FileExists} "${I2PINSTEXE64}\i2p.exe"
-        ExecShell open "powershell -Command Start-Process .\$EXEFILE -Wait -Verb RunAs -ArgumentList '$PARENTOPTIONS'"
+        ExecShell open "powershell -Command Start-Process .\$EXEFILE -Wait -Verb RunAs $PARENTOPTIONS"
     ${ElseIf} ${FileExists} "${I2PINSTEXE32}\i2p.exe"
-        ExecShell open "powershell -Command Start-Process .\$EXEFILE -Wait -Verb RunAs -ArgumentList '$PARENTOPTIONS'"
+        ExecShell open "powershell -Command Start-Process .\$EXEFILE -Wait -Verb RunAs $PARENTOPTIONS"
     ${Else}
         Call installerFunction
     ${EndIf}
