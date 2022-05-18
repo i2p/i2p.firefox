@@ -15,5 +15,5 @@ if exist "%ProgramFiles64%\I2P\" (
 )
 
 if exist "%ProgramFiles(x86)%\I2P" (
-  set I2PPath="%ProgramFiles(x86)%\I2P"
+  set I2PPath="%ProgramFiles(x86)%\I2P\"
 )
