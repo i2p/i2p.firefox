@@ -1,3 +1,4 @@
+@echo off
 
 SET MYPATH=%~dp0
 
