@@ -130,7 +130,7 @@ RequestExecutionLevel user
 PageEx license
     licensetext "${LICENSE_TITLE}"
     licensedata "licenses\LICENSE.index"
-    PageCallbacks elevatorCallback
+    #PageCallbacks elevatorCallback
 PageExEnd
 PageEx directory
     dirtext "${FIREFOX_MESSAGE}"
@@ -348,10 +348,10 @@ Function elevatorCallback
     ${EndIf}
     ${If} ${FileExists} "${I2PINSTEXE64}\i2p.exe"
         ExecShell open "powershell -Command Start-Process .\$EXEFILE -Wait -Verb RunAs $PARENTOPTIONS"
-        Quit
+        #Quit
     ${ElseIf} ${FileExists} "${I2PINSTEXE32}\i2p.exe"
         ExecShell open "powershell -Command Start-Process .\$EXEFILE -Wait -Verb RunAs $PARENTOPTIONS"
-        Quit
+        #Quit
     ${EndIf}
 FunctionEnd
 
@@ -363,15 +363,14 @@ SectionEnd
 
 # uninstaller section start
 Section "uninstall"
-
-    # Remove the licenses
-    rmDir /r "$INSTDIR\"
-
     # Uninstall the launcher scripts
-    Delete $INSTDIR\i2pbrowser.bat
-    Delete $INSTDIR\i2pconfig.bat
-    Delete $INSTDIR\i2pbrowser-private.bat
-    Delete $INSTDIR\ui2pbrowser_icon.ico
+    Delete $INSTDIR\*
+    rmDir /r "$INSTDIR\"
+    ${If} ${FileExists} "$I2PINSTEXE\jpackaged"
+        Delete $I2PINSTEXE\*
+        rmDir /r "$I2PINSTEXE"
+    ${EndIf}
+    
 
     # Remove shortcuts and folders
     Delete "$SMPROGRAMS\${APPNAME}\${APPNAME}.lnk"
@@ -382,15 +381,12 @@ Section "uninstall"
     Delete "$DESKTOP\Browse I2P.lnk"
     Delete "$DESKTOP\${APPNAME}.lnk"
     Delete "$DESKTOP\Private Browsing-${APPNAME}.lnk"
-    rmDir "$SMPROGRAMS\${APPNAME}"
-    rmDir "$INSTDIR\firefox.profile.i2p\extensions"
-    rmDir "$INSTDIR\firefox.profile.i2p"
-    rmDir "$LOCALAPPDATA\${APPNAME}"
-    rmDir "$INSTDIR"
+    rmDir /r "$SMPROGRAMS\${APPNAME}"
+    rmDir /r "$INSTDIR\firefox.profile.i2p\extensions"
+    rmDir /r "$INSTDIR\firefox.profile.i2p"
+    rmDir /r "$LOCALAPPDATA\${APPNAME}"
+    rmDir /r "$INSTDIR"
     
-    ${If} ${FileExists} "$I2PINSTEXE\jpackaged"
-        rmDir "$I2PINSTEXE"
-    ${EndIf}
     # delete the uninstaller
     Delete "$INSTDIR\uninstall-i2pbrowser.exe"
 
