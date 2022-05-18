@@ -8,7 +8,7 @@ echo "check if I2P is already running"
 netstat /o /a | find /i "listening" | find ":4444" >nul 2>nul && (
   echo "I2P is already running, not launching"
 ) || (
-  start "i2p" /D "%I2PData%" %I2PPath%i2p.exe
+  start "i2p" %I2PPath%i2p.exe
 )
 
 
