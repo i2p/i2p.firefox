@@ -1,3 +1,4 @@
+@echo on
 
 SET MYPATH=%~dp0
 call "%MYPATH%common.bat"
