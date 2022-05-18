@@ -154,14 +154,12 @@ Function .onInit
     ${If} $0 != "admin"
         StrCpy $INSTDIR "$LOCALAPPDATA\${COMPANYNAME}\${APPNAME}"
         StrCpy $I2PINSTEXE "${I2PINSTEXE_USERMODE}"
-    ${ElseIf} $0 == "admin"
+    ${EndIf}
+    ${If} ${FileExists} "${I2PINSTEXE32}\i2p.exe"
+        StrCpy $I2PINSTEXE "${I2PINSTEXE32}"
+    ${EndIf}
+    ${If} ${FileExists} "${I2PINSTEXE64}\i2p.exe"
         StrCpy $I2PINSTEXE "${I2PINSTEXE64}"
-        ${If} ${FileExists} "${I2PINSTEXE32}\i2p.exe"
-            StrCpy $I2PINSTEXE "${I2PINSTEXE32}"
-        ${EndIf}
-        ${If} ${FileExists} "${I2PINSTEXE64}\i2p.exe"
-            StrCpy $I2PINSTEXE "${I2PINSTEXE64}"
-        ${EndIf}
     ${EndIf}
     !insertmacro MUI_LANGDLL_DISPLAY
     Call ShouldInstall64Bit
@@ -346,7 +344,7 @@ FunctionEnd
 Function elevatorCallback
     ${GetOptions} $CMDLINE "/p" $PARENTOPTIONS
     ${If} "${PARENTOPTIONS}" != ""
-        StrCpy $PARENTOPTIONS "-ArgumentList '${PARENTOPTIONS}'"
+        StrCpy $PARENTOPTIONS "-ArgumentList '$PARENTOPTIONS'"
     ${EndIf}
     ${If} ${FileExists} "${I2PINSTEXE64}\i2p.exe"
         ExecShell open "powershell -Command Start-Process .\$EXEFILE -Wait -Verb RunAs $PARENTOPTIONS"
