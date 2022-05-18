@@ -2,7 +2,7 @@
 
 SET MYPATH=%~dp0
 
-set ProgramFiles64="%ProgramFiles: (x86)=%"
+set ProgramFiles64=%ProgramFiles: (x86)=%
 set I2PData="%LocalAppData%\I2P\"
 
 set I2PPath="%ProgramFiles%\I2P\"
