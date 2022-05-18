@@ -3,18 +3,18 @@
 
 -include config.mk
 
-preset=`rm .version; make .version`
+preset=`rm .version; make version`
 
 include .version
 
 PROFILE_VERSION=$(MAJOR).$(MINOR).$(BUILD)
 
-all: .version prep install.exe
+all: version prep install.exe
 
 tag:
 	git tag $(PROFILE_VERSION)
 
-.version:
+version:
 	echo !define VERSIONMAJOR $(VERSIONMAJOR) > src/nsis/i2browser-version.nsi
 	echo !define VERSIONMINOR $(VERSIONMINOR) >> src/nsis/i2browser-version.nsi
 	echo !define VERSIONBUILD $(VERSIONBUILD) >> src/nsis/i2browser-version.nsi
@@ -29,9 +29,9 @@ version.txt:
 i2pbrowser-jpackage.nsi:
 	echo "!define I2P_VERSION $(I2P_VERSION)" > src/nsis/i2pbrowser-jpackage.nsi
 
-jpackage: .version I2P build/I2P/config all
+jpackage: version I2P build/I2P/config all
 
-help: .version
+help: version
 	@echo "I2P-Profile-Installer-$(PROFILE_VERSION)"
 	@echo "$(SIGNER)"
 	@echo "$(I2P_VERSION)"
