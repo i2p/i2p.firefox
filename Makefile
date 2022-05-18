@@ -5,7 +5,7 @@
 
 preset=`rm .version; make version`
 
-include .version
+-include .version
 
 PROFILE_VERSION=$(MAJOR).$(MINOR).$(BUILD)
 
