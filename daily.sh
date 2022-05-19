@@ -6,7 +6,7 @@
 # You need to create a file in your $HOME directory, which on
 # Windows will by /c/Users/yourusername, called github-release-config.sh,
 # containing this key as the variable GITHUB_TOKEN.
-# github-release-config must also contain:
+# github-release-config.sh must also contain:
 # GITHUB_USERNAME=your github username
 ./unsigned.sh
 
