@@ -24,10 +24,13 @@ if [ -z "$DESCRIPTION" ]; then
   DESCRIPTION="Daily unsigned build of i2p.firefox for $TODAYSDATE"
 fi
 
+echo github-release release -p -u "$GITHUB_USERNAME" -r "i2p.firefox" -n "$TODAYSDATE" -d "$DESCRIPTION" -t "$TODAYSDATE"
 github-release release -p -u "$GITHUB_USERNAME" -r "i2p.firefox" -n "$TODAYSDATE" -d "$DESCRIPTION" -t "$TODAYSDATE"
 EXECHECKSUM=$(sha256sum "I2P-Profile-Installer-$I2P_VERSION.exe")
+echo github-release upload -u "$GITHUB_USERNAME" -r "i2p.firefox" -f "I2P-Profile-Installer-$I2P_VERSION.exe" -l "$EXECHECKSUM" -t "$TODAYSDATE" -n "I2P-Profile-Installer-$I2P_VERSION.exe"
 github-release upload -u "$GITHUB_USERNAME" -r "i2p.firefox" -f "I2P-Profile-Installer-$I2P_VERSION.exe" -l "$EXECHECKSUM" -t "$TODAYSDATE" -n "I2P-Profile-Installer-$I2P_VERSION.exe"
 cd build || exit
 tar -a -cf ../I2P.zip I2P
 ZIPCHECKSUM=$(sha256sum "../I2P.zip")
+echo github-release upload -u "$GITHUB_USERNAME" -r "i2p.firefox" -f "../I2P.zip" -l "$EXECHECKSUM" -t "$TODAYSDATE" -n "I2P.zip"
 github-release upload -u "$GITHUB_USERNAME" -r "i2p.firefox" -f "../I2P.zip" -l "$EXECHECKSUM" -t "$TODAYSDATE" -n "I2P.zip"
