@@ -27,7 +27,7 @@ version.txt:
 	echo "$(PROFILE_VERSION)" > src/app-profile/version.txt
 
 i2pbrowser-jpackage.nsi:
-	echo "!define I2P_VERSION $(I2P_VERSION)" > src/nsis/i2pbrowser-jpackage.nsi
+	echo "!define I2P_VERSION $(PROFILE_VERSION)" > src/nsis/i2pbrowser-jpackage.nsi
 
 jpackage: version I2P build/I2P/config all
 
