@@ -18,7 +18,7 @@ if [ -f ./i2pversion_override ]; then
   . ./i2pversion_override
 fi
 
-TODAYSDATE=$(date +%Y%M%d)
+TODAYSDATE=$(date +%Y%m%d)
 
 if [ -z "$DESCRIPTION" ]; then
   DESCRIPTION="Daily unsigned build of i2p.firefox for $TODAYSDATE"
