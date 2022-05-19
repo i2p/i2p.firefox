@@ -8,6 +8,8 @@
 # containing this key as the variable GITHUB_TOKEN.
 # github-release-config.sh must also contain:
 # GITHUB_USERNAME=your github username
+git clean -fdx
+git checkout .
 ./unsigned.sh
 
 . "$HOME/github-release-config.sh"
