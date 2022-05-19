@@ -8,7 +8,7 @@
 # containing this key as the variable GITHUB_TOKEN.
 # github-release-config must also contain:
 # GITHUB_USERNAME=your github username
-#./unsigned.sh
+./unsigned.sh
 
 . "$HOME/github-release-config.sh"
 
