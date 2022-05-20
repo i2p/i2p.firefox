@@ -64,6 +64,16 @@ public class WinLauncher {
             logger.warning(home + " exists but is not a directory. Please get it out of the way");
             System.exit(1);
         }
+        // check for the existence of router.ping file, if it's less then 2 minutes old,
+        // exit
+        File ping = new File(home, "router.ping");
+        if (ping.exists()) {
+            long diff = System.currentTimeMillis() - ping.lastModified();
+            if (diff < 2 * 60 * 1000) {
+                logger.info("router.ping exists and is less than 2 minutes old, I2P appears to be running already.");
+                System.exit(0);
+            }
+        }
 
         System.setProperty("i2p.dir.base", programs.getAbsolutePath());
         System.setProperty("i2p.dir.config", home.getAbsolutePath());
