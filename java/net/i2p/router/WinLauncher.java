@@ -64,15 +64,10 @@ public class WinLauncher {
             logger.warning(home + " exists but is not a directory. Please get it out of the way");
             System.exit(1);
         }
-        // check for the existence of router.ping file, if it's less then 2 minutes old,
-        // exit
-        File ping = new File(home, "router.ping");
-        if (ping.exists()) {
-            long diff = System.currentTimeMillis() - ping.lastModified();
-            if (diff < 2 * 60 * 1000) {
-                logger.info("router.ping exists and is less than 2 minutes old, I2P appears to be running already.");
-                System.exit(0);
-            }
+
+        if (i2pIsRunning()) {
+            logger.warning("I2P is already running");
+            System.exit(0);
         }
 
         System.setProperty("i2p.dir.base", programs.getAbsolutePath());
@@ -80,12 +75,6 @@ public class WinLauncher {
         System.setProperty("router.pid", String.valueOf(ProcessHandle.current().pid()));
         logger.info("\t" + System.getProperty("i2p.dir.base") + "\n\t" + System.getProperty("i2p.dir.config")
                 + "\n\t" + System.getProperty("router.pid"));
-
-        // do a quick check to see of port 7657 is already occupied
-        if (i2pIsRunning()) {
-            logger.warning("I2P is already running");
-            System.exit(0);
-        }
 
         // wupp.i2pRouter = new Router(System.getProperties());
         logger.info("Router is configured");
@@ -101,6 +90,17 @@ public class WinLauncher {
 
     private static boolean i2pIsRunning() {
         // check if there's something listening on port 7657
+        // check for the existence of router.ping file, if it's less then 2 minutes old,
+        // exit
+        File home = selectHome();
+        File ping = new File(home, "router.ping");
+        if (ping.exists()) {
+            long diff = System.currentTimeMillis() - ping.lastModified();
+            if (diff < 2 * 60 * 1000) {
+                logger.info("router.ping exists and is less than 2 minutes old, I2P appears to be running already.");
+                System.exit(0);
+            }
+        }
         try {
             InetAddress localhost = InetAddress.getLocalHost();
             Socket s = new Socket(localhost, 7657);
