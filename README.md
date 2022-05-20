@@ -59,6 +59,14 @@ console wrapper.
 install.exe - the windows installer, which sets up shortcuts to
 launch Firefox on Windows.
 
+When generating a Windows build it's important to make sure that the
+licenses for all the bundled softare is included. This should happen
+automatically. When bundling software, describe the terms and where
+they are applied in the `LICENSE.index`, then add the full license
+to the `licenses` directory. Then, add the full license to the `cat`
+command in the `build/licenses` make target. The build/licenses
+target is run automatically during the build process.
+
 Unix Support
 ------------
 
