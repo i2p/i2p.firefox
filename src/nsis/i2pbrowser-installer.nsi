@@ -36,7 +36,7 @@ SetOverwrite on
 InstallDir "$PROGRAMFILES64\${COMPANYNAME}\${APPNAME}"
 
 # rtf or txt file - remember if it is txt, it must be in the DOS text format (\r\n)
-LicenseData "licenses\LICENSE.index"
+LicenseData "licenses\LICENSE.txt"
 # This will be in the installer/uninstaller's title bar
 Name "${COMPANYNAME} - ${APPNAME}"
 Icon ui2pbrowser_icon.ico
@@ -129,7 +129,7 @@ RequestExecutionLevel user
 
 PageEx license
     licensetext "${LICENSE_TITLE}"
-    licensedata "licenses\LICENSE.index"
+    licensedata "licenses\LICENSE.txt"
     #PageCallbacks elevatorCallback
 PageExEnd
 PageEx directory

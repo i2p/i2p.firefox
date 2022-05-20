@@ -5,11 +5,25 @@ and they are distributed with this package in the "licenses" directory.
   1. MIT License
     * all original material in this repository
   2. Mozilla Public License 2.0(From Mozilla Installer)
-    * ./i2pbrowser-mozcompat.nsi
+    * ./src/win/i2pbrowser-mozcompat.nsi
   3. Modified BSD License(From Tor Browser Bundle)
-    * ./firefox.profile.i2p/user.js
+    * ./src/*/user.js
   4. GNU General Public License 2.0(NoScript and HTTPS Everywhere)
-    * ./firefox.profile.i2p/extensions/
+    * ./src/*/extensions/
   5. GNU General Public License 3.0(Part of HTTPS Everywhere)
-    * ./firefox.profike.i2p/extensions/https-everywhere@eff.org.xpi
+    * ./src/*/extensions/
+  6. GNU GPLv2 With Classpath Exception(Java libraries included via Jpackage)
+    * ./I2P
 
+Additionally, the Jpackaged I2P Router contains software which is licensed
+under multiple Free/Open Source Software Licenses.
+
+  ABOUT-Jetty.html               LICENSE-ECLIPSE-1.0.html             LICENSE-GPLv3.txt           LICENSE-LGPLv2.1.txt       LICENSE-SNTP.txt
+  LICENSE-Addressbook.txt        LICENSE-ElGamalDSA.txt               LICENSE-HashCash.txt        LICENSE-LGPLv3.txt         LICENSE-Undraw.txt
+  LICENSE-Apache2.0.txt          LICENSE-FatCowIcons.txt              LICENSE-I2PTunnel.txt       LICENSE-Ministreaming.txt  LICENSE-UPnP.txt
+  LICENSE-BlockFile.txt          LICENSE-Feather.txt                  LICENSE-Identicon.txt       LICENSE-NDT.txt            LICENSE-Wrapper.txt
+  LICENSE-Boost.txt              LICENSE-fontawesome.txt              LICENSE-InstallCert.txt     LICENSE-Noise.txt          LICENSE-XStream.txt
+  LICENSE-BSD.txt                LICENSE-forked-subprocess.swift.txt  LICENSE-jBCrypt.txt         LICENSE-sbt-wrapper.txt    NOTICE-Commons-Logging.txt
+  LICENSE-CC0-1.0-Universal.txt  LICENSE-Foxtrot.txt                  LICENSE-JGoodies-Forms.txt  LICENSE-Scala.md           NOTICE-Jetty.html
+  LICENSE-Cryptix.txt            LICENSE-FugueIcons.txt               LICENSE-JGoodies-Looks.txt  LICENSE-SHA256.txt         NOTICE-Tomcat.txt
+  LICENSE-DesktopGUI.txt         LICENSE-GPLv2.txt                    LICENSE-Launch4j.txt        LICENSE-SilkIcons.txt

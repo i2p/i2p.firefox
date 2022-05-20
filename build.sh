@@ -39,7 +39,7 @@ sleep 5s
 
 HERE="$PWD"
 if [ ! -d "$HERE/../i2p.i2p.jpackage-build/" ]; then
-  git clone --depth 1 -b "$VERSION" https://i2pgit.org/i2p-hackers/i2p.i2p "$HERE/../i2p.i2p.jpackage-build/"
+  git clone -b "$VERSION" https://i2pgit.org/i2p-hackers/i2p.i2p "$HERE/../i2p.i2p.jpackage-build/"
 fi
 cd "$HERE/../i2p.i2p.jpackage-build/"
 for i in $COUNT; do
@@ -52,7 +52,6 @@ I2P_PKG="$HERE/../i2p.i2p.jpackage-build/pkg-temp"
 RES_DIR="$HERE/../i2p.i2p.jpackage-build/installer/resources"
 I2P_JARS="$I2P_PKG/lib"
 I2P_JBIGI="$HERE/../i2p.i2p.jpackage-build/installer/lib/jbigi"
-
 
 echo "compiling custom launcher"
 mkdir -p build
@@ -97,3 +96,6 @@ echo "preparing to invoke jpackage for I2P version $I2P_VERSION"
   $JPACKAGE_OPTS \
   --resource-dir build \
   --input build --main-jar launcher.jar --main-class net.i2p.router.WinLauncher
+
+cp "$I2P_PKG/licenses/"* licenses/
+cp "$HERE/../i2p.i2p.jpackage-build/LICENSE.txt" licenses/I2P.txt

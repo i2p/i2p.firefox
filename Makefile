@@ -109,7 +109,17 @@ build/licenses: build
 	mkdir -p build/licenses
 	cp license/* build/licenses
 	cp LICENSE.md build/licenses/MIT.txt
-	unix2dos build/licenses/LICENSE.index
+	cat build/licenses/LICENSE.index \
+		build/licenses/EPL.txt \
+		build/licenses/GPL+CLASSPATH.txt \
+		build/licenses/HTTPS-Everywhere.txt \
+		build/licenses/LICENSE.tor \
+		build/licenses/MIT.txt \
+		build/licenses/MPL2.txt \
+		build/licenses/NoScript.txt \
+		build/licenses/NSS.txt \
+		build/licenses/I2P.txt > build/licenses/LICENSE.txt
+	unix2dos build/licenses/LICENSE.txt
 
 clean:
 	rm -rf build app-profile-*.tgz profile-*.tgz I2P-Profile-Installer-*.exe *.deb src/I2P/config *.su3 .version *.url make.log
