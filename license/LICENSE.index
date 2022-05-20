@@ -18,12 +18,25 @@ and they are distributed with this package in the "licenses" directory.
 Additionally, the Jpackaged I2P Router contains software which is licensed
 under multiple Free/Open Source Software Licenses.
 
-  ABOUT-Jetty.html               LICENSE-ECLIPSE-1.0.html             LICENSE-GPLv3.txt           LICENSE-LGPLv2.1.txt       LICENSE-SNTP.txt
-  LICENSE-Addressbook.txt        LICENSE-ElGamalDSA.txt               LICENSE-HashCash.txt        LICENSE-LGPLv3.txt         LICENSE-Undraw.txt
-  LICENSE-Apache2.0.txt          LICENSE-FatCowIcons.txt              LICENSE-I2PTunnel.txt       LICENSE-Ministreaming.txt  LICENSE-UPnP.txt
-  LICENSE-BlockFile.txt          LICENSE-Feather.txt                  LICENSE-Identicon.txt       LICENSE-NDT.txt            LICENSE-Wrapper.txt
-  LICENSE-Boost.txt              LICENSE-fontawesome.txt              LICENSE-InstallCert.txt     LICENSE-Noise.txt          LICENSE-XStream.txt
-  LICENSE-BSD.txt                LICENSE-forked-subprocess.swift.txt  LICENSE-jBCrypt.txt         LICENSE-sbt-wrapper.txt    NOTICE-Commons-Logging.txt
-  LICENSE-CC0-1.0-Universal.txt  LICENSE-Foxtrot.txt                  LICENSE-JGoodies-Forms.txt  LICENSE-Scala.md           NOTICE-Jetty.html
-  LICENSE-Cryptix.txt            LICENSE-FugueIcons.txt               LICENSE-JGoodies-Looks.txt  LICENSE-SHA256.txt         NOTICE-Tomcat.txt
-  LICENSE-DesktopGUI.txt         LICENSE-GPLv2.txt                    LICENSE-Launch4j.txt        LICENSE-SilkIcons.txt
+  ABOUT-Jetty.html               LICENSE-ECLIPSE-1.0.html             
+  LICENSE-Addressbook.txt        LICENSE-ElGamalDSA.txt               
+  LICENSE-Apache2.0.txt          LICENSE-FatCowIcons.txt              
+  LICENSE-BlockFile.txt          LICENSE-Feather.txt                  
+  LICENSE-Boost.txt              LICENSE-fontawesome.txt              
+  LICENSE-BSD.txt                LICENSE-forked-subprocess.swift.txt  
+  LICENSE-CC0-1.0-Universal.txt  LICENSE-Foxtrot.txt                  
+  LICENSE-Cryptix.txt            LICENSE-FugueIcons.txt               
+  LICENSE-DesktopGUI.txt         LICENSE-GPLv2.txt                    
+  LICENSE-GPLv3.txt              LICENSE-LGPLv2.1.txt       
+  LICENSE-Launch4j.txt           LICENSE-SilkIcons.txt
+  LICENSE-HashCash.txt           LICENSE-LGPLv3.txt         
+  LICENSE-I2PTunnel.txt          LICENSE-Ministreaming.txt  
+  LICENSE-Identicon.txt          LICENSE-NDT.txt            
+  LICENSE-InstallCert.txt        LICENSE-Noise.txt          
+  LICENSE-jBCrypt.txt            LICENSE-sbt-wrapper.txt    
+  LICENSE-JGoodies-Forms.txt     LICENSE-Scala.md           
+  LICENSE-JGoodies-Looks.txt     LICENSE-SHA256.txt         
+  NOTICE-Tomcat.txt              NOTICE-Jetty.html
+  LICENSE-UPnP.txt               LICENSE-SNTP.txt
+  LICENSE-Wrapper.txt            LICENSE-Undraw.txt
+  LICENSE-XStream.txt            NOTICE-Commons-Logging.txt
