@@ -42,8 +42,6 @@ if [ ! -d "$HERE/../i2p.i2p.jpackage-build/" ]; then
   git clone --depth 1 -b "$VERSION" https://i2pgit.org/i2p-hackers/i2p.i2p "$HERE/../i2p.i2p.jpackage-build/"
 fi
 cd "$HERE/../i2p.i2p.jpackage-build/"
-git pull --tags
-git checkout "$VERSION"
 for i in $COUNT; do
   echo -n "$i...."; sleep 1s
 done
