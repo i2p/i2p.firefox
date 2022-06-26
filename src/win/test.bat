@@ -1,5 +1,5 @@
 
-SET MYPATH=%~dp0
+SET "MYPATH=%~dp0"
 
 call "%MYPATH%common.bat"
 

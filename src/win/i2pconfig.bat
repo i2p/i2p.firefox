@@ -1,6 +1,6 @@
 @echo off
 
-SET MYPATH=%~dp0
+SET "MYPATH=%~dp0"
 call "%MYPATH%common.bat"
 
 call "%MYPATH%copy-config-profile.bat"
