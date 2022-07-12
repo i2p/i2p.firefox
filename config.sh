@@ -2,14 +2,14 @@
 ## If you need to use a different JVM, JDK, or other utility from
 # build.sh, set it in this file, for example:
 
-export PATH="$PATH:/c/Program Files/Java/jdk-17.0.3/bin/"
-export JAVA_HOME="/c/Program Files/Java/jdk-17.0.3"
+#export PATH="$PATH:/c/Program Files/Java/jdk-17.0.3/bin/"
+#export JAVA_HOME="/c/Program Files/Java/jdk-17.0.3"
 # to use it for Oracle OpenJDK17
 
 ## Other potential values(NOT exhaustive):
 
-#export PATH="$PATH:/c/Program Files/Java/jdk-18.0.1/bin/"
-#export JAVA_HOME="/c/Program Files/Java/jdk-18.0.1"
+export PATH="$PATH:/c/Program Files/Java/jdk-18.0.1/bin/"
+export JAVA_HOME="/c/Program Files/Java/jdk-18.0.1"
 #export PATH="$PATH:/c/Program Files/Eclipse Adoptium/jdk-17.0.3/bin/"
 #export JAVA_HOME="/c/Program Files/Eclipse Adoptium/jdk-17.0.3"
 #export PATH="$PATH:/c/Program Files/OpenJDK/jdk-17.0.3/bin/"
