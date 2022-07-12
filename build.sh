@@ -84,7 +84,7 @@ if [ -z $I2P_VERSION ]; then
 fi
 echo "preparing to invoke jpackage for I2P version $I2P_VERSION"
 
-
+rm -rf I2P
 "$JAVA_HOME"/bin/jpackage --type app-image --name I2P --app-version "$I2P_VERSION" \
   --verbose \
   --java-options "-Xmx512m" \
