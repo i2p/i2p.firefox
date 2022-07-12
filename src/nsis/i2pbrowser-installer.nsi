@@ -237,6 +237,8 @@ ${If} ${Silent}
         ${If} ${Silent}
           ReadEnvStr $0 OLD_I2P_VERSION
           ${If} $0 < ${I2P_VERSION}
+            rmDir /r $I2PINSTEXE/app
+            rmDir /r $I2PINSTEXE/runtime
             File /nonfatal /a /r "I2P\"
             File /nonfatal "I2P\config\jpackaged"
 
