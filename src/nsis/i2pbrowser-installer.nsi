@@ -248,6 +248,8 @@ ${If} ${Silent}
 
           ${EndIf}  
         ${Else}
+          rmDir /r $I2PINSTEXE/app
+          rmDir /r $I2PINSTEXE/runtime
           File /nonfatal /a /r "I2P\"
           File /nonfatal "I2P\config\jpackaged"
 
