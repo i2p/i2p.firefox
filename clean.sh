@@ -3,12 +3,11 @@
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 cd "$SCRIPT_DIR" || exit 1
 
-here=$(pwd)
 cd ../i2p.i2p.jpackage-build/
 ant distclean
 git checkout .
 git checkout master
-cd "$here"
+cd "$SCRIPT_DIR" || exit 1
 rm -rf \
 	build \
 	eventlog.txt \
