@@ -1,7 +1,7 @@
 #! /usr/bin/env bash
 set -e 
 
-SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+SCRIPT_DIR=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd -P)
 cd "$SCRIPT_DIR" || exit 1
 
 . i2pversion
