@@ -1,3 +1,4 @@
+#! /usr/bin/env bash
 
 ## If you need to use a different JVM, JDK, or other utility from
 # build.sh, set it in this file, for example:
