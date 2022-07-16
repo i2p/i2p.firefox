@@ -9,7 +9,9 @@
 
 ## Other potential values(NOT exhaustive):
 
+PATH="$PATH:/c/Program Files/Java/jdk-18.0.1.1/bin/"
 export PATH="$PATH:/c/Program Files/Java/jdk-18.0.1.1/bin/"
+JAVA_HOME="/c/Program Files/Java/jdk-18.0.1.1"
 export JAVA_HOME="/c/Program Files/Java/jdk-18.0.1.1"
 #export PATH="$PATH:/c/Program Files/Eclipse Adoptium/jdk-17.0.3/bin/"
 #export JAVA_HOME="/c/Program Files/Eclipse Adoptium/jdk-17.0.3"
@@ -48,4 +50,5 @@ export JAVA_HOME="/c/Program Files/Java/jdk-18.0.1.1"
 #export PATH="$PATH:$ANT_HOME/bin/"
 
 # Uncomment this to add signtool to the path so you don't have to fight with Visual Studio.
+PATH="$PATH:/c/Program Files (x86)/Windows Kits/10/App Certification Kit/"
 export PATH="$PATH:/c/Program Files (x86)/Windows Kits/10/App Certification Kit/"

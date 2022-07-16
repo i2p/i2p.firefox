@@ -3,6 +3,18 @@
 SCRIPT_DIR=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd -P)
 cd "$SCRIPT_DIR" || exit 1
 
+. "$SCRIPT_DIR/i2pversion"
+
+if [ -f i2pversion_override ]; then
+    . "$SCRIPT_DIR/i2pversion_override"
+fi
+
+. "$SCRIPT_DIR/config.sh"
+
+if [ -f config_overide.sh ]; then
+  . "$SCRIPT_DIR/config_override.sh"
+fi
+
 ### How to set up this script:
 #
 # This script will not work unless you give it a Github API key.
@@ -16,8 +28,6 @@ git checkout .
 ./unsigned.sh
 
 . "$HOME/github-release-config.sh"
-
-. ./i2pversion
 
 if [ -f ./i2pversion_override ]; then
   . ./i2pversion_override
