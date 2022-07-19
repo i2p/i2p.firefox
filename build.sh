@@ -18,6 +18,7 @@ fi
 
 COUNT="Ten Nine Eight Seven Six Five Four Three Two One"
 
+which java
 JAVA=$(java --version | tr -d 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ\n' | cut -d ' ' -f 2 | cut -d '.' -f 1 | tr -d '\n\t\- ')
 
 if [ "$JAVA" -lt "14" ]; then
