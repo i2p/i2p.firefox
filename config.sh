@@ -9,10 +9,10 @@
 
 ## Other potential values(NOT exhaustive):
 
-PATH="/c/Program Files/Java/jdk-18.0.1.1/bin/:$PATH:/c/Program Files/Java/jdk-18.0.1.1/bin/"
-export PATH="/c/Program Files/Java/jdk-18.0.1.1/bin/:$PATH:/c/Program Files/Java/jdk-18.0.1.1/bin/"
-JAVA_HOME="/c/Program Files/Java/jdk-18.0.1.1"
-export JAVA_HOME="/c/Program Files/Java/jdk-18.0.1.1"
+PATH="/c/Program Files/Java/jdk-18.0.2/bin/:$PATH:/c/Program Files/Java/jdk-18.0.2/bin/"
+export PATH="/c/Program Files/Java/jdk-18.0.2/bin/:$PATH:/c/Program Files/Java/jdk-18.0.2/bin/"
+JAVA_HOME="/c/Program Files/Java/jdk-18.0.2"
+export JAVA_HOME="/c/Program Files/Java/jdk-18.0.2"
 #export PATH="$PATH:/c/Program Files/Eclipse Adoptium/jdk-17.0.3/bin/"
 #export JAVA_HOME="/c/Program Files/Eclipse Adoptium/jdk-17.0.3"
 #export PATH="$PATH:/c/Program Files/OpenJDK/jdk-17.0.3/bin/"
