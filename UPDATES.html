@@ -1,0 +1,138 @@
+<html>
+  <head>
+    <title>
+      I2P Browsing Pro...
+    </title>
+    <meta name="author" content="eyedeekay" />
+    <meta name="description" content="i2p.firefox" />
+    <meta name="keywords" content="master" />
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <script type="text/javascript" src=""></script>
+  </head>
+  <body>
+    <div id="navbar">
+      <a href="#shownav">
+        Show navigation
+      </a>
+      <div id="shownav">
+        <div id="hidenav">
+          <ul>
+            <li>
+              <a href="index.html">
+                index
+              </a>
+            </li>
+            <li>
+              <a href="LICENSE.html">
+                LICENSE
+              </a>
+            </li>
+            <li>
+              <a href="UPDATES.html">
+                UPDATES
+              </a>
+            </li>
+          </ul>
+          <br>
+          <a href="#hidenav">
+            Hide Navigation
+          </a>
+        </div>
+      </div>
+    </div>
+    <h1>
+      Setting up an Update Server for an I2P Bundle
+    </h1>
+    <p>
+      It is important to set up a signed update server so that people are able to
+      safely and anonymously update your I2P bundle.
+    </p>
+    <h2>
+      The quick way:
+    </h2>
+    <p>
+      This process depends on my ability to push releases to github. If you are
+      forking, setting up a dev server, or taking over because I got hit by a bus,
+      you’ll need to do it the complete way.
+    </p>
+    <p>
+      For as long as I am building updates, you will be able to mirror the jpackaged
+      Windows bundle by cloning the repository
+      <code>
+        https://github.com/eyedeekay/i2p
+      </code>
+      and
+      running the
+      <code>
+        make docker run
+      </code>
+      target in that repository. You can retrieve the
+      base32 address of your update server by viewing the log with
+      <code>
+        docker logs eephttpd-jpackage | grep b32.i2p | tee eephttpd-address.md
+      </code>
+      . To
+      update the site, run
+      <code>
+        ./update.site.sh
+      </code>
+      in that repository.
+    </p>
+    <p>
+      Once you have cloned the repository and started the container with
+      <code>
+        make docker run
+      </code>
+      , you can simply add
+      <code>
+        path/to/repo/update-site.sh
+      </code>
+      to your
+      <code>
+        crontab
+      </code>
+      and it will update at an interval of your choosing.
+    </p>
+    <h2>
+      The complete way:
+    </h2>
+    <p>
+      TODO: describe how to do it with less of the awesome fancy stuff I put together
+      to make it easier on myself to keep an update server going.
+    </p>
+    <div>
+      <a href="#show">
+        Show license
+      </a>
+      <div id="show">
+        <div id="hide">
+          <pre><code>Copyright 2018
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of
+this software and associated documentation files (the "Software"), to deal in
+the Software without restriction, including without limitation the rights to
+use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+the Software, and to permit persons to whom the Software is furnished to do so,
+subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+</code></pre>
+          <a href="#hide">
+            Hide license
+          </a>
+        </div>
+      </div>
+    </div>
+    <div>
+      <iframe src="https://snowflake.torproject.org/embed.html" width="320" height="240" frameborder="0" scrolling="no"></iframe>
+    </div>
+  </body>
+</html>
