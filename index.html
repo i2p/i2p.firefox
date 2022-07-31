@@ -1,0 +1,717 @@
+<html>
+  <head>
+    <title>
+      I2P Browsing Pro...
+    </title>
+    <meta name="author" content="eyedeekay" />
+    <meta name="description" content="i2p.firefox" />
+    <meta name="keywords" content="master" />
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <script type="text/javascript" src=""></script>
+  </head>
+  <body>
+    <div id="navbar">
+      <a href="#shownav">
+        Show navigation
+      </a>
+      <div id="shownav">
+        <div id="hidenav">
+          <ul>
+            <li>
+              <a href="index.html">
+                index
+              </a>
+            </li>
+            <li>
+              <a href="LICENSE.html">
+                LICENSE
+              </a>
+            </li>
+            <li>
+              <a href="UPDATES.html">
+                UPDATES
+              </a>
+            </li>
+          </ul>
+          <br>
+          <a href="#hidenav">
+            Hide Navigation
+          </a>
+        </div>
+      </div>
+    </div>
+    <h1>
+      I2P Browsing Profile for Firefox
+    </h1>
+    <h2>
+      Features:
+    </h2>
+    <ul>
+      <li>
+        Automatically select an up-to-date, secure Firefox or Tor Browser(On Windows) variant
+      </li>
+      <li>
+        Automatically configure a profile for I2P
+      </li>
+      <li>
+        Automatically block-list all non-I2P local destinations
+      </li>
+      <li>
+        Enable first-party isolation, anti-fingerprinting, letterboxing
+      </li>
+      <li>
+        Automatically sandbox I2P, Non-I2P, and I2P-Application cookiestores
+      </li>
+    </ul>
+    <h2>
+      Build Dependencies:
+    </h2>
+    <p>
+      To build this, you will need the following software packages (all available in Debian) :
+    </p>
+    <ul>
+      <li>
+        make
+      </li>
+      <li>
+        nsis
+      </li>
+      <li>
+        dos2unix
+      </li>
+      <li>
+        curl
+      </li>
+      <li>
+        jq
+      </li>
+    </ul>
+    <p>
+      In addition, you will need the NSIS plugin “ShellExecAsUser” which you can get from the
+      <a href="https://nsis.sourceforge.io/ShellExecAsUser_plug-in" rel="nofollow">
+        NSIS Wiki Page
+      </a>
+      . In order to install
+      the plugin on Debian, Ubuntu, or using
+      <code>
+        WSL
+      </code>
+      , you can download the:
+      <a href="https://nsis.sourceforge.io/mediawiki/images/6/68/ShellExecAsUser_amd64-Unicode.7z" rel="nofollow">
+        7zip release
+      </a>
+      and copy the content of
+      <code>
+        Plugins
+      </code>
+      to
+      <code>
+        /usr/share/nsis/Plugins
+      </code>
+      .
+    </p>
+    <pre><code>cp -rv Plugins/* /usr/share/nsis/Plugins/
+</code></pre>
+    <p>
+      To build a Debian package, you’ll also need
+    </p>
+    <ul>
+      <li>
+        checkinstall
+      </li>
+    </ul>
+    <h2>
+      Preparation
+    </h2>
+    <p>
+      Before you build, run the targets
+    </p>
+    <pre><code>    make clean-extensions
+    make extensions
+</code></pre>
+    <p>
+      to update the extensions to point to their latest versions.
+    </p>
+    <h2>
+      Windows Build
+    </h2>
+    <p>
+      After installing the dependencies and completing the preparations,
+      just run
+      <code>
+        make
+      </code>
+      .  This will produce three files:
+    </p>
+    <p>
+      profile.tgz - the firefox profile, plus a shell script which will
+      launch it if Firefox is found in the $PATH on Unix-Like operating
+      systems.
+      app-profile.tgz - the Firefox profile plus a launcher shell script,
+      which will launch a
+      <em>
+        modified
+      </em>
+      Firefox without a URL bar as a router
+      console wrapper.
+      install.exe - the windows installer, which sets up shortcuts to
+      launch Firefox on Windows.
+    </p>
+    <p>
+      When generating a Windows build it’s important to make sure that the
+      licenses for all the bundled softare are included. This should happen
+      automatically. When bundling software, describe the terms and where
+      they are applied in the
+      <code>
+        LICENSE.index
+      </code>
+      , then add the full license
+      to the
+      <code>
+        licenses
+      </code>
+      directory. Then, add the full license to the
+      <code>
+        cat
+      </code>
+      command in the
+      <code>
+        build/licenses
+      </code>
+      make target. The build/licenses
+      target is run automatically during the build process.
+    </p>
+    <h2>
+      Unix Support
+    </h2>
+    <p>
+      It is possible to use these profiles on Linux and possibly other
+      Unixes, if Firefox is already installed on the system. It can be
+      installed system-wide using the
+      <code>
+        make install
+      </code>
+      target. Running
+      <code>
+        make install
+      </code>
+      requires root, and requires
+      <code>
+        make
+      </code>
+      to have been run
+      first. To install on Unix, system-wide, run:
+    </p>
+    <pre><code>    make
+    sudo make install
+</code></pre>
+    <p>
+      To run without installing them system wide, unpack the
+      <code>
+        profile*.tgz
+      </code>
+      to a location of your choice and run the
+      <code>
+        i2pbrowser.sh
+      </code>
+      script. This
+      will start a Firefox profile configured to use I2P.
+    </p>
+    <pre><code>    tar xvf profile-0.3.tgz
+    cd profile
+    ./i2pbrowser.sh
+</code></pre>
+    <p>
+      If you want to run the app-like i2pconfig browser, then follow the
+      same steps with app-profile*.tgz.
+    </p>
+    <pre><code>    tar xvf app-profile-0.3.tgz
+    cd app-profile
+    ./i2pconfig.sh
+</code></pre>
+    <p>
+      To generate a
+      <code>
+        deb
+      </code>
+      package, install the package
+      <code>
+        checkinstall
+      </code>
+      and run
+      the
+      <code>
+        make checkinstall
+      </code>
+      target after building with
+      <code>
+        make
+      </code>
+      .
+    </p>
+    <pre><code>    make
+    make checkinstall
+    sudo apt install ./i2p-firefox*.deb
+</code></pre>
+    <p>
+      If you want to set up i2pconfig to run when you start the service
+      with
+      <code>
+        sudo service i2p start
+      </code>
+      then you can run the script:
+    </p>
+    <pre><code>    /usr/local/bin/i2p-config-service-setup
+</code></pre>
+    <h2>
+      Including a jpackaged I2P Router
+    </h2>
+    <p>
+      In order to include a jpackaged(dependency-free) I2P router in the Profile
+      Bundle you will need to build the jpackaged I2P router as an “App Image” on
+      a Windows system and place it into a directory called
+      <code>
+        I2P
+      </code>
+      in your
+      <code>
+        i2p.firefox
+      </code>
+      checkout.
+    </p>
+    <p>
+      Assuming a working java and jpackage environment on your Windows system, the
+      following command should generate a suitable “App Image” in a directory
+      called “I2P.”
+    </p>
+    <pre><code>    export I2P_VERSION=0.9.49
+    cp -R ../i2p.i2p/pkg-temp/lib build/lib
+    jpackage --type app-image --name I2P --app-version &#34;$I2P_VERSION&#34; \
+      --verbose \
+      --resource-dir build/lib \
+      --input build/lib --main-jar router.jar --main-class net.i2p.router.RouterLaunch
+</code></pre>
+    <p>
+      Transfer the I2P directory to the machine where you build i2p.firefox if
+      necessary, then complete the regular build instructions. If a jpackaged I2P router
+      isn’t present to use at build time, the inclusion will be skipped automatically
+      with a non-fatal warning.
+    </p>
+    <p>
+      In the near future, I’ll start providing a pre-built app image to ease the
+      build process for non-Windows users.
+    </p>
+    <h2>
+      End-to-End Windows build process using WSL
+    </h2>
+    <p>
+      <strong>
+        If you’ve already done this once, you can just use:
+      </strong>
+      <code>
+        ./build.sh &amp;&amp; wsl make
+      </code>
+      <strong>
+        in
+        <code>
+          git bash
+        </code>
+      </strong>
+      to automatically build an installer.
+    </p>
+    <p>
+      <strong>
+        Prerequisites:
+      </strong>
+      You need to have OpenJDK 14 or greater installed and configured
+      with your
+      <code>
+        %JAVA_HOME%
+      </code>
+      environment variable configured and
+      <code>
+        %JAVA_HOME%/bin
+      </code>
+      on
+      your
+      <code>
+        %PATH%
+      </code>
+      . You need to have Apache Ant installed and configured with
+      <code>
+        %ANT_HOME%
+      </code>
+      environment variable configured and
+      <code>
+        %ANT_HOME%/bin
+      </code>
+      on your
+      <code>
+        %PATH%
+      </code>
+      . You must have
+      Cygwin installed. You must have
+      <code>
+        NSIS.exe
+      </code>
+      installed and
+      <code>
+        makensis
+      </code>
+      available on your
+      <code>
+        %PATH%
+      </code>
+      . You must have Git for Windows installed. When installing git for Windows,
+      you should select “Checkout as is, commit as is” and leave line-endings alone.
+    </p>
+    <ol>
+      <li>
+        <p>
+          <a href="https://docs.microsoft.com/en-us/windows/wsl/install-win10#manual-installation-steps" rel="nofollow">
+            Set up Windows Subsystem for Linux per Microsoft’s instructions
+          </a>
+        </p>
+      </li>
+      <li>
+        <p>
+          <a href="https://www.microsoft.com/store/apps/9n6svws3rx71" rel="nofollow">
+            Install Ubuntu Focal per Microsoft’s instructions
+          </a>
+        </p>
+      </li>
+      <li>
+        <p>
+          Open Git Bash.
+        </p>
+      </li>
+      <li>
+        <p>
+          Install prerequisites
+          <code>
+            wsl sudo apt-get update &amp;&amp; sudo apt-get install make nsis dos2unix curl jq
+          </code>
+        </p>
+      </li>
+      <li>
+        <p>
+          Clone
+          <code>
+            i2p.i2p
+          </code>
+          and
+          <code>
+            i2p.firefox
+          </code>
+        </p>
+        <pre><code>git clone https://github.com/i2p/i2p.i2p
+git clone https://github.com/i2p/i2p.firefox
+</code></pre>
+      </li>
+      <li>
+        <p>
+          Move to the i2p.i2p directory. Build the .jar files required to build the App Image
+          inside i2p.i2p. Return to home.
+        </p>
+        <pre><code>cd i2p.i2p
+ant clean pkg
+cd ..
+</code></pre>
+      </li>
+      <li>
+        <p>
+          Move into the i2p.firefox directory. Run the
+          <code>
+            ./build.sh
+          </code>
+          script.
+        </p>
+        <pre><code>cd i2p.firefox
+./build.sh
+</code></pre>
+      </li>
+      <li>
+        <p>
+          Compile the NSIS installer using WSL.
+        </p>
+        <pre><code>wsl make
+</code></pre>
+      </li>
+    </ol>
+    <h2>
+      End-to-End Windows build process using Cygwin
+    </h2>
+    <p>
+      I highly recommend you look into the Chocolatey package manager, which makes it much
+      easier to configure these tools and keep them up to date.
+    </p>
+    <p>
+      <strong>
+        Prerequisites:
+      </strong>
+      You need to have OpenJDK 14 or greater installed and configured
+      with your
+      <code>
+        %JAVA_HOME%
+      </code>
+      environment variable configured and
+      <code>
+        %JAVA_HOME%/bin
+      </code>
+      on
+      your
+      <code>
+        %PATH%
+      </code>
+      . You need to have Apache Ant installed and configured with
+      <code>
+        %ANT_HOME%
+      </code>
+      environment variable configured and
+      <code>
+        %ANT_HOME%/bin
+      </code>
+      on your
+      <code>
+        %PATH%
+      </code>
+      . You must have
+      WSL and git bash installed. You must have
+      <code>
+        NSIS.exe
+      </code>
+      installed and
+      <code>
+        makensis
+      </code>
+      available on your
+      <code>
+        %PATH%
+      </code>
+      . You must have Git for Windows installed. When installing git for Windows, you should
+      select “Checkout as is, commit as is” and leave line-endings alone.
+    </p>
+    <p>
+      TODO: Add links to the respective instructions for each of these.
+    </p>
+    <ol>
+      <li>
+        <p>
+          Run the Cygwin
+          <code>
+            setup-$arch.exe
+          </code>
+          for your platform to set up new packages. Select the
+          <code>
+            make
+          </code>
+          <code>
+            jq
+          </code>
+          <code>
+            dos2unix
+          </code>
+          and
+          <code>
+            curl
+          </code>
+          packages.
+        </p>
+      </li>
+      <li>
+        <p>
+          Open a cygwin terminal.
+        </p>
+      </li>
+      <li>
+        <p>
+          Clone
+          <code>
+            i2p.i2p
+          </code>
+          and
+          <code>
+            i2p.firefox
+          </code>
+        </p>
+        <pre><code>git clone https://github.com/i2p/i2p.i2p
+git clone https://github.com/i2p/i2p.firefox
+</code></pre>
+      </li>
+      <li>
+        <p>
+          Move to the i2p.i2p directory. Build the .jar files required to build the App Image
+          inside i2p.i2p. Return to home.
+        </p>
+        <pre><code>cd i2p.i2p
+ant clean pkg
+cd ..
+</code></pre>
+      </li>
+      <li>
+        <p>
+          Move into the i2p.firefox directory. Run the
+          <code>
+            ./build.sh
+          </code>
+          script.
+        </p>
+        <pre><code>cd i2p.firefox
+./build.sh
+</code></pre>
+      </li>
+      <li>
+        <p>
+          Run
+          <code>
+            make
+          </code>
+          to build the installer.
+        </p>
+      </li>
+    </ol>
+    <h2>
+      Doing a Release
+    </h2>
+    <p>
+      Once you have the installer
+      <code>
+        .exe
+      </code>
+      file produced by NSIS, you’re almost ready to
+      do a release. As a final step, someone must sign the
+      <code>
+        .exe
+      </code>
+      file using a
+      Certificate which Windows will recognize. The current signer of the Windows
+      bundle is Zlatinb. Standard Windows signing tools are used.
+    </p>
+    <pre><code># Release Copypasta
+./clean.sh
+wsl make distclean
+wsl make clean-extensions
+wsl make extensions
+./build.sh
+wsl make
+./sign.sh
+</code></pre>
+    <h2>
+      Building a signed update file
+    </h2>
+    <p>
+      Building a signed update file for automatically updating a Windows I2P router
+      requires you to either be using linux, or have Go installed in your Cygwin or WSL environment.
+      On Linux(Where I sign the su3 files), this works:
+    </p>
+    <pre><code>    make su3
+</code></pre>
+    <p>
+      to run the signing tool if necessary and then package the installer in a
+      signed update file.
+    </p>
+    <h2>
+      Docker Support
+    </h2>
+    <p>
+      You can use a Docker container to install this browser profile as well. In order
+      to do this, you can run the commands:
+    </p>
+    <pre><code>    xhost + local:docker
+    docker run -it --rm \
+      --net=host \
+      -e DISPLAY=unix$(DISPLAY) \
+      -v /tmp/.X11-unix:/tmp/.X11-unix \
+      geti2p/i2p.firefox firefox --profile /src/build/profile
+</code></pre>
+    <p>
+      To build and run the container locally, clone this repository and run the
+    </p>
+    <pre><code>    make run
+</code></pre>
+    <p>
+      target.
+    </p>
+    <h2>
+      Issues
+    </h2>
+    <p>
+      To report issues against this browser profile, please file issues
+      at
+      <a href="https://i2pgit.org/i2p-hackers/i2p.firefox" rel="nofollow">
+        the official Gitlab
+      </a>
+      or the
+      <a href="https://github.com/i2p/i2p.firefox" rel="nofollow">
+        Github Mirror
+      </a>
+      . Issues
+      pertaining to the plugins may be reported to their upstream
+      maintainers if it’s determined that our configuration is not at
+      fault.
+    </p>
+    <p>
+      NoScript is developed on Github by
+      <code>
+        hackademix
+      </code>
+      and the community:
+      -
+      <a href="https://github.com/hackademix/noscript" rel="nofollow">
+        https://github.com/hackademix/noscript
+      </a>
+    </p>
+    <p>
+      HTTPS Everywhere is developed on Github by the EFF:
+      -
+      <a href="https://github.com/EFForg/https-everywhere" rel="nofollow">
+        https://github.com/EFForg/https-everywhere
+      </a>
+    </p>
+    <p>
+      I2P in Private Browsing is developed on Gitlab and Github by idk and the community:
+      -
+      <a href="https://i2pgit.org/idk/I2P-in-Private-Browsing-Mode-Firefox" rel="nofollow">
+        https://i2pgit.org/idk/I2P-in-Private-Browsing-Mode-Firefox
+      </a>
+      -
+      <a href="https://github.com/eyedeekay/I2P-in-Private-Browsing-Mode-Firefox" rel="nofollow">
+        https://github.com/eyedeekay/I2P-in-Private-Browsing-Mode-Firefox
+      </a>
+    </p>
+    <div>
+      <a href="#show">
+        Show license
+      </a>
+      <div id="show">
+        <div id="hide">
+          <pre><code>Copyright 2018
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of
+this software and associated documentation files (the "Software"), to deal in
+the Software without restriction, including without limitation the rights to
+use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+the Software, and to permit persons to whom the Software is furnished to do so,
+subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+</code></pre>
+          <a href="#hide">
+            Hide license
+          </a>
+        </div>
+      </div>
+    </div>
+    <div>
+      <iframe src="https://snowflake.torproject.org/embed.html" width="320" height="240" frameborder="0" scrolling="no"></iframe>
+    </div>
+  </body>
+</html>

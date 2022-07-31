@@ -212,6 +212,10 @@ Applications:
        Copyright (c) 2006, Matthew Estes
        See licenses/LICENSE-BlockFile.txt
 
+   BOB (BOB.jar):
+   Copyright (C) sponge
+   See licenses/COPYING-BOB.txt
+
    Desktopgui (desktopgui.jar):
    Copyright (c) Mathias De Maré
    See licenses/LICENSE-DesktopGUI.txt
@@ -335,9 +339,9 @@ Applications:
    Systray (systray.jar):
    Public domain.
 
-   Tomcat 9.0.62 (jasper-runtime.jar):
+   Tomcat 9.0.54 (jasper-runtime.jar):
    (not included in most distribution packages)
-   Copyright 1999-2022 The Apache Software Foundation
+   Copyright 1999-2021 The Apache Software Foundation
    See licenses/LICENSE-Apache2.0.txt
    See licenses/NOTICE-Tomcat.txt
 
