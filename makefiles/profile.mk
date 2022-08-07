@@ -8,8 +8,12 @@ profile.tgz: .version profile
 	install -m755 src/unix/i2pbrowser.sh build/profile/i2pbrowser.sh
 	cd build && tar -czf profile-$(PROFILE_VERSION).tgz profile && cp profile-$(PROFILE_VERSION).tgz ../
 
+src/profile/user.js:
+	wget -O src/profile/user.js "https://github.com/arkenfox/user.js/raw/master/user.js"
+
 build/profile/user.js: build/profile src/profile/user.js
 	cp src/profile/user.js build/profile/user.js
+	cp src/profile/user-overrides.js build/profile/user-overrides.js
 
 build/profile/prefs.js: build/profile src/profile/prefs.js
 	cp src/profile/prefs.js build/profile/prefs.js

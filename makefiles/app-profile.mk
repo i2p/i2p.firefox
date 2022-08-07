@@ -7,6 +7,9 @@ app-profile.tgz: app-profile
 	install -m755 src/unix/i2pconfig.sh build/app-profile/i2pconfig.sh
 	cd build && tar -czf app-profile-$(PROFILE_VERSION).tgz app-profile && cp app-profile-$(PROFILE_VERSION).tgz ../
 
+src/app-profile/user.js:
+	wget -O src/app-profile/user.js "https://github.com/arkenfox/user.js/raw/master/user.js"
+
 build/app-profile/user.js: build/app-profile src/app-profile/user.js
 	cp src/app-profile/user.js build/app-profile/user.js
 
