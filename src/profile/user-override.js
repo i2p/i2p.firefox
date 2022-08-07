@@ -173,6 +173,7 @@ user_pref("dom.serviceWorkers.interception.enabled", false);
 user_pref("dom.storage.enabled", false);
 user_pref("dom.webaudio.enabled", false);
 user_pref("extensions.autoDisableScopes", 0);
+user_pref("extensions.enabledScopes", 1);
 user_pref("extensions.getAddons.cache.enabled", false);
 user_pref("extensions.getAddons.showPane", false);
 user_pref("extensions.pocket.enabled", false);

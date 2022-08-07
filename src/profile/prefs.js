@@ -61,3 +61,5 @@ user_pref("dom.w3c_touch_events.enabled", false);
 user_pref("browser.privatebrowsing.autostart", false);
 user_pref("browser.display.use_system_colors", false);
 user_pref("dom.image-lazy-loading.enabled", false)
+user_pref("extensions.autoDisableScopes", 0);
+user_pref("extensions.enabledScopes", 1);
