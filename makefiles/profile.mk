@@ -13,7 +13,7 @@ src/profile/user.js:
 
 build/profile/user.js: build/profile src/profile/user.js
 	cp src/profile/user.js build/profile/user.js
-	cp src/profile/user-overrides.js build/profile/user-overrides.js
+	cp src/profile/user-override.js build/profile/user-override.js
 
 build/profile/prefs.js: build/profile src/profile/prefs.js
 	cp src/profile/prefs.js build/profile/prefs.js

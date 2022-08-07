@@ -186,7 +186,7 @@ user_pref("layout.css.visited_links_enabled", false);
 user_pref("media.autoplay.enabled", false);
 user_pref("media.cache_size", 0);
 user_pref("media.navigator.enabled", false);
-user_pref("media.peerconnection.enabled", false);
+user_pref("media.peerconnection.ice.no_host", true);
 user_pref("media.video_stats.enabled", false);
 user_pref("captivedetect.canonicalURL", "");
 user_pref("network.captive-portal-service.enabled", false);
@@ -226,4 +226,3 @@ user_pref("webgl.enable-webgl2", false);
 user_pref("dom.w3c_touch_events.enabled", false);
 user_pref("browser.privatebrowsing.autostart", false);
 user_pref("browser.display.use_system_colors", false);
-user_pref("dom.image-lazy-loading.enabled", false)

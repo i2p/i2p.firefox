@@ -82,6 +82,9 @@ user_pref("extensions.torbutton.use_nontor_proxy", true);
 //user_pref("extensions.torlauncher.socks_port_use_ipc", );
 //user_pref("extensions.torlauncher.socks_ipc_path", "");
 
+// TODO: this is a Tor Browser specific setting which is ignored on Firefox. If
+// I make it true, the SOCKS outproxy will have something to connect to. But I
+// need to test more to find out if that's prudent.
 user_pref("extensions.torlauncher.start_tor", false);
 //user_pref("extensions.torlauncher.default_bridge_type", "");
 user_pref("extensions.torlauncher.prompt_at_startup", false);
@@ -169,7 +172,7 @@ user_pref("dom.serviceWorkers.enabled", false);
 user_pref("dom.serviceWorkers.interception.enabled", false);
 user_pref("dom.storage.enabled", false);
 user_pref("dom.webaudio.enabled", false);
-user_pref("extensions.autoDisableScopes", 14);
+user_pref("extensions.autoDisableScopes", 0);
 user_pref("extensions.getAddons.cache.enabled", false);
 user_pref("extensions.getAddons.showPane", false);
 user_pref("extensions.pocket.enabled", false);
@@ -183,7 +186,7 @@ user_pref("layout.css.visited_links_enabled", false);
 user_pref("media.autoplay.enabled", false);
 user_pref("media.cache_size", 0);
 user_pref("media.navigator.enabled", false);
-user_pref("media.peerconnection.enabled", false);
+user_pref("media.peerconnection.ice.no_host", true);
 user_pref("media.video_stats.enabled", false);
 user_pref("captivedetect.canonicalURL", "");
 user_pref("network.captive-portal-service.enabled", false);
@@ -209,7 +212,7 @@ user_pref("browser.newtabpage.activity-stream.showSponsoredTopSites", false);
 user_pref("browser.newtabpage.activity-stream.showSponsored", false);
 user_pref("services.sync.prefs.sync.browser.newtabpage.activity-stream.showSponsored", false);
 user_pref("browser.newtabpage.enabled", true);
-user_pref("browser.newtabpage.activity-stream.default.sites", "http://127.0.0.1:7657/home,http://127.0.0.1:7657/i2psnark/,http://127.0.0.1:7657/susimail/");
+user_pref("browser.newtabpage.activity-stream.default.sites", "http://planet.i2p/,http://legwork.i2p/,http://i2pwiki.i2p/,http://i2pforums.i2p/,http://zzz.i2p/");
 user_pref("dom.security.https_only_mode", false);
 user_pref("keyword.enabled", false);
 user_pref("extensions.allowPrivateBrowsingByDefault", true);
@@ -221,4 +224,5 @@ user_pref("webgl.min_capability_mode", true);
 user_pref("webgl.disable-fail-if-major-performance-caveat", true);
 user_pref("webgl.enable-webgl2", false);
 user_pref("dom.w3c_touch_events.enabled", false);
+user_pref("browser.privatebrowsing.autostart", false);
 user_pref("browser.display.use_system_colors", false);
