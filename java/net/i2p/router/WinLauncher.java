@@ -69,10 +69,11 @@ public class WinLauncher {
 
         if (i2pIsRunning()) {
             logger.warning("I2P is already running");
-            System.out.println("I2PFirefox");
             I2PFirefox i2pFirefox = new I2PFirefox();
+            System.out.println("I2PFirefox");
             i2pFirefox.launch();
-            System.exit(0);
+            //System.exit(0);
+            return;
         }
 
         System.setProperty("i2p.dir.base", programs.getAbsolutePath());
