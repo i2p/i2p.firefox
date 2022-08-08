@@ -94,6 +94,14 @@ public class WinLauncher {
 
     private static boolean i2pIsRunning() {
         // check if there's something listening on port 7657
+        try {
+            InetAddress localhost = InetAddress.getLocalHost();
+            Socket s = new Socket(localhost, 7657);
+            s.close();
+            return true;
+        } catch (IOException e) {
+            return false;
+        }
         // check for the existence of router.ping file, if it's less then 2 minutes old,
         // exit
         File home = selectHome();
@@ -104,14 +112,6 @@ public class WinLauncher {
                 logger.info("router.ping exists and is less than 2 minutes old, I2P appears to be running already.");
                 return true;
             }
-        }
-        try {
-            InetAddress localhost = InetAddress.getLocalHost();
-            Socket s = new Socket(localhost, 7657);
-            s.close();
-            return true;
-        } catch (IOException e) {
-            return false;
         }
     }
 
