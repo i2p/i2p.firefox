@@ -2,6 +2,7 @@ package net.i2p.router;
 
 import java.io.*;
 import java.net.InetAddress;
+import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.*;
 import java.util.logging.FileHandler;
@@ -92,15 +93,21 @@ public class WinLauncher {
         RouterLaunch.main(args);
     }
 
+    // see https://stackoverflow.com/questions/434718/sockets-discover-port-availability-using-java
+    public static boolean isAvailable(int portNr) {
+        boolean portFree;
+        try (var ignored = new ServerSocket(portNr)) {
+            portFree = true;
+        } catch (IOException e) {
+            portFree = false;
+        }
+        return portFree;
+      }
+
     private static boolean i2pIsRunning() {
         // check if there's something listening on port 7657
-        try {
-            InetAddress localhost = InetAddress.getLocalHost();
-            Socket s = new Socket(localhost, 7657);
-            s.close();
+        if (!isAvailable(7657)) {
             return true;
-        } catch (IOException e) {
-            return false;
         }
         // check for the existence of router.ping file, if it's less then 2 minutes old,
         // exit
@@ -113,6 +120,7 @@ public class WinLauncher {
                 return true;
             }
         }
+        return false;
     }
 
     private static final Runnable REGISTER_UPP = () -> {
