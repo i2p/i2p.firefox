@@ -17,6 +17,7 @@ import net.i2p.update.UpdateManager;
 import net.i2p.update.UpdatePostProcessor;
 import net.i2p.util.SystemVersion;
 import net.i2p.update.*;
+import net.i2p.i2pfirefox.*;
 
 import static net.i2p.update.UpdateType.*;
 
@@ -67,6 +68,9 @@ public class WinLauncher {
 
         if (i2pIsRunning()) {
             logger.warning("I2P is already running");
+            System.out.println("I2PFirefox");
+            I2PFirefox i2pFirefox = new I2PFirefox();
+            i2pFirefox.launch();
             System.exit(0);
         }
 
