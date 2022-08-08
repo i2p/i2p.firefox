@@ -72,7 +72,6 @@ public class WinLauncher {
             I2PFirefox i2pFirefox = new I2PFirefox();
             System.out.println("I2PFirefox");
             i2pFirefox.launch();
-            //System.exit(0);
             return;
         }
 
