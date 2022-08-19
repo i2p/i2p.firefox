@@ -14,7 +14,7 @@ src/app-profile/user.js:
 
 build/app-profile/user.js: build/app-profile src/app-profile/user.js
 	cp src/app-profile/user.js build/app-profile/user.js
-	cp src/app-profile/user-override.js build/app-profile/user-override.js
+	cp src/app-profile/user-overrides.js build/app-profile/user-overrides.js
 
 build/app-profile/prefs.js: build/app-profile src/app-profile/prefs.js
 	cp src/app-profile/prefs.js build/app-profile/prefs.js

@@ -295,7 +295,7 @@ ${If} ${Silent}
     FileSeek $0 0 END
     FileWriteByte $0 "13"
     FileWriteByte $0 "10"
-    FileWrite $0 "routerconsole.browser=$\"$INSTDIR\i2pconfig.bat$\""
+    FileWrite $0 "routerconsole.browser=$\"$I2PINSTEXE\I2P.exe$\""
     FileWriteByte $0 "13"
     FileWriteByte $0 "10"
     FileWrite $0 "router.disableTunnelTesting=false"
@@ -326,7 +326,7 @@ ${If} ${Silent}
     FileSeek $0 0 END
     FileWriteByte $0 "13"
     FileWriteByte $0 "10"
-    FileWrite $0 "routerconsole.browser=$\"$INSTDIR\i2pconfig.bat$\""
+    FileWrite $0 "routerconsole.browser=$\"$I2PINSTEXE\I2P.exe$\""
     FileWriteByte $0 "13"
     FileWriteByte $0 "10"
     FileWrite $0 "router.disableTunnelTesting=false"
