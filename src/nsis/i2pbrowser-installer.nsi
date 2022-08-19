@@ -26,8 +26,6 @@ SetOverwrite on
 !define FFINSTEXE64 "$PROGRAMFILES64\Mozilla Firefox\"
 
 !define I2PINSTEXE
-!define I2PINSTEXE32 "$PROGRAMFILES32\i2p"
-!define I2PINSTEXE64 "$PROGRAMFILES64\i2p"
 !define I2PINSTEXE_USERMODE "$LOCALAPPDATA\i2p"
 
 
@@ -147,18 +145,12 @@ Page instfiles
 !include i2pbrowser-mozcompat.nsi
 
 Function .onInit
-    StrCpy $I2PINSTEXE "${I2PINSTEXE64}"
+    StrCpy $I2PINSTEXE "${I2PINSTEXE_USERMODE}"
     UserInfo::GetAccountType
     pop $0
     ${If} $0 != "admin"
         StrCpy $INSTDIR "$LOCALAPPDATA\${COMPANYNAME}\${APPNAME}"
         StrCpy $I2PINSTEXE "${I2PINSTEXE_USERMODE}"
-    ${EndIf}
-    ${If} ${FileExists} "${I2PINSTEXE32}\i2p.exe"
-        StrCpy $I2PINSTEXE "${I2PINSTEXE32}"
-    ${EndIf}
-    ${If} ${FileExists} "${I2PINSTEXE64}\i2p.exe"
-        StrCpy $I2PINSTEXE "${I2PINSTEXE64}"
     ${EndIf}
     !insertmacro MUI_LANGDLL_DISPLAY
     Call ShouldInstall64Bit
@@ -391,6 +383,7 @@ SectionEnd
 
 Function LaunchLink
   SetOutPath "$I2PINSTEXE"
+  StrCpy $OUTDIR $I2PINSTEXE
   ${If} ${Silent}
     ReadEnvStr $0 RESTART_I2P
     ${If} $0 != ""
