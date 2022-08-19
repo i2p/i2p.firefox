@@ -262,8 +262,8 @@ ${If} ${Silent}
 
     # Install the launcher scripts
     createDirectory "$INSTDIR"
-    SetOutPath "$INSTDIR"
-    File "win/*"
+    #SetOutPath "$INSTDIR"
+    #File "win/*"
 
     # Install the licenses
     createDirectory "$INSTDIR\licenses"
