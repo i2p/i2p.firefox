@@ -130,7 +130,6 @@ RequestExecutionLevel user
 PageEx license
     licensetext "${LICENSE_TITLE}"
     licensedata "licenses\LICENSE.txt"
-    #PageCallbacks elevatorCallback
 PageExEnd
 PageEx directory
     dirtext "${FIREFOX_MESSAGE}"
@@ -344,20 +343,6 @@ ${If} ${Silent}
 
     # create a shortcut to the uninstaller
     CreateShortCut "$SMPROGRAMS\${APPNAME}\Uninstall-${APPNAME}.lnk" "$INSTDIR\uninstall-i2pbrowser.exe"
-FunctionEnd
-
-Function elevatorCallback
-    ${GetOptions} $CMDLINE "/p" $PARENTOPTIONS
-    ${If} "${PARENTOPTIONS}" != ""
-        StrCpy $PARENTOPTIONS "-ArgumentList '$PARENTOPTIONS'"
-    ${EndIf}
-    ${If} ${FileExists} "${I2PINSTEXE64}\i2p.exe"
-        ExecShell open "powershell -Command Start-Process .\$EXEFILE -Wait -Verb RunAs $PARENTOPTIONS"
-        #Quit
-    ${ElseIf} ${FileExists} "${I2PINSTEXE32}\i2p.exe"
-        ExecShell open "powershell -Command Start-Process .\$EXEFILE -Wait -Verb RunAs $PARENTOPTIONS"
-        #Quit
-    ${EndIf}
 FunctionEnd
 
 
