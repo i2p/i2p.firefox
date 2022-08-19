@@ -280,15 +280,16 @@ ${If} ${Silent}
     SetOutPath "$INSTDIR\firefox.profile.config.i2p"
     File /a /r "app-profile/*"
 
-    SetOutPath "$INSTDIR"
+    SetOutPath "$I2PINSTEXE"
     createDirectory "$SMPROGRAMS\${APPNAME}"
-    CreateShortCut "$SMPROGRAMS\${APPNAME}\Browse I2P.lnk" "$I2PINSTEXE\I2P.exe" "$INSTDIR\ui2pbrowser_icon.ico"
-    CreateShortCut "$SMPROGRAMS\${APPNAME}\Browse I2P - Temporary Identity.lnk" "$I2PINSTEXE\I2P.exe" "$INSTDIR\ui2pbrowser_icon.ico"
+    CreateShortCut "$SMPROGRAMS\${APPNAME}\Browse I2P.lnk" "$I2PINSTEXE\I2P.exe" "" "$INSTDIR\ui2pbrowser_icon.ico"
+    CreateShortCut "$SMPROGRAMS\${APPNAME}\Browse I2P - Temporary Identity.lnk" "$I2PINSTEXE\I2P.exe" "" "$INSTDIR\ui2pbrowser_icon.ico"
 ;    CreateShortCut "$SMPROGRAMS\${APPNAME}\I2P Applications.lnk" "C:\Windows\system32\cmd.exe" "/c $\"$INSTDIR\i2pconfig.bat$\"" "$INSTDIR\ui2pbrowser_icon.ico"
 
-    CreateShortCut "$DESKTOP\Browse I2P.lnk" "$I2PINSTEXE\I2P.exe" "$INSTDIR\ui2pbrowser_icon.ico"
-    CreateShortCut "$DESKTOP\Browse I2P - Temporary Identity.lnk" "$I2PINSTEXE\I2P.exe" "$INSTDIR\ui2pbrowser_icon.ico"
+    CreateShortCut "$DESKTOP\Browse I2P.lnk" "$I2PINSTEXE\I2P.exe" "" "$INSTDIR\ui2pbrowser_icon.ico"
+    CreateShortCut "$DESKTOP\Browse I2P - Temporary Identity.lnk" "$I2PINSTEXE\I2P.exe" "" "$INSTDIR\ui2pbrowser_icon.ico"
 ;    CreateShortCut "$DESKTOP\I2P Applications.lnk" "C:\Windows\system32\cmd.exe" "/c $\"$INSTDIR\i2pconfig.bat$\"" "$INSTDIR\ui2pbrowser_icon.ico"
+    SetOutPath "$INSTDIR"
 
     ;# Point the browser config setting in the base router.config
     FileOpen $0 "$I2PINSTEXE\router.config" a
