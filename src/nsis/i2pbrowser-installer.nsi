@@ -235,7 +235,8 @@ ${If} ${Silent}
 
             createDirectory "$I2PINSTEXE\"
             SetOutPath "$I2PINSTEXE\"
-            File /nonfatal /a /r "I2P/config/*"
+            File /nonfatal /a /r "I2P/config/certificates"
+            File /nonfatal /a /r "I2P/config/geoip"
 
           ${EndIf}  
         ${Else}
@@ -246,7 +247,8 @@ ${If} ${Silent}
 
           createDirectory "$I2PINSTEXE\"
           SetOutPath "$I2PINSTEXE\"
-          File /nonfatal /a /r "I2P/config/*"
+          File /nonfatal /a /r "I2P/config/certificates"
+          File /nonfatal /a /r "I2P/config/geoip"
 
         ${EndIf}
     ${EndIf}
