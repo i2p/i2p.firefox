@@ -390,6 +390,7 @@ SectionEnd
 !insertmacro MUI_PAGE_FINISH
 
 Function LaunchLink
+  SetOutPath "$I2PINSTEXE"
   ${If} ${Silent}
     ReadEnvStr $0 RESTART_I2P
     ${If} $0 != ""
