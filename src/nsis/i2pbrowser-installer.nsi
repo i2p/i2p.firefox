@@ -408,9 +408,9 @@ Function LaunchLink
   ${If} ${Silent}
     ReadEnvStr $0 RESTART_I2P
     ${If} $0 != ""
-      ShellExecAsUser::ShellExecAsUser "open" "$DESKTOP\Browse I2P.lnk"
+      ShellExecAsUser::ShellExecAsUser "open" "$I2PINSTEXE\I2P.exe"
     ${EndIf}  
   ${Else}
-    ShellExecAsUser::ShellExecAsUser "open" "$DESKTOP\Browse I2P.lnk"
+    ShellExecAsUser::ShellExecAsUser "open" "$I2PINSTEXE\I2P.exe"
   ${EndIf}
 FunctionEnd
