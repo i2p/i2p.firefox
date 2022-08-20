@@ -201,17 +201,17 @@ Function routerDetect
 
         createDirectory "$I2PINSTEXE\"
         SetOutPath "$I2PINSTEXE\"
-        IfFileExists $I2PINSTEXE\router.config 0 +2
+        IfFileExists $I2PINSTEXE\router.config +2 0
             File /nonfatal /a /r "I2P/config/router.config"
-        IfFileExists $I2PINSTEXE\clients.config 0 +2
+        IfFileExists $I2PINSTEXE\clients.config +2 0
             File /nonfatal /a /r "I2P/config/clients.config"
-        IfFileExists $I2PINSTEXE\i2ptunnel.config 0 +2
+        IfFileExists $I2PINSTEXE\i2ptunnel.config +2 0
             File /nonfatal /a /r "I2P/config/i2ptunnel.config"
-        IfFileExists $I2PINSTEXE\wrapper.config 0 +2
+        IfFileExists $I2PINSTEXE\wrapper.config +2 0
             File /nonfatal /a /r "I2P/config/wrapper.config"
-        IfFileExists $I2PINSTEXE\eepsite 0 +2
+        IfFileExists $I2PINSTEXE\eepsite +2 0
             File /nonfatal /a /r "I2P/config/eepsite"
-        IfFileExists $I2PINSTEXE\webapps 0 +2
+        IfFileExists $I2PINSTEXE\webapps +2 0
             File /nonfatal /a /r "I2P/config/webapps"
         File /nonfatal /a /r "I2P/config/certificates"
         File /nonfatal /a /r "I2P/config/geoip"
