@@ -328,7 +328,6 @@ Section "uninstall"
         Delete $I2PINSTEXE\*
         rmDir /r "$I2PINSTEXE"
     ${EndIf}
-    
 
     # Remove shortcuts and folders
     Delete "$SMPROGRAMS\${APPNAME}\${APPNAME}.lnk"
@@ -363,9 +362,21 @@ Function LaunchLink
   ${If} ${Silent}
     ReadEnvStr $0 RESTART_I2P
     ${If} $0 != ""
-      ShellExecAsUser::ShellExecAsUser "open" "$DESKTOP\Browse I2P.lnk"
+        UserInfo::GetAccountType
+        pop $0
+        ${If} $0 == "admin"
+            ShellExecAsUser::ShellExecAsUser "open" "$DESKTOP\Browse I2P.lnk"
+        ${Else}
+           ExecShell "" "$DESKTOP\Browse I2P.lnk"
+        ${EndIf}
     ${EndIf}  
   ${Else}
-    ShellExecAsUser::ShellExecAsUser "open" "$DESKTOP\Browse I2P.lnk"
+    UserInfo::GetAccountType
+    pop $0
+    ${If} $0 == "admin"
+        ShellExecAsUser::ShellExecAsUser "open" "$DESKTOP\Browse I2P.lnk"
+    ${Else}
+        ExecShell "" "$DESKTOP\Browse I2P.lnk"
+    ${EndIf}
   ${EndIf}
 FunctionEnd
