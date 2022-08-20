@@ -284,19 +284,6 @@ ${If} ${Silent}
 ;    CreateShortCut "$DESKTOP\I2P Applications.lnk" "C:\Windows\system32\cmd.exe" "/c $\"$INSTDIR\i2pconfig.bat$\"" "$INSTDIR\ui2pbrowser_icon.ico"
     SetOutPath "$INSTDIR"
 
-    ;# Point the browser config setting in the base router.config
-    FileOpen $0 "$I2PINSTEXE\router.config" a
-    FileSeek $0 0 END
-    FileWriteByte $0 "13"
-    FileWriteByte $0 "10"
-    FileWrite $0 "routerconsole.browser=$\"$I2PINSTEXE\I2P.exe$\""
-    FileWriteByte $0 "13"
-    FileWriteByte $0 "10"
-    FileWrite $0 "router.disableTunnelTesting=false"
-    FileWriteByte $0 "13"
-    FileWriteByte $0 "10"
-    FileClose $0
-
     SetShellVarContext current
     Var /Global I2PAPPDATA 
 
@@ -314,19 +301,6 @@ ${If} ${Silent}
 
     IfFileExists "$LOCALAPPDATA\I2P\eepsite\docroot" +2 0
         File /nonfatal /a /r "I2P\eepsite"
-
-    ;# Point the browser config setting in the working config
-    FileOpen $0 "$I2PAPPDATA\router.config" a
-    FileSeek $0 0 END
-    FileWriteByte $0 "13"
-    FileWriteByte $0 "10"
-    FileWrite $0 "routerconsole.browser=$\"$I2PINSTEXE\I2P.exe$\""
-    FileWriteByte $0 "13"
-    FileWriteByte $0 "10"
-    FileWrite $0 "router.disableTunnelTesting=false"
-    FileWriteByte $0 "13"
-    FileWriteByte $0 "10"
-    FileClose $0
 
     createDirectory "$I2PINSTEXE"
     SetOutPath "$I2PINSTEXE"
