@@ -45,6 +45,7 @@ public class WinLauncher {
             fh.setFormatter(formatter);
             // the following statement is used to log any messages
             logger.info("My first log");
+            sleep(2000);
         } catch (SecurityException e) {
             e.printStackTrace();
         } catch (IOException e) {
