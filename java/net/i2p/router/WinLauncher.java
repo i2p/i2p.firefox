@@ -45,7 +45,6 @@ public class WinLauncher {
             fh.setFormatter(formatter);
             // the following statement is used to log any messages
             logger.info("My first log");
-            sleep(2000);
         } catch (SecurityException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -114,8 +113,13 @@ public class WinLauncher {
       }
 
     private static boolean i2pIsRunning() {
-        // check if there's something listening on port 7657
+        sleep(2000);
+        // check if there's something listening on port 7657(Router Console)
         if (!isAvailable(7657)) {
+            return true;
+        }
+        // check if there's something listening on port 7654(I2CP)
+        if (!isAvailable(7654)) {
             return true;
         }
         // check for the existence of router.ping file, if it's less then 2 minutes old,
