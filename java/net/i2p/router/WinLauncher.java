@@ -50,6 +50,13 @@ public class WinLauncher {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        boolean privateBrowsing = false;
+        if (args != null && args.length > 0) {
+            if (args[0].equals("-private")) {
+                privateBrowsing = true;
+                return;
+            }
+        }
 
         File programs = selectProgramFile();
         if (!programs.exists())
@@ -71,7 +78,7 @@ public class WinLauncher {
             logger.warning("I2P is already running");
             I2PFirefox i2pFirefox = new I2PFirefox();
             System.out.println("I2PFirefox");
-            i2pFirefox.launch();
+            i2pFirefox.launch(privateBrowsing);
             return;
         }
 
