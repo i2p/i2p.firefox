@@ -12,6 +12,7 @@ src/profile/user.js:
 	wget -O src/profile/user.js "https://github.com/arkenfox/user.js/raw/master/user.js"
 	sed -i 's|user_pref("extensions.autoDisableScopes", 15);|user_pref("extensions.autoDisableScopes", 0);|g src/profile/user.js
 	sed -i 's|user_pref("extensions.enabledScopes", 5);|user_pref("extensions.enabledScopes", 1);|g' src/profile/user.js
+	sed -i 's|user_pref("dom.security.https_only_mode", true);|user_pref("dom.security.https_only_mode", false);|g' src/profile/user.js
 
 build/profile/user.js: build/profile src/profile/user.js
 	cp src/profile/user.js build/profile/user.js

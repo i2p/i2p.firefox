@@ -517,7 +517,7 @@ user_pref("security.mixed_content.block_display_content", true);
  * [SETTING] Privacy & Security>HTTPS-Only Mode (and manage exceptions)
  * [TEST] http://example.com [upgrade]
  * [TEST] http://httpforever.com/ [no upgrade] ***/
-user_pref("dom.security.https_only_mode", true); // [FF76+]
+user_pref("dom.security.https_only_mode", false); // [FF76+]
 // user_pref("dom.security.https_only_mode_pbm", true); // [FF80+]
 /* 1245: enable HTTPS-Only mode for local resources [FF77+] ***/
 // user_pref("dom.security.https_only_mode.upgrade_local", true);

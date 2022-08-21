@@ -66,7 +66,7 @@ if [ ! -f "$HERE/build/jna-platform.jar" ]; then
 fi
 
 if [ ! -f "$HERE/build/i2pfirefox.jar" ]; then
-  wget -O "$HERE/build/i2pfirefox.jar" https://github.com/eyedeekay/i2p.plugins.firefox/releases/download/0.0.14/i2pfirefox.jar
+  wget -O "$HERE/build/i2pfirefox.jar" https://github.com/eyedeekay/i2p.plugins.firefox/releases/download/0.0.15/i2pfirefox.jar
 fi
 
 cd java
