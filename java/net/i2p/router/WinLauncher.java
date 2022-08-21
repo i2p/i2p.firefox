@@ -52,9 +52,10 @@ public class WinLauncher {
         }
         boolean privateBrowsing = false;
         if (args != null && args.length > 0) {
+            logger.info("checking for private browsing");
             if (args[0].equals("-private")) {
                 privateBrowsing = true;
-                return;
+                logger.info("private browsing is true, profile will be discarded at end of session");
             }
         }
 
