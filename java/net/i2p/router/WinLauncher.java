@@ -123,7 +123,7 @@ public class WinLauncher {
         File ping = new File(home, "router.ping");
         if (ping.exists()) {
             long diff = System.currentTimeMillis() - ping.lastModified();
-            if (diff < 2 * 60 * 1000) {
+            if (diff < 60 * 1000) {
                 logger.info("router.ping exists and is less than 2 minutes old, I2P appears to be running already.");
                 return true;
             }
