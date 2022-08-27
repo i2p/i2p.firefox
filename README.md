@@ -1,5 +1,5 @@
-I2P Browsing Profile for Firefox
-================================
+I2P Easy-Install Bundle for Windows(Also/formerly)I2P Browsing Profile for Firefox
+==================================================================================
 
 Features:
 ---------
