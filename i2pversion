@@ -6,12 +6,12 @@ export JNA_VERSION=5.11.0
 #Comment this out to build from an alternate branch or
 # the tip of the master branch.
 VERSIONMAJOR=1
-VERSIONMINOR=8
-VERSIONBUILD=1
+VERSIONMINOR=9
+VERSIONBUILD=0
 I2P_VERSION="$VERSIONMAJOR.$VERSIONMINOR.$VERSIONBUILD"
 export I2P_VERSION="$VERSIONMAJOR.$VERSIONMINOR.$VERSIONBUILD"
-VERSION=i2p-1.8.8
-export VERSION=i2p-1.8.0
+VERSION=i2p-1.9.0
+export VERSION=i2p-1.9.0
 
 #Uncomment this to build from the tip of the master.
 #I2P_VERSION=1.8.0
