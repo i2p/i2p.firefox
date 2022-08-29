@@ -1,3 +1,9 @@
+2022-08-28 idk
+ * Migrate away from batch scripts and simply launch a browser if I2P is already running.
+  This is more flexible, stable, and simplet to install
+ * Improves compatibility with detatched and un-bundled routers on the same system
+ * Fixes bugs in Firefox path finding
+
 2022-05-8 idk
  * Add translations for Arabic, German, French, Italian, Japanese, Portuguese, Russian,
  and Chinese.
