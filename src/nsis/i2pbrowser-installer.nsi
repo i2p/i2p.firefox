@@ -15,7 +15,6 @@ UniCode true
 !include FindProcess.nsh
 
 var I2PINSTEXE
-Var PARENTOPTIONS
 
 SetOverwrite on
 
