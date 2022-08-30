@@ -101,15 +101,15 @@ RequestExecutionLevel user
   !insertmacro MUI_LANGUAGE "Basque"
   !insertmacro MUI_LANGUAGE "Welsh"
 # Commented out languages below do not compile on NSIS v2
-#  !insertmacro MUI_LANGUAGE "Asturian"
-#  !insertmacro MUI_LANGUAGE "Pashto"
-#  !insertmacro MUI_LANGUAGE "ScotsGaelic"
-#  !insertmacro MUI_LANGUAGE "Georgian"
-#  !insertmacro MUI_LANGUAGE "Vietnamese"
-#  !insertmacro MUI_LANGUAGE "Armenian"
-#  !insertmacro MUI_LANGUAGE "Corsican"
-#  !insertmacro MUI_LANGUAGE "Tatar"
-#  !insertmacro MUI_LANGUAGE "Hindi"
+  !insertmacro MUI_LANGUAGE "Asturian"
+  !insertmacro MUI_LANGUAGE "Pashto"
+  !insertmacro MUI_LANGUAGE "ScotsGaelic"
+  !insertmacro MUI_LANGUAGE "Georgian"
+  !insertmacro MUI_LANGUAGE "Vietnamese"
+  !insertmacro MUI_LANGUAGE "Armenian"
+  !insertmacro MUI_LANGUAGE "Corsican"
+  !insertmacro MUI_LANGUAGE "Tatar"
+  !insertmacro MUI_LANGUAGE "Hindi"
 ### END LANGUAGES
 
 # small speed optimization
