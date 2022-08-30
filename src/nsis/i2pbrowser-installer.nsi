@@ -158,6 +158,8 @@ Function routerDetect
         File  /a /r "I2P/config/clients.config"
     IfFileExists $I2PINSTEXE\wrapper.config +2 0
         File  /a /r "I2P/config/wrapper.config"
+    IfFileExists $I2PINSTEXE\hosts.txt +2 0
+        File  /a /r "I2P/config/hosts.txt"
     IfFileExists $I2PINSTEXE\eepsite +2 0
         File  /a /r "I2P/config/eepsite"
     IfFileExists $I2PINSTEXE\webapps +2 0
@@ -191,28 +193,10 @@ ${If} ${Silent}
           ReadEnvStr $0 OLD_I2P_VERSION
           ${If} $0 < ${I2P_VERSION}
             call routerDetect
-            /*rmDir /r $I2PINSTEXE/app
-            rmDir /r $I2PINSTEXE/runtime
-            File  /a /r "I2P\"
-            File  "I2P\config\jpackaged"
-
-            createDirectory "$I2PINSTEXE\"
-            SetOutPath "$I2PINSTEXE\"
-            File  /a /r "I2P/config/certificates"
-            File  /a /r "I2P/config/geoip"*/
 
           ${EndIf}  
         ${Else}
           call routerDetect
-          /*rmDir /r $I2PINSTEXE/app
-          rmDir /r $I2PINSTEXE/runtime
-          File  /a /r "I2P\"
-          File  "I2P\config\jpackaged"
-
-          createDirectory "$I2PINSTEXE\"
-          SetOutPath "$I2PINSTEXE\"
-          File  /a /r "I2P/config/certificates"
-          File  /a /r "I2P/config/geoip"*/
 
         ${EndIf}
     ${EndIf}
