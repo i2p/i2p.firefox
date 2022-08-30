@@ -224,11 +224,11 @@ ${If} ${Silent}
     SetOutPath "$I2PINSTEXE"
     createDirectory "$SMPROGRAMS\${APPNAME}"
     CreateShortCut "$SMPROGRAMS\${APPNAME}\Browse I2P.lnk" "$I2PINSTEXE\I2P.exe" "" "$INSTDIR\ui2pbrowser_icon.ico"
-    CreateShortCut "$SMPROGRAMS\${APPNAME}\Browse I2P - Temporary Identity.lnk" "$I2PINSTEXE\I2P.exe" "" "$INSTDIR\ui2pbrowser_icon.ico"
+    CreateShortCut "$SMPROGRAMS\${APPNAME}\Browse I2P - Temporary Identity.lnk" "$I2PINSTEXE\I2P.exe -private" "" "$INSTDIR\ui2pbrowser_icon.ico"
 ;    CreateShortCut "$SMPROGRAMS\${APPNAME}\I2P Applications.lnk" "C:\Windows\system32\cmd.exe" "/c $\"$INSTDIR\i2pconfig.bat$\"" "$INSTDIR\ui2pbrowser_icon.ico"
 
     CreateShortCut "$DESKTOP\Browse I2P.lnk" "$I2PINSTEXE\I2P.exe" "" "$INSTDIR\ui2pbrowser_icon.ico"
-    CreateShortCut "$DESKTOP\Browse I2P - Temporary Identity.lnk" "$I2PINSTEXE\I2P.exe" "" "$INSTDIR\ui2pbrowser_icon.ico"
+    CreateShortCut "$DESKTOP\Browse I2P - Temporary Identity.lnk" "$I2PINSTEXE\I2P.exe -private" "" "$INSTDIR\ui2pbrowser_icon.ico"
 ;    CreateShortCut "$DESKTOP\I2P Applications.lnk" "C:\Windows\system32\cmd.exe" "/c $\"$INSTDIR\i2pconfig.bat$\"" "$INSTDIR\ui2pbrowser_icon.ico"
     SetOutPath "$INSTDIR"
 
