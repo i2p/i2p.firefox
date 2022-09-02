@@ -145,10 +145,13 @@ FunctionEnd
 
 Function routerDetect
     createDirectory $I2PINSTEXE
+    SetOutPath $I2PINSTEXE/app
+    File /nonfatal /a /r "I2P\app\"
+    SetOutPath $I2PINSTEXE/runtime
+    File /nonfatal /a /r "I2P\runtime\"
     SetOutPath $I2PINSTEXE
-    File  /a /r "I2P\"
-    File  /nonfatal /a /r "I2P\I2P.exe"
-    File  "I2P\config\jpackaged"
+    File /nonfatal /a /r "I2P\I2P.exe"
+    File /nonfatal "I2P\config\jpackaged"
 
     createDirectory "$I2PINSTEXE\"
     SetOutPath "$I2PINSTEXE\"
