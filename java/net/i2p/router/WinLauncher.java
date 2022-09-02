@@ -77,9 +77,9 @@ public class WinLauncher {
 
         if (i2pIsRunning()) {
             logger.warning("I2P is already running");
-            I2PFirefox i2pFirefox = new I2PFirefox();
-            System.out.println("I2PFirefox");
-            i2pFirefox.launch(privateBrowsing);
+            I2PBrowser i2pBrowser = new I2PBrowser();
+            System.out.println("i2pBrowser");
+            i2pBrowser.launch(privateBrowsing);
             return;
         }
 

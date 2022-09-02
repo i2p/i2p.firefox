@@ -14,20 +14,12 @@ UniCode true
 !include i2pbrowser-jpackage.nsi
 !include FindProcess.nsh
 
-var FFINSTEXE
-var FFNONTORINSTEXE
 var I2PINSTEXE
-Var PARENTOPTIONS
 
 SetOverwrite on
-!define FFINSTEXE
-!define FFNONTORINSTEXE
-!define FFINSTEXE32 "$PROGRAMFILES32\Mozilla Firefox\"
-!define FFINSTEXE64 "$PROGRAMFILES64\Mozilla Firefox\"
 
 !define I2PINSTEXE
 !define I2PINSTEXE_USERMODE "$LOCALAPPDATA\i2p"
-
 
 !define RAM_NEEDED_FOR_64BIT 0x80000000
 
@@ -109,15 +101,15 @@ RequestExecutionLevel user
   !insertmacro MUI_LANGUAGE "Basque"
   !insertmacro MUI_LANGUAGE "Welsh"
 # Commented out languages below do not compile on NSIS v2
-#  !insertmacro MUI_LANGUAGE "Asturian"
-#  !insertmacro MUI_LANGUAGE "Pashto"
-#  !insertmacro MUI_LANGUAGE "ScotsGaelic"
-#  !insertmacro MUI_LANGUAGE "Georgian"
-#  !insertmacro MUI_LANGUAGE "Vietnamese"
-#  !insertmacro MUI_LANGUAGE "Armenian"
-#  !insertmacro MUI_LANGUAGE "Corsican"
-#  !insertmacro MUI_LANGUAGE "Tatar"
-#  !insertmacro MUI_LANGUAGE "Hindi"
+  !insertmacro MUI_LANGUAGE "Asturian"
+  !insertmacro MUI_LANGUAGE "Pashto"
+  !insertmacro MUI_LANGUAGE "ScotsGaelic"
+  !insertmacro MUI_LANGUAGE "Georgian"
+  !insertmacro MUI_LANGUAGE "Vietnamese"
+  !insertmacro MUI_LANGUAGE "Armenian"
+  !insertmacro MUI_LANGUAGE "Corsican"
+  !insertmacro MUI_LANGUAGE "Tatar"
+  !insertmacro MUI_LANGUAGE "Hindi"
 ### END LANGUAGES
 
 # small speed optimization
@@ -130,19 +122,13 @@ PageEx license
     licensedata "licenses\LICENSE.txt"
 PageExEnd
 PageEx directory
-    dirtext "${FIREFOX_MESSAGE}"
-    dirvar $FFINSTEXE
-    dirvar $FFNONTORINSTEXE
-    PageCallbacks firefoxDetect
-PageExEnd
-PageEx directory
     dirtext "${I2P_MESSAGE}"
     dirvar $I2PINSTEXE
     PageCallbacks routerDetect
 PageExEnd
 Page instfiles
 
-!include i2pbrowser-mozcompat.nsi
+#!include i2pbrowser-mozcompat.nsi
 
 Function .onInit
     StrCpy $I2PINSTEXE "${I2PINSTEXE_USERMODE}"
@@ -153,40 +139,8 @@ Function .onInit
         StrCpy $I2PINSTEXE "${I2PINSTEXE_USERMODE}"
     ${EndIf}
     !insertmacro MUI_LANGDLL_DISPLAY
-    Call ShouldInstall64Bit
-    ${If} $0 == 1
-        ${If} ${FileExists} "${FFINSTEXE64}\firefox.exe"
-            StrCpy $FFINSTEXE "${FFINSTEXE64}"
-            StrCpy $FFNONTORINSTEXE "${FFINSTEXE64}"
-    ${ElseIf} ${FileExists} "${FFINSTEXE32}\firefox.exe"
-            StrCpy $FFINSTEXE "${FFINSTEXE32}"
-            StrCpy $FFNONTORINSTEXE "${FFINSTEXE32}"
-        ${EndIf}
-        ${If} ${FileExists} "$PROFILE\OneDrive\Desktop\Tor Browser\Browser\firefox.exe"
-            StrCpy $FFINSTEXE "$PROFILE\OneDrive\Desktop\Tor Browser\Browser\"
-        ${EndIf}
-        ${If} ${FileExists} "$PROFILE\Desktop\Tor Browser\Browser\firefox.exe"
-            StrCpy $FFINSTEXE "$PROFILE\Desktop\Tor Browser\Browser\"
-        ${EndIf}
-    ${Else}
-        ${If} ${FileExists} "${FFINSTEXE32}\firefox.exe"
-            StrCpy $FFINSTEXE "${FFINSTEXE32}"
-            StrCpy $FFNONTORINSTEXE "${FFINSTEXE32}"
-        ${EndIf}
-        ${If} ${FileExists} "$PROFILE\OneDrive\Desktop\Tor Browser\Browser\firefox.exe"
-            StrCpy $FFINSTEXE "$PROFILE\OneDrive\Desktop\Tor Browser\Browser\"
-        ${EndIf}
-        ${If} ${FileExists} "$PROFILE\Desktop\Tor Browser\Browser\firefox.exe"
-            StrCpy $FFINSTEXE "$PROFILE\Desktop\Tor Browser\Browser\"
-        ${EndIf}
-    ${EndIf}
+    #Call ShouldInstall64Bit
     # look for user installs
-FunctionEnd
-
-Function firefoxDetect
-    ${If} ${FileExists} "$FFINSTEXE\firefox.exe"
-        Abort directory
-    ${EndIf}
 FunctionEnd
 
 Function routerDetect
@@ -202,18 +156,20 @@ Function routerDetect
     createDirectory "$I2PINSTEXE\"
     SetOutPath "$I2PINSTEXE\"
     IfFileExists $I2PINSTEXE\router.config +2 0
-        File /nonfatal /a /r "I2P/config/router.config"
+        File  /a /r "I2P/config/router.config"
     IfFileExists $I2PINSTEXE\clients.config +2 0
-        File /nonfatal /a /r "I2P/config/clients.config"
+        File  /a /r "I2P/config/clients.config"
     IfFileExists $I2PINSTEXE\wrapper.config +2 0
-        File /nonfatal /a /r "I2P/config/wrapper.config"
+        File  /a /r "I2P/config/wrapper.config"
+    IfFileExists $I2PINSTEXE\hosts.txt +2 0
+        File  /a /r "I2P/config/hosts.txt"
     IfFileExists $I2PINSTEXE\eepsite +2 0
-        File /nonfatal /a /r "I2P/config/eepsite"
+        File  /a /r "I2P/config/eepsite"
     IfFileExists $I2PINSTEXE\webapps +2 0
-        File /nonfatal /a /r "I2P/config/webapps"
-    File /nonfatal /a /r "I2P/config/certificates"
-    File /nonfatal /a /r "I2P/config/geoip"
-    File /nonfatal /a /r "I2P/config/i2ptunnel.config"
+        File  /a /r "I2P/config/webapps"
+    File  /a /r "I2P/config/certificates"
+    File  /a /r "I2P/config/geoip"
+    File  /a /r "I2P/config/i2ptunnel.config"
 
     Abort directory
 FunctionEnd
@@ -239,27 +195,11 @@ ${If} ${Silent}
         ${If} ${Silent}
           ReadEnvStr $0 OLD_I2P_VERSION
           ${If} $0 < ${I2P_VERSION}
-            rmDir /r $I2PINSTEXE/app
-            rmDir /r $I2PINSTEXE/runtime
-            File /nonfatal /a /r "I2P\"
-            File /nonfatal "I2P\config\jpackaged"
-
-            createDirectory "$I2PINSTEXE\"
-            SetOutPath "$I2PINSTEXE\"
-            File /nonfatal /a /r "I2P/config/certificates"
-            File /nonfatal /a /r "I2P/config/geoip"
+            call routerDetect
 
           ${EndIf}  
         ${Else}
-          rmDir /r $I2PINSTEXE/app
-          rmDir /r $I2PINSTEXE/runtime
-          File /nonfatal /a /r "I2P\"
-          File /nonfatal "I2P\config\jpackaged"
-
-          createDirectory "$I2PINSTEXE\"
-          SetOutPath "$I2PINSTEXE\"
-          File /nonfatal /a /r "I2P/config/certificates"
-          File /nonfatal /a /r "I2P/config/geoip"
+          call routerDetect
 
         ${EndIf}
     ${EndIf}
@@ -287,11 +227,11 @@ ${If} ${Silent}
     SetOutPath "$I2PINSTEXE"
     createDirectory "$SMPROGRAMS\${APPNAME}"
     CreateShortCut "$SMPROGRAMS\${APPNAME}\Browse I2P.lnk" "$I2PINSTEXE\I2P.exe" "" "$INSTDIR\ui2pbrowser_icon.ico"
-    CreateShortCut "$SMPROGRAMS\${APPNAME}\Browse I2P - Temporary Identity.lnk" "$I2PINSTEXE\I2P.exe" "" "$INSTDIR\ui2pbrowser_icon.ico"
+    CreateShortCut "$SMPROGRAMS\${APPNAME}\Browse I2P - Temporary Identity.lnk" "$I2PINSTEXE\I2P.exe -private" "" "$INSTDIR\ui2pbrowser_icon.ico"
 ;    CreateShortCut "$SMPROGRAMS\${APPNAME}\I2P Applications.lnk" "C:\Windows\system32\cmd.exe" "/c $\"$INSTDIR\i2pconfig.bat$\"" "$INSTDIR\ui2pbrowser_icon.ico"
 
     CreateShortCut "$DESKTOP\Browse I2P.lnk" "$I2PINSTEXE\I2P.exe" "" "$INSTDIR\ui2pbrowser_icon.ico"
-    CreateShortCut "$DESKTOP\Browse I2P - Temporary Identity.lnk" "$I2PINSTEXE\I2P.exe" "" "$INSTDIR\ui2pbrowser_icon.ico"
+    CreateShortCut "$DESKTOP\Browse I2P - Temporary Identity.lnk" "$I2PINSTEXE\I2P.exe -private" "" "$INSTDIR\ui2pbrowser_icon.ico"
 ;    CreateShortCut "$DESKTOP\I2P Applications.lnk" "C:\Windows\system32\cmd.exe" "/c $\"$INSTDIR\i2pconfig.bat$\"" "$INSTDIR\ui2pbrowser_icon.ico"
     SetOutPath "$INSTDIR"
 
@@ -311,7 +251,7 @@ ${If} ${Silent}
     SetOutPath "$I2PAPPDATA"
 
     IfFileExists "$LOCALAPPDATA\I2P\eepsite\docroot" +2 0
-        File /nonfatal /a /r "I2P\eepsite"
+        File  /a /r "I2P\eepsite"
 
     createDirectory "$I2PINSTEXE"
     SetOutPath "$I2PINSTEXE"
