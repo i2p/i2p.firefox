@@ -51,11 +51,21 @@ public class WinLauncher {
             e.printStackTrace();
         }
         boolean privateBrowsing = false;
+        boolean usabilityMode = false;
+        boolean chromiumFirst = false;
         if (args != null && args.length > 0) {
             logger.info("checking for private browsing");
             if (args[0].equals("-private")) {
                 privateBrowsing = true;
-                logger.info("private browsing is true, profile will be discarded at end of session");
+                logger.info("Private browsing is true, profile will be discarded at end of session.");
+            }
+            if (args[0].equals("-chromium")) {
+                chromiumFirst = true;
+                logger.info("Chromium will be selected before Firefox.");
+            }
+            if (args[0].equals("-usability")) {
+                usabilityMode = true;
+                logger.info("Usability mode is true, using alternate extensions loadout.");
             }
         }
 
@@ -78,7 +88,9 @@ public class WinLauncher {
         if (i2pIsRunning()) {
             logger.warning("I2P is already running");
             I2PBrowser i2pBrowser = new I2PBrowser();
-            System.out.println("i2pBrowser");
+            i2pBrowser.usability = usabilityMode;
+            i2pBrowser.chromiumFirst = chromiumFirst;
+            System.out.println("I2PBrowser");
             i2pBrowser.launch(privateBrowsing);
             return;
         }
