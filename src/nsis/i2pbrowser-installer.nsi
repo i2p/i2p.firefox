@@ -5,7 +5,7 @@ UniCode true
 !define COMPANYNAME "I2P"
 !define DESCRIPTION "This launches Firefox with a browser profile pre-configured to use i2p"
 !define FIREFOX_MESSAGE "Could not find Firefox.  Please point to where you have installed Firefox.  If you have not installed Firefox yet, exit this installer and install Firefox, then start this installer again."
-!define I2P_MESSAGE "Could not find I2P.  Please point to where you have installed I2P.  If you have not installed I2P yet, exit this installer and install I2P, then start this installer again."
+!define I2P_MESSAGE "Could not find I2P. Installing portable Jpackaged I2P."
 !define LAUNCH_TEXT "Start I2P?"
 !define LICENSE_TITLE "Many Licenses"
 !define CONSOLE_URL "http://127.0.0.1:7657/home"
@@ -145,9 +145,9 @@ FunctionEnd
 
 Function routerDetect
     createDirectory $I2PINSTEXE
-    SetOutPath $I2PINSTEXE/app
+    SetOutPath $I2PINSTEXE\app
     File /nonfatal /a /r "I2P\app\"
-    SetOutPath $I2PINSTEXE/runtime
+    SetOutPath $I2PINSTEXE\runtime
     File /nonfatal /a /r "I2P\runtime\"
     SetOutPath $I2PINSTEXE
     File /nonfatal /a /r "I2P\I2P.exe"
