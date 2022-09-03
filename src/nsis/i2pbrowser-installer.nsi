@@ -151,6 +151,7 @@ Function routerDetect
     File /nonfatal /a /r "I2P\runtime\"
     SetOutPath $I2PINSTEXE
     File /nonfatal /a /r "I2P\I2P.exe"
+    File /nonfatal /a /r "I2P\I2P.ico"
     File /nonfatal "I2P\config\jpackaged"
 
     createDirectory "$I2PINSTEXE\"
@@ -170,8 +171,6 @@ Function routerDetect
     File  /a /r "I2P/config/certificates"
     File  /a /r "I2P/config/geoip"
     File  /a /r "I2P/config/i2ptunnel.config"
-
-    Abort directory
 FunctionEnd
 
 Function installerFunction
