@@ -174,7 +174,7 @@ Function routerDetect
 FunctionEnd
 
 Function installerFunction
-${If} ${Silent}
+    ${If} ${Silent}
         ${Do}
             ${FindProcess} "I2P.exe" $0
             Sleep 500
