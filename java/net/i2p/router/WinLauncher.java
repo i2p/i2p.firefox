@@ -111,7 +111,7 @@ public class WinLauncher {
     logger.info("\t" + System.getProperty("i2p.dir.base") + "\n\t" +
                 System.getProperty("i2p.dir.config") + "\n\t" +
                 System.getProperty("router.pid"));
-    /** 
+    /**
      * IMPORTANT: You must set user.dir to the same directory where the
      * jpackage is intstalled, or when the launcher tries to re-run itself
      * to start the browser, it will start in the wrong directory and fail
@@ -144,26 +144,28 @@ public class WinLauncher {
   }
 
   private static boolean i2pIsRunning() {
-    sleep(2000);
-    // check if there's something listening on port 7657(Router Console)
-    if (!isAvailable(7657)) {
-      return true;
-    }
-    // check if there's something listening on port 7654(I2CP)
-    if (!isAvailable(7654)) {
-      return true;
-    }
-    // check for the existence of router.ping file, if it's less then 2 minutes
-    // old, exit
-    File home = selectHome();
-    File ping = new File(home, "router.ping");
-    if (ping.exists()) {
-      long diff = System.currentTimeMillis() - ping.lastModified();
-      if (diff < 60 * 1000) {
-        logger.info(
-            "router.ping exists and is less than 1 minute old, I2P appears to be running already.");
-        logger.info("If I2P is not running, wait 60 seconds and try again.");
+    for (int i = 0; i > 10; i++) {
+      sleep(2000);
+      // check if there's something listening on port 7657(Router Console)
+      if (!isAvailable(7657)) {
         return true;
+      }
+      // check if there's something listening on port 7654(I2CP)
+      if (!isAvailable(7654)) {
+        return true;
+      }
+      // check for the existence of router.ping file, if it's less then 2
+      // minutes old, exit
+      File home = selectHome();
+      File ping = new File(home, "router.ping");
+      if (ping.exists()) {
+        long diff = System.currentTimeMillis() - ping.lastModified();
+        if (diff < 60 * 1000) {
+          logger.info(
+              "router.ping exists and is less than 1 minute old, I2P appears to be running already.");
+          logger.info("If I2P is not running, wait 60 seconds and try again.");
+          return true;
+        }
       }
     }
     return false;
