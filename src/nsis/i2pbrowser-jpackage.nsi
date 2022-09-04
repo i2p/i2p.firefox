@@ -1,1 +1,1 @@
-!define I2P_VERSION 1.9.0
+!define I2P_VERSION 1.9.1
