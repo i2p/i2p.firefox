@@ -97,7 +97,7 @@ public class WinLauncher {
       I2PBrowser i2pBrowser = new I2PBrowser();
       i2pBrowser.usability = usabilityMode;
       i2pBrowser.chromiumFirst = chromiumFirst;
-      i2pBrowser.fiefox = !chromiumFirst;
+      i2pBrowser.firefox = !chromiumFirst;
       i2pBrowser.chromium = chromiumFirst;
       System.out.println("I2PBrowser");
       i2pBrowser.launch(privateBrowsing);
@@ -111,6 +111,12 @@ public class WinLauncher {
     logger.info("\t" + System.getProperty("i2p.dir.base") + "\n\t" +
                 System.getProperty("i2p.dir.config") + "\n\t" +
                 System.getProperty("router.pid"));
+    /** 
+     * IMPORTANT: You must set user.dir to the same directory where the
+     * jpackage is intstalled, or when the launcher tries to re-run itself
+     * to start the browser, it will start in the wrong directory and fail
+     * to find the JVM and Runtime bundle. This broke Windows 11 installs.
+     */
     System.setProperty("user.dir", programs.getAbsolutePath());
 
     // wupp.i2pRouter = new Router(System.getProperties());
