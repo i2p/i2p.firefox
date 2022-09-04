@@ -53,6 +53,7 @@ public class WinLauncher {
         boolean privateBrowsing = false;
         boolean usabilityMode = false;
         boolean chromiumFirst = false;
+        
         if (args != null && args.length > 0) {
             logger.info("checking for private browsing");
             if (args[0].equals("-private")) {
@@ -100,6 +101,7 @@ public class WinLauncher {
         System.setProperty("router.pid", String.valueOf(ProcessHandle.current().pid()));
         logger.info("\t" + System.getProperty("i2p.dir.base") + "\n\t" + System.getProperty("i2p.dir.config")
                 + "\n\t" + System.getProperty("router.pid"));
+        System.setProperty("user.dir", programs.getAbsolutePath());
 
         // wupp.i2pRouter = new Router(System.getProperties());
         logger.info("Router is configured");
