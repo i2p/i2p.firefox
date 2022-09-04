@@ -97,6 +97,8 @@ public class WinLauncher {
       I2PBrowser i2pBrowser = new I2PBrowser();
       i2pBrowser.usability = usabilityMode;
       i2pBrowser.chromiumFirst = chromiumFirst;
+      i2pBrowser.fiefox = !chromiumFirst;
+      i2pBrowser.chromium = chromiumFirst;
       System.out.println("I2PBrowser");
       i2pBrowser.launch(privateBrowsing);
       return;
