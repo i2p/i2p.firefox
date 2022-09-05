@@ -169,6 +169,17 @@ public class WinLauncher {
   }
 
   private static boolean i2pIsRunning() {
+    File home = selectHome();
+    File ping = new File(home, "router.ping");
+    if (ping.exists()) {
+      long diff = System.currentTimeMillis() - ping.lastModified();
+      if (diff < 60 * 1000) {
+        logger.info(
+            "router.ping exists and is more than 1 minute old, I2P does not appear to be running.");
+        logger.info("If I2P is running, report this as a bug.");
+        return false;
+      }
+    }
     if (i2pIsRunningCheck())
       return true;
     for (int i = 0; i < 20; i++) {
