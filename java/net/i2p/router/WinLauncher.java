@@ -91,7 +91,6 @@ public class WinLauncher {
           " exists but is not a directory. Please get it out of the way");
       System.exit(1);
     }
-
     if (i2pIsRunning()) {
       logger.warning("I2P is already running");
       I2PBrowser i2pBrowser = new I2PBrowser();
@@ -129,6 +128,7 @@ public class WinLauncher {
 
     // wupp.i2pRouter.runRouter();
     RouterLaunch.main(args);
+    setNotRunning();
   }
 
   // see
@@ -168,8 +168,30 @@ public class WinLauncher {
     return false;
   }
 
+
+  private static void setNotRunning() {
+    File home = selectHome();
+    File running = new File(home, "running");
+    if (running.exists()){
+      running.delete();
+    }
+  }
+  private static void setRunning() {
+    File home = selectHome();
+    File running = new File(home, "running");
+    if (!running.exists()){
+      running.createNewFile();
+    }
+  }
+
+
   private static boolean i2pIsRunning() {
     File home = selectHome();
+    File running = new File(home, "running");
+    if (running.exists()){
+      return true;
+    }
+    setRunning();
     File ping = new File(home, "router.ping");
     if (ping.exists()) {
       long diff = System.currentTimeMillis() - ping.lastModified();
