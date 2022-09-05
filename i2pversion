@@ -2,17 +2,17 @@
 
 JNA_VERSION=5.11.0
 export JNA_VERSION=5.11.0
-I2PFIREFOX_VERSION=0.0.22
-export I2PFIREFOX_VERSION=0.0.22
+I2PFIREFOX_VERSION=0.0.23
+export I2PFIREFOX_VERSION=0.0.23
 #Comment this out to build from an alternate branch or
 # the tip of the master branch.
 VERSIONMAJOR=1
 VERSIONMINOR=9
-VERSIONBUILD=1
+VERSIONBUILD=2
 I2P_VERSION="$VERSIONMAJOR.$VERSIONMINOR.$VERSIONBUILD"
 export I2P_VERSION="$VERSIONMAJOR.$VERSIONMINOR.$VERSIONBUILD"
-VERSION=i2p-jpackage-1.9.2
-export VERSION=i2p-jpackage-1.9.2
+VERSION=i2p-jpackage-1.9.1
+export VERSION=i2p-jpackage-1.9.1
 
 #Uncomment this to build from the tip of the master.
 #I2P_VERSION=1.8.0
