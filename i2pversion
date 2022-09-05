@@ -11,8 +11,8 @@ VERSIONMINOR=9
 VERSIONBUILD=1
 I2P_VERSION="$VERSIONMAJOR.$VERSIONMINOR.$VERSIONBUILD"
 export I2P_VERSION="$VERSIONMAJOR.$VERSIONMINOR.$VERSIONBUILD"
-VERSION=i2p-jpackage-1.9.1
-export VERSION=i2p-jpackage-1.9.1
+VERSION=i2p-jpackage-1.9.2
+export VERSION=i2p-jpackage-1.9.2
 
 #Uncomment this to build from the tip of the master.
 #I2P_VERSION=1.8.0
