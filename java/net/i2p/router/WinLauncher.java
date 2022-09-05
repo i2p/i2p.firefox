@@ -92,6 +92,7 @@ public class WinLauncher {
       System.exit(1);
     }
     if (i2pIsRunning()) {
+      setNotRunning();
       logger.warning("I2P is already running");
       I2PBrowser i2pBrowser = new I2PBrowser();
       i2pBrowser.usability = usabilityMode;
