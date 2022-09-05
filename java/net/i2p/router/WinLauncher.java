@@ -180,7 +180,11 @@ public class WinLauncher {
     File home = selectHome();
     File running = new File(home, "running");
     if (!running.exists()){
-      running.createNewFile();
+      try{
+        running.createNewFile();
+      }catch(IOException e){
+        logger.info(e.toString());
+      }
     }
   }
 
