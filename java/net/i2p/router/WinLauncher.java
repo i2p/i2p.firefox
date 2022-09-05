@@ -126,9 +126,9 @@ public class WinLauncher {
     registrationThread.setDaemon(true);
     registrationThread.start();
 
+    setNotRunning();
     // wupp.i2pRouter.runRouter();
     RouterLaunch.main(args);
-    setNotRunning();
   }
 
   // see
