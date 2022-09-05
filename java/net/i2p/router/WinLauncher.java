@@ -143,29 +143,37 @@ public class WinLauncher {
     return portFree;
   }
 
+  private static boolean i2pIsRunningCheck() {
+    // check if there's something listening on port 7657(Router Console)
+    if (!isAvailable(7657)) {
+      return true;
+    }
+    // check if there's something listening on port 7654(I2CP)
+    if (!isAvailable(7654)) {
+      return true;
+    }
+    // check for the existence of router.ping file, if it's less then 2
+    // minutes old, exit
+    File home = selectHome();
+    File ping = new File(home, "router.ping");
+    if (ping.exists()) {
+      long diff = System.currentTimeMillis() - ping.lastModified();
+      if (diff < 60 * 1000) {
+        logger.info(
+            "router.ping exists and is less than 1 minute old, I2P appears to be running already.");
+        logger.info("If I2P is not running, wait 60 seconds and try again.");
+        return true;
+      }
+    }
+    return false;
+  }
+
   private static boolean i2pIsRunning() {
+    if (i2pIsRunningCheck())
+      return true;
     for (int i = 0; i < 20; i++) {
-      // check if there's something listening on port 7657(Router Console)
-      if (!isAvailable(7657)) {
+      if (i2pIsRunningCheck())
         return true;
-      }
-      // check if there's something listening on port 7654(I2CP)
-      if (!isAvailable(7654)) {
-        return true;
-      }
-      // check for the existence of router.ping file, if it's less then 2
-      // minutes old, exit
-      File home = selectHome();
-      File ping = new File(home, "router.ping");
-      if (ping.exists()) {
-        long diff = System.currentTimeMillis() - ping.lastModified();
-        if (diff < 60 * 1000) {
-          logger.info(
-              "router.ping exists and is less than 1 minute old, I2P appears to be running already.");
-          logger.info("If I2P is not running, wait 60 seconds and try again.");
-          return true;
-        }
-      }
       sleep(1000);
     }
     return false;
@@ -223,13 +231,13 @@ public class WinLauncher {
       File local = new File(appData, "Local");
       File i2p;
       i2p = new File(local, "I2P");
-      logger.info("Windows jpackage wrapper started, using: " + i2p +
+      logger.info("Windows jpackage wrapper starting up, using: " + i2p +
                   " as base config");
       return i2p.getAbsoluteFile();
     } else {
       File jrehome = new File(System.getProperty("java.home"));
       File programs = new File(jrehome.getParentFile().getParentFile(), ".i2p");
-      logger.info("Linux portable jpackage wrapper started, using: " +
+      logger.info("Linux portable jpackage wrapper starting up, using: " +
                   programs + " as base config");
       return programs.getAbsoluteFile();
     }
