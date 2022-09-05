@@ -144,8 +144,7 @@ public class WinLauncher {
   }
 
   private static boolean i2pIsRunning() {
-    for (int i = 0; i > 30; i++) {
-      sleep(2000);
+    for (int i = 0; i < 30; i++) {
       // check if there's something listening on port 7657(Router Console)
       if (!isAvailable(7657)) {
         return true;
@@ -167,6 +166,7 @@ public class WinLauncher {
           return true;
         }
       }
+      sleep(2000);
     }
     return false;
   }
