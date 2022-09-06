@@ -25,6 +25,5 @@ jpackage --type app-image --name I2P --app-version "$I2P_VERSION" \
     --win-shortcut-prompt \
     --win-per-user-install \
     --license-file LICENSE.md \
-    --input src/build \
     --main-jar launcher.jar \
     --main-class net.i2p.router.WinLauncher
