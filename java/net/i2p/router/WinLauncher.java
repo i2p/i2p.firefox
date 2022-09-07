@@ -51,6 +51,7 @@ public class WinLauncher {
     boolean privateBrowsing = false;
     boolean usabilityMode = false;
     boolean chromiumFirst = false;
+    int proxyTimeoutTime = 200;
     ArrayList<String> newArgsList = new ArrayList<String>();
 
     if (args != null) {
@@ -67,8 +68,29 @@ public class WinLauncher {
             usabilityMode = true;
             logger.info(
                 "Usability mode is true, using alternate extensions loadout.");
+          } else if (arg.equals("-noproxycheck")) {
+            proxyTimeoutTime = 0;
+            logger.info("Proxy timeout time set to zero");
           } else {
-            newArgsList.add(arg);
+            // make an effort to not let people launch into sites if the proxy
+            // isn't quite ready yet
+            if (arg.startsWith("http://localhost:76")) {
+              newArgsList.add(arg);
+              proxyTimeoutTime = 0;
+            } else if (arg.startsWith("http://127.0.0.1:76")) {
+              newArgsList.add(arg);
+              proxyTimeoutTime = 0;
+            } else if (arg.startsWith("https://localhost:76")) {
+              newArgsList.add(arg);
+              proxyTimeoutTime = 0;
+            } else if (arg.startsWith("https://127.0.0.1:76")) {
+              newArgsList.add(arg);
+              proxyTimeoutTime = 0;
+            } else if (proxyTimeoutTime > 0) {
+              newArgsList.add(arg);
+            } else if (!isAvailable(4444)) {
+              newArgsList.add(arg);
+            }
           }
         }
       }
@@ -101,9 +123,10 @@ public class WinLauncher {
       i2pBrowser.chromiumFirst = chromiumFirst;
       i2pBrowser.firefox = !chromiumFirst;
       i2pBrowser.chromium = chromiumFirst;
+      i2pbrowser.setProxyTimeoutTime(proxyTimeoutTime);
       System.out.println("I2PBrowser");
-      String[] newArgs = new String[newArgsList.size()];
-      i2pBrowser.launch(privateBrowsing, newArgsList.toArray(newArgs));
+      String[] newArgs = newArgsList.toArray(new String[newArgsList.size()]);
+      i2pBrowser.launch(privateBrowsing, newArgs);
       return;
     }
 
