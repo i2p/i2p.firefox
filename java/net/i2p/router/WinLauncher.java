@@ -102,7 +102,8 @@ public class WinLauncher {
       i2pBrowser.firefox = !chromiumFirst;
       i2pBrowser.chromium = chromiumFirst;
       System.out.println("I2PBrowser");
-      i2pBrowser.launch(privateBrowsing, newArgsList.toArray());
+      String[] newArgs = new String[newArgsList.size()];
+      i2pBrowser.launch(privateBrowsing, newArgsList.toArray(newArgs));
       return;
     }
 
