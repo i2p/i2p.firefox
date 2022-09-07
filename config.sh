@@ -3,19 +3,28 @@
 ## If you need to use a different JVM, JDK, or other utility from
 # build.sh, set it in this file, for example:
 
+uname=$(uname)
+
 #export PATH="$PATH:/c/Program Files/Java/jdk-17.0.3/bin/"
 #export JAVA_HOME="/c/Program Files/Java/jdk-17.0.3"
 # to use it for Oracle OpenJDK17
 
 ## Other potential values(NOT exhaustive):
 
-uname=$(uname)
+if grep -qEi "(Microsoft|WSL)" /proc/version &> /dev/null ; then
+    PATH="/c/Program Files/Java/jdk-18.0.2/bin/:$PATH:/c/Program Files/Java/jdk-18.0.2/bin/"
+    export PATH="/c/Program Files/Java/jdk-18.0.2/bin/:$PATH:/c/Program Files/Java/jdk-18.0.2/bin/"
+    JAVA_HOME="/c/Program Files/Java/jdk-18.0.2"
+    export JAVA_HOME="/c/Program Files/Java/jdk-18.0.2"
+fi
+
 if "${uname}" != "Linux"; then
     PATH="/c/Program Files/Java/jdk-18.0.2/bin/:$PATH:/c/Program Files/Java/jdk-18.0.2/bin/"
     export PATH="/c/Program Files/Java/jdk-18.0.2/bin/:$PATH:/c/Program Files/Java/jdk-18.0.2/bin/"
     JAVA_HOME="/c/Program Files/Java/jdk-18.0.2"
     export JAVA_HOME="/c/Program Files/Java/jdk-18.0.2"
 fi
+
 #export PATH="$PATH:/c/Program Files/Eclipse Adoptium/jdk-17.0.3/bin/"
 #export JAVA_HOME="/c/Program Files/Eclipse Adoptium/jdk-17.0.3"
 #export PATH="$PATH:/c/Program Files/OpenJDK/jdk-17.0.3/bin/"
@@ -52,7 +61,11 @@ fi
 #export ANT_HOME="/c/apache-ant-1.10.9"
 #export PATH="$PATH:$ANT_HOME/bin/"
 
-# Uncomment this to add signtool to the path so you don't have to fight with Visual Studio.
+if grep -qEi "(Microsoft|WSL)" /proc/version &> /dev/null ; then
+    PATH="$PATH:/c/Program Files (x86)/Windows Kits/10/App Certification Kit/"
+    export PATH="$PATH:/c/Program Files (x86)/Windows Kits/10/App Certification Kit/"
+fi
+
 if "${uname}" != "Linux"; then
     PATH="$PATH:/c/Program Files (x86)/Windows Kits/10/App Certification Kit/"
     export PATH="$PATH:/c/Program Files (x86)/Windows Kits/10/App Certification Kit/"

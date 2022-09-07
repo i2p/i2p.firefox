@@ -73,7 +73,8 @@ public class WinLauncher {
             logger.info("Proxy timeout time set to zero");
           } else {
             // make an effort to not let people launch into sites if the proxy
-            // isn't quite ready yet
+            // isn't quite ready yet, but also disable the proxy timeout if
+            // they're reaching a router console
             if (arg.startsWith("http://localhost:76")) {
               newArgsList.add(arg);
               proxyTimeoutTime = 0;
