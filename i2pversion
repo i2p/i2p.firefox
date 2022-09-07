@@ -2,8 +2,8 @@
 
 JNA_VERSION=5.11.0
 export JNA_VERSION=5.11.0
-I2PFIREFOX_VERSION=0.0.31
-export I2PFIREFOX_VERSION=0.0.31
+I2PFIREFOX_VERSION=0.0.32
+export I2PFIREFOX_VERSION=0.0.32
 # Comment this out to build from an alternate branch or
 # the tip of the master branch.
 VERSIONMAJOR=1
