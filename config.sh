@@ -11,7 +11,7 @@ uname=$(uname)
 
 ## Other potential values(NOT exhaustive):
 
-if grep -qEi "(Microsoft|WSL)" /proc/version &> /dev/null ; then
+if [[ -n "$IS_WSL" || -n "$WSL_DISTRO_NAME" ]]; then
     PATH="/c/Program Files/Java/jdk-18.0.2/bin/:$PATH:/c/Program Files/Java/jdk-18.0.2/bin/"
     export PATH="/c/Program Files/Java/jdk-18.0.2/bin/:$PATH:/c/Program Files/Java/jdk-18.0.2/bin/"
     JAVA_HOME="/c/Program Files/Java/jdk-18.0.2"
@@ -61,7 +61,7 @@ fi
 #export ANT_HOME="/c/apache-ant-1.10.9"
 #export PATH="$PATH:$ANT_HOME/bin/"
 
-if grep -qEi "(Microsoft|WSL)" /proc/version &> /dev/null ; then
+if [[ -n "$IS_WSL" || -n "$WSL_DISTRO_NAME" ]]; then
     PATH="$PATH:/c/Program Files (x86)/Windows Kits/10/App Certification Kit/"
     export PATH="$PATH:/c/Program Files (x86)/Windows Kits/10/App Certification Kit/"
 fi
