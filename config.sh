@@ -18,7 +18,7 @@ if [[ -n "$IS_WSL" || -n "$WSL_DISTRO_NAME" ]]; then
     export JAVA_HOME="/c/Program Files/Java/jdk-18.0.2"
 fi
 
-if "${uname}" != "Linux"; then
+if [ "${uname}" != "Linux" ]; then
     PATH="/c/Program Files/Java/jdk-18.0.2/bin/:$PATH:/c/Program Files/Java/jdk-18.0.2/bin/"
     export PATH="/c/Program Files/Java/jdk-18.0.2/bin/:$PATH:/c/Program Files/Java/jdk-18.0.2/bin/"
     JAVA_HOME="/c/Program Files/Java/jdk-18.0.2"
@@ -66,7 +66,7 @@ if [[ -n "$IS_WSL" || -n "$WSL_DISTRO_NAME" ]]; then
     export PATH="$PATH:/c/Program Files (x86)/Windows Kits/10/App Certification Kit/"
 fi
 
-if "${uname}" != "Linux"; then
+if [ "${uname}" != "Linux" ]; then
     PATH="$PATH:/c/Program Files (x86)/Windows Kits/10/App Certification Kit/"
     export PATH="$PATH:/c/Program Files (x86)/Windows Kits/10/App Certification Kit/"
 fi
