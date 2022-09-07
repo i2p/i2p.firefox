@@ -234,7 +234,7 @@ public class WinLauncher {
     }
     if (i2pIsRunningCheck())
       return true;
-    for (int i = 0; i < 20; i++) {
+    for (int i = 0; i < 10; i++) {
       if (i2pIsRunningCheck())
         return true;
       sleep(1000);
