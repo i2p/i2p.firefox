@@ -123,7 +123,7 @@ public class WinLauncher {
       i2pBrowser.chromiumFirst = chromiumFirst;
       i2pBrowser.firefox = !chromiumFirst;
       i2pBrowser.chromium = chromiumFirst;
-      i2pbrowser.setProxyTimeoutTime(proxyTimeoutTime);
+      i2pBrowser.setProxyTimeoutTime(proxyTimeoutTime);
       System.out.println("I2PBrowser");
       String[] newArgs = newArgsList.toArray(new String[newArgsList.size()]);
       i2pBrowser.launch(privateBrowsing, newArgs);
