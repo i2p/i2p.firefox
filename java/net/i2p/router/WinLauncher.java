@@ -51,23 +51,25 @@ public class WinLauncher {
     boolean privateBrowsing = false;
     boolean usabilityMode = false;
     boolean chromiumFirst = false;
+    ArrayList<String> newArgsList = new ArrayList<String>();
 
     if (args != null) {
       if (args.length > 0) {
-        logger.info("checking for private browsing");
-        if (args[0].equals("-private")) {
-          privateBrowsing = true;
-          logger.info(
-              "Private browsing is true, profile will be discarded at end of session.");
-        }
-        if (args[0].equals("-chromium")) {
-          chromiumFirst = true;
-          logger.info("Chromium will be selected before Firefox.");
-        }
-        if (args[0].equals("-usability")) {
-          usabilityMode = true;
-          logger.info(
-              "Usability mode is true, using alternate extensions loadout.");
+        for (String arg : args) {
+          if (arg.equals("-private")) {
+            privateBrowsing = true;
+            logger.info(
+                "Private browsing is true, profile will be discarded at end of session.");
+          } else if (arg.equals("-chromium")) {
+            chromiumFirst = true;
+            logger.info("Chromium will be selected before Firefox.");
+          } else if (arg.equals("-usability")) {
+            usabilityMode = true;
+            logger.info(
+                "Usability mode is true, using alternate extensions loadout.");
+          } else {
+            newArgsList.add(arg);
+          }
         }
       }
     }
@@ -100,7 +102,7 @@ public class WinLauncher {
       i2pBrowser.firefox = !chromiumFirst;
       i2pBrowser.chromium = chromiumFirst;
       System.out.println("I2PBrowser");
-      i2pBrowser.launch(privateBrowsing);
+      i2pBrowser.launch(privateBrowsing, newArgsList.toArray());
       return;
     }
 
@@ -169,31 +171,29 @@ public class WinLauncher {
     return false;
   }
 
-
   private static void setNotRunning() {
     File home = selectHome();
     File running = new File(home, "running");
-    if (running.exists()){
+    if (running.exists()) {
       running.delete();
     }
   }
   private static void setRunning() {
     File home = selectHome();
     File running = new File(home, "running");
-    if (!running.exists()){
-      try{
+    if (!running.exists()) {
+      try {
         running.createNewFile();
-      }catch(IOException e){
+      } catch (IOException e) {
         logger.info(e.toString());
       }
     }
   }
 
-
   private static boolean i2pIsRunning() {
     File home = selectHome();
     File running = new File(home, "running");
-    if (running.exists()){
+    if (running.exists()) {
       return true;
     }
     setRunning();
