@@ -1,3 +1,8 @@
+2022-09-08 idk
+ * Generate a source tarball when we checkout a branch of i2p.i2p
+ * Upload a source tarball when we do a daily build
+ * Clean up a source tarball when running the clean script. Regenerate tarball after cleaning.
+
 2022-09-06 idk
  * Point release 1.9.5, fixes a bug which occurs more often on Windows 11, fixes a SusiDNS issue
 
