@@ -28,5 +28,6 @@ rm -rf \
 	wrapper.log \
 	*.jar \
 	*.exe \
-	*.dmg
+	*.dmg \
+	*.tar.gz
 make clean

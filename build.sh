@@ -41,6 +41,7 @@ sleep 5s
 HERE="$PWD"
 if [ ! -d "$HERE/../i2p.i2p.jpackage-build/" ]; then
   git clone -b "$VERSION" https://i2pgit.org/i2p-hackers/i2p.i2p "$HERE/../i2p.i2p.jpackage-build/"
+  tar cvzf i2p.i2p.jpackage-build.tar.gz "$HERE/../i2p.i2p.jpackage-build/"
 fi
 cd "$HERE/../i2p.i2p.jpackage-build/"
 for i in $COUNT; do
