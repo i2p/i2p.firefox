@@ -15,7 +15,7 @@ jpackage --name I2P-MSI --app-version "$I2P_VERSION" \
     --java-options "--add-opens java.base/java.util.Properties=ALL-UNNAMED" \
     --java-options "--add-opens java.base/java.util.Properties.defaults=ALL-UNNAMED" \
     $JPACKAGE_OPTS \
-    --resource-dir build/I2P/config \
+    --app-content build/I2P/config \
     --input build \
     --verbose \
     --type msi \
