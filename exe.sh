@@ -6,7 +6,7 @@
 
 . ./config.sh
 . ./i2pversion
-jpackage --name I2P-MSI --app-version "$I2P_VERSION" \
+jpackage --name I2P-EXE --app-version "$I2P_VERSION" \
     --verbose \
     --java-options "-Xmx512m" \
     --java-options "--add-opens java.base/java.lang=ALL-UNNAMED" \
