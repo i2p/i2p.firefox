@@ -15,7 +15,16 @@ jpackage --name I2P-MSI --app-version "$I2P_VERSION" \
     --java-options "--add-opens java.base/java.util.Properties=ALL-UNNAMED" \
     --java-options "--add-opens java.base/java.util.Properties.defaults=ALL-UNNAMED" \
     $JPACKAGE_OPTS \
-    --app-content build/I2P/config \
+    --app-content build/I2P/config/certificates \
+    --app-content build/I2P/config/eepsite \
+    --app-content build/I2P/config/geoip \
+    --app-content build/I2P/config/webapps \
+    --app-content build/I2P/config/clients.config \
+    --app-content build/I2P/config/hosts.txt \
+    --app-content build/I2P/config/i2ptunnel.config \
+    --app-content build/I2P/config/jpackaged \
+    --app-content build/I2P/config/router.config \
+    --app-content build/I2P/config/wrappper.config \
     --input build \
     --verbose \
     --type msi \
