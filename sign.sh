@@ -40,6 +40,6 @@ if [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
     linuxsign I2P-Profile-Installer-$I2P_VERSION.exe
     cp "I2P-Profile-Installer-$I2P_VERSION.exe" "I2P-Profile-Installer-$I2P_VERSION-signed.exe"
 else
-    signtool.exe sign /a "I2P-Profile-Installer-$I2P_VERSION.exe"
+    signtool.exe sign -a "I2P-Profile-Installer-$I2P_VERSION.exe"
     cp "I2P-Profile-Installer-$I2P_VERSION.exe" "I2P-Profile-Installer-$I2P_VERSION-signed.exe"
 fi

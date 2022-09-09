@@ -18,7 +18,7 @@ jpackage --name I2P-MSI --app-version "$I2P_VERSION" \
     --resource-dir build/I2P/config \
     --input build \
     --verbose \
-    --type msi \
+    --type exe \
     --win-dir-chooser \
     --win-help-url "https://geti2p.net" \
     --win-menu \
