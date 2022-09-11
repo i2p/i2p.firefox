@@ -174,7 +174,6 @@ public class WinLauncher {
                                        int proxyTimeoutTime,
                                        ArrayList<String> newArgsList) {
     if (i2pIsRunning()) {
-      setNotRunning();
       logger.info("I2P is already running, launching an I2P browser");
       I2PBrowser i2pBrowser = new I2PBrowser();
       i2pBrowser.usability = usabilityMode;
@@ -188,6 +187,7 @@ public class WinLauncher {
       System.out.println("I2PBrowser");
       String[] newArgs = newArgsList.toArray(new String[newArgsList.size()]);
       i2pBrowser.launch(privateBrowsing, newArgs);
+      setNotRunning();
       return true;
     }
     return false;
