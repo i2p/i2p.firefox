@@ -35,23 +35,7 @@ public class WinLauncher {
   static FileHandler fh;
 
   public static void main(String[] args) throws Exception {
-    File jrehome = javaHome();
-    logger.info("jre home is: " + jrehome.getAbsolutePath());
-    File appimagehome = appImageHome();
-    logger.info("appimage home is: " + appimagehome.getAbsolutePath());
-    try {
-      // This block configure the logger with handler and formatter
-      fh = new FileHandler(logFile().toString());
-      logger.addHandler(fh);
-      SimpleFormatter formatter = new SimpleFormatter();
-      fh.setFormatter(formatter);
-      // the following statement is used to log any messages
-      logger.info("My first log");
-    } catch (SecurityException e) {
-      e.printStackTrace();
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
+    setupLauncher();
     boolean privateBrowsing = false;
     boolean usabilityMode = false;
     boolean chromiumFirst = false;
@@ -100,39 +84,12 @@ public class WinLauncher {
         }
       }
     }
+    
+    File programs = programFile();    
+    File home = homeDir();
 
-    File programs = selectProgramFile();
-    if (!programs.exists())
-      programs.mkdirs();
-    else if (!programs.isDirectory()) {
-      logger.warning(
-          programs +
-          " exists but is not a directory. Please get it out of the way");
-      System.exit(1);
-    }
-
-    File home = selectHome();
-    if (!home.exists())
-      home.mkdirs();
-    else if (!home.isDirectory()) {
-      logger.warning(
-          home +
-          " exists but is not a directory. Please get it out of the way");
-      System.exit(1);
-    }
-    if (i2pIsRunning()) {
-      setNotRunning();
-      logger.warning("I2P is already running");
-      I2PBrowser i2pBrowser = new I2PBrowser();
-      i2pBrowser.usability = usabilityMode;
-      i2pBrowser.chromiumFirst = chromiumFirst;
-      i2pBrowser.firefox = !chromiumFirst;
-      i2pBrowser.chromium = chromiumFirst;
-      i2pBrowser.setProxyTimeoutTime(proxyTimeoutTime);
-      System.out.println("I2PBrowser");
-      String[] newArgs = newArgsList.toArray(new String[newArgsList.size()]);
-      i2pBrowser.launch(privateBrowsing, newArgs);
-      return;
+    if (launchBrowser(privateBrowsing, usabilityMode, chromiumFirst, proxyTimeoutTime, newArgsList)) {
+      System.exit(0);
     }
 
     System.setProperty("i2p.dir.base", programs.getAbsolutePath());
@@ -161,6 +118,79 @@ public class WinLauncher {
     setNotRunning();
     // wupp.i2pRouter.runRouter();
     RouterLaunch.main(args);
+
+  }
+
+  private static void setupLauncher() {
+    try {
+      // This block configure the logger with handler and formatter
+      fh = new FileHandler(logFile().toString());
+      logger.addHandler(fh);
+      SimpleFormatter formatter = new SimpleFormatter();
+      fh.setFormatter(formatter);
+      // the following statement is used to log any messages
+      logger.info("My first log");
+    } catch (SecurityException e) {
+      e.printStackTrace();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    setRunning();
+    File jrehome = javaHome();
+    logger.info("jre home is: " + jrehome.getAbsolutePath());
+    File appimagehome = appImageHome();
+    logger.info("appimage home is: " + appimagehome.getAbsolutePath());
+  }
+
+  private static File programFile(){
+    File programs = selectProgramFile();
+    if (!programs.exists())
+      programs.mkdirs();
+    else if (!programs.isDirectory()) {
+      logger.warning(
+          programs +
+          " exists but is not a directory. Please get it out of the way");
+      System.exit(1);
+    }
+    return programs;
+  }
+
+  private static File homeDir(){
+    File home = selectHome();
+    if (!home.exists())
+      home.mkdirs();
+    else if (!home.isDirectory()) {
+      logger.warning(
+          home +
+          " exists but is not a directory. Please get it out of the way");
+      System.exit(1);
+    }
+    return home;
+  }
+
+  private static boolean launchBrowser(boolean privateBrowsing,
+                                       boolean usabilityMode,
+                                       boolean chromiumFirst,
+                                       int proxyTimeoutTime,
+                                       ArrayList<String> newArgsList) {
+    if (i2pIsRunning()) {
+      setNotRunning();
+      logger.info("I2P is already running, launching an I2P browser");
+      I2PBrowser i2pBrowser = new I2PBrowser();
+      i2pBrowser.usability = usabilityMode;
+      i2pBrowser.chromiumFirst = chromiumFirst;
+      i2pBrowser.firefox = !chromiumFirst;
+      i2pBrowser.chromium = chromiumFirst;
+      if (chromiumFirst){
+        logger.warning("favoring Chromium instead of Firefox");
+      }
+      i2pBrowser.setProxyTimeoutTime(proxyTimeoutTime);
+      System.out.println("I2PBrowser");
+      String[] newArgs = newArgsList.toArray(new String[newArgsList.size()]);
+      i2pBrowser.launch(privateBrowsing, newArgs);
+      return true;
+    }
+    return false;
   }
 
   // see
@@ -188,29 +218,36 @@ public class WinLauncher {
   }
 
   private static void setNotRunning() {
+    logger.info("removing startup file, the application has started");
     File home = selectHome();
-    File running = new File(home, "running");
-    if (running.exists()) {
-      running.delete();
+    File starting = new File(home, "starting");
+    if (starting.exists()) {
+      starting.delete();
     }
   }
+  
   private static void setRunning() {
+    logger.info("creating startup file, router is starting up");
     File home = selectHome();
-    File running = new File(home, "running");
-    if (!running.exists()) {
+    File starting = new File(home, "starting");
+    if (!starting.exists()) {
       try {
-        running.createNewFile();
+        starting.createNewFile();
       } catch (IOException e) {
         logger.info(e.toString());
       }
     }
   }
+
   private static boolean checkRunning() {
+    logger.info("checking startup file");
     File home = selectHome();
-    File running = new File(home, "running");
-    if (running.exists()) {
+    File starting = new File(home, "starting");
+    if (starting.exists()) {
+      logger.info("startup file exists, I2P is already starting up");
       return true;
     }
+    logger.info("startup file does not exist but we're running now");
     setRunning();
     return false;
   }
@@ -405,7 +442,7 @@ public class WinLauncher {
    * @return
    */
   private static File logFile() {
-    File log = new File(selectProgramFile(), "log");
+    File log = new File(selectProgramFile(), "logs");
     if (!log.exists())
       log.mkdirs();
     return new File(log, "launcher.log");
