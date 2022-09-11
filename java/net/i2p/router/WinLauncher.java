@@ -439,6 +439,48 @@ public class WinLauncher {
   }
 
   /**
+   * get the path to the libdir of the app-image by getting the path to
+   * java.home and the OS, and traversing up to the app-image root based on that
+   * information, then appending lib to the end.
+   *
+   * @return the app-image root
+   */
+  private static File appImageLibDir() {
+    File aih = appImageHome();
+    if (aih == null){
+      return null;
+    }
+    File libDir = new File(aih, "lib");
+    if (libDir !=null){
+      if (libDir.exists()){
+        return libDir;
+      }
+    }
+    return null;
+  }
+
+  /**
+   * get the path to the default config of the app-image by getting the path to
+   * java.home and the OS, and traversing up to the app-image root based on that
+   * information, then appending lib/config to the end.
+   *
+   * @return the app-image root
+   */
+  private static File appImageConfig() {
+    File aih = appImageLibDir();
+    if (aih == null){
+      return null;
+    }
+    File configDir = new File(aih, "config");
+    if (configDir !=null){
+      if (configDir.exists()){
+        return configDir;
+      }
+    }
+    return null;
+  }
+
+  /**
    * set up the path to the log file
    *
    * @return
