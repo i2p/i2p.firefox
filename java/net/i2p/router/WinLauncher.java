@@ -32,7 +32,9 @@ import net.i2p.util.SystemVersion;
  */
 public class WinLauncher {
   static Logger logger = Logger.getLogger("launcherlog");
+  static WindowsUpdatePostProcessor wupp = null;
   static FileHandler fh;
+  private static Router i2pRouter;
 
   public static void main(String[] args) throws Exception {
     setupLauncher();
@@ -119,7 +121,7 @@ public class WinLauncher {
      */
     System.setProperty("user.dir", programs.getAbsolutePath());
 
-    // wupp.i2pRouter = new Router(System.getProperties());
+    i2pRouter = new Router(System.getProperties());
     logger.info("Router is configured");
 
     Thread registrationThread = new Thread(REGISTER_UPP);
@@ -128,8 +130,13 @@ public class WinLauncher {
     registrationThread.start();
 
     setNotStarting();
-    // wupp.i2pRouter.runRouter();
-    RouterLaunch.main(args);
+    // TODO: I actually did this once before, and reversed it for
+    // some dumb reason I can't remember. But if I go back through
+    // all the steps then I set up the router before I run it ^^
+    // see above commented out `wupp` and I don't have to wait for
+    // certain contexts to be ready anymore.
+    i2pRouter.runRouter();
+    // RouterLaunch.main(args);
   }
 
   private static void setupLauncher() {
@@ -146,7 +153,7 @@ public class WinLauncher {
     } catch (IOException e) {
       e.printStackTrace();
     }
-    
+
     File jrehome = javaHome();
     logger.info("jre home is: " + jrehome.getAbsolutePath());
     File appimagehome = appImageHome();
@@ -298,9 +305,8 @@ public class WinLauncher {
   }
 
   private static final Runnable REGISTER_UPP = () -> {
-    // first wait for the RouterContext to appear
     RouterContext ctx;
-    while ((ctx = (RouterContext)RouterContext.getCurrentContext()) == null) {
+    while ((ctx = i2pRouter.getContext()) == null) {
       sleep(1000);
     }
     // then wait for the update manager
