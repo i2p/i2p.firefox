@@ -35,6 +35,10 @@ public class WinLauncher {
   static FileHandler fh;
 
   public static void main(String[] args) throws Exception {
+    File jrehome = javaHome();
+    logger.info("jre home is: " + jrehome.getAbsolutePath());
+    File appimagehome = appImageHome();
+    logger.info("appimage home is: " + appimagehome.getAbsolutePath());
     try {
       // This block configure the logger with handler and formatter
       fh = new FileHandler(logFile().toString());
@@ -173,26 +177,13 @@ public class WinLauncher {
 
   private static boolean i2pIsRunningCheck() {
     // check if there's something listening on port 7657(Router Console)
-    if (!isAvailable(7657)) {
+    if (!isAvailable(7657))
       return true;
-    }
     // check if there's something listening on port 7654(I2CP)
-    if (!isAvailable(7654)) {
+    if (!isAvailable(7654))
       return true;
-    }
-    // check for the existence of router.ping file, if it's less then 2
-    // minutes old, exit
-    File home = selectHome();
-    File ping = new File(home, "router.ping");
-    if (ping.exists()) {
-      long diff = System.currentTimeMillis() - ping.lastModified();
-      if (diff < 60 * 1000) {
-        logger.info(
-            "router.ping exists and is less than 1 minute old, I2P appears to be running already.");
-        logger.info("If I2P is not running, wait 60 seconds and try again.");
-        return true;
-      }
-    }
+    if (checkPing())
+      return true;
     return false;
   }
 
@@ -214,14 +205,20 @@ public class WinLauncher {
       }
     }
   }
-
-  private static boolean i2pIsRunning() {
+  private static boolean checkRunning() {
     File home = selectHome();
     File running = new File(home, "running");
     if (running.exists()) {
       return true;
     }
     setRunning();
+    return false;
+  }
+
+  // check for the existence of router.ping file, if it's less then 2
+  // minutes old, exit
+  private static boolean checkPing() {
+    File home = selectHome();
     File ping = new File(home, "router.ping");
     if (ping.exists()) {
       long diff = System.currentTimeMillis() - ping.lastModified();
@@ -230,8 +227,18 @@ public class WinLauncher {
             "router.ping exists and is more than 1 minute old, I2P does not appear to be running.");
         logger.info("If I2P is running, report this as a bug.");
         return false;
+      } else {
+        return true;
       }
     }
+    return false;
+  }
+
+  private static boolean i2pIsRunning() {
+    if (checkRunning())
+      return true;
+    if (checkPing())
+      return true;
     if (i2pIsRunningCheck())
       return true;
     for (int i = 0; i < 10; i++) {
@@ -243,39 +250,25 @@ public class WinLauncher {
   }
 
   private static final Runnable REGISTER_UPP = () -> {
-
     // first wait for the RouterContext to appear
     RouterContext ctx;
     while ((ctx = (RouterContext)RouterContext.getCurrentContext()) == null) {
       sleep(1000);
     }
-
     // then wait for the update manager
-
     ClientAppManager cam;
     while ((cam = ctx.clientAppManager()) == null) {
       sleep(1000);
     }
-
     UpdateManager um;
     while ((um = (UpdateManager)cam.getRegisteredApp(UpdateManager.APP_NAME)) ==
            null) {
       sleep(1000);
     }
-
     WindowsUpdatePostProcessor wupp = new WindowsUpdatePostProcessor(ctx);
     um.register(wupp, UpdateType.ROUTER_SIGNED_SU3, SU3File.TYPE_EXE);
     um.register(wupp, UpdateType.ROUTER_DEV_SU3, SU3File.TYPE_EXE);
   };
-
-  private static void sleep(int millis) {
-    try {
-      Thread.sleep(millis);
-    } catch (InterruptedException bad) {
-      bad.printStackTrace();
-      throw new RuntimeException(bad);
-    }
-  }
 
   private static File selectHome() { // throws Exception {
     String path_override = System.getenv("I2P_CONFIG");
@@ -289,17 +282,13 @@ public class WinLauncher {
       }
     }
     if (SystemVersion.isWindows()) {
-      File home = new File(System.getProperty("user.home"));
-      File appData = new File(home, "AppData");
-      File local = new File(appData, "Local");
-      File i2p;
-      i2p = new File(local, "I2P");
+      File i2p = appImageHome();
       logger.info("Windows jpackage wrapper starting up, using: " + i2p +
                   " as base config");
-      return i2p.getAbsoluteFile();
+      return i2p;
     } else {
-      File jrehome = new File(System.getProperty("java.home"));
-      File programs = new File(jrehome.getParentFile().getParentFile(), ".i2p");
+      File i2p = appImageHome();
+      File programs = new File(i2p, ".i2p");
       logger.info("Linux portable jpackage wrapper starting up, using: " +
                   programs + " as base config");
       return programs.getAbsoluteFile();
@@ -332,10 +321,107 @@ public class WinLauncher {
     }
   }
 
+  /**
+   * get the the local application data on Windows
+   *
+   * @return localAppData
+   */
+  private static File localAppData() {
+    File localAppData = new File(System.getenv("LOCALAPPDATA"));
+    if (localAppData != null) {
+      if (localAppData.exists()) {
+        if (localAppData.getAbsolutePath().length() > 3) {
+          return localAppData;
+        }
+      }
+    }
+    localAppData = new File(System.getenv("user.home"), "AppData/Local");
+    return localAppData;
+  }
+
+  /**
+   * get the OS name(windows, mac, linux only)
+   *
+   * @return os name in lower-case, "windows" "mac" or  "linux"
+   */
+  private static String osName() {
+    String osName = System.getProperty("os.name").toLowerCase();
+    if (osName.contains("windows"))
+      return "windows";
+    if (osName.contains("mac"))
+      return "mac";
+    return "linux";
+  }
+
+  /**
+   * get the path to the java home, for jpackage this is related to the
+   * executable itself, which is handy to know. It's a directory called runtime,
+   * relative to the root of the app-image on each platform:
+   *
+   * Windows - Root of appimage is 1 directory above directory named runtime
+   *     ./runtime
+   *
+   * Linux - Root of appimage is 2 directories above directory named runtime
+   *     ./lib/runtime
+   *
+   * Mac OSX - Unknown for now
+   *
+   * @return
+   */
+  private static File javaHome() {
+    File jrehome = new File(System.getProperty("java.home"));
+    if (jrehome != null) {
+      if (jrehome.exists()) {
+        return jrehome;
+      }
+    }
+    return null;
+  }
+
+  /**
+   * get the path to the root of the app-image root by getting the path to
+   * java.home and the OS, and traversing up to the app-image root based on that
+   * information.
+   *
+   * @return the app-image root
+   */
+  private static File appImageHome() {
+    File jreHome = javaHome();
+    if (jreHome != null) {
+      switch (osName()) {
+      case "windows":
+        return jreHome.getAbsoluteFile().getParentFile();
+      case "mac":
+      case "linux":
+        return jreHome.getAbsoluteFile().getParentFile().getParentFile();
+      }
+    }
+    return null;
+  }
+
+  /**
+   * set up the path to the log file
+   *
+   * @return
+   */
   private static File logFile() {
     File log = new File(selectProgramFile(), "log");
     if (!log.exists())
       log.mkdirs();
     return new File(log, "launcher.log");
+  }
+
+  /**
+   * sleep for 1 second
+   *
+   * @param millis
+   */
+  private static void sleep(int millis) {
+    try {
+      Thread.sleep(millis);
+    } catch (InterruptedException bad) {
+      bad.printStackTrace();
+      throw new RuntimeException(bad);
+    }
   }
 }

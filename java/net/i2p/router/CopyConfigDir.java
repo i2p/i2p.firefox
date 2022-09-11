@@ -15,9 +15,25 @@ public class CopyConfigDir {
     File workFile = new File(workDir);
     return copyDirectory(baseFile, workFile);
   }
+
   public boolean copyDirectory(File baseDir, File workDir) {
     for (File file : baseDir.listFiles()) {
       System.out.println(file.getAbsolutePath());
+      if (file.isDirectory())
+        copyDirectory(file, new File(workDir, file.toString()));
+      if (file.isFile())
+        copyFileNeverOverwrite(file, new File(workDir, file.toString()));
+    }
+    return true;
+  }
+
+  public boolean copyConfigDirectory(File baseDir, File workDir) {
+    for (File file : baseDir.listFiles()) {
+      System.out.println(file.getAbsolutePath());
+      if (file.isDirectory())
+        copyDirectory(file, new File(workDir, file.toString()));
+      if (file.isFile())
+        copyFileNeverOverwrite(file, new File(workDir, file.toString()));
     }
     return true;
   }
