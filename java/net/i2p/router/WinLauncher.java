@@ -186,8 +186,8 @@ public class WinLauncher {
       i2pBrowser.setProxyTimeoutTime(proxyTimeoutTime);
       System.out.println("I2PBrowser");
       String[] newArgs = newArgsList.toArray(new String[newArgsList.size()]);
-      i2pBrowser.launch(privateBrowsing, newArgs);
       setNotStarting();
+      i2pBrowser.launch(privateBrowsing, newArgs);
       return true;
     }
     return false;
