@@ -195,7 +195,7 @@ public class WinLauncher {
 
   // see
   // https://stackoverflow.com/questions/434718/sockets-discover-port-availability-using-java
-  public static boolean isAvailable(int portNr) {
+  private static boolean isAvailable(int portNr) {
     boolean portFree;
     try (var ignored = new ServerSocket(portNr)) {
       portFree = true;
@@ -361,24 +361,6 @@ public class WinLauncher {
   }
 
   /**
-   * get the the local application data on Windows
-   *
-   * @return localAppData
-   */
-  private static File localAppData() {
-    File localAppData = new File(System.getenv("LOCALAPPDATA"));
-    if (localAppData != null) {
-      if (localAppData.exists()) {
-        if (localAppData.getAbsolutePath().length() > 3) {
-          return localAppData;
-        }
-      }
-    }
-    localAppData = new File(System.getenv("user.home"), "AppData/Local");
-    return localAppData;
-  }
-
-  /**
    * get the OS name(windows, mac, linux only)
    *
    * @return os name in lower-case, "windows" "mac" or  "linux"
@@ -439,27 +421,6 @@ public class WinLauncher {
   }
 
   /**
-   * get the path to the libdir of the app-image by getting the path to
-   * java.home and the OS, and traversing up to the app-image root based on that
-   * information, then appending lib to the end.
-   *
-   * @return the app-image root
-   */
-  private static File appImageLibDir() {
-    File aih = appImageHome();
-    if (aih == null){
-      return null;
-    }
-    File libDir = new File(aih, "lib");
-    if (libDir !=null){
-      if (libDir.exists()){
-        return libDir;
-      }
-    }
-    return null;
-  }
-
-  /**
    * get the path to the default config of the app-image by getting the path to
    * java.home and the OS, and traversing up to the app-image root based on that
    * information, then appending lib/config to the end.
@@ -467,14 +428,26 @@ public class WinLauncher {
    * @return the app-image root
    */
   private static File appImageConfig() {
-    File aih = appImageLibDir();
-    if (aih == null){
+    File aih = appImageHome();
+    if (aih == null) {
       return null;
     }
-    File configDir = new File(aih, "config");
-    if (configDir !=null){
-      if (configDir.exists()){
-        return configDir;
+    String osName = osName();
+    switch (osName) {
+    case "windows":
+      File winConfigDir = new File(aih, "config");
+      if (winConfigDir != null) {
+        if (winConfigDir.exists()) {
+          return winConfigDir;
+        }
+      }
+    case "mac":
+    case "linux":
+      File linConfigDir = new File(aih, "lib/config");
+      if (linConfigDir != null) {
+        if (linConfigDir.exists()) {
+          return linConfigDir;
+        }
       }
     }
     return null;
