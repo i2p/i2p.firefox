@@ -212,8 +212,6 @@ public class WinLauncher {
     // check if there's something listening on port 7654(I2CP)
     if (!isAvailable(7654))
       return true;
-    if (checkStarting())
-      return true;
     if (checkPing())
       return true;
     return false;
