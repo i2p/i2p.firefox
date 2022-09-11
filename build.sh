@@ -41,7 +41,7 @@ sleep 5s
 HERE="$PWD"
 if [ ! -d "$HERE/../i2p.i2p.jpackage-build/" ]; then
   git clone -b "$VERSION" https://i2pgit.org/i2p-hackers/i2p.i2p "$HERE/../i2p.i2p.jpackage-build/"
-  tar --exclude="$HERE/../i2p.i2p.jpackage-build/.git" cvzf i2p.i2p.jpackage-build.tar.gz "$HERE/../i2p.i2p.jpackage-build/"
+  tar --exclude="$HERE/../i2p.i2p.jpackage-build/.git" -cvzf i2p.i2p.jpackage-build.tar.gz "$HERE/../i2p.i2p.jpackage-build/"
 fi
 cd "$HERE/../i2p.i2p.jpackage-build/"
 for i in $COUNT; do
@@ -91,6 +91,9 @@ fi
 echo "preparing to invoke jpackage for I2P version $I2P_VERSION"
 
 rm -rf I2P
+
+make src/I2P/config
+
 "$JAVA_HOME"/bin/jpackage --type app-image --name I2P --app-version "$I2P_VERSION" \
   --verbose \
   --java-options "-Xmx512m" \
@@ -101,6 +104,7 @@ rm -rf I2P
   --java-options "--add-opens java.base/java.util.Properties.defaults=ALL-UNNAMED" \
   $JPACKAGE_OPTS \
   --resource-dir build \
+  --app-content src/I2P/config \
   --input build --main-jar launcher.jar --main-class net.i2p.router.WinLauncher
 
 cp "$I2P_PKG/licenses/"* license/

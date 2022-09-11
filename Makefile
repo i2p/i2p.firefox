@@ -78,7 +78,7 @@ build/I2P: I2P build
 	cp -rv I2P build/I2P ; true
 	cp "$(I2P_JBIGI)"/*windows*.dll build/I2P/runtime/lib; true
 
-src/I2P/config: build/I2P
+src/I2P/config:
 	mkdir -p src/I2P/config
 	rm -rf src/I2P/config/geoip src/I2P/config/webapps src/I2P/config/certificates
 	echo true | tee src/I2P/config/jpackaged
