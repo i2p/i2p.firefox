@@ -84,11 +84,12 @@ public class WinLauncher {
         }
       }
     }
-    
-    File programs = programFile();    
+
+    File programs = programFile();
     File home = homeDir();
 
-    if (launchBrowser(privateBrowsing, usabilityMode, chromiumFirst, proxyTimeoutTime, newArgsList)) {
+    if (launchBrowser(privateBrowsing, usabilityMode, chromiumFirst,
+                      proxyTimeoutTime, newArgsList)) {
       System.exit(0);
     }
 
@@ -115,10 +116,9 @@ public class WinLauncher {
     registrationThread.setDaemon(true);
     registrationThread.start();
 
-    setNotRunning();
+    setNotStarting();
     // wupp.i2pRouter.runRouter();
     RouterLaunch.main(args);
-
   }
 
   private static void setupLauncher() {
@@ -135,14 +135,14 @@ public class WinLauncher {
     } catch (IOException e) {
       e.printStackTrace();
     }
-    setRunning();
+    setStarting();
     File jrehome = javaHome();
     logger.info("jre home is: " + jrehome.getAbsolutePath());
     File appimagehome = appImageHome();
     logger.info("appimage home is: " + appimagehome.getAbsolutePath());
   }
 
-  private static File programFile(){
+  private static File programFile() {
     File programs = selectProgramFile();
     if (!programs.exists())
       programs.mkdirs();
@@ -155,7 +155,7 @@ public class WinLauncher {
     return programs;
   }
 
-  private static File homeDir(){
+  private static File homeDir() {
     File home = selectHome();
     if (!home.exists())
       home.mkdirs();
@@ -180,14 +180,14 @@ public class WinLauncher {
       i2pBrowser.chromiumFirst = chromiumFirst;
       i2pBrowser.firefox = !chromiumFirst;
       i2pBrowser.chromium = chromiumFirst;
-      if (chromiumFirst){
+      if (chromiumFirst) {
         logger.warning("favoring Chromium instead of Firefox");
       }
       i2pBrowser.setProxyTimeoutTime(proxyTimeoutTime);
       System.out.println("I2PBrowser");
       String[] newArgs = newArgsList.toArray(new String[newArgsList.size()]);
       i2pBrowser.launch(privateBrowsing, newArgs);
-      setNotRunning();
+      setNotStarting();
       return true;
     }
     return false;
@@ -212,12 +212,14 @@ public class WinLauncher {
     // check if there's something listening on port 7654(I2CP)
     if (!isAvailable(7654))
       return true;
+    if (checkStarting())
+      return true;
     if (checkPing())
       return true;
     return false;
   }
 
-  private static void setNotRunning() {
+  private static void setNotStarting() {
     logger.info("removing startup file, the application has started");
     File home = selectHome();
     File starting = new File(home, "starting");
@@ -225,8 +227,8 @@ public class WinLauncher {
       starting.delete();
     }
   }
-  
-  private static void setRunning() {
+
+  private static void setStarting() {
     logger.info("creating startup file, router is starting up");
     File home = selectHome();
     File starting = new File(home, "starting");
@@ -239,7 +241,7 @@ public class WinLauncher {
     }
   }
 
-  private static boolean checkRunning() {
+  private static boolean checkStarting() {
     logger.info("checking startup file");
     File home = selectHome();
     File starting = new File(home, "starting");
@@ -248,7 +250,7 @@ public class WinLauncher {
       return true;
     }
     logger.info("startup file does not exist but we're running now");
-    setRunning();
+    setStarting();
     return false;
   }
 
@@ -272,7 +274,7 @@ public class WinLauncher {
   }
 
   private static boolean i2pIsRunning() {
-    if (checkRunning())
+    if (checkStarting())
       return true;
     if (checkPing())
       return true;
