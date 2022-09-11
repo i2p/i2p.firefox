@@ -320,8 +320,7 @@ public class WinLauncher {
     }
     if (SystemVersion.isWindows()) {
       File i2p = appImageHome();
-      logger.info("Windows jpackage wrapper starting up, using: " + i2p +
-                  " as base config");
+      logger.info("Checking for signs of life in I2P directory: " + i2p);
       return i2p;
     } else {
       File i2p = appImageHome();
