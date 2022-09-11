@@ -88,6 +88,17 @@ public class WinLauncher {
     File programs = programFile();
     File home = homeDir();
 
+    // TODO: I want to minimize the amount of stuff I have to rely on NSIS for
+    // and if I
+    // 1. make the config directory inclusion part of the jpackage step
+    // and
+    // 2. make the launcher copy new or missing config files at launch
+    // then NSIS serves primarily as a way of providing multilanguage
+    // support in the installer. It has a higher degree of customization,
+    // but probably ceases to be necessary, I can make jpackage generate
+    // the installer, **and** I get to build every other kind of jpackage
+    // powered package.
+
     if (launchBrowser(privateBrowsing, usabilityMode, chromiumFirst,
                       proxyTimeoutTime, newArgsList)) {
       System.exit(0);
