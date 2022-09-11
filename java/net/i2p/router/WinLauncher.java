@@ -135,7 +135,7 @@ public class WinLauncher {
     } catch (IOException e) {
       e.printStackTrace();
     }
-    setStarting();
+    
     File jrehome = javaHome();
     logger.info("jre home is: " + jrehome.getAbsolutePath());
     File appimagehome = appImageHome();
