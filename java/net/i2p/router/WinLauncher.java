@@ -30,7 +30,7 @@ import net.i2p.util.SystemVersion;
  * appdata
  * router.pid - the pid of the java process.
  */
-public class WinLauncher {
+public class WinLauncher extends CopyConfigDir {
   static Logger logger = Logger.getLogger("launcherlog");
   static WindowsUpdatePostProcessor wupp = null;
   static FileHandler fh;
@@ -100,6 +100,10 @@ public class WinLauncher {
     // but probably ceases to be necessary, I can make jpackage generate
     // the installer, **and** I get to build every other kind of jpackage
     // powered package.
+    if (!copyConfigDir()){
+      logger.severe("Cannot copy the configuration directory");
+      System.exit(1);
+    }
 
     if (launchBrowser(privateBrowsing, usabilityMode, chromiumFirst,
                       proxyTimeoutTime, newArgsList)) {
@@ -113,6 +117,7 @@ public class WinLauncher {
     logger.info("\t" + System.getProperty("i2p.dir.base") + "\n\t" +
                 System.getProperty("i2p.dir.config") + "\n\t" +
                 System.getProperty("router.pid"));
+
     /**
      * IMPORTANT: You must set user.dir to the same directory where the
      * jpackage is intstalled, or when the launcher tries to re-run itself
@@ -130,13 +135,8 @@ public class WinLauncher {
     registrationThread.start();
 
     setNotStarting();
-    // TODO: I actually did this once before, and reversed it for
-    // some dumb reason I can't remember. But if I go back through
-    // all the steps then I set up the router before I run it ^^
-    // see above commented out `wupp` and I don't have to wait for
-    // certain contexts to be ready anymore.
+
     i2pRouter.runRouter();
-    // RouterLaunch.main(args);
   }
 
   private static void setupLauncher() {
@@ -437,7 +437,8 @@ public class WinLauncher {
   /**
    * get the path to the default config of the app-image by getting the path to
    * java.home and the OS, and traversing up to the app-image root based on that
-   * information, then appending lib/config to the end.
+   * information, then appending the config directory to the end onn a
+   * per-platform basis
    *
    * @return the app-image root
    */
@@ -465,6 +466,12 @@ public class WinLauncher {
       }
     }
     return null;
+  }
+
+  private static boolean copyConfigDir() {
+    File appImageConfigDir = appImageConfig();
+    File appImageHomeDir = appImageHome();
+    return copyDirectory(appImageConfigDir, appImageHomeDir);
   }
 
   /**

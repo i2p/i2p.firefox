@@ -10,13 +10,13 @@ import java.io.OutputStream;
 
 public class CopyConfigDir {
 
-  public boolean copyDirectory(String baseDir, String workDir) {
+  public static boolean copyDirectory(String baseDir, String workDir) {
     File baseFile = new File(baseDir);
     File workFile = new File(workDir);
     return copyDirectory(baseFile, workFile);
   }
-
-  public boolean copyDirectory(File baseDir, File workDir) {
+  
+  public static boolean copyDirectory(File baseDir, File workDir) {
     for (File file : baseDir.listFiles()) {
       System.out.println(file.getAbsolutePath());
       if (file.isDirectory())
@@ -27,7 +27,7 @@ public class CopyConfigDir {
     return true;
   }
 
-  public boolean copyConfigDirectory(File baseDir, File workDir) {
+  public static boolean copyConfigDirectory(File baseDir, File workDir) {
     for (File file : baseDir.listFiles()) {
       System.out.println(file.getAbsolutePath());
       if (file.isDirectory())
@@ -38,17 +38,17 @@ public class CopyConfigDir {
     return true;
   }
 
-  public boolean copyFileNeverOverwrite(String basePath, String workPath) {
+  public static boolean copyFileNeverOverwrite(String basePath, String workPath) {
     File baseFile = new File(basePath);
     File workFile = new File(workPath);
     return copyFileNeverOverwrite(baseFile, workFile);
   }
 
-  public boolean copyFileNeverOverwrite(File basePath, File workPath) {
+  public static boolean copyFileNeverOverwrite(File basePath, File workPath) {
     return copyFile(basePath, workPath, false);
   }
 
-  public boolean copyFile(File basePath, File workPath, boolean overWrite) {
+  public static boolean copyFile(File basePath, File workPath, boolean overWrite) {
     if (!basePath.exists()) {
       return false;
     }
