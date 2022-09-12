@@ -18,7 +18,6 @@ import net.i2p.router.RouterLaunch;
 import net.i2p.update.*;
 import net.i2p.update.UpdateManager;
 import net.i2p.update.UpdatePostProcessor;
-import net.i2p.util.SystemVersion;
 
 /**
  * Launches a router from %PROGRAMFILES%/I2P using configuration data in
@@ -31,9 +30,7 @@ import net.i2p.util.SystemVersion;
  * router.pid - the pid of the java process.
  */
 public class WinLauncher extends CopyConfigDir {
-  static Logger logger = Logger.getLogger("launcherlog");
   static WindowsUpdatePostProcessor wupp = null;
-  static FileHandler fh;
   private static Router i2pRouter;
 
   public static void main(String[] args) throws Exception {
@@ -100,7 +97,7 @@ public class WinLauncher extends CopyConfigDir {
     // but probably ceases to be necessary, I can make jpackage generate
     // the installer, **and** I get to build every other kind of jpackage
     // powered package.
-    if (!copyConfigDir()){
+    if (!copyConfigDir()) {
       logger.severe("Cannot copy the configuration directory");
       System.exit(1);
     }
@@ -323,168 +320,6 @@ public class WinLauncher extends CopyConfigDir {
     um.register(wupp, UpdateType.ROUTER_SIGNED_SU3, SU3File.TYPE_EXE);
     um.register(wupp, UpdateType.ROUTER_DEV_SU3, SU3File.TYPE_EXE);
   };
-
-  private static File selectHome() { // throws Exception {
-    String path_override = System.getenv("I2P_CONFIG");
-    if (path_override != null) {
-      File path = new File(path_override);
-      if (path != null && path.exists()) {
-        if (path.isDirectory())
-          return path.getAbsoluteFile();
-        else
-          throw new RuntimeException("I2P_CONFIG is not a directory: " + path);
-      }
-    }
-    if (SystemVersion.isWindows()) {
-      File i2p = appImageHome();
-      logger.info("Checking for signs of life in I2P directory: " + i2p);
-      return i2p;
-    } else {
-      File i2p = appImageHome();
-      File programs = new File(i2p, ".i2p");
-      logger.info("Linux portable jpackage wrapper starting up, using: " +
-                  programs + " as base config");
-      return programs.getAbsoluteFile();
-    }
-  }
-
-  private static File selectProgramFile() {
-    String path_override = System.getenv("I2P");
-    if (path_override != null) {
-      File path = new File(path_override);
-      if (path.exists()) {
-        if (path.isDirectory())
-          return path.getAbsoluteFile();
-        else
-          throw new RuntimeException("I2P is not a directory: " + path);
-      }
-    }
-    if (SystemVersion.isWindows()) {
-      File jrehome = new File(System.getProperty("java.home"));
-      File programs = jrehome.getParentFile();
-      logger.info("Windows portable jpackage wrapper found, using: " +
-                  programs + " as working config");
-      return programs.getAbsoluteFile();
-    } else {
-      File jrehome = new File(System.getProperty("java.home"));
-      File programs = new File(jrehome.getParentFile().getParentFile(), "i2p");
-      logger.info("Linux portable jpackage wrapper found, using: " + programs +
-                  " as working config");
-      return programs.getAbsoluteFile();
-    }
-  }
-
-  /**
-   * get the OS name(windows, mac, linux only)
-   *
-   * @return os name in lower-case, "windows" "mac" or  "linux"
-   */
-  private static String osName() {
-    String osName = System.getProperty("os.name").toLowerCase();
-    if (osName.contains("windows"))
-      return "windows";
-    if (osName.contains("mac"))
-      return "mac";
-    return "linux";
-  }
-
-  /**
-   * get the path to the java home, for jpackage this is related to the
-   * executable itself, which is handy to know. It's a directory called runtime,
-   * relative to the root of the app-image on each platform:
-   *
-   * Windows - Root of appimage is 1 directory above directory named runtime
-   *     ./runtime
-   *
-   * Linux - Root of appimage is 2 directories above directory named runtime
-   *     ./lib/runtime
-   *
-   * Mac OSX - Unknown for now
-   *
-   * @return
-   */
-  private static File javaHome() {
-    File jrehome = new File(System.getProperty("java.home"));
-    if (jrehome != null) {
-      if (jrehome.exists()) {
-        return jrehome;
-      }
-    }
-    return null;
-  }
-
-  /**
-   * get the path to the root of the app-image root by getting the path to
-   * java.home and the OS, and traversing up to the app-image root based on that
-   * information.
-   *
-   * @return the app-image root
-   */
-  private static File appImageHome() {
-    File jreHome = javaHome();
-    if (jreHome != null) {
-      switch (osName()) {
-      case "windows":
-        return jreHome.getAbsoluteFile().getParentFile();
-      case "mac":
-      case "linux":
-        return jreHome.getAbsoluteFile().getParentFile().getParentFile();
-      }
-    }
-    return null;
-  }
-
-  /**
-   * get the path to the default config of the app-image by getting the path to
-   * java.home and the OS, and traversing up to the app-image root based on that
-   * information, then appending the config directory to the end onn a
-   * per-platform basis
-   *
-   * @return the app-image root
-   */
-  private static File appImageConfig() {
-    File aih = appImageHome();
-    if (aih == null) {
-      return null;
-    }
-    String osName = osName();
-    switch (osName) {
-    case "windows":
-      File winConfigDir = new File(aih, "config");
-      if (winConfigDir != null) {
-        if (winConfigDir.exists()) {
-          return winConfigDir;
-        }
-      }
-    case "mac":
-    case "linux":
-      File linConfigDir = new File(aih, "lib/config");
-      if (linConfigDir != null) {
-        if (linConfigDir.exists()) {
-          return linConfigDir;
-        }
-      }
-    }
-    return null;
-  }
-
-  private static boolean copyConfigDir() {
-    File appImageConfigDir = appImageConfig();
-    File appImageHomeDir = appImageHome();
-    return copyDirectory(appImageConfigDir, appImageHomeDir);
-  }
-
-  /**
-   * set up the path to the log file
-   *
-   * @return
-   */
-  private static File logFile() {
-    File log = new File(selectProgramFile(), "logs");
-    if (!log.exists())
-      log.mkdirs();
-    return new File(log, "launcher.log");
-  }
 
   /**
    * sleep for 1 second
