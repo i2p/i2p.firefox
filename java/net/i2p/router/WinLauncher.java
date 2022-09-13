@@ -98,10 +98,6 @@ public class WinLauncher extends CopyConfigDir {
     System.setProperty("i2p.dir.config", home.getAbsolutePath());
     System.setProperty("router.pid",
                        String.valueOf(ProcessHandle.current().pid()));
-    logger.info("\t" + System.getProperty("i2p.dir.base") + "\n\t" +
-                System.getProperty("i2p.dir.config") + "\n\t" +
-                System.getProperty("router.pid"));
-
     /**
      * IMPORTANT: You must set user.dir to the same directory where the
      * jpackage is intstalled, or when the launcher tries to re-run itself
@@ -109,18 +105,21 @@ public class WinLauncher extends CopyConfigDir {
      * to find the JVM and Runtime bundle. This broke Windows 11 installs.
      */
     System.setProperty("user.dir", programs.getAbsolutePath());
-
-    i2pRouter = new Router(routerConfig(), System.getProperties());
-
-    if (i2pRouter.saveConfig("routerconsole.browser", null)) {
-      logger.info("removed routerconsole.browser config");
-    }
-    if (i2pRouter.saveConfig("routerconsole.browser", appImageExe())) {
-      logger.info("updated routerconsole.browser config " + appImageExe());
-    }
+    logger.info("\t" + System.getProperty("user.dir"));
+    logger.info("\t" + System.getProperty("i2p.dir.base"));
+    logger.info("\t" + System.getProperty("i2p.dir.config"));
+    logger.info("\t" + System.getProperty("router.pid"));
     if (launchBrowser(privateBrowsing, usabilityMode, chromiumFirst,
                       proxyTimeoutTime, newArgsList)) {
       System.exit(0);
+    }
+    i2pRouter = new Router(routerConfig(), System.getProperties());
+    if (i2pRouter.saveConfig("routerconsole.browser", null)) {
+      logger.info("removed routerconsole.browser config");
+    }
+    if (i2pRouter.saveConfig("routerconsole.browser",
+                             appImageExe() + " -noproxycheck")) {
+      logger.info("updated routerconsole.browser config " + appImageExe());
     }
     logger.info("Router is configured");
 
