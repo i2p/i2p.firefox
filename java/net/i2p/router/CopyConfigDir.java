@@ -271,12 +271,12 @@ public class CopyConfigDir {
 
   protected static boolean copyConfigDir() {
     File appImageConfigDir = appImageConfig();
-    File appImageHomeDir = appImageHome();
+    File appImageHomeDir = selectHome();
     return copyConfigDirectory(appImageConfigDir, appImageHomeDir);
   }
 
   protected static String routerConfig() {
-    File appImageHomeDir = appImageHome();
+    File appImageHomeDir = selectHome();
     File routerConf = new File(appImageHomeDir, "router.config");
     if (routerConf != null) {
       if (routerConf.exists()) {
