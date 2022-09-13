@@ -37,6 +37,11 @@ TODAYSDATE=$(date +%Y%m%d)
 
 if [ -z "$DESCRIPTION" ]; then
   DESCRIPTION="Daily unsigned build of i2p.firefox for $TODAYSDATE"
+  DESCRIPTION+="==================================================="
+  DESCRIPTION+=""
+  DESCRIPTION+="These builds are automatically built on a daily basis and may have serious bugs."
+  DESCRIPTION+="They are intended for testing purposes only, use them at your own risk."
+  DESCRIPTION+=""
 fi
 
 echo github-release release -p -u "$GITHUB_USERNAME" -r "i2p.firefox" -n "$TODAYSDATE" -d "$DESCRIPTION" -t "$TODAYSDATE"
@@ -44,7 +49,7 @@ github-release release -p -u "$GITHUB_USERNAME" -r "i2p.firefox" -n "$TODAYSDATE
 EXECHECKSUM=$(sha256sum "I2P-Profile-Installer-$I2P_VERSION.exe")
 echo github-release upload -R -u "$GITHUB_USERNAME" -r "i2p.firefox" -f "I2P-Profile-Installer-$I2P_VERSION.exe" -l "$EXECHECKSUM" -t "$TODAYSDATE" -n "I2P-Profile-Installer-$I2P_VERSION.exe"
 github-release upload -R -u "$GITHUB_USERNAME" -r "i2p.firefox" -f "I2P-Profile-Installer-$I2P_VERSION.exe" -l "$EXECHECKSUM" -t "$TODAYSDATE" -n "I2P-Profile-Installer-$I2P_VERSION.exe"
-powershell Compress-Archive I2P I2P.zip || zip I2P.zip -r I2P
+powershell Compress-Archive I2P I2P.zip
 ZIPCHECKSUM=$(sha256sum "I2P.zip")
 echo github-release upload -R -u "$GITHUB_USERNAME" -r "i2p.firefox" -f "I2P.zip" -l "$ZIPCHECKSUM" -t "$TODAYSDATE" -n "I2P.zip"
 github-release upload -R -u "$GITHUB_USERNAME" -r "i2p.firefox" -f "I2P.zip" -l "$ZIPCHECKSUM" -t "$TODAYSDATE" -n "I2P.zip"
