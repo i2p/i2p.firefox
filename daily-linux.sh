@@ -41,7 +41,7 @@ fi
 
 echo github-release release -p -u "$GITHUB_USERNAME" -r "i2p.firefox" -n "$TODAYSDATE" -d "$DESCRIPTION" -t "$TODAYSDATE"
 github-release release -p -u "$GITHUB_USERNAME" -r "i2p.firefox" -n "$TODAYSDATE" -d "$DESCRIPTION" -t "$TODAYSDATE"
-
+sleep 2s
 ZIPCHECKSUM=$(sha256sum "I2P.tar.gz")
 echo github-release upload -R -u "$GITHUB_USERNAME" -r "i2p.firefox" -f "I2P.tar.gz" -l "$ZIPCHECKSUM" -t "$TODAYSDATE" -n "I2P.tar.gz"
 github-release upload -R -u "$GITHUB_USERNAME" -r "i2p.firefox" -f "I2P.tar.gz" -l "$ZIPCHECKSUM" -t "$TODAYSDATE" -n "I2P.tar.gz"
