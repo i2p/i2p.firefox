@@ -132,17 +132,9 @@ public class CopyConfigDir {
           throw new RuntimeException("I2P_CONFIG is not a directory: " + path);
       }
     }
-    if (osName() == "windows") {
-      File i2p = appImageHome();
-      logger.info("Checking for signs of life in I2P directory: " + i2p);
-      return i2p;
-    } else {
-      File i2p = appImageHome();
-      File programs = new File(i2p, ".i2p");
-      logger.info("Linux portable jpackage wrapper starting up, using: " +
-                  programs + " as base config");
-      return programs.getAbsoluteFile();
-    }
+    File i2p = appImageHome();
+    logger.info("Checking for signs of life in I2P directory: " + i2p);
+    return i2p;
   }
 
   protected static File selectProgramFile() {
@@ -156,19 +148,9 @@ public class CopyConfigDir {
           throw new RuntimeException("I2P is not a directory: " + path);
       }
     }
-    if (osName() == "windows") {
-      File jrehome = new File(System.getProperty("java.home"));
-      File programs = jrehome.getParentFile();
-      logger.info("Windows portable jpackage wrapper found, using: " +
-                  programs + " as working config");
-      return programs.getAbsoluteFile();
-    } else {
-      File jrehome = new File(System.getProperty("java.home"));
-      File programs = new File(jrehome.getParentFile().getParentFile(), "i2p");
-      logger.info("Linux portable jpackage wrapper found, using: " + programs +
-                  " as working config");
-      return programs.getAbsoluteFile();
-    }
+    File i2p = appImageHome();
+    logger.info("Checking for signs of life in I2P directory: " + i2p);
+    return i2p;
   }
 
   /**
