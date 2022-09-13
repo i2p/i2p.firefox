@@ -126,6 +126,7 @@ public class WinLauncher extends CopyConfigDir {
     setNotStarting();
 
     i2pRouter.runRouter();
+    System.exit(0);
   }
 
   private static void setupLauncher() {
