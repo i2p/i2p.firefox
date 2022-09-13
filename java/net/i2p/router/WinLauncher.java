@@ -94,11 +94,6 @@ public class WinLauncher extends CopyConfigDir {
       System.exit(1);
     }
 
-    if (launchBrowser(privateBrowsing, usabilityMode, chromiumFirst,
-                      proxyTimeoutTime, newArgsList)) {
-      System.exit(0);
-    }
-
     System.setProperty("i2p.dir.base", programs.getAbsolutePath());
     System.setProperty("i2p.dir.config", home.getAbsolutePath());
     System.setProperty("router.pid",
@@ -115,7 +110,18 @@ public class WinLauncher extends CopyConfigDir {
      */
     System.setProperty("user.dir", programs.getAbsolutePath());
 
-    i2pRouter = new Router(System.getProperties());
+    i2pRouter = new Router(routerConfig(), System.getProperties());
+
+    if (i2pRouter.saveConfig("routerconsole.browser", null)) {
+      logger.info("removed routerconsole.browser config");
+    }
+    if (i2pRouter.saveConfig("routerconsole.browser", appImageExe())) {
+      logger.info("updated routerconsole.browser config " + appImageExe());
+    }
+    if (launchBrowser(privateBrowsing, usabilityMode, chromiumFirst,
+                      proxyTimeoutTime, newArgsList)) {
+      System.exit(0);
+    }
     logger.info("Router is configured");
 
     Thread registrationThread = new Thread(REGISTER_UPP);
@@ -129,20 +135,6 @@ public class WinLauncher extends CopyConfigDir {
   }
 
   private static void setupLauncher() {
-    try {
-      // This block configure the logger with handler and formatter
-      fh = new FileHandler(logFile().toString());
-      logger.addHandler(fh);
-      SimpleFormatter formatter = new SimpleFormatter();
-      fh.setFormatter(formatter);
-      // the following statement is used to log any messages
-      logger.info("My first log");
-    } catch (SecurityException e) {
-      e.printStackTrace();
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-
     File jrehome = javaHome();
     logger.info("jre home is: " + jrehome.getAbsolutePath());
     File appimagehome = appImageHome();

@@ -233,6 +233,28 @@ public class CopyConfigDir {
   }
 
   /**
+   * get the path to the binary of the app-image root by getting the path to
+   * java.home and the OS, and traversing up to the app-image root based on that
+   * information, then getting the binary path on a per-platform basis. The path
+   * returned will be relative to the root.
+   *
+   * @return the app-image root
+   */
+  protected static String appImageExe() {
+    File aih = appImageHome();
+    if (aih != null) {
+      switch (osName()) {
+      case "windows":
+        return "I2P.exe";
+      case "mac":
+      case "linux":
+        return "./bin/I2P";
+      }
+    }
+    return null;
+  }
+
+  /**
    * get the path to the default config of the app-image by getting the path to
    * java.home and the OS, and traversing up to the app-image root based on that
    * information, then appending the config directory to the end onn a
@@ -270,6 +292,17 @@ public class CopyConfigDir {
     File appImageConfigDir = appImageConfig();
     File appImageHomeDir = appImageHome();
     return copyConfigDirectory(appImageConfigDir, appImageHomeDir);
+  }
+
+  protected static String routerConfig() {
+    File appImageHomeDir = appImageHome();
+    File routerConf = new File(appImageHomeDir, "router.config");
+    if (routerConf != null) {
+      if (routerConf.exists()) {
+        return routerConf.getAbsolutePath();
+      }
+    }
+    return null;
   }
 
   /**
