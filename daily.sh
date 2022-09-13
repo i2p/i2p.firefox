@@ -45,7 +45,7 @@ EXECHECKSUM=$(sha256sum "I2P-Profile-Installer-$I2P_VERSION.exe")
 echo github-release upload -R -u "$GITHUB_USERNAME" -r "i2p.firefox" -f "I2P-Profile-Installer-$I2P_VERSION.exe" -l "$EXECHECKSUM" -t "$TODAYSDATE" -n "I2P-Profile-Installer-$I2P_VERSION.exe"
 github-release upload -R -u "$GITHUB_USERNAME" -r "i2p.firefox" -f "I2P-Profile-Installer-$I2P_VERSION.exe" -l "$EXECHECKSUM" -t "$TODAYSDATE" -n "I2P-Profile-Installer-$I2P_VERSION.exe"
 cd build || exit
-tar -a -cf ../I2P.zip I2P
+powershell Compress-Archive I2P I2P-jpackage-windows-$(I2P_VERSION).zip || zip I2P-jpackage-windows-$(I2P_VERSION).zip -r I2P
 ZIPCHECKSUM=$(sha256sum "../I2P.zip")
 echo github-release upload -R -u "$GITHUB_USERNAME" -r "i2p.firefox" -f "../I2P.zip" -l "$ZIPCHECKSUM" -t "$TODAYSDATE" -n "I2P.zip"
 github-release upload -R -u "$GITHUB_USERNAME" -r "i2p.firefox" -f "../I2P.zip" -l "$ZIPCHECKSUM" -t "$TODAYSDATE" -n "I2P.zip"

@@ -159,7 +159,7 @@ BLANK=`awk '! NF { print NR; exit }' changelog.txt`
 I2P.zip: I2P-jpackage-windows-$(I2P_VERSION).zip
 
 I2P-jpackage-windows-$(I2P_VERSION).zip:
-	zip I2P-jpackage-windows-$(I2P_VERSION).zip -r build/I2P
+	sh -c 'powershell Compress-Archive I2P I2P-jpackage-windows-$(I2P_VERSION).zip || zip I2P-jpackage-windows-$(I2P_VERSION).zip -r I2P'
 
 changelog:
 	head -n "$(BLANK)" changelog.txt
