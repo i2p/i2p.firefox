@@ -19,3 +19,5 @@ i2pversion_override
 cmd
 *.so
 *.jar
+*.zip
+*.tar.gz
