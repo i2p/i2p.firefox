@@ -14,7 +14,6 @@ import java.util.logging.SimpleFormatter;
 
 public class CopyConfigDir {
   static Logger logger = Logger.getLogger("configlog");
-  static WindowsUpdatePostProcessor wupp = null;
   static FileHandler fh;
 
   public CopyConfigDir() {
