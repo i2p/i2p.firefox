@@ -133,7 +133,7 @@ public class CopyConfigDir {
       }
     }
     File i2p = appImageHome();
-    logger.info("Checking for signs of life in I2P directory: " + i2p);
+    logger.info("Checking for signs of life in I2P_CONFIG directory: " + i2p);
     return i2p;
   }
 

@@ -1,3 +1,7 @@
+2022-09-13 idk
+ * make it a "portable" application in that the entire app and config can be carried on a portable
+ storage device. Requires minor tweaks to work well still.
+
 2022-09-08 idk
  * Generate a source tarball when we checkout a branch of i2p.i2p
  * Upload a source tarball when we do a daily build
