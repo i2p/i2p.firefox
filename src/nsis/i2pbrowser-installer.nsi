@@ -128,8 +128,6 @@ PageEx directory
 PageExEnd
 Page instfiles
 
-#!include i2pbrowser-mozcompat.nsi
-
 Function .onInit
     StrCpy $I2PINSTEXE "${I2PINSTEXE_USERMODE}"
     UserInfo::GetAccountType
