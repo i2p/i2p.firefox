@@ -35,6 +35,7 @@ public class WinLauncher extends CopyConfigDir {
 
   public static void main(String[] args) throws Exception {
     setupLauncher();
+    initLogger();
     boolean privateBrowsing = false;
     boolean usabilityMode = false;
     boolean chromiumFirst = false;

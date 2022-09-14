@@ -13,13 +13,12 @@ import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
 public class CopyConfigDir {
-  static Logger logger = Logger.getLogger("configlog");
-  static FileHandler fh;
+  static final Logger logger = Logger.getLogger("configlog");
 
-  public CopyConfigDir() {
+  public static void initLogger() {
     try {
       // This block configure the logger with handler and formatter
-      fh = new FileHandler(logFile().toString());
+      FileHandler fh = new FileHandler(logFile().toString());
       logger.addHandler(fh);
       SimpleFormatter formatter = new SimpleFormatter();
       fh.setFormatter(formatter);
