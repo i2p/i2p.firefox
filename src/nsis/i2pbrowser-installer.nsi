@@ -3,8 +3,7 @@ UniCode true
 
 !define APPNAME "I2PBrowser-Launcher"
 !define COMPANYNAME "I2P"
-!define DESCRIPTION "This launches Firefox with a browser profile pre-configured to use i2p"
-!define FIREFOX_MESSAGE "Could not find Firefox.  Please point to where you have installed Firefox.  If you have not installed Firefox yet, exit this installer and install Firefox, then start this installer again."
+!define DESCRIPTION "This is a tool which contains an I2P router, a bundled JVM, and a tool for automatically configuring a browser to use with I2P."
 !define I2P_MESSAGE "Could not find I2P. Installing portable Jpackaged I2P."
 !define LAUNCH_TEXT "Start I2P?"
 !define LICENSE_TITLE "Many Licenses"
@@ -210,16 +209,6 @@ Function installerFunction
     createDirectory "$INSTDIR\licenses"
     SetOutPath "$INSTDIR\licenses"
     File /a /r "licenses/*"
-
-    # Install the profile
-    createDirectory "$INSTDIR\firefox.profile.i2p"
-    SetOutPath "$INSTDIR\firefox.profile.i2p"
-    File /a /r "profile/*"
-
-    # Install the config profile
-    createDirectory "$INSTDIR\firefox.profile.config.i2p"
-    SetOutPath "$INSTDIR\firefox.profile.config.i2p"
-    File /a /r "app-profile/*"
 
     SetOutPath "$I2PINSTEXE"
     createDirectory "$SMPROGRAMS\${APPNAME}"
