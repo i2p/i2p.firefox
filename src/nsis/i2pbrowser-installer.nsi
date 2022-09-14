@@ -30,7 +30,7 @@ LicenseData "licenses\LICENSE.txt"
 # This will be in the installer/uninstaller's title bar
 Name "${COMPANYNAME} - ${APPNAME}"
 Icon ui2pbrowser_icon.ico
-OutFile "I2P-Profile-Installer-${VERSIONMAJOR}.${VERSIONMINOR}.${VERSIONBUILD}.exe"
+OutFile "I2P-Easy-Install-Bundle-${VERSIONMAJOR}.${VERSIONMINOR}.${VERSIONBUILD}.exe"
 
 RequestExecutionLevel user
 

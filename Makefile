@@ -32,7 +32,7 @@ i2pbrowser-jpackage.nsi:
 jpackage: version I2P build/I2P/config all
 
 help: version
-	@echo "I2P-Profile-Installer-$(PROFILE_VERSION)"
+	@echo "I2P-Easy-Install-Bundle-$(PROFILE_VERSION)"
 	@echo "$(SIGNER)"
 	@echo "$(I2P_VERSION)"
 	@echo "$(MAJOR).$(MINOR).$(BUILD)"
@@ -60,7 +60,7 @@ prep: #launchers build/licenses profile.tgz app-profile.tgz profile build/I2P bu
 	cp src/icons/*.ico build
 
 install.exe: #build/licenses
-	cd build && makensis i2pbrowser-installer.nsi && cp I2P-Profile-Installer-*.exe ../ && echo "built windows installer"
+	cd build && makensis i2pbrowser-installer.nsi && cp I2P-Easy-Install-Bundle-*.exe ../ && echo "built windows installer"
 
 export RES_DIR="../i2p.i2p.jpackage-build/installer/resources"
 export PKG_DIR="../i2p.i2p.jpackage-build/pkg-temp"
@@ -122,7 +122,7 @@ build/licenses: build
 	unix2dos build/licenses/LICENSE.txt
 
 clean:
-	rm -rf build app-profile-*.tgz profile-*.tgz I2P-Profile-Installer-*.exe *.deb src/I2P/config *.su3 .version *.url make.log
+	rm -rf build app-profile-*.tgz profile-*.tgz I2P-Easy-Install-Bundle-*.exe *.deb src/I2P/config *.su3 .version *.url make.log
 	git clean -fdx src build
 
 build:
