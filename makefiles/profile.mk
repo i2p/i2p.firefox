@@ -1,5 +1,5 @@
 
-profile: build/profile/user.js build/profile/prefs.js build/profile/bookmarks.html build/profile/storage-sync.sqlite copy-xpi
+profile: build/profile/user.js build/profile/prefs.js build/profile/bookmarks.html build/profile/storage-sync.sqlite
 
 profile.tgz: .version profile
 #	$(eval PROFILE_VERSION := $(shell cat src/profile/version.txt))
@@ -26,8 +26,3 @@ build/profile/bookmarks.html: build/profile src/profile/bookmarks.html
 
 build/profile/storage-sync.sqlite: build/profile src/profile/storage-sync.sqlite
 	cp src/profile/storage-sync.sqlite build/profile/storage-sync.sqlite
-
-copy-xpi: build/{73a6fe31-595d-460b-a920-fcc0f8843232}.xpi build/https-everywhere-eff@eff.org.xpi build/i2ppb@eyedeekay.github.io.xpi build/profile/extensions
-	cp build/{73a6fe31-595d-460b-a920-fcc0f8843232}.xpi "build/profile/extensions/{73a6fe31-595d-460b-a920-fcc0f8843232}.xpi"
-	cp build/https-everywhere-eff@eff.org.xpi "build/profile/extensions/https-everywhere-eff@eff.org.xpi"
-	cp build/i2ppb@eyedeekay.github.io.xpi build/profile/extensions/i2ppb@eyedeekay.github.io.xpi
