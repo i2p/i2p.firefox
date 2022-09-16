@@ -30,21 +30,6 @@ and copy the content of `Plugins` to `/usr/share/nsis/Plugins`.
 cp -rv Plugins/* /usr/share/nsis/Plugins/
 ```
 
-Windows Build
--------------
-
-After installing the dependencies and completing the preparations,
-just run `make`.  This will produce the install.exe - the windows
-installer, which sets up shortcuts to launch Firefox on Windows.
-
-When generating a build it's important to make sure that the
-licenses for all the bundled softare are included. This should happen
-automatically. When bundling software, describe the terms and where
-they are applied in the `LICENSE.index`, then add the full license
-to the `licenses` directory. Then, add the full license to the `cat`
-command in the `build/licenses` make target. The build/licenses
-target is run automatically during the build process.
-
 Including a jpackaged I2P Router
 --------------------------------
 
@@ -64,7 +49,7 @@ TODO: Add links to the respective instructions for each of these.
 In order to include a jpackaged(dependency-free) I2P router in the Profile
 Bundle you will need to build the jpackaged I2P router as an "App Image" on
 a Windows system and place it into a directory called `I2P` in your `i2p.firefox`
-checkout.
+checkout. Building without a jpackage is no longer supported.
 
 Assuming a working java and jpackage environment on your Windows system, the
 following command should generate a suitable "App Image" in a directory
@@ -82,11 +67,31 @@ necessary, then complete the regular build instructions. If a jpackaged I2P rout
 isn't present to use at build time, the inclusion will be skipped automatically
 with a non-fatal warning.
 
-In the near future, I'll start providing a pre-built app image to ease the
-build process for non-Windows users.
+Pre-built app-images are available from my daily releases at:
+
+        https://github.com/eyedeekay/i2p.plugins.firefox/releases/
+
+Windows Build
+-------------
+
+After installing the dependencies and completing the preparations,
+just run `make`.  This will produce the install.exe - the windows
+installer, which sets up the shortcuts to launch Firefox on Windows.
+Building without a jpackage is no longer supported.
+
+When generating a build it's important to make sure that the
+licenses for all the bundled softare are included. This should happen
+automatically. When bundling software, describe the terms and where
+they are applied in the `LICENSE.index`, then add the full license
+to the `licenses` directory. Then, add the full license to the `cat`
+command in the `build/licenses` make target. The build/licenses
+target is run automatically during the build process.
 
 End-to-End Windows build process using WSL(**Recommended**)
 -----------------------------------------------------------
+
+**See `config.sh` and `i2pversion` for instructions on how to tweak**
+**the build process. File an issue if you need help.**
 
 **If you've already done this once, you can just use:** `./unsigned.sh`
 **in `git bash`** to automatically build an installer. If you
@@ -188,7 +193,7 @@ signed update file.
 Docker Support
 --------------
 
-**MOVED, DEPRECATION WARNING:** Most of this functionality has been moved
+**MOVED, DEPRECATION NOTICE:** Most of this functionality has been moved
 to http://git.idk.i2p/idk/i2p.plugins.native which is more stable,
 easier to build and use, and easier to incorporate into other
 projects.
@@ -198,7 +203,7 @@ projects.
 Unix Support
 ------------
 
-**MOVED. DEPRECATION WARNING:** Most of this functionality has been moved
+**MOVED. DEPRECATION NOTICE:** Most of this functionality has been moved
 to http://git.idk.i2p/idk/i2p.plugins.native which is more stable,
 easier to build and use, and easier to incorporate into other
 projects. It is the better option for nearly every non-Windows case
@@ -224,11 +229,28 @@ pertaining to the plugins may be reported to their upstream
 maintainers if it's determined that our configuration is not at
 fault.
 
-NoScript is developed on Github by `hackademix` and the community:
- - https://github.com/hackademix/noscript
+## Credits
 
-HTTPS Everywhere is developed on Github by the EFF:
- - https://github.com/EFForg/https-everywhere
+This profile manager makes use of a set of browser extensions which are largely the work of others.
+It makes use of dependencies that are the work of others. In many ways, it's merely an elaborate
+configuration tool. A smart one, but a configuration tool nonetheless. Many thanks to the following
+projects, developers, and communities:
+
+### Firefox and Chrome Extensions
+
+- [NoScript - Giorgio Maone and others](https://noscript.net)
+- [HTTPS Everywhere - Electronic Frontier Foundation](https://www.eff.org/https-everywhere)
+- [uBlock Origin - Raymond Gorhill and others](https://ublockorigin.com/)
+- [LocalCDN - nobody and others](https://www.localcdn.org/)
+- [jShelter - Libor Polčák and others](https://jshelter.org/)
+
+### Firefox Configuration Modifiations
+
+- [Arkenfox - Thorin Oakenpants and Others](https://github.com/arkenfox/user.js/)
+
+You can find the license files for each of the these projects in the `src/i2p.firefox.*.profile/extensions/*`
+directory for Firefox, and the `src/i2p.chromium.*.profile/extensions/*.js/*` directories for Chromium within
+the [`i2p.plugins.firefox`](https://i2pgit.org/idk/i2p.plugins.firefox) project.
 
 I2P in Private Browsing is developed on Gitlab and Github by idk and the community:
  - https://i2pgit.org/idk/I2P-in-Private-Browsing-Mode-Firefox
