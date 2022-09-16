@@ -13,7 +13,7 @@ Features:
 Build Dependencies:
 -------------------
 
-To build this, you will need the following software packages (all available in Debian) :
+To build this, you will need the following software packages (all available in Debian and Ubuntu, see WSL section below) :
 
 - make
 - nsis
@@ -30,36 +30,14 @@ and copy the content of `Plugins` to `/usr/share/nsis/Plugins`.
 cp -rv Plugins/* /usr/share/nsis/Plugins/
 ```
 
-To build a Debian package, you'll also need
-
-- checkinstall
-
-Preparation
------------
-
-Before you build, run the targets
-
-        make clean-extensions
-        make extensions
-
-to update the extensions to point to their latest versions.
-
 Windows Build
 -------------
 
 After installing the dependencies and completing the preparations,
-just run `make`.  This will produce three files:
+just run `make`.  This will produce the install.exe - the windows
+installer, which sets up shortcuts to launch Firefox on Windows.
 
-profile.tgz - the firefox profile, plus a shell script which will
-launch it if Firefox is found in the $PATH on Unix-Like operating
-systems.
-app-profile.tgz - the Firefox profile plus a launcher shell script,
-which will launch a *modified* Firefox without a URL bar as a router
-console wrapper.
-install.exe - the windows installer, which sets up shortcuts to
-launch Firefox on Windows.
-
-When generating a Windows build it's important to make sure that the
+When generating a build it's important to make sure that the
 licenses for all the bundled softare are included. This should happen
 automatically. When bundling software, describe the terms and where
 they are applied in the `LICENSE.index`, then add the full license
@@ -69,6 +47,19 @@ target is run automatically during the build process.
 
 Including a jpackaged I2P Router
 --------------------------------
+
+**Prerequisites:** You need to have OpenJDK 14 or greater installed and configured
+with your `%JAVA_HOME%` environment variable configured and `%JAVA_HOME%/bin` on
+your `%PATH%`. You need to have Apache Ant installed and configured with `%ANT_HOME%`
+environment variable configured and `%ANT_HOME%/bin` on your `%PATH%`. You must have
+Cygwin installed. You must have `NSIS.exe` installed and `makensis` available on your
+`%PATH%`. You must have Git for Windows installed. When installing git for Windows,
+you should select "Checkout as is, commit as is" and leave line-endings alone.
+
+TODO: Add links to the respective instructions for each of these.
+
+**Note that after the dependencies are installed, this step is automated**
+**with `./build.sh`.**
 
 In order to include a jpackaged(dependency-free) I2P router in the Profile
 Bundle you will need to build the jpackaged I2P router as an "App Image" on
@@ -94,19 +85,13 @@ with a non-fatal warning.
 In the near future, I'll start providing a pre-built app image to ease the
 build process for non-Windows users.
 
-End-to-End Windows build process using WSL
-------------------------------------------
+End-to-End Windows build process using WSL(**Recommended**)
+-----------------------------------------------------------
 
-**If you've already done this once, you can just use:** `./build.sh && wsl make`
-**in `git bash`** to automatically build an installer.
-
-**Prerequisites:** You need to have OpenJDK 14 or greater installed and configured
-with your `%JAVA_HOME%` environment variable configured and `%JAVA_HOME%/bin` on
-your `%PATH%`. You need to have Apache Ant installed and configured with `%ANT_HOME%`
-environment variable configured and `%ANT_HOME%/bin` on your `%PATH%`. You must have
-Cygwin installed. You must have `NSIS.exe` installed and `makensis` available on your
-`%PATH%`. You must have Git for Windows installed. When installing git for Windows,
-you should select "Checkout as is, commit as is" and leave line-endings alone.
+**If you've already done this once, you can just use:** `./unsigned.sh`
+**in `git bash`** to automatically build an installer. If you
+are using this method, you may use the `makensis` and `make` from
+Ubuntu in WSL.
 
  1. [Set up Windows Subsystem for Linux per Microsoft's instructions](https://docs.microsoft.com/en-us/windows/wsl/install-win10#manual-installation-steps)
  2. [Install Ubuntu Focal per Microsoft's instructions](https://www.microsoft.com/store/apps/9n6svws3rx71)
@@ -133,21 +118,25 @@ you should select "Checkout as is, commit as is" and leave line-endings alone.
 
         wsl make
 
-End-to-End Windows build process using Cygwin
----------------------------------------------
+End-to-End Windows build process using Cygwin(More difficult than WSL for now)
+------------------------------------------------------------------------------
 
 I highly recommend you look into the Chocolatey package manager, which makes it much
 easier to configure these tools and keep them up to date.
 
-**Prerequisites:** You need to have OpenJDK 14 or greater installed and configured
-with your `%JAVA_HOME%` environment variable configured and `%JAVA_HOME%/bin` on
-your `%PATH%`. You need to have Apache Ant installed and configured with `%ANT_HOME%`
-environment variable configured and `%ANT_HOME%/bin` on your `%PATH%`. You must have
-WSL and git bash installed. You must have `NSIS.exe` installed and `makensis` available on your
-`%PATH%`. You must have Git for Windows installed. When installing git for Windows, you should
-select "Checkout as is, commit as is" and leave line-endings alone.
+**Prerequisites:** In addition to the other prerequisites, you will need to to have
+`make` installed with `cygwin`. If you are using this method, you cannot use the
+automated build scripts without a hack. You will need to create a file called `wsl`
+in a place that is in the path used by `git-bash.exe` sessions, with the content:
 
-TODO: Add links to the respective instructions for each of these.
+```
+#! /usr/bin/env bash
+$@
+```
+
+For our purposes, as long as everything else is set up and you're using git bash,
+that is enough to make the scripts compatible with `cygwin`. Cygwin builds without
+git bash are not likely to work.
 
 1. Run the Cygwin `setup-$arch.exe` for your platform to set up new packages. Select the `make` `jq` `dos2unix` and `curl` packages.
 2. Open a cygwin terminal.
@@ -179,15 +168,10 @@ Certificate which Windows will recognize. The current signer of the Windows
 bundle is Zlatinb. Standard Windows signing tools are used.
 
 ```sh
-# Release Copypasta
-./clean.sh
-wsl make distclean
-wsl make clean-extensions
-wsl make extensions
-./build.sh
-wsl make
-./sign.sh
+./release.sh
 ```
+
+produces the binary.
 
 Building a signed update file
 -----------------------------
