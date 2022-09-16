@@ -219,6 +219,10 @@ for instructions on how to build your own packages. These packages are
 unofficial! Although I do dogfood most of them and the `.jar` gets thorough
 testing.
 
+**The only remotely interesting Unix functionality that remains in this**
+**repository is the construction of a portable. You can use `targz.sh` to**
+**generate that.**
+
 Issues
 ------
 
