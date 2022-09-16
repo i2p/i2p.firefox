@@ -1,3 +1,8 @@
+2022-09-16 idk
+ * remove unstable/deprecated functionality. Better solutions have been developed and instructions
+ on how to use them are provided.
+ * update build documentation.
+
 2022-09-13 idk
  * make it a "portable" application in that the entire app and config can be carried on a portable
  storage device. Requires minor tweaks to work well still.
