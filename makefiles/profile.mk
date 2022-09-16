@@ -1,5 +1,5 @@
 
-profile: build/profile/user.js build/profile/prefs.js build/profile/storage-sync.sqlite
+profile: .version build/profile/storage-sync.sqlite
 
 profile.tgz: .version profile
 #	$(eval PROFILE_VERSION := $(shell cat src/profile/version.txt))

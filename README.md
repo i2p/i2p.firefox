@@ -67,45 +67,6 @@ to the `licenses` directory. Then, add the full license to the `cat`
 command in the `build/licenses` make target. The build/licenses
 target is run automatically during the build process.
 
-Unix Support
-------------
-
-It is possible to use these profiles on Linux and possibly other
-Unixes, if Firefox is already installed on the system. It can be
-installed system-wide using the `make install` target. Running
-`make install` requires root, and requires `make` to have been run
-first. To install on Unix, system-wide, run:
-
-        make
-        sudo make install
-
-To run without installing them system wide, unpack the `profile*.tgz`
-to a location of your choice and run the `i2pbrowser.sh` script. This
-will start a Firefox profile configured to use I2P.
-
-        tar xvf profile-0.3.tgz
-        cd profile
-        ./i2pbrowser.sh
-
-If you want to run the app-like i2pconfig browser, then follow the
-same steps with app-profile*.tgz.
-
-        tar xvf app-profile-0.3.tgz
-        cd app-profile
-        ./i2pconfig.sh
-
-To generate a `deb` package, install the package `checkinstall` and run
-the `make checkinstall` target after building with `make`.
-
-        make
-        make checkinstall
-        sudo apt install ./i2p-firefox*.deb
-
-If you want to set up i2pconfig to run when you start the service
-with `sudo service i2p start` then you can run the script:
-
-        /usr/local/bin/i2p-config-service-setup
-
 Including a jpackaged I2P Router
 --------------------------------
 
@@ -243,21 +204,31 @@ signed update file.
 Docker Support
 --------------
 
-You can use a Docker container to install this browser profile as well. In order
-to do this, you can run the commands:
+**MOVED, DEPRECATION WARNING:** Most of this functionality has been moved
+to http://git.idk.i2p/idk/i2p.plugins.native which is more stable,
+easier to build and use, and easier to incorporate into other
+projects.
 
-        xhost + local:docker
-        docker run -it --rm \
-          --net=host \
-          -e DISPLAY=unix$(DISPLAY) \
-          -v /tmp/.X11-unix:/tmp/.X11-unix \
-          geti2p/i2p.firefox firefox --profile /src/build/profile
+ - https://i2pgit.org/idk/i2p.plugins.firefox/-/blob/master/docker.sh
 
-To build and run the container locally, clone this repository and run the
+Unix Support
+------------
 
-        make run
+**MOVED. DEPRECATION WARNING:** Most of this functionality has been moved
+to http://git.idk.i2p/idk/i2p.plugins.native which is more stable,
+easier to build and use, and easier to incorporate into other
+projects. It is the better option for nearly every non-Windows case
+right now. You can get binary packages from:
 
-target.
+ - https://github.com/eyedeekay/i2p.plugins.firefox/releases
+
+or look at
+
+ - https://i2pgit.org/idk/i2p.plugins.firefox/-/blob/master/PACKAGES.md
+
+for instructions on how to build your own packages. These packages are
+unofficial! Although I do dogfood most of them and the `.jar` gets thorough
+testing.
 
 Issues
 ------
