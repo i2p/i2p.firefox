@@ -8,3 +8,8 @@
 #hidenav {display:block; }
 #shownav:target {display: block; }
 #hidenav:target {display: none; }
+
+#donate {display:none; }
+#hidedonate {display:block; }
+#donate:target {display: block; }
+#hidedonate:target {display: none; }

@@ -153,5 +153,12 @@ input {
 
 #navbar {
 	float: right;
-	width: 10%;
+	width: 15%;
+}
+#returnhome {
+    font-size: xxx-large;
+    display: inline;
+}
+h1 {
+    display: inline;
 }
