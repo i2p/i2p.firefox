@@ -198,7 +198,7 @@ to http://git.idk.i2p/idk/i2p.plugins.native which is more stable,
 easier to build and use, and easier to incorporate into other
 projects.
 
- - https://i2pgit.org/idk/i2p.plugins.firefox/-/blob/master/docker.sh
+ - https://git.idk.i2p/idk/i2p.plugins.firefox/-/blob/main/docker.sh
 
 Unix Support
 ------------
