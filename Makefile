@@ -39,16 +39,8 @@ help: version
 	@echo "$(preset)"
 
 prep: #launchers build/licenses profile.tgz app-profile.tgz profile build/I2P build/I2P/config #
-	make launchers
-	echo "launchers" >make.log
 	make build/licenses
 	echo "licenses" >make.log
-	make profile.tgz
-	echo "profilezip" >make.log
-	make app-profile.tgz
-	echo "appprofile" >make.log
-	make profile 
-	echo "profile" >make.log
 	make build/I2P
 	echo "buildi2p" >make.log
 	make build/I2P/config
@@ -129,23 +121,9 @@ build:
 	@echo "creating build directory"
 	mkdir -p build
 
-include makefiles/profile.mk
-
-include makefiles/app-profile.mk
-
--include makefiles/new-extensions.mk
-
-include makefiles/extensions.mk
-
-include makefiles/build.mk
-
-include makefiles/install.mk
-
 include makefiles/su.mk
 
 include makefiles/su-unsigned.mk
-
-include makefiles/docker.mk
 
 include makefiles/debian.mk
 
