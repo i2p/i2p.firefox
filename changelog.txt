@@ -1,3 +1,7 @@
+2022-09-18 idk
+ * remove unstable/deprecated targets from Makefile.
+ * make it fatal if a jpackaged I2P is not found, the profile launcher is now part of the jpackage
+
 2022-09-16 idk
  * remove unstable/deprecated functionality. Better solutions have been developed and instructions
  on how to use them are provided.
