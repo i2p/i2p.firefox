@@ -56,7 +56,7 @@
     </h2>
     <ul>
       <li>
-        Automatically select an up-to-date, secure Firefox or Tor Browser(On Windows) variant
+        Automatically select an up-to-date, secure browser from the host platform, with Tor Browser and Firefox preferred.
       </li>
       <li>
         Automatically configure a profile for I2P
@@ -65,7 +65,7 @@
         Automatically block-list all non-I2P local destinations
       </li>
       <li>
-        Enable first-party isolation, anti-fingerprinting, letterboxing
+        Enable first-party isolation, anti-fingerprinting, letterboxing, fusion, other privacy and security options
       </li>
       <li>
         Automatically sandbox I2P, Non-I2P, and I2P-Application cookiestores
@@ -75,7 +75,8 @@
       Build Dependencies:
     </h2>
     <p>
-      To build this, you will need the following software packages (all available in Debian and Ubuntu, see WSL section below) :
+      To build this, you will need the following software packages
+      (all available in Debian and Ubuntu, see WSL section below):
     </p>
     <ul>
       <li>
@@ -94,6 +95,18 @@
         jq
       </li>
     </ul>
+    <p>
+      These need to be installed in the environment where the NSIS
+      Package is build, NOT the environment where the java package
+      is built. These may be different, because you will need to
+      use a system which provides a Unix-like environment on top of
+      a Windows system. You can use WSL or Cygwin, and more detailed
+      instructions are provided below.
+    </p>
+    <p>
+      Building for Windows target from Linux is not possible unless
+      you obtain a Windows package from my github.
+    </p>
     <p>
       In addition, you will need the NSIS plugin &ldquo;ShellExecAsUser&rdquo; which you can get from the
       <a href="https://nsis.sourceforge.io/ShellExecAsUser_plug-in">
@@ -168,6 +181,9 @@
       </code>
       . You must have Git for Windows installed. When installing git for Windows,
       you should select &ldquo;Checkout as is, commit as is&rdquo; and leave line-endings alone.
+    </p>
+    <p>
+      The Windows build tools listed above must be installed on the Windows host machine.
     </p>
     <p>
       TODO: Add links to the respective instructions for each of these.
@@ -329,7 +345,7 @@
         <p>
           Install prerequisites
           <code>
-            wsl sudo apt-get update &amp;&amp; sudo apt-get install make nsis dos2unix curl jq
+            wsl sudo apt-get update &amp;&amp; sudo apt-get install make nsis nsis-pluginapi dos2unix curl jq
           </code>
         </p>
       </li>
