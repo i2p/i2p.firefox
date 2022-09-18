@@ -4,10 +4,10 @@ I2P Easy-Install Bundle for Windows(Also/formerly)I2P Browsing Profile for Firef
 Features:
 ---------
 
-- Automatically select an up-to-date, secure Firefox or Tor Browser(On Windows) variant
+- Automatically select an up-to-date, secure browser from the host platform, with Tor Browser and Firefox preferred.
 - Automatically configure a profile for I2P
 - Automatically block-list all non-I2P local destinations
-- Enable first-party isolation, anti-fingerprinting, letterboxing
+- Enable first-party isolation, anti-fingerprinting, letterboxing, fusion, other privacy and security options
 - Automatically sandbox I2P, Non-I2P, and I2P-Application cookiestores
 
 Build Dependencies:
@@ -101,7 +101,7 @@ Ubuntu in WSL.
  1. [Set up Windows Subsystem for Linux per Microsoft's instructions](https://docs.microsoft.com/en-us/windows/wsl/install-win10#manual-installation-steps)
  2. [Install Ubuntu Focal per Microsoft's instructions](https://www.microsoft.com/store/apps/9n6svws3rx71)
  3. Open Git Bash.
- 4. Install prerequisites `wsl sudo apt-get update && sudo apt-get install make nsis dos2unix curl jq`
+ 4. Install prerequisites `wsl sudo apt-get update && sudo apt-get install make nsis nsis-pluginapi dos2unix curl jq`
  5. Clone `i2p.i2p` and `i2p.firefox`
 
         git clone https://github.com/i2p/i2p.i2p
