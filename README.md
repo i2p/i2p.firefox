@@ -194,7 +194,7 @@ Docker Support
 --------------
 
 **MOVED, DEPRECATION NOTICE:** Most of this functionality has been moved
-to http://git.idk.i2p/idk/i2p.plugins.native which is more stable,
+to http://git.idk.i2p/idk/i2p.plugins.firefox which is more stable,
 easier to build and use, and easier to incorporate into other
 projects.
 
@@ -204,7 +204,7 @@ Unix Support
 ------------
 
 **MOVED. DEPRECATION NOTICE:** Most of this functionality has been moved
-to http://git.idk.i2p/idk/i2p.plugins.native which is more stable,
+to http://git.idk.i2p/idk/i2p.plugins.firefox which is more stable,
 easier to build and use, and easier to incorporate into other
 projects. It is the better option for nearly every non-Windows case
 right now. You can get binary packages from:
