@@ -13,13 +13,24 @@ Features:
 Build Dependencies:
 -------------------
 
-To build this, you will need the following software packages (all available in Debian and Ubuntu, see WSL section below) :
+To build this, you will need the following software packages
+(all available in Debian and Ubuntu, see WSL section below):
 
 - make
 - nsis
 - dos2unix
 - curl
 - jq
+
+These need to be installed in the environment where the NSIS
+Package is build, NOT the environment where the java package
+is built. These may be different, because you will need to
+use a system which provides a Unix-like environment on top of
+a Windows system. You can use WSL or Cygwin, and more detailed
+instructions are provided below.
+
+Building for Windows target from Linux is not possible unless
+you obtain a Windows package from my github.
 
 In addition, you will need the NSIS plugin "ShellExecAsUser" which you can get from the
 [NSIS Wiki Page](https://nsis.sourceforge.io/ShellExecAsUser_plug-in). In order to install
@@ -40,6 +51,8 @@ environment variable configured and `%ANT_HOME%/bin` on your `%PATH%`. You must 
 Cygwin installed. You must have `NSIS.exe` installed and `makensis` available on your
 `%PATH%`. You must have Git for Windows installed. When installing git for Windows,
 you should select "Checkout as is, commit as is" and leave line-endings alone.
+
+The Windows build tools listed above must be installed on the Windows host machine.
 
 TODO: Add links to the respective instructions for each of these.
 
