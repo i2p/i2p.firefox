@@ -35,7 +35,7 @@ if [ -f ./i2pversion_override ]; then
   . ./i2pversion_override
 fi
 
-TODAYSDATE=$(date +%Y%m%d)-"Java 19 Dev Build"
+TODAYSDATE="$(date +%Y%m%d).java.19.dev.build"
 
 if [ -z "$DESCRIPTION" ]; then
   DESCRIPTION="Daily unsigned build of i2p.firefox for $TODAYSDATE"
