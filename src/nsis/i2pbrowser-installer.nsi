@@ -148,7 +148,7 @@ Function routerDetect
     File /a /r "I2P\runtime\"
     SetOutPath $I2PINSTEXE
     File /a /r "I2P\I2P.exe"
-    File /a /r "I2P\I2P.ico"
+    File /a /r "I2P\ui2pbrowser_icon.ico"
     File "I2P\config\jpackaged"
 
     createDirectory "$I2PINSTEXE\"
