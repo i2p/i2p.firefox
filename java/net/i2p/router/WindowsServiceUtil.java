@@ -69,18 +69,25 @@ public class WindowsServiceUtil {
     }
     return statePrefix;
   }
-  public static String getServiceState(String serviceName) {
+  public static int getServiceStateInt(String serviceName) {
     // String statePrefix = "STATE              : ";
     String qResult = queryService(serviceName);
     String statePrefix = getStatePrefix(qResult);
     // check that the temp string contains the status prefix
     int ix = qResult.indexOf(statePrefix);
-    String stateString = "uninstalled";
     if (ix >= 0) {
       // compare status number to one of the states
       String stateStr = qResult.substring(ix + statePrefix.length(),
                                           ix + statePrefix.length() + 1);
       int state = Integer.parseInt(stateStr);
+      return state;
+    }
+    return -2;
+  }
+ 
+  public static String getServiceState(String serviceName) {
+    String stateString = "uninstalled";
+      int state = getServiceStateInt(serviceName);
       switch (state) {
       case (1): // service stopped
         stateString = "stopped";
@@ -95,11 +102,21 @@ public class WindowsServiceUtil {
         stateString = "started";
         break;
       }
-    }
     return stateString;
   }
   public static void main(String args[]) {
     String state = getServiceState("i2p");
-    System.out.println("state: " + state);
+    int stateInt = getServiceStateInt("i2p");
+    System.out.println("state: " + state + " code: " + stateInt);
+    String State = getServiceState("I2P");
+    int StateInt = getServiceStateInt("I2P");
+    System.out.println("state: " + State + " code: " + StateInt);
+    String dhcpstate = getServiceState("DHCP Client");
+    int dhcpstateInt = getServiceStateInt("DHCP Client");
+    System.out.println("state: " + dhcpstate + " code: " + dhcpstateInt);
+    String dstate = getServiceState("Dhcp");
+    int dstateInt = getServiceStateInt("Dhcp");
+    System.out.println("state: " + dstate + " code: " + dstateInt);
+    
   }
 }
