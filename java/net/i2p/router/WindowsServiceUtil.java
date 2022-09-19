@@ -110,7 +110,7 @@ public class WindowsServiceUtil {
       if (!isStart(serviceName)) {
         int a;
         String message="It appears you have an existing I2P service installed.\n";
-        String message+="However, it is not running yet. Would you like to start it?\n";
+        message+="However, it is not running yet. Would you like to start it?\n";
         a = JOptionPane.showConfirmDialog(
             null, message, "I2P Service detected not running",
             JOptionPane.YES_NO_OPTION);
