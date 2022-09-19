@@ -3,6 +3,8 @@
 SCRIPT_DIR=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd -P)
 cd "$SCRIPT_DIR" || exit 1
 
+cp -v "$SCRIPT_DIR/config_override.example.sh" config_override.sh
+
 . "$SCRIPT_DIR/i2pversion"
 
 if [ -f i2pversion_override ]; then
@@ -10,8 +12,6 @@ if [ -f i2pversion_override ]; then
 fi
 
 . "$SCRIPT_DIR/config.sh"
-
-cp -v "$SCRIPT_DIR/config_override.example.sh" config_override.sh
 
 if [ -f config_overide.sh ]; then
   . "$SCRIPT_DIR/config_override.sh"
