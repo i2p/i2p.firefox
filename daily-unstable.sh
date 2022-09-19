@@ -38,12 +38,12 @@ fi
 TODAYSDATE="$(date +%Y%m%d).java.19.dev.build"
 
 if [ -z "$DESCRIPTION" ]; then
-  DESCRIPTION="Daily unsigned build of i2p.firefox for $TODAYSDATE\n"
-  DESCRIPTION+="===================================================\n"
-  DESCRIPTION+="\n"
-  DESCRIPTION+="These builds are automatically built on a daily basis and may have serious bugs.\n"
-  DESCRIPTION+="They are intended for testing purposes only, use them at your own risk.\n"
-  DESCRIPTION+="\n"
+DESCRIPTION="Daily unsigned build of i2p.firefox for $TODAYSDATE
+===================================================
+
+These builds are automatically built on a daily basis and may have serious bugs.
+They are intended for testing purposes only, use them at your own risk.
+"
 fi
 
 echo github-release release -p -u "$GITHUB_USERNAME" -r "i2p.firefox" -n "$TODAYSDATE" -d "$DESCRIPTION" -t "$TODAYSDATE"

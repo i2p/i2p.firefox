@@ -3,6 +3,8 @@
 SCRIPT_DIR=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd -P)
 cd "$SCRIPT_DIR" || exit 1
 
+cp -v "$SCRIPT_DIR/config_override.example.sh" config_override.sh
+
 . "$SCRIPT_DIR/i2pversion"
 
 if [ -f i2pversion_override ]; then
@@ -21,15 +23,15 @@ if [ -f ./i2pversion_override ]; then
   . ./i2pversion_override
 fi
 
-TODAYSDATE=$(date +%Y%m%d)
+TODAYSDATE="$(date +%Y%m%d).java.19.dev.build"
 
 if [ -z "$DESCRIPTION" ]; then
-  DESCRIPTION="Daily unsigned build of i2p.firefox for $TODAYSDATE\n"
-  DESCRIPTION+="===================================================\n"
-  DESCRIPTION+="\n"
-  DESCRIPTION+="These builds are automatically built on a daily basis and may have serious bugs.\n"
-  DESCRIPTION+="They are intended for testing purposes only, use them at your own risk.\n"
-  DESCRIPTION+="\n"
+DESCRIPTION="Daily unsigned build of i2p.firefox for $TODAYSDATE
+===================================================
+
+These builds are automatically built on a daily basis and may have serious bugs.
+They are intended for testing purposes only, use them at your own risk.
+"
 fi
 
 echo github-release edit -p -u "$GITHUB_USERNAME" -r "i2p.firefox" -n "$TODAYSDATE" -d "$DESCRIPTION" -t "$TODAYSDATE"
