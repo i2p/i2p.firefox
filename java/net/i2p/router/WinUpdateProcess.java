@@ -1,6 +1,7 @@
 package net.i2p.router;
 
 import java.io.*;
+import java.util.Map;
 import java.util.function.*;
 import net.i2p.I2PAppContext;
 import net.i2p.router.*;
@@ -43,15 +44,15 @@ class WinUpdateProcess implements Runnable {
     if (file == null)
       return;
 
-    var workingDir = workDir();
-    var logFile = new File(workingDir, "log-" + version + ".txt");
+    File workingDir = workDir();
+    File logFile = new File(workingDir, "log-" + version + ".txt");
 
     if (logFile.canWrite()) {
       // check if we can write to the log file. If we can, use the
       // ProcessBuilder to run the installer.
       ProcessBuilder pb = new ProcessBuilder(
           file.getAbsolutePath(), "/S", "/D=" + workingDir.getAbsolutePath());
-      var env = pb.environment();
+        Map<String, String> env = pb.environment();
       env.put("OLD_I2P_VERSION", version);
       env.remove("RESTART_I2P");
 

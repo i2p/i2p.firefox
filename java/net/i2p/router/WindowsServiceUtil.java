@@ -29,7 +29,7 @@ import java.io.InputStreamReader;
 
 public class WindowsServiceUtil {
   public WindowsServiceUtil() {}
-  private String queryService(String serviceName) {
+  public static String queryService(String serviceName) {
     String result = "";
     String line;
     ProcessBuilder pb = new ProcessBuilder("sc", "query", serviceName);
@@ -43,13 +43,16 @@ public class WindowsServiceUtil {
           result += line;
         }
       } catch (InterruptedException e) {
+        System.err.println(e.toString());
       } catch (IOException e) {
+        System.err.println(e.toString());
       }
     } catch (IOException e) {
+      System.err.println(e.toString());
     }
     return result;
   }
-  private String getStatePrefix(String qResult) {
+  public static String getStatePrefix(String qResult) {
     String statePrefix = "STATE              : ";
     // get the first occurrence of "STATE", then find the
     // next occurrence of of ":" after that. Count the
@@ -66,7 +69,7 @@ public class WindowsServiceUtil {
     }
     return statePrefix;
   }
-  public String getServiceState(String serviceName) {
+  public static String getServiceState(String serviceName) {
     // String statePrefix = "STATE              : ";
     String qResult = queryService(serviceName);
     String statePrefix = getStatePrefix(qResult);
@@ -94,5 +97,9 @@ public class WindowsServiceUtil {
       }
     }
     return stateString;
+  }
+  static void main(String args[]) {
+    String state = getServiceState("i2p");
+    System.out.println("state: " + state);
   }
 }
