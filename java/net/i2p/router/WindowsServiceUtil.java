@@ -106,7 +106,7 @@ public class WindowsServiceUtil {
   }
 
   public static boolean promptServiceStartIfAvailable(String serviceName) {
-    if (osName() != "windows"){
+    if (osName() != "windows") {
       return true;
     }
     if (isInstalled(serviceName)) {
@@ -116,7 +116,8 @@ public class WindowsServiceUtil {
             "It appears you have an existing I2P service installed.\n";
         message +=
             "However, it is not running yet. Please start it through `services.msc`.\n";
-        message +="If you click \"No\", the jpackage router will be launched instead.\n";
+        message +=
+            "If you click \"No\", the jpackage router will be launched instead.\n";
         a = JOptionPane.showConfirmDialog(null, message,
                                           "I2P Service detected not running",
                                           JOptionPane.YES_NO_OPTION);
@@ -135,6 +136,10 @@ public class WindowsServiceUtil {
       return true;
     }
     return true;
+  }
+
+  public static String ServiceUpdaterString() {
+    return "http://tc73n4kivdroccekirco7rhgxdg5f3cjvbaapabupeyzrqwv5guq.b32.i2p/news.su3";
   }
 
   public static String getServiceState(String serviceName) {

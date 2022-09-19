@@ -89,8 +89,9 @@ public class WinLauncher extends CopyConfigDir {
     File home = homeDir();
 
     boolean continuerunning = promptServiceStartIfAvailable("i2p");
-    if (!continuerunning){
-      logger.severe("Service startup failure, please start I2P service with services.msc");
+    if (!continuerunning) {
+      logger.severe(
+          "Service startup failure, please start I2P service with services.msc");
       System.exit(2);
     }
 
@@ -121,12 +122,14 @@ public class WinLauncher extends CopyConfigDir {
       System.exit(0);
     }
     i2pRouter = new Router(routerConfig(), System.getProperties());
-    if (i2pRouter.saveConfig("routerconsole.browser", null)) {
-      logger.info("removed routerconsole.browser config");
-    }
-    if (i2pRouter.saveConfig("routerconsole.browser",
-                             appImageExe() + " -noproxycheck")) {
-      logger.info("updated routerconsole.browser config " + appImageExe());
+    if (!isInstalled("i2p")) {
+      if (i2pRouter.saveConfig("routerconsole.browser", null)) {
+        logger.info("removed routerconsole.browser config");
+      }
+      if (i2pRouter.saveConfig("routerconsole.browser",
+                               appImageExe() + " -noproxycheck")) {
+        logger.info("updated routerconsole.browser config " + appImageExe());
+      }
     }
     logger.info("Router is configured");
 
