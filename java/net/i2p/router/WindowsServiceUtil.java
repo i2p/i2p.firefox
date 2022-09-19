@@ -98,7 +98,7 @@ public class WindowsServiceUtil {
     }
     return stateString;
   }
-  static void main(String args[]) {
+  public static void main(String args[]) {
     String state = getServiceState("i2p");
     System.out.println("state: " + state);
   }
