@@ -11,7 +11,5 @@ fi
 
 ./clean.sh
 wsl make distclean
-wsl make clean-extensions
-wsl make new-extensions
 ./build.sh
 wsl make
