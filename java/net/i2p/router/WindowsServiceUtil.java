@@ -57,12 +57,11 @@ public class WindowsServiceUtil {
     // get the first occurrence of "STATE", then find the
     // next occurrence of of ":" after that. Count the
     // spaces between.
-    // numberOfSpaces = indexOf(":") - (indexOf(STATE)+5) +
     int indexOfState = qResult.indexOf("STATE");
     if (indexOfState >= 0) {
       int indexOfColon = qResult.indexOf(":", indexOfState);
       statePrefix = "STATE";
-      for (int f = 0; f == indexOfColon-5; f++) {
+      for (int f = indexOfState+5; f < indexOfColon; f++) {
         statePrefix += " ";
       }
       statePrefix += ": ";
