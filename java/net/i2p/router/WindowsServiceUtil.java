@@ -3,6 +3,7 @@ package net.i2p.router;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import javax.swing.JOptionPane;
 
 /*
  * Provides querying of Windows services in order to discover I2P Routers
@@ -84,6 +85,42 @@ public class WindowsServiceUtil {
     return -2;
   }
 
+  public static boolean isInstalled(String serviceName) {
+    if (getServiceState(serviceName).equals("uninstalled")) {
+      return false;
+    }
+    return true;
+  }
+
+  public static boolean isStart(String serviceName) {
+    if (getServiceState(serviceName).equals("started")) {
+      return true;
+    }
+    if (getServiceState(serviceName).equals("starting")) {
+      return true;
+    }
+    if (getServiceState(serviceName).equals("resuming")) {
+      return true;
+    }
+    return false;
+  }
+
+  public static void promptServiceStartIfAvailable(String serviceName) {
+    if (isInstalled(serviceName)) {
+      if (!isStart(serviceName)) {
+        int a;
+        String message="It appears you have an existing I2P service installed.\n";
+        String message+="However, it is not running yet. Would you like to start it?\n";
+        a = JOptionPane.showConfirmDialog(
+            null, message, "I2P Service detected not running",
+            JOptionPane.YES_NO_OPTION);
+        if (a == JOptionPane.NO_OPTION) {
+        } else {
+        }
+      }
+    }
+  }
+
   public static String getServiceState(String serviceName) {
     String stateString = "uninstalled";
     int state = getServiceStateInt(serviceName);
@@ -118,5 +155,6 @@ public class WindowsServiceUtil {
     String state = getServiceState("i2p");
     int stateInt = getServiceStateInt("i2p");
     System.out.println("i2p state: " + state + " code: " + stateInt);
+    promptServiceStartIfAvailable("i2p");
   }
 }
