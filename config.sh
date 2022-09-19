@@ -28,7 +28,7 @@ fi
 ## This isn't a default install location, obviously, it's where I unzipped it.
 ## It won't work for you unless you kurtly tell Windows that your name is `user`
 ## every time you make an account, like I do.
-## C:\Users\user\Downloads\openjdk-19_windows-x64_bin\jdk-19
+## /c/Users/user/Downloads/openjdk-19_windows-x64_bin/jdk-19
 
 ## Other potential values(NOT exhaustive):
 
