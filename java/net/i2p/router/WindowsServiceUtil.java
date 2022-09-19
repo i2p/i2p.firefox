@@ -107,16 +107,16 @@ public class WindowsServiceUtil {
   public static void main(String args[]) {
     String state = getServiceState("i2p");
     int stateInt = getServiceStateInt("i2p");
-    System.out.println("state: " + state + " code: " + stateInt);
+    System.out.println("i2p state: " + state + " code: " + stateInt);
     String State = getServiceState("I2P");
     int StateInt = getServiceStateInt("I2P");
-    System.out.println("state: " + State + " code: " + StateInt);
+    System.out.println("I2P state: " + State + " code: " + StateInt);
     String dhcpstate = getServiceState("DHCP Client");
     int dhcpstateInt = getServiceStateInt("DHCP Client");
-    System.out.println("state: " + dhcpstate + " code: " + dhcpstateInt);
+    System.out.println("DHCP Client state: " + dhcpstate + " code: " + dhcpstateInt);
     String dstate = getServiceState("Dhcp");
     int dstateInt = getServiceStateInt("Dhcp");
-    System.out.println("state: " + dstate + " code: " + dstateInt);
+    System.out.println("Dhcp state: " + dstate + " code: " + dstateInt);
     
   }
 }
