@@ -48,6 +48,7 @@ fi
 
 echo github-release release -p -u "$GITHUB_USERNAME" -r "i2p.firefox" -n "$TODAYSDATE" -d "$DESCRIPTION" -t "$TODAYSDATE"
 github-release release -p -u "$GITHUB_USERNAME" -r "i2p.firefox" -n "$TODAYSDATE" -d "$DESCRIPTION" -t "$TODAYSDATE"
+sleep 2s;
 EXECHECKSUM=$(sha256sum "I2P-Easy-Install-Bundle-$I2P_VERSION.exe")
 echo github-release upload -R -u "$GITHUB_USERNAME" -r "i2p.firefox" -f "I2P-Easy-Install-Bundle-$I2P_VERSION.exe" -l "Java 19 Development Build - $EXECHECKSUM" -t "$TODAYSDATE" -n "I2P-Easy-Install-Bundle-$I2P_VERSION.exe"
 github-release upload -R -u "$GITHUB_USERNAME" -r "i2p.firefox" -f "I2P-Easy-Install-Bundle-$I2P_VERSION.exe" -l "Java 19 Development Build - $EXECHECKSUM" -t "$TODAYSDATE" -n "I2P-Easy-Install-Bundle-$I2P_VERSION.exe"
