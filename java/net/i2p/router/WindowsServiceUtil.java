@@ -104,17 +104,10 @@ public class WindowsServiceUtil {
     return stateString;
   }
   public static void main(String args[]) {
+    // when querying the I2P router service installed by the IzPack installer
+    // this is the correct call.
     String state = getServiceState("i2p");
     int stateInt = getServiceStateInt("i2p");
-    System.out.println("i2p state: " + state + " code: " + stateInt);
-    String State = getServiceState("I2P");
-    int StateInt = getServiceStateInt("I2P");
-    System.out.println("I2P state: " + State + " code: " + StateInt);
-
-    // Because of this, we know we must query the registry name of the service
-    String dstate = getServiceState("Dhcp");
-    int dstateInt = getServiceStateInt("Dhcp");
-    System.out.println("Dhcp state: " + dstate + " code: " + dstateInt);
-    
+    System.out.println("i2p state: " + state + " code: " + stateInt);    
   }
 }
