@@ -11,10 +11,6 @@ fi
 
 . "$SCRIPT_DIR/config.sh"
 
-if [ -f config_overide.sh ]; then
-  . "$SCRIPT_DIR/config_override.sh"
-fi
-
 ### How to set up this script:
 #
 # This script will not work unless you give it a Github API key.
