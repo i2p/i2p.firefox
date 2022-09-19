@@ -27,6 +27,7 @@ fi
 # GITHUB_USERNAME=your github username
 git clean -fd
 git checkout .
+cp -v "$SCRIPT_DIR/config_override.example.sh" config_override.sh
 ./unsigned.sh
 
 . "$HOME/github-release-config.sh"
