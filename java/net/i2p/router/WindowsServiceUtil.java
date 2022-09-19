@@ -109,14 +109,25 @@ public class WindowsServiceUtil {
     if (isInstalled(serviceName)) {
       if (!isStart(serviceName)) {
         int a;
-        String message="It appears you have an existing I2P service installed.\n";
-        message+="However, it is not running yet. Would you like to start it?\n";
-        a = JOptionPane.showConfirmDialog(
-            null, message, "I2P Service detected not running",
-            JOptionPane.YES_NO_OPTION);
+        String message =
+            "It appears you have an existing I2P service installed.\n";
+        message +=
+            "However, it is not running yet. Would you like to start it?\n";
+        a = JOptionPane.showConfirmDialog(null, message,
+                                          "I2P Service detected not running",
+                                          JOptionPane.YES_NO_OPTION);
         if (a == JOptionPane.NO_OPTION) {
+          // Do nothing here, this will continue on to launch a jpackaged router
         } else {
+          // We can't just call `net start` or `sc start` directly, that throws
+          // a permission error. We can start services.msc though, where the
+          // user can start the service themselves. OR maybe we ask for
+          // elevation here? May need to refactor Elevator and Shell32X to
+          // achieve it though
         }
+      } else {
+        // Here, the service is already started, so I2P should appear to be
+        // running to the other checks.
       }
     }
   }
