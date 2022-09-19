@@ -17,6 +17,8 @@ jpackage --name I2P-EXE --app-version "$I2P_VERSION" \
     --java-options "--add-opens java.base/java.util.Properties.defaults=ALL-UNNAMED" \
     $JPACKAGE_OPTS \
     --app-content src/I2P/config \
+    --app-content src/icons/ui2pbrowser_icon.ico \
+    --icon src/icons/ui2pbrowser_icon.ico \
     --input build \
     --verbose \
     --type exe \
