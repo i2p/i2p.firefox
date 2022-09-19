@@ -39,6 +39,7 @@ make src/I2P/config
   --resource-dir build \
   --app-content src/I2P/config \
   --app-content src/icons/windowsUIToopie2.png \
+  --app-content src/icons/ui2pbrowser_icon.ico \
   --icon src/icons/windowsUIToopie2.png \
   --input build --main-jar launcher.jar --main-class net.i2p.router.WinLauncher
 
