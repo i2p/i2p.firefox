@@ -111,9 +111,8 @@ public class WindowsServiceUtil {
     String State = getServiceState("I2P");
     int StateInt = getServiceStateInt("I2P");
     System.out.println("I2P state: " + State + " code: " + StateInt);
-    String dhcpstate = getServiceState("DHCP Client");
-    int dhcpstateInt = getServiceStateInt("DHCP Client");
-    System.out.println("DHCP Client state: " + dhcpstate + " code: " + dhcpstateInt);
+
+    // Because of this, we know we must query the registry name of the service
     String dstate = getServiceState("Dhcp");
     int dstateInt = getServiceStateInt("Dhcp");
     System.out.println("Dhcp state: " + dstate + " code: " + dstateInt);
