@@ -13,7 +13,7 @@ fi
 
 . "$SCRIPT_DIR/config.sh"
 
-if [ -f config_overide.sh ]; then
+if [ -f "$SCRIPT_DIR/config_override.sh" ]; then
   . "$SCRIPT_DIR/config_override.sh"
 fi
 

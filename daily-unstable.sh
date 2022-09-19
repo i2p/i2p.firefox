@@ -11,11 +11,8 @@ if [ -f i2pversion_override ]; then
     . "$SCRIPT_DIR/i2pversion_override"
 fi
 
-. "$SCRIPT_DIR/config.sh"
+. "$SCRIPT_DIR/config_override.sh"
 
-if [ -f config_overide.sh ]; then
-  . "$SCRIPT_DIR/config_override.sh"
-fi
 
 ### How to set up this script:
 #
