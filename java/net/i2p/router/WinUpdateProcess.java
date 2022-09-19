@@ -52,7 +52,7 @@ class WinUpdateProcess implements Runnable {
       // ProcessBuilder to run the installer.
       ProcessBuilder pb = new ProcessBuilder(
           file.getAbsolutePath(), "/S", "/D=" + workingDir.getAbsolutePath());
-        Map<String, String> env = pb.environment();
+      Map<String, String> env = pb.environment();
       env.put("OLD_I2P_VERSION", version);
       env.remove("RESTART_I2P");
 

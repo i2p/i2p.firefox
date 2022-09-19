@@ -61,7 +61,7 @@ public class WindowsServiceUtil {
     if (indexOfState >= 0) {
       int indexOfColon = qResult.indexOf(":", indexOfState);
       statePrefix = "STATE";
-      for (int f = indexOfState+5; f < indexOfColon; f++) {
+      for (int f = indexOfState + 5; f < indexOfColon; f++) {
         statePrefix += " ";
       }
       statePrefix += ": ";
@@ -83,24 +83,33 @@ public class WindowsServiceUtil {
     }
     return -2;
   }
- 
+
   public static String getServiceState(String serviceName) {
     String stateString = "uninstalled";
-      int state = getServiceStateInt(serviceName);
-      switch (state) {
-      case (1): // service stopped
-        stateString = "stopped";
-        break;
-      case (2): // service starting
-        stateString = "starting";
-        break;
-      case (3): // don't know yet
-        // stateString = "started";
-        break;
-      case (4): // service started
-        stateString = "started";
-        break;
-      }
+    int state = getServiceStateInt(serviceName);
+    switch (state) {
+    case (1): // service stopped
+      stateString = "stopped";
+      break;
+    case (2): // service starting
+      stateString = "starting";
+      break;
+    case (3): // service stopping
+      stateString = "stopping";
+      break;
+    case (4): // service started
+      stateString = "started";
+      break;
+    case (5): // service resuming from pause
+      stateString = "resuming";
+      break;
+    case (6): // service pausing
+      stateString = "pausing";
+      break;
+    case (7): // service paused
+      stateString = "paused";
+      break;
+    }
     return stateString;
   }
   public static void main(String args[]) {
@@ -108,6 +117,6 @@ public class WindowsServiceUtil {
     // this is the correct call.
     String state = getServiceState("i2p");
     int stateInt = getServiceStateInt("i2p");
-    System.out.println("i2p state: " + state + " code: " + stateInt);    
+    System.out.println("i2p state: " + state + " code: " + stateInt);
   }
 }
