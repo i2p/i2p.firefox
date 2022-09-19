@@ -16,7 +16,7 @@ if [ -f config_overide.sh ]; then
   . "$SCRIPT_DIR/config_override.sh"
 fi
 
-./launcher.sh
+. "$SCRIPT_DIR/launcher.sh"
 
 if [ -z $I2P_VERSION ]; then 
     I2P_VERSION=$("$JAVA_HOME"/bin/java -cp build/router.jar net.i2p.router.RouterVersion | sed "s/.*: //" | head -n 1 | sed 's|-|.|g')

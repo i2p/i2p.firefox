@@ -19,7 +19,7 @@ fi
 COUNT="Ten Nine Eight Seven Six Five Four Three Two One"
 
 which java
-JAVA=$(java --version | tr -d 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ\n' | cut -d ' ' -f 2 | cut -d '.' -f 1 | tr -d '\n\t\- ')
+export JAVA=$(java --version | tr -d 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ\n' | cut -d ' ' -f 2 | cut -d '.' -f 1 | tr -d '\n\t\- ')
 
 if [ "$JAVA" -lt "14" ]; then
   echo "Java 14+ must be used to compile with jpackage, java is $JAVA"
@@ -30,10 +30,10 @@ if [ "$JAVA" -lt "17" ]; then
 fi
 
 if [ -z "${JAVA_HOME}" ]; then
-  JAVA_HOME=`type -p java|xargs readlink -f|xargs dirname|xargs dirname`
+  export JAVA_HOME=`type -p java|xargs readlink -f|xargs dirname|xargs dirname`
 fi
 if [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
-  JAVA_HOME=`type -p java|xargs readlink -f|xargs dirname|xargs dirname`
+  export JAVA_HOME=`type -p java|xargs readlink -f|xargs dirname|xargs dirname`
 fi
 echo "Building with: $JAVA, $JAVA_HOME"
 sleep 5s
@@ -50,10 +50,10 @@ done
 ant distclean pkg || true
 
 cd "$HERE"
-I2P_PKG="$HERE/../i2p.i2p.jpackage-build/pkg-temp"
-RES_DIR="$HERE/../i2p.i2p.jpackage-build/installer/resources"
-I2P_JARS="$I2P_PKG/lib"
-I2P_JBIGI="$HERE/../i2p.i2p.jpackage-build/installer/lib/jbigi"
+export I2P_PKG="$HERE/../i2p.i2p.jpackage-build/pkg-temp"
+export RES_DIR="$HERE/../i2p.i2p.jpackage-build/installer/resources"
+export I2P_JARS="$I2P_PKG/lib"
+export I2P_JBIGI="$HERE/../i2p.i2p.jpackage-build/installer/lib/jbigi"
 
 echo "compiling custom launcher"
 mkdir -p build
