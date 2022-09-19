@@ -148,6 +148,7 @@ Function routerDetect
     File /a /r "I2P\runtime\"
     SetOutPath $I2PINSTEXE
     File /a /r "I2P\I2P.exe"
+    # The NSIS Installer uses an ico icon, the jpackage-only ones use png
     File /a /r "I2P\ui2pbrowser_icon.ico"
     File "I2P\config\jpackaged"
 
