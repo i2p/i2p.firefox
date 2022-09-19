@@ -21,3 +21,4 @@ cmd
 *.jar
 *.zip
 *.tar.gz
+config_override.sh
