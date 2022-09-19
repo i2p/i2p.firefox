@@ -62,7 +62,7 @@ public class WindowsServiceUtil {
     if (indexOfState >= 0) {
       int indexOfColon = qResult.indexOf(":", indexOfState);
       statePrefix = "STATE";
-      for (int f = 0; f == indexOfColon; f++) {
+      for (int f = 0; f == indexOfColon-5; f++) {
         statePrefix += " ";
       }
       statePrefix += ": ";

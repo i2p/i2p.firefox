@@ -77,7 +77,8 @@ cd java
   net/i2p/router/Shell32X.java \
   net/i2p/router/WinLauncher.java \
   net/i2p/router/WindowsUpdatePostProcessor.java \
-  net/i2p/router/WinUpdateProcess.java
+  net/i2p/router/WinUpdateProcess.java \
+  net/i2p/router/WindowsServiceUtil.java
 
 cd ..
 
