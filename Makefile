@@ -60,7 +60,6 @@ export I2P_JBIGI="../i2p.i2p.jpackage-build/installer/lib/jbigi"
 
 distclean: clean
 	rm -rf I2P
-	git clean -fd
 
 I2P:
 	./build.sh
