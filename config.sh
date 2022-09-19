@@ -7,9 +7,7 @@ uname=$(uname)
 
 #export PATH="$PATH:/c/Program Files/Java/jdk-17.0.3/bin/"
 #export JAVA_HOME="/c/Program Files/Java/jdk-17.0.3"
-# to use it for Oracle OpenJDK17
-
-## Other potential values(NOT exhaustive):
+# to use it for Oracle OpenJDK18
 
 if [[ -n "$IS_WSL" || -n "$WSL_DISTRO_NAME" ]]; then
     PATH="/c/Program Files/Java/jdk-18.0.2/bin/:$PATH:/c/Program Files/Java/jdk-18.0.2/bin/"
@@ -24,6 +22,15 @@ if [ "${uname}" != "Linux" ]; then
     JAVA_HOME="/c/Program Files/Java/jdk-18.0.2"
     export JAVA_HOME="/c/Program Files/Java/jdk-18.0.2"
 fi
+
+
+### TESTING: 
+## This isn't a default install location, obviously, it's where I unzipped it.
+## It won't work for you unless you kurtly tell Windows that your name is `user`
+## every time you make an account, like I do.
+## C:\Users\user\Downloads\openjdk-19_windows-x64_bin\jdk-19
+
+## Other potential values(NOT exhaustive):
 
 #export PATH="$PATH:/c/Program Files/Eclipse Adoptium/jdk-17.0.3/bin/"
 #export JAVA_HOME="/c/Program Files/Eclipse Adoptium/jdk-17.0.3"
