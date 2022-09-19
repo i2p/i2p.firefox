@@ -12,7 +12,7 @@ import java.util.logging.FileHandler;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
-public class CopyConfigDir {
+public class CopyConfigDir extends WindowsServiceUtil {
   static final Logger logger = Logger.getLogger("configlog");
 
   public static void initLogger() {
@@ -150,20 +150,6 @@ public class CopyConfigDir {
     File i2p = appImageHome();
     logger.info("Checking for signs of life in I2P directory: " + i2p);
     return i2p;
-  }
-
-  /**
-   * get the OS name(windows, mac, linux only)
-   *
-   * @return os name in lower-case, "windows" "mac" or  "linux"
-   */
-  protected static String osName() {
-    String osName = System.getProperty("os.name").toLowerCase();
-    if (osName.contains("windows"))
-      return "windows";
-    if (osName.contains("mac"))
-      return "mac";
-    return "linux";
   }
 
   /**

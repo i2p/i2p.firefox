@@ -105,19 +105,23 @@ public class WindowsServiceUtil {
     return false;
   }
 
-  public static void promptServiceStartIfAvailable(String serviceName) {
+  public static boolean promptServiceStartIfAvailable(String serviceName) {
+    if (osName() != "windows"){
+      return true;
+    }
     if (isInstalled(serviceName)) {
       if (!isStart(serviceName)) {
         int a;
         String message =
             "It appears you have an existing I2P service installed.\n";
         message +=
-            "However, it is not running yet. Would you like to start it?\n";
+            "However, it is not running yet. Please start it through `services.msc`.\n";
         a = JOptionPane.showConfirmDialog(null, message,
                                           "I2P Service detected not running",
                                           JOptionPane.YES_NO_OPTION);
         if (a == JOptionPane.NO_OPTION) {
           // Do nothing here, this will continue on to launch a jpackaged router
+          return true;
         } else {
           // We can't just call `net start` or `sc start` directly, that throws
           // a permission error. We can start services.msc though, where the
@@ -125,11 +129,11 @@ public class WindowsServiceUtil {
           // elevation here? May need to refactor Elevator and Shell32X to
           // achieve it though
         }
-      } else {
-        // Here, the service is already started, so I2P should appear to be
-        // running to the other checks.
+        return isStart("i2p");
       }
+      return true;
     }
+    return true;
   }
 
   public static String getServiceState(String serviceName) {
@@ -159,6 +163,20 @@ public class WindowsServiceUtil {
       break;
     }
     return stateString;
+  }
+
+  /**
+   * get the OS name(windows, mac, linux only)
+   *
+   * @return os name in lower-case, "windows" "mac" or  "linux"
+   */
+  protected static String osName() {
+    String osName = System.getProperty("os.name").toLowerCase();
+    if (osName.contains("windows"))
+      return "windows";
+    if (osName.contains("mac"))
+      return "mac";
+    return "linux";
   }
   public static void main(String args[]) {
     // when querying the I2P router service installed by the IzPack installer

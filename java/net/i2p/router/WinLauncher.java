@@ -33,7 +33,7 @@ public class WinLauncher extends CopyConfigDir {
   static WindowsUpdatePostProcessor wupp = null;
   private static Router i2pRouter;
 
-  public static void main(String[] args) throws Exception {
+  public static void main(String[] args) {
     setupLauncher();
     initLogger();
     boolean privateBrowsing = false;
@@ -87,6 +87,12 @@ public class WinLauncher extends CopyConfigDir {
 
     File programs = programFile();
     File home = homeDir();
+
+    boolean continuerunning = promptServiceStartIfAvailable("i2p");
+    if (!continuerunning){
+      logger.severe("Service startup failure, please start I2P service with services.msc");
+      System.exit(2);
+    }
 
     // This actually does most of what we use NSIS for if NSIS hasn't
     // already done it, which essentially makes this whole thing portable.
