@@ -116,6 +116,7 @@ public class WindowsServiceUtil {
             "It appears you have an existing I2P service installed.\n";
         message +=
             "However, it is not running yet. Please start it through `services.msc`.\n";
+        message +="If you click \"No\", the jpackage router will be launched instead.\n";
         a = JOptionPane.showConfirmDialog(null, message,
                                           "I2P Service detected not running",
                                           JOptionPane.YES_NO_OPTION);
