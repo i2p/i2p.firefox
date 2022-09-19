@@ -11,12 +11,10 @@ fi
 
 . "$SCRIPT_DIR/config.sh"
 
+cp -v "$SCRIPT_DIR/config_override.example.sh" config_override.sh
+
 if [ -f config_overide.sh ]; then
   . "$SCRIPT_DIR/config_override.sh"
-fi
-
-if [ -f config_overide.example.sh ]; then
-  . "$SCRIPT_DIR/config_override.example.sh"
 fi
 
 ### How to set up this script:
