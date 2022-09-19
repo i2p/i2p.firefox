@@ -58,7 +58,7 @@ export RES_DIR="../i2p.i2p.jpackage-build/installer/resources"
 export PKG_DIR="../i2p.i2p.jpackage-build/pkg-temp"
 export I2P_JBIGI="../i2p.i2p.jpackage-build/installer/lib/jbigi"
 
-distclean: clean clean-extensions
+distclean: clean
 	rm -rf I2P
 	git clean -fd
 
