@@ -38,6 +38,8 @@ make src/I2P/config
   $JPACKAGE_OPTS \
   --resource-dir build \
   --app-content src/I2P/config \
+  --app-content src/icons/ui2pbrowser_icon.ico \
+  --icon src/icons/ui2pbrowser_icon.ico \
   --input build --main-jar launcher.jar --main-class net.i2p.router.WinLauncher
 
 cp "$I2P_PKG/licenses/"* license/
