@@ -28,7 +28,10 @@ fi
 ## This isn't a default install location, obviously, it's where I unzipped it.
 ## It won't work for you unless you kurtly tell Windows that your name is `user`
 ## every time you make an account, like I do.
-## /c/Users/user/Downloads/openjdk-19_windows-x64_bin/jdk-19
+#PATH="/c/Users/user/Downloads/openjdk-19_windows-x64_bin/jdk-19/bin/:$PATH:/c/Users/user/Downloads/openjdk-19_windows-x64_bin/jdk-19/bin/"
+#export PATH="/c/Users/user/Downloads/openjdk-19_windows-x64_bin/jdk-19/bin/:$PATH:/c/Users/user/Downloads/openjdk-19_windows-x64_bin/jdk-19/bin/"
+#JAVA_HOME=/c/Users/user/Downloads/openjdk-19_windows-x64_bin/jdk-19
+#export JAVA_HOME=/c/Users/user/Downloads/openjdk-19_windows-x64_bin/jdk-19
 
 ## Other potential values(NOT exhaustive):
 
