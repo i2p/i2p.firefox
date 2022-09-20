@@ -96,8 +96,7 @@ public class WinLauncher extends CopyConfigDir {
     }
     continuerunning = promptUserInstallStartIfAvailable();
     if (!continuerunning) {
-      logger.severe(
-          "User-install startup required.");
+      logger.severe("User-install startup required.");
       System.exit(2);
     }
 
