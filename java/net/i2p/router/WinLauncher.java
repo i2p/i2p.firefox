@@ -168,8 +168,8 @@ public class WinLauncher extends CopyConfigDir {
     } else {
       return;
     }
-    i2pRouter = new Router(routerconf, System.getProperties());
     if (isInstalled("i2p") || checkProgramFilesInstall()) {
+      i2pRouter = new Router(routerconf, System.getProperties());
       String newsURL = i2pRouter.getConfigSetting("router.newsURL");
       if (newsURL != null) {
         if (newsURL.contains("win/beta")) {
