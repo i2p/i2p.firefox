@@ -159,7 +159,16 @@ public class WinLauncher extends CopyConfigDir {
     // regulalr bundle, then they have a config file which contains the
     // wrong update URL. Check for it, and change it back if necessary.
     // closes #23
-    i2pRouter = new Router(routerConfig(), System.getProperties());
+    String routerconf = routerConfig();
+    if (routerconf != null) {
+      File routerconffile = new File(routerconf);
+      if (!routerconffile.exists()) {
+        return;
+      }
+    } else {
+      return;
+    }
+    i2pRouter = new Router(routerconf, System.getProperties());
     if (isInstalled("i2p") || checkProgramFilesInstall()) {
       String newsURL = i2pRouter.getConfigSetting("router.newsURL");
       if (newsURL != null) {
