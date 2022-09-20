@@ -158,29 +158,39 @@ public class WinLauncher extends CopyConfigDir {
     // wrong update URL. Check for it, and change it back if necessary.
     i2pRouter = new Router(routerConfig(), System.getProperties());
     if (isInstalled("i2p") || checkProgramFilesInstall()) {
-      if (i2pRouter.getConfig("router.newsURL").contains("win/beta")) {
-        logger.info(
-            "checked router.newsURL config, containes win/beta in a service install, invalid update type");
-        if (i2pRouter.saveConfig("router.newsURL", ServiceUpdaterString())) {
-          logger.info("updated routerconsole.browser config " + appImageExe());
+      String newsURL = i2pRouter.getConfig("router.newsURL");
+      if (newsURL != null) {
+        if (newsURL.contains("win/beta")) {
+          logger.info(
+              "checked router.newsURL config, containes win/beta in a service install, invalid update type");
+          if (i2pRouter.saveConfig("router.newsURL", ServiceUpdaterString())) {
+            logger.info("updated routerconsole.browser config " +
+                        appImageExe());
+          }
         }
       }
-      if (i2pRouter.getConfig("router.backupNewsURL").contains("win/beta")) {
-        logger.info(
-            "checked router.backupNewsURL config, containes win/beta in a service install, invalid update type");
-        if (i2pRouter.saveConfig("router.backupNewsURL",
-                                 ServiceUpdaterString())) {
-          logger.info("updated routerconsole.browser config " + appImageExe());
+      String backupNewsURL = i2pRouter.getConfig("router.backupNewsURL");
+      if (backupNewsURL != null) {
+        if (backupNewsURL.contains("win/beta")) {
+          logger.info(
+              "checked router.backupNewsURL config, containes win/beta in a service install, invalid update type");
+          if (i2pRouter.saveConfig("router.backupNewsURL",
+                                   ServiceUpdaterString())) {
+            logger.info("updated routerconsole.browser config " +
+                        appImageExe());
+          }
         }
       }
-      String updateURL = i2pRouter.getConfig("router.updateURL")
-      if (updateURL
-              .contains("i2pwinupdate.su3")) {
-        logger.info(
-            "checked router.updateURL config, containes win/beta in a service install, invalid update type");
-        if (i2pRouter.saveConfig("router.updateURL",
-                                 ServerStaticUpdaterString())) {
-          logger.info("updated routerconsole.browser config " + appImageExe());
+      String updateURL = i2pRouter.getConfig("router.updateURL");
+      if (updateURL != null) {
+        if (updateURL.contains("i2pwinupdate.su3")) {
+          logger.info(
+              "checked router.updateURL config, containes win/beta in a service install, invalid update type");
+          if (i2pRouter.saveConfig("router.updateURL",
+                                   ServerStaticUpdaterString())) {
+            logger.info("updated routerconsole.browser config " +
+                        appImageExe());
+          }
         }
       }
     }
