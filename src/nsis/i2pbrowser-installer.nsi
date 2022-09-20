@@ -221,19 +221,6 @@ Function installerFunction
     SetOutPath "$INSTDIR"
 
     SetShellVarContext current
-    Var /Global I2PAPPDATA 
-
-    IfFileExists "$I2PINSTEXE\clients.config" 0 +2
-        StrCpy $I2PAPPDATA "$I2PINSTEXE"
-    IfFileExists "$APPDATA\I2P\clients.config.d" 0 +2
-        StrCpy $I2PAPPDATA "$APPDATA\I2P\"
-    IfFileExists "$LOCALAPPDATA\I2P\clients.config.d" 0 +2
-        StrCpy $I2PAPPDATA "$LOCALAPPDATA\I2P\"
-    IfFileExists "$LOCALAPPDATA\I2P\clients.config" 0 +2
-        StrCpy $I2PAPPDATA "$LOCALAPPDATA\I2P\"
-
-    createDirectory "$I2PAPPDATA"
-    SetOutPath "$I2PAPPDATA"
 
     IfFileExists "$LOCALAPPDATA\I2P\eepsite\docroot" +2 0
         File  /a /r "I2P\eepsite"
