@@ -9,6 +9,7 @@ if [ -f i2pversion_override ]; then
     . "$SCRIPT_DIR/i2pversion_override"
 fi
 
+mv "$SCRIPT_DIR/config_override.sh" "$SCRIPT_DIR/config_override.sh.bak"
 . "$SCRIPT_DIR/config.sh"
 
 ### How to set up this script:
