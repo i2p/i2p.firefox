@@ -131,6 +131,18 @@ public class WindowsServiceUtil {
           // user can start the service themselves. OR maybe we ask for
           // elevation here? May need to refactor Elevator and Shell32X to
           // achieve it though
+          ProcessBuilder pb = new ProcessBuilder("C:\\Windows\\System32\\services.msc");
+          try{
+            Process p = pb.start();
+            int exitCode = p.waitFor();
+            if (exitCode != 0){
+              return false;
+            }
+          }catch(IOException e){
+            return false;
+          }catch(InterruptedException e){
+            return false;
+          }
         }
         return isStart("i2p");
       }
