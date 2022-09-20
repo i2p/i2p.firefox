@@ -94,6 +94,12 @@ public class WinLauncher extends CopyConfigDir {
           "Service startup failure, please start I2P service with services.msc");
       System.exit(2);
     }
+    continuerunning = promptUserInstallStartIfAvailable();
+    if (!continuerunning) {
+      logger.severe(
+          "User-install startup required.");
+      System.exit(2);
+    }
 
     // This actually does most of what we use NSIS for if NSIS hasn't
     // already done it, which essentially makes this whole thing portable.
