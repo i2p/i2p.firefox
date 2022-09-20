@@ -176,7 +176,7 @@ public class WinLauncher extends CopyConfigDir {
           logger.info(
               "checked router.backupNewsURL config, containes win/beta in a service install, invalid update type");
           if (i2pRouter.saveConfig("router.backupNewsURL",
-                                   ServiceUpdaterString())) {
+                                   ServiceBackupUpdaterString())) {
             logger.info("updated routerconsole.browser config " +
                         appImageExe());
           }

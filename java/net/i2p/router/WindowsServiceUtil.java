@@ -155,6 +155,9 @@ public class WindowsServiceUtil {
   public static String ServiceUpdaterString() {
     return "http://tc73n4kivdroccekirco7rhgxdg5f3cjvbaapabupeyzrqwv5guq.b32.i2p/news.su3";
   }
+  public static String ServiceBackupUpdaterString() {
+    return "http://dn3tvalnjz432qkqsvpfdqrwpqkw3ye4n4i2uyfr4jexvo3sp5ka.b32.i2p/news.su3";
+  }
   public static String ServiceStaticUpdaterString() {
     return "http://echelon.i2p/i2p/i2pupdate.sud,http://stats.i2p/i2p/i2pupdate.sud";
   }
