@@ -146,6 +146,8 @@ Function routerDetect
     File /a /r "I2P\app\"
     SetOutPath $I2PINSTEXE\runtime
     File /a /r "I2P\runtime\"
+    SetOutPath $I2PINSTEXE\config
+    File /a /r "I2P\config\"
     SetOutPath $I2PINSTEXE
     File /a /r "I2P\I2P.exe"
     # The NSIS Installer uses an ico icon, the jpackage-only ones use png
@@ -154,18 +156,6 @@ Function routerDetect
 
     createDirectory "$I2PINSTEXE\"
     SetOutPath "$I2PINSTEXE\"
-    IfFileExists $I2PINSTEXE\router.config +2 0
-        File  /a /r "I2P/config/router.config"
-    IfFileExists $I2PINSTEXE\clients.config +2 0
-        File  /a /r "I2P/config/clients.config"
-    IfFileExists $I2PINSTEXE\wrapper.config +2 0
-        File  /a /r "I2P/config/wrapper.config"
-    IfFileExists $I2PINSTEXE\hosts.txt +2 0
-        File  /a /r "I2P/config/hosts.txt"
-    IfFileExists $I2PINSTEXE\eepsite +2 0
-        File  /a /r "I2P/config/eepsite"
-    IfFileExists $I2PINSTEXE\webapps +2 0
-        File  /a /r "I2P/config/webapps"
     File  /a /r "I2P/config/certificates"
     File  /a /r "I2P/config/geoip"
     File  /a /r "I2P/config/i2ptunnel.config"

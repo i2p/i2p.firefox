@@ -156,7 +156,7 @@ public class WinLauncher extends CopyConfigDir {
     if (osName() != "windows")
       return;
     // If the user installed the Easy bundle before installing the
-    // regulalr bundle, then they have a config file which contains the
+    // IzPack installer, then they have a config file which contains the
     // wrong update URL. Check for it, and change it back if necessary.
     // closes #23
     String routerconf = routerConfig();
@@ -197,7 +197,7 @@ public class WinLauncher extends CopyConfigDir {
       if (updateURL != null) {
         if (updateURL.contains("i2pwinupdate.su3")) {
           logger.info(
-              "checked router.updateURL config, containes win/beta in a service install, invalid update type");
+              "checked router.updateURL config, containes easy-intall update in a service install, invalid update type");
           if (i2pRouter.saveConfig("router.updateURL",
                                    ServiceStaticUpdaterString())) {
             logger.info("updated routerconsole.browser config " +
