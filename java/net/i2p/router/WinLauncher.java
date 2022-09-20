@@ -156,6 +156,7 @@ public class WinLauncher extends CopyConfigDir {
     // If the user installed the Easy bundle before installing the
     // regulalr bundle, then they have a config file which contains the
     // wrong update URL. Check for it, and change it back if necessary.
+    // closes #23
     i2pRouter = new Router(routerConfig(), System.getProperties());
     if (isInstalled("i2p") || checkProgramFilesInstall()) {
       String newsURL = i2pRouter.getConfig("router.newsURL");
