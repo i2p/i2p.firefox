@@ -1,3 +1,7 @@
+2022-09-20 idk
+ * improve compatibility with local service installs and with un-bundled installs side-by-side with bundled intalls
+ * version 1.9.7
+
 2022-09-18 idk
  * remove unstable/deprecated targets from Makefile.
  * make it fatal if a jpackaged I2P is not found, the profile launcher is now part of the jpackage
