@@ -88,25 +88,6 @@ public class WinLauncher extends CopyConfigDir {
     File programs = programFile();
     File home = homeDir();
 
-    boolean continuerunning = promptServiceStartIfAvailable("i2p");
-    if (!continuerunning) {
-      logger.severe(
-          "Service startup failure, please start I2P service with services.msc");
-      System.exit(2);
-    }
-    continuerunning = promptUserInstallStartIfAvailable();
-    if (!continuerunning) {
-      logger.severe("User-install startup required.");
-      System.exit(2);
-    }
-
-    // This actually does most of what we use NSIS for if NSIS hasn't
-    // already done it, which essentially makes this whole thing portable.
-    if (!copyConfigDir()) {
-      logger.severe("Cannot copy the configuration directory");
-      System.exit(1);
-    }
-
     System.setProperty("i2p.dir.base", programs.getAbsolutePath());
     System.setProperty("i2p.dir.config", home.getAbsolutePath());
     System.setProperty("router.pid",
@@ -122,6 +103,29 @@ public class WinLauncher extends CopyConfigDir {
     logger.info("\t" + System.getProperty("i2p.dir.base"));
     logger.info("\t" + System.getProperty("i2p.dir.config"));
     logger.info("\t" + System.getProperty("router.pid"));
+    boolean continuerunning = promptServiceStartIfAvailable("i2p");
+    if (!continuerunning) {
+      logger.severe(
+          "Service startup failure, please start I2P service with services.msc");
+      System.exit(2);
+    } else {
+      fixServiceConfig();
+    }
+    continuerunning = promptUserInstallStartIfAvailable();
+    if (!continuerunning) {
+      logger.severe("User-install startup required.");
+      System.exit(2);
+    } else {
+      fixServiceConfig();
+    }
+
+    // This actually does most of what we use NSIS for if NSIS hasn't
+    // already done it, which essentially makes this whole thing portable.
+    if (!copyConfigDir()) {
+      logger.severe("Cannot copy the configuration directory");
+      System.exit(1);
+    }
+
     if (launchBrowser(privateBrowsing, usabilityMode, chromiumFirst,
                       proxyTimeoutTime, newArgsList)) {
       System.exit(0);
@@ -146,6 +150,40 @@ public class WinLauncher extends CopyConfigDir {
     setNotStarting();
 
     i2pRouter.runRouter();
+  }
+
+  private static void fixServiceConfig() {
+    // If the user installed the Easy bundle before installing the
+    // regulalr bundle, then they have a config file which contains the
+    // wrong update URL. Check for it, and change it back if necessary.
+    i2pRouter = new Router(routerConfig(), System.getProperties());
+    if (isInstalled("i2p") || checkProgramFilesInstall()) {
+      if (i2pRouter.getConfig("router.newsURL").contains("win/beta")) {
+        logger.info(
+            "checked router.newsURL config, containes win/beta in a service install, invalid update type");
+        if (i2pRouter.saveConfig("router.newsURL", ServiceUpdaterString())) {
+          logger.info("updated routerconsole.browser config " + appImageExe());
+        }
+      }
+      if (i2pRouter.getConfig("router.backupNewsURL").contains("win/beta")) {
+        logger.info(
+            "checked router.backupNewsURL config, containes win/beta in a service install, invalid update type");
+        if (i2pRouter.saveConfig("router.backupNewsURL",
+                                 ServiceUpdaterString())) {
+          logger.info("updated routerconsole.browser config " + appImageExe());
+        }
+      }
+      String updateURL = i2pRouter.getConfig("router.updateURL")
+      if (updateURL
+              .contains("i2pwinupdate.su3")) {
+        logger.info(
+            "checked router.updateURL config, containes win/beta in a service install, invalid update type");
+        if (i2pRouter.saveConfig("router.updateURL",
+                                 ServerStaticUpdaterString())) {
+          logger.info("updated routerconsole.browser config " + appImageExe());
+        }
+      }
+    }
   }
 
   private static void setupLauncher() {

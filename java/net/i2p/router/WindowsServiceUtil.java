@@ -131,16 +131,17 @@ public class WindowsServiceUtil {
           // user can start the service themselves. OR maybe we ask for
           // elevation here? May need to refactor Elevator and Shell32X to
           // achieve it though
-          ProcessBuilder pb = new ProcessBuilder("C:\\Windows\\System32\\services.msc");
-          try{
+          ProcessBuilder pb =
+              new ProcessBuilder("C:\\Windows\\System32\\services.msc");
+          try {
             Process p = pb.start();
             int exitCode = p.waitFor();
-            if (exitCode != 0){
+            if (exitCode != 0) {
               return false;
             }
-          }catch(IOException e){
+          } catch (IOException e) {
             return false;
-          }catch(InterruptedException e){
+          } catch (InterruptedException e) {
             return false;
           }
         }
@@ -154,27 +155,39 @@ public class WindowsServiceUtil {
   public static String ServiceUpdaterString() {
     return "http://tc73n4kivdroccekirco7rhgxdg5f3cjvbaapabupeyzrqwv5guq.b32.i2p/news.su3";
   }
+  public static String ServiceStaticUpdaterString() {
+    return "http://echelon.i2p/i2p/i2pupdate.sud,http://stats.i2p/i2p/i2pupdate.sud";
+  }
 
   public static String getProgramFilesInstall() {
     String programFiles = System.getenv("PROGRAMFILES");
-    File programFilesI2P = new File(programFiles, "i2p/i2p.exe");
-    if (programFilesI2P.exists())
-      return programFilesI2P.getAbsolutePath();
+    if (programFiles != null) {
+      File programFilesI2P = new File(programFiles, "i2p/i2p.exe");
+      if (programFilesI2P.exists())
+        return programFilesI2P.getAbsolutePath();
+    }
     String programFiles86 = System.getenv("PROGRAMFILES86");
-    File programFiles86I2P = new File(programFiles86, "i2p/i2p.exe");
-    if (programFiles86I2P.exists())
-      return programFiles86I2P.getAbsolutePath();
+    if (programFiles86 != null) {
+      File programFiles86I2P = new File(programFiles86, "i2p/i2p.exe");
+      if (programFiles86I2P.exists())
+        return programFiles86I2P.getAbsolutePath();
+    }
+    return null;
   }
 
   public static boolean checkProgramFilesInstall() {
     String programFiles = System.getenv("PROGRAMFILES");
-    File programFilesI2P = new File(programFiles, "i2p/i2p.exe");
-    if (programFilesI2P.exists())
-      return true;
+    if (programFiles != null) {
+      File programFilesI2P = new File(programFiles, "i2p/i2p.exe");
+      if (programFilesI2P.exists())
+        return true;
+    }
     String programFiles86 = System.getenv("PROGRAMFILES86");
-    File programFiles86I2P = new File(programFiles86, "i2p/i2p.exe");
-    if (programFiles86I2P.exists())
-      return true;
+    if (programFiles86 != null) {
+      File programFiles86I2P = new File(programFiles86, "i2p/i2p.exe");
+      if (programFiles86I2P.exists())
+        return true;
+    }
     return false;
   }
 
@@ -198,7 +211,9 @@ public class WindowsServiceUtil {
         return true;
       } else {
         try {
-          Runtime.getRuntime().exec(getProgramFilesInstall());
+          String pfi = getProgramFilesInstall();
+          if (pfi != null)
+            Runtime.getRuntime().exec(pfi);
         } catch (IOException e) {
           return false;
         }
