@@ -159,7 +159,7 @@ public class WinLauncher extends CopyConfigDir {
     // closes #23
     i2pRouter = new Router(routerConfig(), System.getProperties());
     if (isInstalled("i2p") || checkProgramFilesInstall()) {
-      String newsURL = i2pRouter.getConfig("router.newsURL");
+      String newsURL = i2pRouter.getConfigSetting("router.newsURL");
       if (newsURL != null) {
         if (newsURL.contains("win/beta")) {
           logger.info(
@@ -170,7 +170,7 @@ public class WinLauncher extends CopyConfigDir {
           }
         }
       }
-      String backupNewsURL = i2pRouter.getConfig("router.backupNewsURL");
+      String backupNewsURL = i2pRouter.getConfigSetting("router.backupNewsURL");
       if (backupNewsURL != null) {
         if (backupNewsURL.contains("win/beta")) {
           logger.info(
@@ -182,7 +182,7 @@ public class WinLauncher extends CopyConfigDir {
           }
         }
       }
-      String updateURL = i2pRouter.getConfig("router.updateURL");
+      String updateURL = i2pRouter.getConfigSetting("router.updateURL");
       if (updateURL != null) {
         if (updateURL.contains("i2pwinupdate.su3")) {
           logger.info(
