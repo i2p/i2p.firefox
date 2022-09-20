@@ -46,7 +46,7 @@ public class CopyConfigDir extends WindowsServiceUtil {
         if (copyDirectory(file, new File(newPath)))
           return false;
       if (file.isFile())
-        if (!copyFile(file, new File(newPath), true))
+        if (0 == copyFile(file, new File(newPath), true))
           return false;
     }
     return true;
@@ -61,37 +61,45 @@ public class CopyConfigDir extends WindowsServiceUtil {
       if (file.isDirectory())
         if (!copyConfigDirectory(file, new File(newPath)))
           return false;
-      if (file.isFile())
-        if (!copyFileNeverOverwrite(
-                file,
-                new File(newPath))) // new File(workDir, file.toString())))
+      if (file.isFile()) {
+        int cnr = copyFileNeverOverwrite(file, new File(newPath));
+        if (0 == cnr)
           return false;
+        if (1 == cnr) {
+          logger.info("using jpackaged configs in a jpackaged install, creating jpackaged file");
+          File jpackagedConfigsInUse = new File(AppImageHome(), "jpackaged");
+          if (!jpackagedConfigsInUse.exists()){
+            jpackagedConfigsInUse.createNewFile();
+          }
+        }
+        if (-1 == cnr) {
+          logger.info("not overwriting existing config file, not creating jpackaged file");
+        }
+      }
     }
     return true;
   }
 
-  public static boolean copyFileNeverOverwrite(String basePath,
-                                               String workPath) {
+  public static int copyFileNeverOverwrite(String basePath, String workPath) {
     File baseFile = new File(basePath);
     File workFile = new File(workPath);
     return copyFileNeverOverwrite(baseFile, workFile);
   }
 
-  public static boolean copyFileNeverOverwrite(File basePath, File workPath) {
+  public static int copyFileNeverOverwrite(File basePath, File workPath) {
     return copyFile(basePath, workPath, false);
   }
 
-  public static boolean copyFile(File basePath, File workPath,
-                                 boolean overWrite) {
+  public static int copyFile(File basePath, File workPath, boolean overWrite) {
     if (!basePath.exists()) {
       logger.info(basePath.getAbsolutePath() + " doesn't exist, not copying");
-      return false;
+      return 0;
     }
 
     if (!overWrite && workPath.exists()) {
       logger.info(workPath.getAbsolutePath() +
                   " already exists, not overwriting");
-      return true;
+      return -1;
     }
 
     File workDir = workPath.getParentFile();
@@ -111,12 +119,12 @@ public class CopyConfigDir extends WindowsServiceUtil {
       }
       in.close();
       out.close();
-      return true;
+      return 1;
     } catch (Throwable e) {
       logger.warning(e.toString());
       logger.warning("failed to copy " + basePath.getAbsolutePath() + " to " +
                      workPath.getAbsolutePath());
-      return false;
+      return 0;
     }
   }
 

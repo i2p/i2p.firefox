@@ -72,7 +72,6 @@ build/I2P: I2P build
 src/I2P/config:
 	mkdir -p src/I2P/config
 	rm -rf src/I2P/config/geoip src/I2P/config/webapps src/I2P/config/certificates
-	echo true | tee src/I2P/config/jpackaged
 	cp -v $(RES_DIR)/clients.config src/I2P/config/
 	cp -v $(RES_DIR)/wrapper.config src/I2P/config/
 	#grep -v 'router.updateURL' $(RES_DIR)/router.config > src/I2P/config/router.config

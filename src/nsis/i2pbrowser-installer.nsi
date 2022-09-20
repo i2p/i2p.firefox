@@ -4,7 +4,7 @@ UniCode true
 !define APPNAME "I2PBrowser-Launcher"
 !define COMPANYNAME "I2P"
 !define DESCRIPTION "This is a tool which contains an I2P router, a bundled JVM, and a tool for automatically configuring a browser to use with I2P."
-!define I2P_MESSAGE "Could not find I2P. Installing portable Jpackaged I2P."
+!define I2P_MESSAGE "Please choose a directory."
 !define LAUNCH_TEXT "Start I2P?"
 !define LICENSE_TITLE "Many Licenses"
 !define CONSOLE_URL "http://127.0.0.1:7657/home"
@@ -13,11 +13,11 @@ UniCode true
 !include i2pbrowser-jpackage.nsi
 !include FindProcess.nsh
 
-var I2PINSTEXE
+var INSTDIR
 
 SetOverwrite on
 
-!define I2PINSTEXE
+!define INSTDIR
 !define I2PINSTEXE_USERMODE "$LOCALAPPDATA\i2p"
 
 !define RAM_NEEDED_FOR_64BIT 0x80000000
@@ -122,18 +122,18 @@ PageEx license
 PageExEnd
 PageEx directory
     dirtext "${I2P_MESSAGE}"
-    dirvar $I2PINSTEXE
+    dirvar $INSTDIR
     PageCallbacks routerDetect
 PageExEnd
 Page instfiles
 
 Function .onInit
-    StrCpy $I2PINSTEXE "${I2PINSTEXE_USERMODE}"
+    StrCpy $INSTDIR "${I2PINSTEXE_USERMODE}"
     UserInfo::GetAccountType
     pop $0
     ${If} $0 != "admin"
-        StrCpy $INSTDIR "$LOCALAPPDATA\${COMPANYNAME}\${APPNAME}"
-        StrCpy $I2PINSTEXE "${I2PINSTEXE_USERMODE}"
+        StrCpy $INSTDIR "${I2PINSTEXE_USERMODE}"
+        StrCpy $INSTDIR "${I2PINSTEXE_USERMODE}"
     ${EndIf}
     !insertmacro MUI_LANGDLL_DISPLAY
     #Call ShouldInstall64Bit
@@ -141,24 +141,22 @@ Function .onInit
 FunctionEnd
 
 Function routerDetect
-    createDirectory $I2PINSTEXE
-    SetOutPath $I2PINSTEXE\app
+    createDirectory $INSTDIR
+    SetOutPath $INSTDIR\app
     File /a /r "I2P\app\"
-    SetOutPath $I2PINSTEXE\runtime
+    SetOutPath $INSTDIR\runtime
     File /a /r "I2P\runtime\"
-    SetOutPath $I2PINSTEXE\config
+    SetOutPath $INSTDIR\config
     File /a /r "I2P\config\"
-    SetOutPath $I2PINSTEXE
+    SetOutPath $INSTDIR
     File /a /r "I2P\I2P.exe"
     # The NSIS Installer uses an ico icon, the jpackage-only ones use png
     File /a /r "I2P\ui2pbrowser_icon.ico"
-    File "I2P\config\jpackaged"
 
-    createDirectory "$I2PINSTEXE\"
-    SetOutPath "$I2PINSTEXE\"
+    createDirectory "$INSTDIR\"
+    SetOutPath "$INSTDIR\"
     File  /a /r "I2P/config/certificates"
     File  /a /r "I2P/config/geoip"
-    File  /a /r "I2P/config/i2ptunnel.config"
 FunctionEnd
 
 Function installerFunction
@@ -168,28 +166,19 @@ Function installerFunction
             Sleep 500
         ${LoopWhile} $0 <> 0
     ${EndIf}
+    # delete the jpackaged file for safety. Remove this IMMEDIATELY after the next release.
+    # early-adopters and daily-build users may have to manually delete config files if they
+    # uninstall.
+    # RELATED: line 246
+    Delete "$INSTDIR\jpackaged"
 
     # set the installation directory as the destination for the following actions
     createDirectory $INSTDIR
     SetOutPath $INSTDIR
     File ui2pbrowser_icon.ico
 
-    # Update jpackaged I2P router, if it exists
-    ${If} ${FileExists} "$I2PINSTEXE\jpackaged"
-        createDirectory $I2PINSTEXE
-        SetOutPath $I2PINSTEXE
-
-        ${If} ${Silent}
-          ReadEnvStr $0 OLD_I2P_VERSION
-          ${If} $0 < ${I2P_VERSION}
-            call routerDetect
-
-          ${EndIf}  
-        ${Else}
-          call routerDetect
-
-        ${EndIf}
-    ${EndIf}
+    # Update jpackaged I2P router
+    call routerDetect
 
     # Install the launcher scripts
     createDirectory "$INSTDIR"
@@ -201,13 +190,13 @@ Function installerFunction
     SetOutPath "$INSTDIR\licenses"
     File /a /r "licenses/*"
 
-    SetOutPath "$I2PINSTEXE"
+    SetOutPath "$INSTDIR"
     createDirectory "$SMPROGRAMS\${APPNAME}"
-    CreateShortCut "$SMPROGRAMS\${APPNAME}\Browse I2P.lnk" "$I2PINSTEXE\I2P.exe" "" "$INSTDIR\ui2pbrowser_icon.ico"
-    CreateShortCut "$SMPROGRAMS\${APPNAME}\Browse I2P - Temporary Identity.lnk" "$I2PINSTEXE\I2P.exe -private" "" "$INSTDIR\ui2pbrowser_icon.ico"
+    CreateShortCut "$SMPROGRAMS\${APPNAME}\Browse I2P.lnk" "$INSTDIR\I2P.exe" "" "$INSTDIR\ui2pbrowser_icon.ico"
+    CreateShortCut "$SMPROGRAMS\${APPNAME}\Browse I2P - Temporary Identity.lnk" "$INSTDIR\I2P.exe -private" "" "$INSTDIR\ui2pbrowser_icon.ico"
 
-    CreateShortCut "$DESKTOP\Browse I2P.lnk" "$I2PINSTEXE\I2P.exe" "" "$INSTDIR\ui2pbrowser_icon.ico"
-    CreateShortCut "$DESKTOP\Browse I2P - Temporary Identity.lnk" "$I2PINSTEXE\I2P.exe -private" "" "$INSTDIR\ui2pbrowser_icon.ico"
+    CreateShortCut "$DESKTOP\Browse I2P.lnk" "$INSTDIR\I2P.exe" "" "$INSTDIR\ui2pbrowser_icon.ico"
+    CreateShortCut "$DESKTOP\Browse I2P - Temporary Identity.lnk" "$INSTDIR\I2P.exe -private" "" "$INSTDIR\ui2pbrowser_icon.ico"
     SetOutPath "$INSTDIR"
 
     SetShellVarContext current
@@ -215,8 +204,8 @@ Function installerFunction
     IfFileExists "$LOCALAPPDATA\I2P\eepsite\docroot" +2 0
         File  /a /r "I2P\eepsite"
 
-    createDirectory "$I2PINSTEXE"
-    SetOutPath "$I2PINSTEXE"
+    createDirectory "$INSTDIR"
+    SetOutPath "$INSTDIR"
 
     SetOutPath "$INSTDIR"
     # create the uninstaller
@@ -235,12 +224,13 @@ SectionEnd
 # uninstaller section start
 Section "uninstall"
     # Uninstall the launcher scripts
-    Delete $INSTDIR\*
-    rmDir /r "$INSTDIR\"
-    ${If} ${FileExists} "$I2PINSTEXE\jpackaged"
-        Delete $I2PINSTEXE\*
-        rmDir /r "$I2PINSTEXE"
-    ${EndIf}
+    rmDir /r "$INSTDIR\app"
+    rmDir /r "$INSTDIR\config"
+    rmDir /r "$INSTDIR\runtime"
+    Delete "$INSTDIR\ui2pbrowser_icon.ico"
+    Delete "$INSTDIR\windowsUItoopie2.png"
+    Delete "$INSTDIR\I2P.exe"
+    
 
     # Remove shortcuts and folders
     Delete "$SMPROGRAMS\${APPNAME}\${APPNAME}.lnk"
@@ -252,11 +242,25 @@ Section "uninstall"
     Delete "$DESKTOP\${APPNAME}.lnk"
     Delete "$DESKTOP\Private Browsing-${APPNAME}.lnk"
     rmDir /r "$SMPROGRAMS\${APPNAME}"
-    rmDir /r "$INSTDIR\firefox.profile.i2p\extensions"
-    rmDir /r "$INSTDIR\firefox.profile.i2p"
-    rmDir /r "$LOCALAPPDATA\${APPNAME}"
-    rmDir /r "$INSTDIR"
     
+    #### SUPER SUPER EXTRA IMPORTANT!
+    ### RELATED: line 169
+    ## IF YOU DO THIS WRONG YOU WILL BREAK CONFIGS:
+    ## The purpose of the `jpackaged` file has changed, as has the point
+    ## where it is created.
+    # 1. The jpackaged file is now created only **after** the jpackage itself
+    #  has migrated default configs into the $INSTDIR. IF THEY ALREADY EXIST,
+    #  it WILL NOT BE CREATED, even if there is a jpackage present. This is
+    #  intentional behavior.
+    # 2. The jpackaged file now indicates that the configurations were created
+    #  by running the jpackage, and not by an un-bundled router. If it is not
+    #  present, then we have already deleted everything we are responsible for
+    #  and don't need to do the section below.
+    ${If} ${FileExists} "$INSTDIR\jpackaged"
+        Delete $INSTDIR\*
+        rmDir /r "$INSTDIR"
+    ${EndIf}
+
     # delete the uninstaller
     Delete "$INSTDIR\uninstall-i2pbrowser.exe"
 
@@ -270,8 +274,8 @@ SectionEnd
 !insertmacro MUI_PAGE_FINISH
 
 Function LaunchLink
-  SetOutPath "$I2PINSTEXE"
-  StrCpy $OUTDIR $I2PINSTEXE
+  SetOutPath "$INSTDIR"
+  StrCpy $OUTDIR $INSTDIR
   ${If} ${Silent}
     ReadEnvStr $0 RESTART_I2P
     ${If} $0 != ""
