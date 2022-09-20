@@ -153,6 +153,8 @@ public class WinLauncher extends CopyConfigDir {
   }
 
   private static void fixServiceConfig() {
+    if (osName() != "windows")
+      return;
     // If the user installed the Easy bundle before installing the
     // regulalr bundle, then they have a config file which contains the
     // wrong update URL. Check for it, and change it back if necessary.
