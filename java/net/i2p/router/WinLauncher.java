@@ -172,7 +172,7 @@ public class WinLauncher extends CopyConfigDir {
       i2pRouter = new Router(routerconf, System.getProperties());
       String newsURL = i2pRouter.getConfigSetting("router.newsURL");
       if (newsURL != null) {
-        if (newsURL.contains("win/beta")) {
+        if (newsURL.contains("http://dn3tvalnjz432qkqsvpfdqrwpqkw3ye4n4i2uyfr4jexvo3sp5ka.b32.i2p/news/win/beta/news.su3")) {
           logger.info(
               "checked router.newsURL config, containes win/beta in a service install, invalid update type");
           if (i2pRouter.saveConfig("router.newsURL", ServiceUpdaterString())) {
@@ -183,7 +183,7 @@ public class WinLauncher extends CopyConfigDir {
       }
       String backupNewsURL = i2pRouter.getConfigSetting("router.backupNewsURL");
       if (backupNewsURL != null) {
-        if (backupNewsURL.contains("win/beta")) {
+        if (backupNewsURL.contains("http://tc73n4kivdroccekirco7rhgxdg5f3cjvbaapabupeyzrqwv5guq.b32.i2p/win/beta/news.su3")) {
           logger.info(
               "checked router.backupNewsURL config, containes win/beta in a service install, invalid update type");
           if (i2pRouter.saveConfig("router.backupNewsURL",
@@ -195,7 +195,7 @@ public class WinLauncher extends CopyConfigDir {
       }
       String updateURL = i2pRouter.getConfigSetting("router.updateURL");
       if (updateURL != null) {
-        if (updateURL.contains("i2pwinupdate.su3")) {
+        if (updateURL.contains("http://ekm3fu6fr5pxudhwjmdiea5dovc3jdi66hjgop4c7z7dfaw7spca.b32.i2p/i2pwinupdate.su3")) {
           logger.info(
               "checked router.updateURL config, containes easy-intall update in a service install, invalid update type");
           if (i2pRouter.saveConfig("router.updateURL",
