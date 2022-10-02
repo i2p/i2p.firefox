@@ -13,6 +13,6 @@ fi
 wsl make distclean
 ./build.sh
 cd "$SCRIPT_DIR/I2P" || exit 1
-./lib/torbrowser.sh
+# ./lib/torbrowser.sh <- haha just kidding, but uncomment this to make it pack everything it needs into the tar.gz
 cd "$SCRIPT_DIR" || exit 1
 tar czvf I2P.tar.gz I2P
