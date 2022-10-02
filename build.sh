@@ -38,6 +38,7 @@ make src/I2P/config
   $JPACKAGE_OPTS \
   --resource-dir build \
   --app-content src/I2P/config \
+  --app-content src/unix/torbrowser.sh \
   --app-content src/icons/windowsUIToopie2.png \
   --app-content src/icons/ui2pbrowser_icon.ico \
   --icon src/icons/windowsUIToopie2.png \

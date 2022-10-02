@@ -1,9 +1,0 @@
-[Desktop Entry]
-Encoding=UTF-8
-Version=1.0
-Type=Application
-Terminal=false
-Exec=/usr/bin/i2pbrowser.sh
-Name=I2P Browser
-Categories=Network;WebBrowser;
-Icon=/var/lib/i2pbrowser/icons/ui2pbrowser_icon.ico
