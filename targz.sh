@@ -12,4 +12,7 @@ fi
 ./clean.sh
 wsl make distclean
 ./build.sh
+cd "$SCRIPT_DIR/I2P" || exit 1
+./lib/torbrowser.sh
+cd "$SCRIPT_DIR" || exit 1
 tar czvf I2P.tar.gz I2P
