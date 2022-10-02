@@ -1,4 +1,7 @@
 #!/bin/sh
+
+which torsocks && . torsocks on
+
 version="$(curl -s https://aus1.torproject.org/torbrowser/update_3/release/downloads.json | jq -r ".version")"
 locale="en-US" # mention your locale. default = en-US
 if [ -d /etc/default/locale ]; then
