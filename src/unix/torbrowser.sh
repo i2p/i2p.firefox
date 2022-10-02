@@ -1,6 +1,9 @@
-#!/bin/sh
+#!/bin/bash
 
-which torsocks && . torsocks on
+TORSOCKS=$(which torsocks)
+if [ -f "${TORSOCKS}" ]; then
+    . "${TORSOCKS}" on
+fi
 
 version="$(curl -s https://aus1.torproject.org/torbrowser/update_3/release/downloads.json | jq -r ".version")"
 locale="en-US" # mention your locale. default = en-US
@@ -14,11 +17,11 @@ if [ ! -f ./tor.keyring ]; then
     gpg --output ./tor.keyring --export torbrowser@torproject.org
 fi
 
-if [ ! -f "tor-browser-linux64-"$version"_"$locale".tar.xz" ]; then
-    wget -cv "https://www.torproject.org/dist/torbrowser/"$version"/tor-browser-linux64-"$version"_"$locale".tar.xz" 
-    wget -cv "https://www.torproject.org/dist/torbrowser/"$version"/tor-browser-linux64-"$version"_"$locale".tar.xz.asc"
+if [ ! -f "tor-browser-linux64-${version}_${locale}.tar.xz" ]; then
+    wget -cv "https://www.torproject.org/dist/torbrowser/${version}/tor-browser-linux64-${version}_${locale}.tar.xz" 
+    wget -cv "https://www.torproject.org/dist/torbrowser/${version}/tor-browser-linux64-${version}_${locale}.tar.xz.asc"
 fi
 
-gpgv --keyring ./tor.keyring "tor-browser-linux64-"$version"_"$locale".tar.xz.asc" "tor-browser-linux64-"$version"_"$locale".tar.xz"
+gpgv --keyring ./tor.keyring "tor-browser-linux64-${version}_${locale}.tar.xz.asc" "tor-browser-linux64-${version}_${locale}.tar.xz"
 
-tar xvJf "tor-browser-linux64-"$version"_"$locale".tar.xz"
+tar xvJf "tor-browser-linux64-${version}_${locale}.tar.xz"
