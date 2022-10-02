@@ -36,7 +36,7 @@ public class WinLauncher extends CopyConfigDir {
   public static void main(String[] args) {
     setupLauncher();
     initLogger();
-    boolean privateBrowsing = false;
+    int privateBrowsing = 0;
     boolean usabilityMode = false;
     boolean chromiumFirst = false;
     int proxyTimeoutTime = 200;
@@ -46,7 +46,7 @@ public class WinLauncher extends CopyConfigDir {
       if (args.length > 0) {
         for (String arg : args) {
           if (arg.equals("-private")) {
-            privateBrowsing = true;
+            privateBrowsing = 1;
             logger.info(
                 "Private browsing is true, profile will be discarded at end of session.");
           } else if (arg.equals("-chromium")) {
@@ -241,7 +241,7 @@ public class WinLauncher extends CopyConfigDir {
     return home;
   }
 
-  private static boolean launchBrowser(boolean privateBrowsing,
+  private static boolean launchBrowser(int privateBrowsing,
                                        boolean usabilityMode,
                                        boolean chromiumFirst,
                                        int proxyTimeoutTime,
