@@ -234,7 +234,8 @@ testing.
 
 **The only remotely interesting Unix functionality that remains in this**
 **repository is the construction of a portable. You can use `targz.sh` to**
-**generate that.**
+**generate that. Once generated, `cd I2P && ./lib/torbrowser.sh` to complete**
+**setup, and `./bin/I2P` to run it.**
 
 Issues
 ------

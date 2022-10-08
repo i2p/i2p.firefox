@@ -18,7 +18,7 @@ var INSTDIR
 SetOverwrite on
 
 !define INSTDIR
-!define I2PINSTEXE_USERMODE "$LOCALAPPDATA\i2p"
+!define I2PINSTEXE_USERMODE "$LOCALAPPDATA\i2peasy"
 
 !define RAM_NEEDED_FOR_64BIT 0x80000000
 
@@ -128,11 +128,13 @@ PageExEnd
 Page instfiles
 
 Function .onInit
+    # Note: This is all redundant and I know it.
+    # Admin installs have been migrated to user-mode installs.
+    # But I'm leaving it because I might need it again if I support service installs.
     StrCpy $INSTDIR "${I2PINSTEXE_USERMODE}"
     UserInfo::GetAccountType
     pop $0
     ${If} $0 != "admin"
-        StrCpy $INSTDIR "${I2PINSTEXE_USERMODE}"
         StrCpy $INSTDIR "${I2PINSTEXE_USERMODE}"
     ${EndIf}
     !insertmacro MUI_LANGDLL_DISPLAY
@@ -182,8 +184,6 @@ Function installerFunction
 
     # Install the launcher scripts
     createDirectory "$INSTDIR"
-    #SetOutPath "$INSTDIR"
-    #File "win/*"
 
     # Install the licenses
     createDirectory "$INSTDIR\licenses"
@@ -201,7 +201,7 @@ Function installerFunction
 
     SetShellVarContext current
 
-    IfFileExists "$LOCALAPPDATA\I2P\eepsite\docroot" +2 0
+    IfFileExists "$INSTDIR\eepsite\docroot" +2 0
         File  /a /r "I2P\eepsite"
 
     createDirectory "$INSTDIR"
@@ -230,7 +230,6 @@ Section "uninstall"
     Delete "$INSTDIR\ui2pbrowser_icon.ico"
     Delete "$INSTDIR\windowsUItoopie2.png"
     Delete "$INSTDIR\I2P.exe"
-    
 
     # Remove shortcuts and folders
     Delete "$SMPROGRAMS\${APPNAME}\${APPNAME}.lnk"
@@ -260,12 +259,9 @@ Section "uninstall"
         Delete $INSTDIR\*
         rmDir /r "$INSTDIR"
     ${EndIf}
-
     # delete the uninstaller
     Delete "$INSTDIR\uninstall-i2pbrowser.exe"
-
     # uninstaller section end
-
 SectionEnd
 
 !define MUI_FINISHPAGE_RUN

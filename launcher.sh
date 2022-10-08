@@ -40,10 +40,11 @@ sleep 5s
 
 HERE="$PWD"
 if [ ! -d "$HERE/../i2p.i2p.jpackage-build/" ]; then
-  git clone -b "$VERSION" https://i2pgit.org/i2p-hackers/i2p.i2p "$HERE/../i2p.i2p.jpackage-build/"
+  git clone --depth=1 -b "$VERSION" https://i2pgit.org/i2p-hackers/i2p.i2p "$HERE/../i2p.i2p.jpackage-build/"
   tar --exclude="$HERE/../i2p.i2p.jpackage-build/.git" -cvzf i2p.i2p.jpackage-build.tar.gz "$HERE/../i2p.i2p.jpackage-build/"
 fi
 cd "$HERE/../i2p.i2p.jpackage-build/"
+git pull --all
 for i in $COUNT; do
   echo -n "$i...."; sleep 1s
 done
