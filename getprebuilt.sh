@@ -18,7 +18,7 @@ fi
 
 . "$HOME/github-release-config.sh"
 
-TODAYSDATE=$(date -d '-1 day' '+%Y%d%m')
+TODAYSDATE=$(date -d '-1 day' '+%Y%m%d')
 
 echo github-release download -u "$GITHUB_USERNAME" -r "i2p.firefox" -n "I2P.zip" -t "$TODAYSDATE"
 github-release download -u "$GITHUB_USERNAME" -r "i2p.firefox" -n "I2P.zip" -t "$TODAYSDATE"
