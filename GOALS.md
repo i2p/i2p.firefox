@@ -17,7 +17,7 @@ arguments on different platforms, cross-platform support is often low-cost.
 - [git.idk.i2p/idk/I2P-Configuration-For-Chromium](http://git.idk.i2p/idk/I2P-Configuration-For-Chromium/)
 - [i2pgit.org/idk/I2P-Configuration-For-Chromium](https://i2pgit.org/idk/I2P-Configuration-For-Chromium/)
 - [github.com/eyedeekay/I2P-Configuration-For-Chromium](https://github.com/eyedeekay/I2P-Configuration-For-Chromium/)
-- *Browser profile management are provided by a freestanding, cross-platform library which is contained in it's own repository.*
+- *Browser profile management are provided by a freestanding, cross-platform library which is contained in its own repository.*
 - [git.idk.i2p/idk/i2p.plugins.firefox](http://git.idk.i2p/idk/i2p.plugins.firefox)
 - [i2pgit.org/idk/i2p.plugins.firefox](https://i2pgit.org/idk/i2p.plugins.firefox)
 - [github.com/eyedeekay/i2p.plugins.firefox](https://github.com/eyedeekay/i2p.plugins.firefox)
@@ -51,6 +51,7 @@ Browser Configuration All
 - `[X]` Operate in "Strict" mode where the maximum level of defenses are up
 - `[X]` Operate in "Usability" mode where defense is balanced with utility
 - `[X]` Operate in "App" mode where we work as a single-purpose window where it is hard to access arbitrary, potentially malicious resources
+- `[X]` All I2P-Specific profiles should be possible to generate automatically, sight-unseen
 
 Browser Configuration Firefox
 -----------------------------

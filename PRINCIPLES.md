@@ -4,7 +4,7 @@ Guidance
 This document explains the ideas which are guiding the development of
 features specific to the I2P Easy-Install bundle.
 
-The general idea is that it's possible, on most platforms, to make I2P
+The general idea is that it is possible, on most platforms, to make I2P
 post-install configuration much simpler and much less error-prone. Each
 section of this document has guidance for a different "Meta-Feature" of
 the I2P Easy-Install Bundle. For granular, specific information about
@@ -27,11 +27,11 @@ The I2P Easy-Install Bundle for Windows considers basic configuration tasks
 is **``Browser Profile Configuration``** where it injects settings into a
 pre-existing browser from the host system. Solving this problem pre-dates
 the evolution of `i2p.firefox` into a fully-fledged I2P router distribution
-and has been the defining goal of this project for it's entire existence.
+and has been the defining goal of this project for its entire existence.
 
 However, what good browser profile configuration is, is as complicated as
 how to deploy it. I2P has a unique opportunity to decide how it will handle
-problems related to browsing in it's own context while the network grows
+problems related to browsing in its own context while the network grows
 and synthesize a useful number of safe browser configurations while also
 reducing existing browser config fragmentation.
 
@@ -65,18 +65,18 @@ console, hidden services manager) itself.
 
 ### Strict Mode
 
-This is not on it's face as good as having an almost entirely unified browser
-fingerprint like Tor Browser attempts to have. It's a simple fact that 18
+This is not on its face as good as having an almost entirely unified browser
+fingerprint like Tor Browser attempts to have. It is a simple fact that 18
 is greater than one. Every active attempt to gain granularity from a browser
 outside of off-the-shelf Fingerprinting techniques is classified as "Fine"
-fingerprinting. It's unpredictable, and harder to defend against, more likely
+fingerprinting. It is unpredictable, and harder to defend against, more likely
 to exhibit novelty, and more likely to be affected by the host browser's
 security. When fingerprinters get this creative disabling Javascript by default
 is the most complete defense. This is the primary characteristic of Strict Mode,
 it disables Javascript by default with NoScript. **Strict Mode is the only**
 **partial defense against fine-fingerprinting offered by this product.** Even
 disabling Javascript does not close all fine fingerprinting vectors, but it
-does close most of them and reduce attack service significantly. It is recommended
+does close most of them and reduce attack surface significantly. It is recommended
 in combination with Tor Browser, and attempts to be somewhat closer to Tor Browser
 than Usability Mode. It is the default mode of operation.
 
