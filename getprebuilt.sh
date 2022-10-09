@@ -22,4 +22,4 @@ TODAYSDATE=$(date -d '-1 day' '+%Y%m%d')
 
 echo github-release download -u "$GITHUB_USERNAME" -r "i2p.firefox" -n "I2P.zip" -t "$TODAYSDATE"
 github-release download -u "$GITHUB_USERNAME" -r "i2p.firefox" -n "I2P.zip" -t "$TODAYSDATE"
-tar xvf I2P.zip
+unzip I2P.zip
