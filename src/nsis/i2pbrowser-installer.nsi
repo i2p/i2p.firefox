@@ -13,7 +13,7 @@ UniCode true
 !include i2pbrowser-jpackage.nsi
 !include FindProcess.nsh
 
-var INSTDIR
+#var INSTDIR
 
 SetOverwrite on
 

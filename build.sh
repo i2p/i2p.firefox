@@ -16,11 +16,27 @@ if [ -f config_overide.sh ]; then
   . "$SCRIPT_DIR/config_override.sh"
 fi
 
+unameOut="$(uname -s)"
+case "${unameOut}" in
+    Linux*)     machine=Linux;;
+    Darwin*)    machine=Mac;;
+    *)          machine="UNKNOWN:${unameOut}"
+esac
+
+if [ "$machine" = "Mac" ]; then
+  ./getprebuilt.sh
+  return
+elif [ "$machine" = "Linux" ]; then
+  ./getprebuilt.sh
+  return
+fi
+
 . "$SCRIPT_DIR/launcher.sh"
 
 if [ -z $I2P_VERSION ]; then 
     I2P_VERSION=$("$JAVA_HOME"/bin/java -cp build/router.jar net.i2p.router.RouterVersion | sed "s/.*: //" | head -n 1 | sed 's|-|.|g')
 fi
+
 echo "preparing to invoke jpackage for I2P version $I2P_VERSION"
 
 rm -rf I2P

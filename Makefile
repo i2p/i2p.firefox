@@ -22,9 +22,9 @@ version:
 	rm -f version.txt
 	make version.txt i2pbrowser-jpackage.nsi
 
-version.txt:
-	echo "$(PROFILE_VERSION)" > src/profile/version.txt
-	echo "$(PROFILE_VERSION)" > src/app-profile/version.txt
+version.txt: build
+	echo "$(PROFILE_VERSION)" > build/version.txt
+	echo "$(PROFILE_VERSION)" > build/version.txt
 
 i2pbrowser-jpackage.nsi:
 	echo "!define I2P_VERSION $(PROFILE_VERSION)" > src/nsis/i2pbrowser-jpackage.nsi
@@ -38,17 +38,17 @@ help: version
 	@echo "$(MAJOR).$(MINOR).$(BUILD)"
 	@echo "$(preset)"
 
-prep: #launchers build/licenses profile.tgz app-profile.tgz profile build/I2P build/I2P/config #
+prep:
 	make build/licenses
-	echo "licenses" >make.log
+	echo "licenses" >>make.log
 	make build/I2P
-	echo "buildi2p" >make.log
+	echo "buildi2p" >>make.log
 	make build/I2P/config
-	echo "buildi2pconfig" >make.log
+	echo "buildi2pconfig" >>make.log
 	cp src/nsis/*.nsi build
-	echo "nsi1" >make.log
+	echo "nsi1" >>make.log
 	cp src/nsis/*.nsh build
-	echo "nsi2" >make.log
+	echo "nsi2" >>make.log
 	cp src/icons/*.ico build
 
 install.exe: #build/licenses
