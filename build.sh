@@ -24,11 +24,13 @@ case "${unameOut}" in
 esac
 
 if [ "$machine" = "Mac" ]; then
+  rm -rf I2P
   ./getprebuilt.sh
-  return
+  exit 0
 elif [ "$machine" = "Linux" ]; then
+  rm -rf I2P
   ./getprebuilt.sh
-  return
+  exit 0
 fi
 
 . "$SCRIPT_DIR/launcher.sh"
