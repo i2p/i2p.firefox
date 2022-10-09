@@ -16,12 +16,14 @@ if [ -f config_overide.sh ]; then
   . "$SCRIPT_DIR/config_override.sh"
 fi
 
-unameOut="$(uname -s)"
-case "${unameOut}" in
-    Linux*)     machine=Linux;;
-    Darwin*)    machine=Mac;;
-    *)          machine="UNKNOWN:${unameOut}"
-esac
+if [ -z $machine ]; then
+  unameOut="$(uname -s)"
+  case "${unameOut}" in
+      Linux*)     machine=Linux;;
+      Darwin*)    machine=Mac;;
+      *)          machine="UNKNOWN:${unameOut}"
+  esac
+fi
 
 if [ "$machine" = "Mac" ]; then
   rm -rf I2P

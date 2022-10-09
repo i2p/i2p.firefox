@@ -8,7 +8,7 @@ cd "$SCRIPT_DIR" || exit 1
 if [ -f "$SCRIPT_DIR/config_override.sh" ]; then
   . "$SCRIPT_DIR/config_override.sh"
 fi
-
+export machine=unix
 ./clean.sh
 wsl make distclean
 ./build.sh
