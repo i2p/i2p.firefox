@@ -33,13 +33,26 @@ Installation Methods
 
 - `[X]` NSIS installer
 - `[X]` Portable, directory-based install
+- `[ ]` Windows Service Support
 
 Update Methods
 --------------
 
 - `[X]` NSIS installer in Default Directory
 - `[X]` NSIS installer in Portable Directory
+- `[X]` Handle admin and non-admin updates automatically
 - `[ ]` Zip-Only portable updater
+
+Launcher
+--------
+
+- `[X]` Detect and handle un-bundled routers on the host system, policy of non-interference
+- `[X]` Wait for router console to be ready to launch router-console browser
+- `[X]` Wait for proxy to be ready to launch I2P Web Browser
+- `[X]` Launch browser instead of router when a repeat-launch is detected
+- `[ ]` [GUI component for launching each available component](http://git.idk.i2p/idk/i2p.plugins.firefox/-/issues/2)
+- `[ ]` [Introduce `browser.properties` for customization](http://git.idk.i2p/idk/i2p.plugins.firefox/-/issues/7)
+- `[ ]` Registry-based browser discovery [Firefox](http://git.idk.i2p/idk/i2p.plugins.firefox/-/issues/3) [Chromium](http://git.idk.i2p/idk/i2p.plugins.firefox/-/issues/4)
 
 Browser Configuration All
 -------------------------
