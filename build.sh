@@ -47,6 +47,7 @@ rm -rf I2P
 
 make src/I2P/config
 
+if [ ! -d "I2P" ]; then
 "$JAVA_HOME"/bin/jpackage --type app-image --name I2P --app-version "$I2P_VERSION" \
   --verbose \
   --java-options "-Xmx512m" \
@@ -63,6 +64,7 @@ make src/I2P/config
   --app-content src/icons/ui2pbrowser_icon.ico \
   --icon src/icons/windowsUIToopie2.png \
   --input build --main-jar launcher.jar --main-class net.i2p.router.WinLauncher
+fi
 
 cp "$I2P_PKG/licenses/"* license/
 cp "$HERE/../i2p.i2p.jpackage-build/LICENSE.txt" license/I2P.txt

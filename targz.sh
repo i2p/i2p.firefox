@@ -29,7 +29,4 @@ fi
 rm -vrf "tor-browser_${locale}"
 cd "$SCRIPT_DIR" || exit 1
 
-
-
-
 tar czvf I2P.tar.gz I2P
