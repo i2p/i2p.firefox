@@ -51,30 +51,11 @@ public class ZipUpdateProcess implements Runnable {
       return;
 
     File workingDir = workDir();
-    File logFile = new File(workingDir, "log-" + version + ".txt");
+    File zipFile = new File(workingDir, "i2pupdate_portable.zip");
+    File destDir = ctx.getConfigDir();
 
-    // check if we can write to the log file. If we can, use the
-    // ProcessBuilder to run the installer.
-    // ProcessBuilder pb = new ProcessBuilder(
-    // file.getAbsolutePath(), "/S", "/D=" + workingDir.getAbsolutePath());
-    // Map<String, String> env = pb.environment();
-    // env.put("OLD_I2P_VERSION", version);
-    // env.remove("RESTART_I2P");
-
-    int exitCode = ctx.router().scheduledGracefulExitCode();
-    // if (exitCode == Router.EXIT_HARD_RESTART ||
-    //     exitCode == Router.EXIT_GRACEFUL_RESTART)
-    // env.put("RESTART_I2P", "true");
-
-    /*try {
-      pb.directory(workingDir)
-          .redirectErrorStream(true)
-          .redirectOutput(logFile)
-          .start();
-    } catch (IOException ex) {
-      _log.error(
-          "Unable to run update-program in background. Update will fail.", ex);
-    }*/
+    String errors = unzip(zipFile.getAbsolutePath(), destDir.getAbsolutePath());
+    _log.error(errors);
   }
 
   @Override
@@ -86,7 +67,12 @@ public class ZipUpdateProcess implements Runnable {
     }
   }
 
-  private static void unzip(String zipFilePath, String destDir) {
+  // copied wholesale from this example:
+  // https://www.digitalocean.com/community/tutorials/java-unzip-file-example
+  // It doesn't check for zip-slips, but that's fine because if somebody's able
+  // to deliver a malicious update then they can just run code anyway so there's
+  // no point.
+  private static String unzip(String zipFilePath, String destDir) {
     File dir = new File(destDir);
     // create output directory if it doesn't exist
     if (!dir.exists())
@@ -119,7 +105,8 @@ public class ZipUpdateProcess implements Runnable {
       zis.close();
       fis.close();
     } catch (IOException e) {
-      e.printStackTrace();
+      return e.toString();
     }
+    return null;
   }
 }

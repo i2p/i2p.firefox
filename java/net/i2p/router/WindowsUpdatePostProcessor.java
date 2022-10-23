@@ -39,6 +39,11 @@ public class WindowsUpdatePostProcessor implements UpdatePostProcessor {
                                           String version, File file)
       throws IOException {
     _log.info("Got an update to post-process");
+    if (type != UpdateType.ROUTER_SIGNED_SU3 &&
+        type != UpdateType.ROUTER_DEV_SU3) {
+      _log.warn("Unsupported update type " + type);
+      return;
+    }
     if (fileType != SU3File.TYPE_ZIP) {
       this.positionedFile = moveUpdateInstaller(file);
       this.version = version;
@@ -54,12 +59,6 @@ public class WindowsUpdatePostProcessor implements UpdatePostProcessor {
           new ZipUpdateProcess(ctx, this::getVersion, this::getFile));
     }
     if (SystemVersion.isWindows()) {
-
-      if (type != UpdateType.ROUTER_SIGNED_SU3 &&
-          type != UpdateType.ROUTER_DEV_SU3) {
-        _log.warn("Unsupported update type " + type);
-        return;
-      }
 
       if (fileType != SU3File.TYPE_EXE) {
         _log.warn("Unsupported file type " + fileType);
