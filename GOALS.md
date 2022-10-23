@@ -50,7 +50,7 @@ Launcher
 - `[X]` Wait for router console to be ready to launch router-console browser
 - `[X]` Wait for proxy to be ready to launch I2P Web Browser
 - `[X]` Launch browser instead of router when a repeat-launch is detected
-- `[ ]` [GUI component for launching each available component](http://git.idk.i2p/idk/i2p.plugins.firefox/-/issues/2)
+- `[X]` GUI component for launching each available component
 - `[X]` Introduce `browser.properties` for customization
 - `[ ]` Registry-based browser discovery [Firefox](http://git.idk.i2p/idk/i2p.plugins.firefox/-/issues/3) [Chromium](http://git.idk.i2p/idk/i2p.plugins.firefox/-/issues/4)
 
