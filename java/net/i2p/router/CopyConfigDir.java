@@ -66,18 +66,21 @@ public class CopyConfigDir extends WindowsServiceUtil {
         if (0 == cnr)
           return false;
         if (1 == cnr) {
-          logger.info("using jpackaged configs in a jpackaged install, creating jpackaged file");
+          logger.info(
+              "using jpackaged configs in a jpackaged install, creating jpackaged file");
           File jpackagedConfigsInUse = new File(appImageHome(), "jpackaged");
-          if (!jpackagedConfigsInUse.exists()){
-            try{
+          if (!jpackagedConfigsInUse.exists()) {
+            try {
               jpackagedConfigsInUse.createNewFile();
-            }catch(IOException e){
-              logger.warning("Error creating jpackaged file, delete config files manually when uninstalling");
+            } catch (IOException e) {
+              logger.warning(
+                  "Error creating jpackaged file, delete config files manually when uninstalling");
             }
           }
         }
         if (-1 == cnr) {
-          logger.info("not overwriting existing config file, not creating jpackaged file");
+          logger.info(
+              "not overwriting existing config file, not creating jpackaged file");
         }
       }
     }

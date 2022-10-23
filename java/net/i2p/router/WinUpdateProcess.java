@@ -62,13 +62,22 @@ class WinUpdateProcess implements Runnable {
         env.put("RESTART_I2P", "true");
 
       try {
-        pb.directory(workingDir)
-            .redirectErrorStream(true)
-            .redirectOutput(logFile)
-            .start();
+        Process p = pb.directory(workingDir)
+                        .redirectErrorStream(true)
+                        .redirectOutput(logFile)
+                        .start();
+        exitCode = p.waitFor();
+        if (exitCode != 0)
+          _log.error("Update failed with exit code " + exitCode + " see " +
+                     logFile.getAbsolutePath() + " for more details");
       } catch (IOException ex) {
         _log.error(
-            "Unable to run update-program in background. Update will fail.");
+            "Unable to run update program in background. Update will fail.",
+            ex);
+      } catch (InterruptedException ex) {
+        _log.error(
+            "Unable to run update program in background. Update will fail.",
+            ex);
       }
     } else {
       // If we cant write to the log file and we're on Windows, use the elevator

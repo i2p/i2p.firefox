@@ -76,10 +76,12 @@ cd java
   net/i2p/router/CopyConfigDir.java \
   net/i2p/router/Elevator.java \
   net/i2p/router/Shell32X.java \
+  net/i2p/router/WindowsServiceUtil.java \
   net/i2p/router/WinLauncher.java \
   net/i2p/router/WindowsUpdatePostProcessor.java \
   net/i2p/router/WinUpdateProcess.java \
-  net/i2p/router/WindowsServiceUtil.java
+  net/i2p/router/WindowsServiceUtil.java \
+  net/i2p/router/ZipUpdateProcess.java
 
 cd ..
 

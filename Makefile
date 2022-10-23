@@ -11,6 +11,9 @@ PROFILE_VERSION=$(MAJOR).$(MINOR).$(BUILD)
 
 all: version prep install.exe
 
+fmt:
+	find . -name '*.java' -exec clang-format -i {} \;
+
 tag:
 	git tag $(PROFILE_VERSION)
 

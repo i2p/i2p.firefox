@@ -39,6 +39,20 @@ public class WindowsUpdatePostProcessor implements UpdatePostProcessor {
                                           String version, File file)
       throws IOException {
     _log.info("Got an update to post-process");
+    if (fileType != SU3File.TYPE_ZIP) {
+      this.positionedFile = moveUpdateInstaller(file);
+      this.version = version;
+
+      if (!hook.compareAndSet(false, true)) {
+        _log.info("shutdown hook was already set");
+        return;
+      }
+
+      _log.info("adding shutdown hook");
+
+      ctx.addFinalShutdownTask(
+          new ZipUpdateProcess(ctx, this::getVersion, this::getFile));
+    }
     if (SystemVersion.isWindows()) {
 
       if (type != UpdateType.ROUTER_SIGNED_SU3 &&
