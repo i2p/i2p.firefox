@@ -30,7 +30,7 @@ public class ZipUpdateProcess implements Runnable {
   private File workDir() throws IOException {
     if (ctx != null) {
       File workDir =
-          new File(ctx.getConfigDir().getAbsolutePath(), "i2p_update_win");
+          new File(ctx.getConfigDir().getAbsolutePath(), "i2p_update_zip");
       if (workDir.exists()) {
         if (workDir.isFile())
           throw new IOException(workDir +
