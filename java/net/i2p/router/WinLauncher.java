@@ -313,6 +313,12 @@ public class WinLauncher extends CopyConfigDir {
         logger.info(e.toString());
       }
     }
+    Runtime.getRuntime().addShutdownHook(new Thread() {
+      @Override
+      public void run() {
+        setNotStarting();
+      }
+    });
   }
 
   private static boolean checkStarting() {
