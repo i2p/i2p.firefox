@@ -25,3 +25,4 @@ fi
 echo github-release download -u "$GITHUB_USERNAME" -r "i2p.firefox" -n "I2P.zip" -t "$TODAYSDATE"
 github-release download -u "$GITHUB_USERNAME" -r "i2p.firefox" -n "I2P.zip" -t "$TODAYSDATE"
 unzip I2P.zip
+find I2P -type d -exec chmod 755 {} \;
