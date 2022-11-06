@@ -28,4 +28,5 @@ fi
 rm -vrf "tor-browser_${locale}"
 cd "$SCRIPT_DIR" || exit 1
 
-zip -z i2p-portable.zip I2P
+rm -rf I2P-portable && cp -r I2P I2P-portable
+powershell Compress-Archive -force I2P-portable I2P-portable.zip
