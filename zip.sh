@@ -17,7 +17,8 @@ TORSOCKS=$(which torsocks)
 if [ -f "${TORSOCKS}" ]; then
     . "${TORSOCKS}" on
 fi
-./lib/torbrowser-windows.sh
+#./lib/torbrowser-windows.sh
+../src/win/torbrowser-windows.sh
 version="$(curl -s https://aus1.torproject.org/torbrowser/update_3/release/downloads.json | jq -r ".version")"
 . "${TORSOCKS}" off
 locale="en-US" # mention your locale. default = en-US

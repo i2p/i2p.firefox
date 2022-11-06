@@ -29,4 +29,4 @@ gpgv --keyring ./tor.keyring "torbrowser-install-win64-${version}_${locale}.exe.
 #zip -FF "torbrowser-install-win64-${version}_${locale}.exe" --out extracted.zip
 export WINEPREFIX=$(pwd)/tmp
 wine "torbrowser-install-win64-${version}_${locale}.exe" /S /D .
-cp -vr "$WINEPREFIX/drive_c/users/idk/Desktop/Tor Browser/" "I2P/Tor Browser"
+cp -vr "$WINEPREFIX/drive_c/users/idk/Desktop/Tor Browser/" "Tor Browser"

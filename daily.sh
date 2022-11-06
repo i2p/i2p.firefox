@@ -54,3 +54,13 @@ github-release upload -R -u "$GITHUB_USERNAME" -r "i2p.firefox" -f "I2P.zip" -l 
 TARCHECKSUM=$(sha256sum "../i2p.i2p.jpackage-build.tar.gz")
 echo github-release upload -R -u "$GITHUB_USERNAME" -r "i2p.firefox" -f "../i2p.i2p.jpackage-build.tar.gz" -l "Upstream I2P Router source code $TARCHECKSUM" -t "$TODAYSDATE" -n "i2p.i2p.jpackage-build.tar.gz"
 github-release upload -R -u "$GITHUB_USERNAME" -r "i2p.firefox" -f "../i2p.i2p.jpackage-build.tar.gz" -l "Upstream I2P Router source code $TARCHECKSUM" -t "$TODAYSDATE" -n "i2p.i2p.jpackage-build.tar.gz"
+
+./zip.sh
+WINZIPCHECKSUM=$(sha256sum "I2P-portable.zip")
+echo github-release upload -R -u "$GITHUB_USERNAME" -r "i2p.firefox" -f "I2P-portable.zip" -l "$WINZIPCHECKSUM" -t "$TODAYSDATE" -n "I2P-portable.zip"
+github-release upload -R -u "$GITHUB_USERNAME" -r "i2p.firefox" -f "I2P-portable.zip" -l "$WINZIPCHECKSUM" -t "$TODAYSDATE" -n "I2P-portable.zip"
+
+./targz.sh
+TARGZCHECKSUM=$(sha256sum "I2P.tar.gz")
+echo github-release upload -R -u "$GITHUB_USERNAME" -r "i2p.firefox" -f "I2P.tar.gz" -l "$TARGZCHECKSUM" -t "$TODAYSDATE" -n "I2P.tar.gz"
+github-release upload -R -u "$GITHUB_USERNAME" -r "i2p.firefox" -f "I2P.tar.gz" -l "$TARGZCHECKSUM" -t "$TODAYSDATE" -n "I2P.tar.gz"
