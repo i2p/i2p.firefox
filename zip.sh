@@ -11,6 +11,7 @@ fi
 ./clean.sh
 wsl make distclean
 ./build.sh
+./fixperms.sh
 cd "$SCRIPT_DIR/I2P" || exit 1
 
 TORSOCKS=$(which torsocks)
