@@ -51,7 +51,3 @@ ZIPCHECKSUM=$(sha256sum "I2P.tar.gz")
 echo github-release upload -R -u "$GITHUB_USERNAME" -r "i2p.firefox" -f "I2P.tar.gz" -l "$ZIPCHECKSUM" -t "$TODAYSDATE" -n "I2P.tar.gz"
 github-release upload -R -u "$GITHUB_USERNAME" -r "i2p.firefox" -f "I2P.tar.gz" -l "$ZIPCHECKSUM" -t "$TODAYSDATE" -n "I2P.tar.gz"
 
-./zip.sh
-WINZIPCHECKSUM=$(sha256sum "I2P-windows-portable.zip")
-echo github-release upload -R -u "$GITHUB_USERNAME" -r "i2p.firefox" -f "I2P-windows-portable.zip" -l "$WINZIPCHECKSUM" -t "$TODAYSDATE" -n "I2P-windows-portable.zip"
-github-release upload -R -u "$GITHUB_USERNAME" -r "i2p.firefox" -f "I2P-windows-portable.zip" -l "$WINZIPCHECKSUM" -t "$TODAYSDATE" -n "I2P-windows-portable.zip"
