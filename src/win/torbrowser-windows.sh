@@ -28,5 +28,5 @@ gpgv --keyring ./tor.keyring "torbrowser-install-win64-${version}_${locale}.exe.
 #for n in `seq 1 2000`; do echo $n; dd ibs=256 if="torbrowser-install-win64-${version}_${locale}.exe" count=2 skip=$n | file - ; done 2>/dev/null |less
 #zip -FF "torbrowser-install-win64-${version}_${locale}.exe" --out extracted.zip
 export WINEPREFIX=$(pwd)/../tmp
-wine "torbrowser-install-win64-${version}_${locale}.exe" /S /D .
+wine "torbrowser-install-win64-${version}_${locale}.exe" /S #/D .
 cp -vr "$WINEPREFIX/drive_c/users/idk/Desktop/Tor Browser/" "Tor Browser"
