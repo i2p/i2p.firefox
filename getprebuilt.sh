@@ -22,9 +22,10 @@ if [ -z $TODAYSDATE ]; then
   TODAYSDATE=$(date -d '-1 day' '+%Y%m%d')
 fi
 
-echo github-release download -u "$GITHUB_USERNAME" -r "i2p.firefox" -n "I2P.zip" -t "$TODAYSDATE"
-github-release download -u "$GITHUB_USERNAME" -r "i2p.firefox" -n "I2P.zip" -t "$TODAYSDATE"
+if [ ! -f I2P.zip ]; then
+  echo github-release download -u "$GITHUB_USERNAME" -r "i2p.firefox" -n "I2P.zip" -t "$TODAYSDATE"
+  github-release download -u "$GITHUB_USERNAME" -r "i2p.firefox" -n "I2P.zip" -t "$TODAYSDATE"
+fi
 unzip I2P.zip
-sleep 1
-find I2P -type d -exec chmod 755 {} \;
-find I2P -type f -exec chmod +rw {} \;
+sleep 3
+./fixperms.sh
