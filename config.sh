@@ -10,17 +10,17 @@ uname=$(uname)
 # to use it for Oracle OpenJDK18
 
 if [[ -n "$IS_WSL" || -n "$WSL_DISTRO_NAME" ]]; then
-    PATH="/c/Program Files/Java/jdk-18.0.2/bin/:$PATH:/c/Program Files/Java/jdk-18.0.2/bin/"
-    export PATH="/c/Program Files/Java/jdk-18.0.2/bin/:$PATH:/c/Program Files/Java/jdk-18.0.2/bin/"
-    JAVA_HOME="/c/Program Files/Java/jdk-18.0.2"
-    export JAVA_HOME="/c/Program Files/Java/jdk-18.0.2"
+    PATH="/c/Program Files/Java/jdk-19/bin/:$PATH:/c/Program Files/Java/jdk-19/bin/"
+    export PATH="/c/Program Files/Java/jdk-19/bin/:$PATH:/c/Program Files/Java/jdk-19/bin/"
+    JAVA_HOME="/c/Program Files/Java/jdk-19"
+    export JAVA_HOME="/c/Program Files/Java/jdk-19"
 fi
 
 if [ "${uname}" != "Linux" ]; then
-    PATH="/c/Program Files/Java/jdk-18.0.2/bin/:$PATH:/c/Program Files/Java/jdk-18.0.2/bin/"
-    export PATH="/c/Program Files/Java/jdk-18.0.2/bin/:$PATH:/c/Program Files/Java/jdk-18.0.2/bin/"
-    JAVA_HOME="/c/Program Files/Java/jdk-18.0.2"
-    export JAVA_HOME="/c/Program Files/Java/jdk-18.0.2"
+    PATH="/c/Program Files/Java/jdk-19/bin/:$PATH:/c/Program Files/Java/jdk-19/bin/"
+    export PATH="/c/Program Files/Java/jdk-19/bin/:$PATH:/c/Program Files/Java/jdk-19/bin/"
+    JAVA_HOME="/c/Program Files/Java/jdk-19"
+    export JAVA_HOME="/c/Program Files/Java/jdk-19"
 fi
 
 

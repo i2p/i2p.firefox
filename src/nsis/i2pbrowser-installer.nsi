@@ -197,6 +197,7 @@ Function installerFunction
 
     CreateShortCut "$DESKTOP\Browse I2P.lnk" "$INSTDIR\I2P.exe" "" "$INSTDIR\ui2pbrowser_icon.ico"
     CreateShortCut "$DESKTOP\Browse I2P - Temporary Identity.lnk" "$INSTDIR\I2P.exe -private" "" "$INSTDIR\ui2pbrowser_icon.ico"
+    CreateShortCut "$SMPROGRAMS\${APPNAME}\Uninstall I2P Easy-Install Bundle.lnk" "$INSTDIR\uninstall-i2pbrowser.exe" "" "$INSTDIR\ui2pbrowser_icon.ico"
     SetOutPath "$INSTDIR"
 
     SetShellVarContext current
@@ -210,9 +211,8 @@ Function installerFunction
     SetOutPath "$INSTDIR"
     # create the uninstaller
     WriteUninstaller "$INSTDIR\uninstall-i2pbrowser.exe"
+    CreateShortCut "$SMPROGRAMS\${APPNAME}\Uninstall I2P Easy-Install Bundle.lnk" "$INSTDIR\uninstall-i2pbrowser.exe" "" "$INSTDIR\ui2pbrowser_icon.ico"
 
-    # create a shortcut to the uninstaller
-    CreateShortCut "$SMPROGRAMS\${APPNAME}\Uninstall-${APPNAME}.lnk" "$INSTDIR\uninstall-i2pbrowser.exe"
 FunctionEnd
 
 
