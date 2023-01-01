@@ -22,3 +22,6 @@ cmd
 *.zip
 *.tar.gz
 config_override.sh
+i2pkeys
+onionkeys
+tlskeys
