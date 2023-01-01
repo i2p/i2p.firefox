@@ -7,7 +7,7 @@ preset=`rm .version; make version`
 
 -include .version
 
-PROFILE_VERSION=$(MAJOR).$(MINOR).$(BUILD)
+PROFILE_VERSION=$(VERSIONMAJOR).$(VERSIONMINOR).$(VERSIONBUILD)
 
 all: version prep install.exe
 
@@ -130,8 +130,11 @@ include makefiles/debian.mk
 
 I2P_DATE=`date +%Y-%m-%d`
 
-MAGNET=`bttools torrent printinfo i2pwinupdate.su3.torrent | grep 'MagNet' | sed 's|MagNet: ||g' | sed 's|%3A|:|g'| sed 's|%2F|/|g'`
-MAGNET_TESTING=`bttools torrent printinfo i2pwinupdate-testing.su3.torrent | grep 'MagNet' | sed 's|MagNet: ||g' | sed 's|%3A|:|g'| sed 's|%2F|/|g'`
+MAGNET=`bttools torrent dumpinfo i2pwinupdate.su3.torrent | grep 'Magnet' | sed 's|Magnet: ||g' | sed 's|%3A|:|g'| sed 's|%2F|/|g'`
+MAGNET_TESTING=`bttools torrent dumpinfo i2pwinupdate-testing.su3.torrent | grep 'MagNet' | sed 's|MagNet: ||g' | sed 's|%3A|:|g'| sed 's|%2F|/|g'`
+
+magnet:
+	echo "$(MAGNET)"
 
 BLANK=`awk '! NF { print NR; exit }' changelog.txt`
 

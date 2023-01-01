@@ -7,11 +7,11 @@ $(GOPATH)/src/i2pgit.org/idk/su3-tools/su3-tools:
 		go mod vendor && go build
 
 prepupdate:
-	cp -v "I2P-Profile-Installer-$(PROFILE_VERSION)-signed.su3" i2pwinupdate.su3
+	cp -v "I2P-Easy-Install-Bundle-$(PROFILE_VERSION)-signed.su3" i2pwinupdate.su3
 
 su3: $(GOPATH)/src/i2pgit.org/idk/su3-tools/su3-tools
-	$(GOPATH)/src/i2pgit.org/idk/su3-tools/su3-tools -name "I2P-Profile-Installer-$(PROFILE_VERSION)-signed" -signer "$(SIGNER)" -version "$(I2P_VERSION)"
-	java -cp "$(HOME)/i2p/lib/*" net.i2p.crypto.SU3File sign -c ROUTER -f EXE I2P-Profile-Installer-$(PROFILE_VERSION)-signed.exe I2P-Profile-Installer-$(PROFILE_VERSION)-signed.su3 "$(HOME)/.i2p-plugin-keys/news-su3-keystore.ks" $(PROFILE_VERSION) $(SIGNER)
+	$(GOPATH)/src/i2pgit.org/idk/su3-tools/su3-tools -name "I2P-Easy-Install-Bundle-$(PROFILE_VERSION)-signed" -signer "$(SIGNER)" -version "$(PROFILE_VERSION)"
+	java -cp "$(HOME)/i2p/lib/*" net.i2p.crypto.SU3File sign -c ROUTER -f EXE I2P-Easy-Install-Bundle-$(PROFILE_VERSION)-signed.exe I2P-Easy-Install-Bundle-$(PROFILE_VERSION)-signed.su3 "$(HOME)/.i2p-plugin-keys/news-su3-keystore.ks" $(PROFILE_VERSION) $(SIGNER)
 
 i2pwinupdate.su3.torrent: prepupdate su3
 	mktorrent \
