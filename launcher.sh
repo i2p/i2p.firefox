@@ -49,14 +49,14 @@ for i in $COUNT; do
   echo -n "$i...."; sleep 1s
 done
 ant distclean pkg || true
-cd core/c/ && ./build.sh
+ant jbigi-windows-only
 
 cd "$HERE"
 export I2P_PKG="$HERE/../i2p.i2p.jpackage-build/pkg-temp"
 export RES_DIR="$HERE/../i2p.i2p.jpackage-build/installer/resources"
 export I2P_JARS="$I2P_PKG/lib"
 export I2P_JBIGI="$HERE/../i2p.i2p.jpackage-build/installer/lib/jbigi"
-export I2P_JBIGI_JAR="$HERE/../i2p.i2p.jpackage-build/core/c/jbigi.jar"
+export I2P_JBIGI_JAR="$HERE/../i2p.i2p.jpackage-build/build/jbigi.jar"
 
 echo "compiling custom launcher"
 mkdir -p build
