@@ -88,7 +88,7 @@ public class WinLauncher extends CopyConfigDir {
     File programs = programFile();
     File home = homeDir();
 
-    System.setProperty("i2p.dir.base", programs.getAbsolutePath());
+    System.setProperty("i2p.dir.base", new File(programs.getAbsolutePath(), "config").getAbsolutePath());
     System.setProperty("i2p.dir.config", home.getAbsolutePath());
     System.setProperty("router.pid",
                        String.valueOf(ProcessHandle.current().pid()));

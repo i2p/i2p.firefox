@@ -59,7 +59,7 @@ install.exe: #build/licenses
 
 export RES_DIR="../i2p.i2p.jpackage-build/installer/resources"
 export PKG_DIR="../i2p.i2p.jpackage-build/pkg-temp"
-export I2P_JBIGI="../i2p.i2p.jpackage-build/installer/lib/jbigi"
+#export I2P_JBIGI="../i2p.i2p.jpackage-build/installer/lib/jbigi"
 
 distclean: clean
 	rm -rf I2P
@@ -70,7 +70,7 @@ I2P:
 build/I2P: I2P build
 	rm -rf build/I2P
 	cp -rv I2P build/I2P ; true
-	cp "$(I2P_JBIGI)"/*windows*.dll build/I2P/runtime/lib; true
+#	cp "$(I2P_JBIGI)"/*windows*.dll build/I2P/runtime/lib; true
 
 src/I2P/config:
 	mkdir -p src/I2P/config

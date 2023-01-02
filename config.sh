@@ -14,6 +14,8 @@ if [[ -n "$IS_WSL" || -n "$WSL_DISTRO_NAME" ]]; then
     export PATH="/c/Program Files/Java/jdk-19/bin/:$PATH:/c/Program Files/Java/jdk-19/bin/"
     JAVA_HOME="/c/Program Files/Java/jdk-19"
     export JAVA_HOME="/c/Program Files/Java/jdk-19"
+    HOST=win32
+    export HOST=win32
 fi
 
 if [ "${uname}" != "Linux" ]; then
@@ -21,6 +23,8 @@ if [ "${uname}" != "Linux" ]; then
     export PATH="/c/Program Files/Java/jdk-19/bin/:$PATH:/c/Program Files/Java/jdk-19/bin/"
     JAVA_HOME="/c/Program Files/Java/jdk-19"
     export JAVA_HOME="/c/Program Files/Java/jdk-19"
+    HOST=win32
+    export HOST=win32
 fi
 
 
