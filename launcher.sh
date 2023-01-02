@@ -74,7 +74,7 @@ if [ ! -f "$HERE/build/i2pfirefox.jar" ]; then
   wget -O "$HERE/build/i2pfirefox.jar" "https://github.com/eyedeekay/i2p.plugins.firefox/releases/download/$I2PFIREFOX_VERSION/i2pfirefox.jar"
 fi
 
-for dll in "$I2P_JBIGI/*windows*.dll"; do
+for dll in "$I2P_JBIGI/"*windows*.dll; do
   jar uf "$HERE/build/jbigi.jar" "$dll"
 done
 
