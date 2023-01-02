@@ -78,9 +78,13 @@ fi
 if [[ -n "$IS_WSL" || -n "$WSL_DISTRO_NAME" ]]; then
     PATH="$PATH:/c/Program Files (x86)/Windows Kits/10/App Certification Kit/"
     export PATH="$PATH:/c/Program Files (x86)/Windows Kits/10/App Certification Kit/"
+    PATH="$PATH:C:\Users\user\Downloads\m4-1.4.14-1-bin\bin"
+    export PATH="$PATH:C:\Users\user\Downloads\m4-1.4.14-1-bin\bin"
 fi
 
 if [ "${uname}" != "Linux" ]; then
     PATH="$PATH:/c/Program Files (x86)/Windows Kits/10/App Certification Kit/"
     export PATH="$PATH:/c/Program Files (x86)/Windows Kits/10/App Certification Kit/"
+    PATH="$PATH:C:\Users\user\Downloads\m4-1.4.14-1-bin\bin"
+    export PATH="$PATH:C:\Users\user\Downloads\m4-1.4.14-1-bin\bin"
 fi
