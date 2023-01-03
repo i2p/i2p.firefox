@@ -66,6 +66,7 @@ if [ ! -d "I2P" ]; then
   --app-content src/unix/torbrowser.sh \
   --app-content src/win/torbrowser-windows.sh \
   --app-content src/icons/windowsUIToopie2.png \
+  --app-content src/icons/ui2pbrowser_icon.ico \
   --icon "${ICON}" \
   --input build --main-jar launcher.jar --main-class net.i2p.router.WinLauncher
 fi
