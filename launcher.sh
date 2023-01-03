@@ -49,7 +49,7 @@ for i in $COUNT; do
   echo -n "$i...."; sleep 1s
 done
 ant distclean pkg || true
-ant jbigi-windows-only
+ant jbigi
 
 cd "$HERE"
 export I2P_PKG="$HERE/../i2p.i2p.jpackage-build/pkg-temp"

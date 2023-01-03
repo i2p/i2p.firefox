@@ -25,6 +25,8 @@ if [ -z $machine ]; then
   esac
 fi
 
+ICON="src/icons/ui2pbrowser_icon.ico"
+
 if [ "$machine" = "Mac" ]; then
   rm -rf I2P
   ./getprebuilt.sh
@@ -33,6 +35,8 @@ elif [ "$machine" = "Linux" ]; then
   rm -rf I2P
   ./getprebuilt.sh
   exit 0
+elif [ "$machine" = "unix" ]; then
+  ICON=src/icons/windowsUIToopie2.png
 fi
 
 . "$SCRIPT_DIR/launcher.sh"
@@ -62,8 +66,7 @@ if [ ! -d "I2P" ]; then
   --app-content src/unix/torbrowser.sh \
   --app-content src/win/torbrowser-windows.sh \
   --app-content src/icons/windowsUIToopie2.png \
-  --app-content src/icons/ui2pbrowser_icon.ico \
-  --icon src/icons/windowsUIToopie2.png \
+  --icon "${ICON}" \
   --input build --main-jar launcher.jar --main-class net.i2p.router.WinLauncher
 fi
 
