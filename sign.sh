@@ -40,6 +40,8 @@ if [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
     linuxsign I2P-Easy-Install-Bundle-$I2P_VERSION.exe
     cp "I2P-Easy-Install-Bundle-$I2P_VERSION.exe" "I2P-Easy-Install-Bundle-$I2P_VERSION-signed.exe"
 else
-    signtool.exe sign -a "I2P-Easy-Install-Bundle-$I2P_VERSION.exe"
+    #signtool.exe sign -a "I2P-Easy-Install-Bundle-$I2P_VERSION.exe"
+    echo "WARNING: Signing is temporarily disabled for the installer."
+    sleep 5s
     cp "I2P-Easy-Install-Bundle-$I2P_VERSION.exe" "I2P-Easy-Install-Bundle-$I2P_VERSION-signed.exe"
 fi
