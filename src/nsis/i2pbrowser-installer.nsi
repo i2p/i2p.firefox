@@ -224,12 +224,15 @@ SectionEnd
 # uninstaller section start
 Section "uninstall"
     # Don't try to uninstall until the router is fully shut down.
-    ${If} ${Silent}
+    ${FindProcess} "I2P.exe" $0
+    ${If} $0 <> 0
+        MessageBox MB_OK "I2P is still running, uninstaller is paused. Uninstaller will continue after I2P has shut down."
         ${Do}
             ${FindProcess} "I2P.exe" $0
             Sleep 500
         ${LoopWhile} $0 <> 0
     ${EndIf}
+    
     # Uninstall the launcher scripts
     rmDir /r "$INSTDIR\app"
     rmDir /r "$INSTDIR\config"
