@@ -18,7 +18,7 @@ fi
 echo "!define VERSIONMAJOR $VERSIONMAJOR" > "$SCRIPT_DIR"/src/nsis/i2pbrowser-version.nsi
 echo "!define VERSIONMINOR $VERSIONMINOR" >> "$SCRIPT_DIR"/src/nsis/i2pbrowser-version.nsi
 echo "!define VERSIONBUILD $VERSIONBUILD" >> "$SCRIPT_DIR"/src/nsis/i2pbrowser-version.nsi
-echo "!define I2P_VERSION $PROFILE_VERSION" > "$SCRIPT_DIR"src/nsis/i2pbrowser-jpackage.nsi
+echo "!define I2P_VERSION $PROFILE_VERSION" > "$SCRIPT_DIR"/src/nsis/i2pbrowser-jpackage.nsi
 
 echo "$PROFILE_VERSION" > "$SCRIPT_DIR"/build/version.txt
 echo "$PROFILE_VERSION" > "$SCRIPT_DIR"/build/version.txt

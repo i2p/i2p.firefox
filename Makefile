@@ -9,7 +9,7 @@ preset=`rm .version; make version`
 
 PROFILE_VERSION=$(VERSIONMAJOR).$(VERSIONMINOR).$(VERSIONBUILD)
 
-all: version prep install.exe
+all: version install.exe
 
 fmt:
 	find . -name '*.java' -exec clang-format -i {} \;
@@ -19,7 +19,7 @@ tag:
 
 version:
 	./buildscripts/version.sh
-	make version.txt "$SCRIPT_DIR
+	make version.txt
 
 version.txt: build
 	echo "$(PROFILE_VERSION)" > build/version.txt
@@ -44,7 +44,7 @@ prep:
 	echo "nsi2" >> make.log
 	cp src/icons/*.ico build
 
-install.exe: #build/licenses
+install.exe: prep
 	cd build && makensis i2pbrowser-installer.nsi && cp I2P-Easy-Install-Bundle-*.exe ../ && echo "built windows installer"
 
 export RES_DIR="../i2p.i2p.jpackage-build/installer/resources"
@@ -62,9 +62,6 @@ build/I2P: I2P build
 src/I2P/config:
 
 build/I2P/config: src/I2P/config build/I2P
-#	cp -rv src/I2P/config build/I2P/config
-#	cp -rv build/I2P/* I2P/
-#	cp -rv src/I2P/config build/I2P/.i2p
 
 #
 # Warning: a displayed license file of more than 28752 bytes
