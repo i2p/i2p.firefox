@@ -23,4 +23,4 @@ echo "!define I2P_VERSION $PROFILE_VERSION" > "$SCRIPT_DIR"/src/nsis/i2pbrowser-
 mkdir -p "$SCRIPT_DIR"/build
 echo "$PROFILE_VERSION" > "$SCRIPT_DIR"/build/version.txt
 echo "$PROFILE_VERSION" > "$SCRIPT_DIR"/build/version.txt
-sed 's|!define VERSION||g' src/nsis/i2pbrowser-version.nsi | sed 's| |=|g' > .version
+sed 's|!define VERSION||g' "$SCRIPT_DIR"/src/nsis/i2pbrowser-version.nsi | sed 's| |=|g' > .version

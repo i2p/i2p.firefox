@@ -16,8 +16,8 @@ if [ -f "$SCRIPT_DIR/config_override.sh" ]; then
 fi
 
 mkdir -p "$SCRIPT_DIR"/build/licenses
-	cp license/* "$SCRIPT_DIR"/build/licenses
-	cp LICENSE.md "$SCRIPT_DIR"/build/licenses/MIT.txt
+	cp "$SCRIPT_DIR"/license/* "$SCRIPT_DIR"/build/licenses
+	cp "$SCRIPT_DIR"/LICENSE.md "$SCRIPT_DIR"/build/licenses/MIT.txt
 	cat "$SCRIPT_DIR"/build/licenses/LICENSE.index \
 		"$SCRIPT_DIR"/build/licenses/EPL.txt \
 		"$SCRIPT_DIR"/build/licenses/GPL+CLASSPATH.txt \
