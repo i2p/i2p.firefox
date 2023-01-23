@@ -21,7 +21,7 @@ jpackage --name I2P-MSI --app-version "$I2P_VERSION" \
     --app-content src/I2P/config \
     --app-content src/icons/windowsUIToopie2.png \
     --icon src/icons/windowsUIToopie2.png \
-    --input build \
+    --input "$SCRIPT_DIR/build" \
     --verbose \
     --type msi \
     --win-dir-chooser \

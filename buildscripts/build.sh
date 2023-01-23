@@ -44,14 +44,12 @@ fi
 . "$SCRIPT_DIR/buildscripts/launcher.sh"
 
 if [ -z $I2P_VERSION ]; then 
-    I2P_VERSION=$("$JAVA_HOME"/bin/java -cp build/router.jar net.i2p.router.RouterVersion | sed "s/.*: //" | head -n 1 | sed 's|-|.|g')
+    I2P_VERSION=$("$JAVA_HOME"/bin/java -cp $SCRIPT_DIR/build/router.jar net.i2p.router.RouterVersion | sed "s/.*: //" | head -n 1 | sed 's|-|.|g')
 fi
 
 echo "preparing to invoke jpackage for I2P version $I2P_VERSION"
 
 rm -rf I2P
-
-make src/I2P/config
 
 if [ ! -d "I2P" ]; then
 "$JAVA_HOME"/bin/jpackage --type app-image --name I2P --app-version "$I2P_VERSION" \
@@ -63,14 +61,14 @@ if [ ! -d "I2P" ]; then
   --java-options "--add-opens java.base/java.util.Properties=ALL-UNNAMED" \
   --java-options "--add-opens java.base/java.util.Properties.defaults=ALL-UNNAMED" \
   $JPACKAGE_OPTS \
-  --resource-dir build \
+  --resource-dir $SCRIPT_DIR/build \
   --app-content src/I2P/config \
   --app-content src/unix/torbrowser.sh \
   --app-content src/win/torbrowser-windows.sh \
   --app-content src/icons/windowsUIToopie2.png \
   --app-content src/icons/ui2pbrowser_icon.ico \
   --icon "${ICON}" \
-  --input build --main-jar launcher.jar --main-class net.i2p.router.WinLauncher
+  --input $SCRIPT_DIR/build --main-jar launcher.jar --main-class net.i2p.router.WinLauncher
 fi
 
 cp "$I2P_PKG/licenses/"* license/
