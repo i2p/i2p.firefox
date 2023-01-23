@@ -143,18 +143,9 @@ I highly recommend you look into the Chocolatey package manager, which makes it 
 easier to configure these tools and keep them up to date.
 
 **Prerequisites:** In addition to the other prerequisites, you will need to to have
-`make` installed with `cygwin`. If you are using this method, you cannot use the
-automated build scripts without a hack. You will need to create a file called `wsl`
-in a place that is in the path used by `git-bash.exe` sessions, with the content:
-
-```
-#! /usr/bin/env bash
-$@
-```
-
-For our purposes, as long as everything else is set up and you're using git bash,
-that is enough to make the scripts compatible with `cygwin`. Cygwin builds without
-git bash are not likely to work.
+`make` installed with `cygwin`. For our purposes, as long as everything else is
+set up and you're using git bash, that is enough to make the scripts compatible with
+`cygwin`. Cygwin builds without git bash are not likely to work.
 
 1. Run the Cygwin `setup-$arch.exe` for your platform to set up new packages. Select the `make` `jq` `dos2unix` and `curl` packages.
 2. Open a cygwin terminal.
