@@ -25,7 +25,7 @@ fi
 git clean -fd
 git checkout .
 cp -v "$SCRIPT_DIR/config_override.example.sh" config_override.sh
-./buildscripts/unsigned.sh
+"$SCRIPT_DIR"/buildscripts/unsigned.sh
 
 . "$HOME/github-release-config.sh"
 

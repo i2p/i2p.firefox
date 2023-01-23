@@ -25,7 +25,7 @@ fi
 # GITHUB_USERNAME=your github username
 git clean -fd
 git checkout .
-./buildscripts/targz.sh
+"$SCRIPT_DIR"/buildscripts/targz.sh
 
 . "$HOME/github-release-config.sh"
 

@@ -66,20 +66,20 @@ ant jbigi
 
 cd "$SCRIPT_DIR"
 
-mkdir -p "$SCRIPT_DIR"/src/I2P/config
-rm -rf ""$SCRIPT_DIR"/src/I2P/config/geoip" ""$SCRIPT_DIR"/src/I2P/config/webapps" ""$SCRIPT_DIR"/src/I2P/config/certificates"
-cp -v "$RES_DIR/clients.config" ""$SCRIPT_DIR"/src/I2P/config/"
-cp -v "$RES_DIR/wrapper.config" ""$SCRIPT_DIR"/src/I2P/config/"
+mkdir -p "$SCRIPT_DIR/src/I2P/config"
+rm -rf "$SCRIPT_DIR/src/I2P/config/geoip" "$SCRIPT_DIR/src/I2P/config/webapps" "$SCRIPT_DIR/src/I2P/config/certificates"
+cp -v "$RES_DIR/clients.config" "$SCRIPT_DIR/src/I2P/config/"
+cp -v "$RES_DIR/wrapper.config" "$SCRIPT_DIR/src/I2P/config/"
 #grep -v 'router.updateURL' $(RES_DIR)/router.config > "$SCRIPT_DIR"/src/I2P/config/router.config
-cat router.config > "$SCRIPT_DIR"/src/I2P/config/router.config
-cat i2ptunnel.config > "$SCRIPT_DIR"/src/I2P/config/i2ptunnel.config
-cp -v "$RES_DIR/hosts.txt" ""$SCRIPT_DIR"/src/I2P/config/hosts.txt"
-cp -R "$RES_DIR/certificates" ""$SCRIPT_DIR"/src/I2P/config/certificates"
-cp -R "$RES_DIR/eepsite" ""$SCRIPT_DIR"/src/I2P/config/eepsite"
-mkdir -p "$SCRIPT_DIR"/src/I2P/config/geoip
-cp -v "$RES_DIR/GeoLite2-Country.mmdb.gz" ""$SCRIPT_DIR"/src/I2P/config/geoip/GeoLite2-Country.mmdb.gz"
-cp -R "$I2P_PKG/webapps" ""$SCRIPT_DIR"/src/I2P/config/webapps"
-cd "$SCRIPT_DIR"/src/I2P/config/geoip && gunzip GeoLite2-Country.mmdb.gz; cd ../../..
+cat router.config > "$SCRIPT_DIR/src/I2P/config/router.config"
+cat i2ptunnel.config > "$SCRIPT_DIR/src/I2P/config/i2ptunnel.config"
+cp -v "$RES_DIR/hosts.txt" "$SCRIPT_DIR/src/I2P/config/hosts.txt"
+cp -R "$RES_DIR/certificates" "$SCRIPT_DIR/src/I2P/config/certificates"
+cp -R "$RES_DIR/eepsite" "$SCRIPT_DIR/src/I2P/config/eepsite"
+mkdir -p "$SCRIPT_DIR/src/I2P/config/geoip"
+cp -v "$RES_DIR/GeoLite2-Country.mmdb.gz" "$SCRIPT_DIR/src/I2P/config/geoip/GeoLite2-Country.mmdb.gz"
+cp -R "$I2P_PKG/webapps" "$SCRIPT_DIR/src/I2P/config/webapps"
+cd "$SCRIPT_DIR/src/I2P/config/geoip" && gunzip GeoLite2-Country.mmdb.gz; cd ../../..
 
 echo "compiling custom launcher"
 mkdir -p "$SCRIPT_DIR/build"
@@ -101,7 +101,7 @@ for dll in "$I2P_JBIGI/"*windows*.dll; do
   jar uf "$SCRIPT_DIR/build/jbigi.jar" "$dll"
 done
 
-cd java
+cd "$SCRIPT_DIR"/java
 "$JAVA_HOME"/bin/javac -d ../build -classpath "$SCRIPT_DIR/build/i2pfirefox.jar:$SCRIPT_DIR/build/jna.jar":"$SCRIPT_DIR/build/jna-platform.jar":"$SCRIPT_DIR/build/i2p.jar":"$SCRIPT_DIR/build/router.jar":"$SCRIPT_DIR/build/routerconsole.jar":"$SCRIPT_DIR/build/jbigi.jar" \
   net/i2p/router/CopyConfigDir.java \
   net/i2p/router/Elevator.java \

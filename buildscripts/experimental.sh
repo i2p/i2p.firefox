@@ -9,7 +9,7 @@ if [ -f "$SCRIPT_DIR/config_override.sh" ]; then
   . "$SCRIPT_DIR/config_override.sh"
 fi
 
-./buildscripts/clean.sh
+"$SCRIPT_DIR"/buildscripts/clean.sh
 wsl make distclean
-./buildscripts/build.sh
+"$SCRIPT_DIR"/buildscripts/build.sh
 wsl make

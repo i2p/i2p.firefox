@@ -8,10 +8,10 @@ cd "$SCRIPT_DIR" || exit 1
 if [ -f "$SCRIPT_DIR/config_override.sh" ]; then
   . "$SCRIPT_DIR/config_override.sh"
 fi
-./buildscripts/clean.sh
+"$SCRIPT_DIR"/buildscripts/clean.sh
 wsl make distclean
-./buildscripts/build.sh
-./buildscripts/fixperms.sh
+"$SCRIPT_DIR"/buildscripts/build.sh
+"$SCRIPT_DIR"/buildscripts/fixperms.sh
 cd "$SCRIPT_DIR/I2P" || exit 1
 
 TORSOCKS=$(which torsocks)

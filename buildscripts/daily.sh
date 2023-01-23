@@ -22,7 +22,7 @@ mv "$SCRIPT_DIR/config_override.sh" "$SCRIPT_DIR/config_override.sh.bak"
 # GITHUB_USERNAME=your github username
 git clean -fd
 git checkout .
-./buildscripts/unsigned.sh
+"$SCRIPT_DIR"/buildscripts/unsigned.sh
 
 . "$HOME/github-release-config.sh"
 

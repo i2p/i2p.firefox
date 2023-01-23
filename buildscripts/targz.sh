@@ -9,9 +9,9 @@ if [ -f "$SCRIPT_DIR/config_override.sh" ]; then
   . "$SCRIPT_DIR/config_override.sh"
 fi
 export machine=unix
-./buildscripts/clean.sh
+"$SCRIPT_DIR"/buildscripts/clean.sh
 wsl make distclean
-./buildscripts/build.sh
+"$SCRIPT_DIR"/buildscripts/build.sh
 cd "$SCRIPT_DIR/I2P" || exit 1
 
 TORSOCKS=$(which torsocks)

@@ -25,15 +25,15 @@ if [ -z $machine ]; then
   esac
 fi
 
-ICON=""$SCRIPT_DIR"/src/icons/ui2pbrowser_icon.ico"
+ICON="$SCRIPT_DIR/src/icons/ui2pbrowser_icon.ico"
 
 if [ "$machine" = "Mac" ]; then
   rm -rf I2P
-  ./buildscripts/getprebuilt.sh
+  "$SCRIPT_DIR"/buildscripts/getprebuilt.sh
   exit 0
 elif [ "$machine" = "Linux" ]; then
   rm -rf I2P
-  ./buildscripts/getprebuilt.sh
+  "$SCRIPT_DIR"/buildscripts/getprebuilt.sh
   exit 0
 elif [ "$machine" = "unix" ]; then
   ICON="$SCRIPT_DIR"/src/icons/windowsUIToopie2.png
@@ -41,7 +41,7 @@ elif [ "$machine" = "unix" ]; then
   export EXTRA="    public final static String EXTRA = \"-$EXTRACODE\";"
 fi
 
-. "$SCRIPT_DIR/buildscripts/launcher.sh"
+. "$SCRIPT_DI"$SCRIPT_DIR"/buildscripts/launcher.sh"
 
 if [ -z $I2P_VERSION ]; then 
     I2P_VERSION=$("$JAVA_HOME"/bin/java -cp $SCRIPT_DIR/build/router.jar net.i2p.router.RouterVersion | sed "s/.*: //" | head -n 1 | sed 's|-|.|g')
@@ -72,4 +72,4 @@ if [ ! -d "I2P" ]; then
 fi
 
 cp "$I2P_PKG/licenses/"* license/
-cp "$HERE/../i2p.i2p.jpackage-build/LICENSE.txt" license/I2P.txt
+cp "$SCRIPT_DIR/../i2p.i2p.jpackage-build/LICENSE.txt" license/I2P.txt

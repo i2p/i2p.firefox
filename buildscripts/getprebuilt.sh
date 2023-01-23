@@ -28,4 +28,4 @@ if [ ! -f I2P.zip ]; then
 fi
 unzip I2P.zip
 sleep 3
-./buildscripts/fixperms.sh
+"$SCRIPT_DIR"/buildscripts/fixperms.sh

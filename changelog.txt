@@ -1,3 +1,7 @@
+2022-01-23 idk
+ * Move build scripts to their own directory and make them use correct paths when moved
+ * Add EXTRA to router when generating embedded router jars.
+
 2022-09-20 idk
  * improve compatibility with local service installs and with un-bundled installs side-by-side with bundled intalls
  * version 1.9.7
