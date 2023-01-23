@@ -18,12 +18,8 @@ tag:
 	git tag $(PROFILE_VERSION)
 
 version:
-	echo !define VERSIONMAJOR $(VERSIONMAJOR) > src/nsis/i2pbrowser-version.nsi
-	echo !define VERSIONMINOR $(VERSIONMINOR) >> src/nsis/i2pbrowser-version.nsi
-	echo !define VERSIONBUILD $(VERSIONBUILD) >> src/nsis/i2pbrowser-version.nsi
-	sed 's|!define VERSION||g' src/nsis/i2pbrowser-version.nsi | sed 's| |=|g' > .version
-	rm -f version.txt
-	make version.txt i2pbrowser-jpackage.nsi
+	./buildscripts/version.sh
+	make version.txt "$SCRIPT_DIR
 
 version.txt: build
 	echo "$(PROFILE_VERSION)" > build/version.txt
