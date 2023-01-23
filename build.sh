@@ -41,7 +41,7 @@ elif [ "$machine" = "unix" ]; then
   export EXTRA="    public final static String EXTRA = \"-$EXTRACODE\";"
 fi
 
-. "$SCRIPT_DIR/launcher.sh"
+. "$SCRIPT_DIR/buildscripts/launcher.sh"
 
 if [ -z $I2P_VERSION ]; then 
     I2P_VERSION=$("$JAVA_HOME"/bin/java -cp build/router.jar net.i2p.router.RouterVersion | sed "s/.*: //" | head -n 1 | sed 's|-|.|g')
