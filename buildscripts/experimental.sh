@@ -12,4 +12,4 @@ fi
 "$SCRIPT_DIR"/buildscripts/clean.sh
 wsl "$SCRIPT_DIR"/buildscripts/clean.sh
 "$SCRIPT_DIR"/buildscripts/build.sh
-wsl make
+"$SCRIPT_DIR"/buildscripts/nsis.sh
