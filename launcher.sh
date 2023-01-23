@@ -43,6 +43,11 @@ if [ ! -d "$HERE/../i2p.i2p.jpackage-build/" ]; then
   git clone --depth=1 -b "$VERSION" https://i2pgit.org/i2p-hackers/i2p.i2p "$HERE/../i2p.i2p.jpackage-build/"
 fi
 cd "$HERE/../i2p.i2p.jpackage-build/"
+OLDEXTRA=$(find . -name RouterVersion.java -exec grep 'String EXTRA' {} \;)
+if [ -z $EXTRA ]; then
+  export EXTRA="    public final static String EXTRA = \"-win\";"
+fi
+find . -name RouterVersion.java -exec sed -i "s|$OLDEXTRA|$EXTRA|g" {} \;
 git pull --tags
 git archive --format=tar.gz --output="$HERE/../i2p.firefox/i2p.i2p.jpackage-build.tar.gz" "$VERSION"
 for i in $COUNT; do
