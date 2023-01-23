@@ -1,1 +1,0 @@
-#DEPRECATED moved to i2p.plugins.firefox as "Base/Strict Mode"

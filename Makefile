@@ -19,12 +19,6 @@ tag:
 
 version:
 	./buildscripts/version.sh
-	make version.txt
-
-version.txt: build
-
-i2pbrowser-jpackage.nsi:
-	echo "!define I2P_VERSION $(PROFILE_VERSION)" > src/nsis/i2pbrowser-jpackage.nsi
 
 jpackage: version I2P build/I2P/config all
 
@@ -79,8 +73,6 @@ build:
 include makefiles/su.mk
 
 include makefiles/su-unsigned.mk
-
-include makefiles/debian.mk
 
 I2P_DATE=`date +%Y-%m-%d`
 

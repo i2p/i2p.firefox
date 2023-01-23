@@ -1,1 +1,0 @@
-# DEPRECATED: see https://i2pgit.org/idk/i2p.plugins.firefox for much better replacement.
