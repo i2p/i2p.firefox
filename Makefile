@@ -72,8 +72,7 @@ build/licenses: build
 	./buildscripts/licenses.sh
 
 clean:
-	rm -rf build app-profile-*.tgz profile-*.tgz I2P-Easy-Install-Bundle-*.exe *.deb src/I2P/config *.su3 .version *.url make.log
-	git clean -fdx src build
+	./clean.sh
 
 build:
 	@echo "creating build directory"
