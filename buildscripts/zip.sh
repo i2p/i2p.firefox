@@ -8,17 +8,16 @@ cd "$SCRIPT_DIR" || exit 1
 if [ -f "$SCRIPT_DIR/config_override.sh" ]; then
   . "$SCRIPT_DIR/config_override.sh"
 fi
-./clean.sh
+./buildscripts/clean.sh
 wsl make distclean
-./build.sh
-./fixperms.sh
+./buildscripts/build.sh
+./buildscripts/fixperms.sh
 cd "$SCRIPT_DIR/I2P" || exit 1
 
 TORSOCKS=$(which torsocks)
 if [ -f "${TORSOCKS}" ]; then
     . "${TORSOCKS}" on
 fi
-#./torbrowser-windows.sh
 ../src/win/torbrowser-windows.sh
 version="$(curl -s https://aus1.torproject.org/torbrowser/update_3/release/downloads.json | jq -r ".version")"
 . "${TORSOCKS}" off

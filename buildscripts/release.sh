@@ -9,5 +9,5 @@ if [ -f "$SCRIPT_DIR/config_override.sh" ]; then
   . "$SCRIPT_DIR/config_override.sh"
 fi
 
-./unsigned.sh
-./sign.sh
+./buildscripts/unsigned.sh
+./buildscripts/sign.sh

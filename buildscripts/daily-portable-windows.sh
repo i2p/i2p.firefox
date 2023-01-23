@@ -46,7 +46,7 @@ fi
 echo github-release release -p -u "$GITHUB_USERNAME" -r "i2p.firefox" -n "$TODAYSDATE" -d "$DESCRIPTION" -t "$TODAYSDATE"
 github-release release -p -u "$GITHUB_USERNAME" -r "i2p.firefox" -n "$TODAYSDATE" -d "$DESCRIPTION" -t "$TODAYSDATE"
 
-./zip.sh
+./buildscripts/zip.sh
 WINZIPCHECKSUM=$(sha256sum "I2P-windows-portable.zip")
 echo github-release upload -R -u "$GITHUB_USERNAME" -r "i2p.firefox" -f "I2P-windows-portable.zip" -l "$WINZIPCHECKSUM" -t "$TODAYSDATE" -n "I2P-windows-portable.zip"
 github-release upload -R -u "$GITHUB_USERNAME" -r "i2p.firefox" -f "I2P-windows-portable.zip" -l "$WINZIPCHECKSUM" -t "$TODAYSDATE" -n "I2P-windows-portable.zip"

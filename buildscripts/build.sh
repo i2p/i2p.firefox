@@ -29,11 +29,11 @@ ICON="src/icons/ui2pbrowser_icon.ico"
 
 if [ "$machine" = "Mac" ]; then
   rm -rf I2P
-  ./getprebuilt.sh
+  ./buildscripts/getprebuilt.sh
   exit 0
 elif [ "$machine" = "Linux" ]; then
   rm -rf I2P
-  ./getprebuilt.sh
+  ./buildscripts/getprebuilt.sh
   exit 0
 elif [ "$machine" = "unix" ]; then
   ICON=src/icons/windowsUIToopie2.png
