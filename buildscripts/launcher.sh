@@ -38,11 +38,16 @@ fi
 echo "Building with: $JAVA, $JAVA_HOME"
 sleep 5s
 
-HERE="$PWD"
-if [ ! -d "$HERE/../i2p.i2p.jpackage-build/" ]; then
-  git clone --depth=1 -b "$VERSION" https://i2pgit.org/i2p-hackers/i2p.i2p "$HERE/../i2p.i2p.jpackage-build/"
+#SCRIPT_DIR="$PWD"
+export I2P_PKG="$SCRIPT_DIR/../i2p.i2p.jpackage-build/pkg-temp"
+export RES_DIR="$SCRIPT_DIR/../i2p.i2p.jpackage-build/installer/resources"
+export I2P_JARS="$I2P_PKG/lib"
+export I2P_JBIGI="$SCRIPT_DIR/../i2p.i2p.jpackage-build/installer/lib/jbigi"
+export I2P_JBIGI_JAR="$SCRIPT_DIR/../i2p.i2p.jpackage-build/build/jbigi.jar"
+if [ ! -d "$SCRIPT_DIR/../i2p.i2p.jpackage-build/" ]; then
+  git clone --depth=1 -b "$VERSION" https://i2pgit.org/i2p-hackers/i2p.i2p "$SCRIPT_DIR/../i2p.i2p.jpackage-build/"
 fi
-cd "$HERE/../i2p.i2p.jpackage-build/"
+cd "$SCRIPT_DIR/../i2p.i2p.jpackage-build/"
 OLDEXTRA=$(find . -name RouterVersion.java -exec grep 'String EXTRA' {} \;)
 if [ -z "$EXTRA" ]; then
   export EXTRACODE="win"
@@ -51,42 +56,38 @@ fi
 find . -name RouterVersion.java -exec sed -i "s|$OLDEXTRA|$EXTRA|g" {} \;
 git checkout -b "i2p-$VERSION-$EXTRACODE" && git commit -am "i2p-$VERSION-$EXTRACODE"
 git pull --tags
-git archive --format=tar.gz --output="$HERE/../i2p.firefox/i2p.i2p.jpackage-build.tar.gz" "i2p-$VERSION-$EXTRACODE"
+git archive --format=tar.gz --output="$SCRIPT_DIR/../i2p.firefox/i2p.i2p.jpackage-build.tar.gz" "i2p-$VERSION-$EXTRACODE"
+
 for i in $COUNT; do
   echo -n "$i...."; sleep 1s
 done
 ant distclean pkg || true
 ant jbigi
 
-cd "$HERE"
-export I2P_PKG="$HERE/../i2p.i2p.jpackage-build/pkg-temp"
-export RES_DIR="$HERE/../i2p.i2p.jpackage-build/installer/resources"
-export I2P_JARS="$I2P_PKG/lib"
-export I2P_JBIGI="$HERE/../i2p.i2p.jpackage-build/installer/lib/jbigi"
-export I2P_JBIGI_JAR="$HERE/../i2p.i2p.jpackage-build/build/jbigi.jar"
+cd "$SCRIPT_DIR"
 
 echo "compiling custom launcher"
 mkdir -p build
 cp "$I2P_JARS"/*.jar build
 cp "$I2P_JBIGI_JAR" build
-if [ ! -f "$HERE/build/jna.jar" ]; then
-  wget -O "$HERE/build/jna.jar" "https://repo1.maven.org/maven2/net/java/dev/jna/jna/$JNA_VERSION/jna-$JNA_VERSION.jar"
+if [ ! -f "$SCRIPT_DIR/build/jna.jar" ]; then
+  wget -O "$SCRIPT_DIR/build/jna.jar" "https://repo1.maven.org/maven2/net/java/dev/jna/jna/$JNA_VERSION/jna-$JNA_VERSION.jar"
 fi
 
-if [ ! -f "$HERE/build/jna-platform.jar" ]; then
-  wget -O "$HERE/build/jna-platform.jar" "https://repo1.maven.org/maven2/net/java/dev/jna/jna-platform/$JNA_VERSION/jna-platform-$JNA_VERSION.jar"
+if [ ! -f "$SCRIPT_DIR/build/jna-platform.jar" ]; then
+  wget -O "$SCRIPT_DIR/build/jna-platform.jar" "https://repo1.maven.org/maven2/net/java/dev/jna/jna-platform/$JNA_VERSION/jna-platform-$JNA_VERSION.jar"
 fi
 
-if [ ! -f "$HERE/build/i2pfirefox.jar" ]; then
-  wget -O "$HERE/build/i2pfirefox.jar" "https://github.com/eyedeekay/i2p.plugins.firefox/releases/download/$I2PFIREFOX_VERSION/i2pfirefox.jar"
+if [ ! -f "$SCRIPT_DIR/build/i2pfirefox.jar" ]; then
+  wget -O "$SCRIPT_DIR/build/i2pfirefox.jar" "https://github.com/eyedeekay/i2p.plugins.firefox/releases/download/$I2PFIREFOX_VERSION/i2pfirefox.jar"
 fi
 
 for dll in "$I2P_JBIGI/"*windows*.dll; do
-  jar uf "$HERE/build/jbigi.jar" "$dll"
+  jar uf "$SCRIPT_DIR/build/jbigi.jar" "$dll"
 done
 
 cd java
-"$JAVA_HOME"/bin/javac -d ../build -classpath "$HERE/build/i2pfirefox.jar:$HERE/build/jna.jar":"$HERE/build/jna-platform.jar":"$HERE/build/i2p.jar":"$HERE/build/router.jar":"$HERE/build/routerconsole.jar":"$HERE/build/jbigi.jar" \
+"$JAVA_HOME"/bin/javac -d ../build -classpath "$SCRIPT_DIR/build/i2pfirefox.jar:$SCRIPT_DIR/build/jna.jar":"$SCRIPT_DIR/build/jna-platform.jar":"$SCRIPT_DIR/build/i2p.jar":"$SCRIPT_DIR/build/router.jar":"$SCRIPT_DIR/build/routerconsole.jar":"$SCRIPT_DIR/build/jbigi.jar" \
   net/i2p/router/CopyConfigDir.java \
   net/i2p/router/Elevator.java \
   net/i2p/router/Shell32X.java \
