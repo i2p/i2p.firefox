@@ -15,17 +15,17 @@ if [ -f "$SCRIPT_DIR/config_override.sh" ]; then
   . "$SCRIPT_DIR/config_override.sh"
 fi
 
-mkdir -p "$SCRIPT_DIR"/buildlicenses
-	cp license/* "$SCRIPT_DIR"/buildlicenses
-	cp LICENSE.md "$SCRIPT_DIR"/buildlicenses/MIT.txt
-	cat "$SCRIPT_DIR"/buildlicenses/LICENSE.index \
-		"$SCRIPT_DIR"/buildlicenses/EPL.txt \
-		"$SCRIPT_DIR"/buildlicenses/GPL+CLASSPATH.txt \
-		"$SCRIPT_DIR"/buildlicenses/HTTPS-Everywhere.txt \
-		"$SCRIPT_DIR"/buildlicenses/LICENSE.tor \
-		"$SCRIPT_DIR"/buildlicenses/MIT.txt \
-		"$SCRIPT_DIR"/buildlicenses/MPL2.txt \
-		"$SCRIPT_DIR"/buildlicenses/NoScript.txt \
-		"$SCRIPT_DIR"/buildlicenses/NSS.txt \
-		"$SCRIPT_DIR"/buildlicenses/I2P.txt > "$SCRIPT_DIR"/buildlicenses/LICENSE.txt
-	unix2dos "$SCRIPT_DIR"/buildlicenses/LICENSE.txt
+mkdir -p "$SCRIPT_DIR"/build/licenses
+	cp license/* "$SCRIPT_DIR"/build/licenses
+	cp LICENSE.md "$SCRIPT_DIR"/build/licenses/MIT.txt
+	cat "$SCRIPT_DIR"/build/licenses/LICENSE.index \
+		"$SCRIPT_DIR"/build/licenses/EPL.txt \
+		"$SCRIPT_DIR"/build/licenses/GPL+CLASSPATH.txt \
+		"$SCRIPT_DIR"/build/licenses/HTTPS-Everywhere.txt \
+		"$SCRIPT_DIR"/build/licenses/LICENSE.tor \
+		"$SCRIPT_DIR"/build/licenses/MIT.txt \
+		"$SCRIPT_DIR"/build/licenses/MPL2.txt \
+		"$SCRIPT_DIR"/build/licenses/NoScript.txt \
+		"$SCRIPT_DIR"/build/licenses/NSS.txt \
+		"$SCRIPT_DIR"/build/licenses/I2P.txt > "$SCRIPT_DIR"/build/licenses/LICENSE.txt
+	unix2dos "$SCRIPT_DIR"/build/licenses/LICENSE.txt

@@ -10,6 +10,7 @@ if [ -f "$SCRIPT_DIR/config_override.sh" ]; then
 fi
 
 "$SCRIPT_DIR"/buildscripts/clean.sh
-wsl "$SCRIPT_DIR"/buildscripts/clean.sh
+"$SCRIPT_DIR"/buildscripts/version.sh
+"$SCRIPT_DIR"/buildscripts/licenses.sh
 "$SCRIPT_DIR"/buildscripts/build.sh
 "$SCRIPT_DIR"/buildscripts/nsis.sh

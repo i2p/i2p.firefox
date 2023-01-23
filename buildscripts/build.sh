@@ -16,6 +16,9 @@ if [ -f config_overide.sh ]; then
   . "$SCRIPT_DIR/config_override.sh"
 fi
 
+"$SCRIPT_DIR"/buildscripts/version.sh
+"$SCRIPT_DIR"/buildscripts/licenses.sh
+
 if [ -z $machine ]; then
   unameOut="$(uname -s)"
   case "${unameOut}" in

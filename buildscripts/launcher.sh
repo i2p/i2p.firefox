@@ -38,6 +38,9 @@ fi
 echo "Building with: $JAVA, $JAVA_HOME"
 sleep 5s
 
+"$SCRIPT_DIR"/buildscripts/version.sh
+"$SCRIPT_DIR"/buildscripts/licenses.sh
+
 #SCRIPT_DIR="$PWD"
 export I2P_PKG="$SCRIPT_DIR/../i2p.i2p.jpackage-build/pkg-temp"
 export RES_DIR="$SCRIPT_DIR/../i2p.i2p.jpackage-build/installer/resources"
