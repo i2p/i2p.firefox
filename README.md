@@ -57,7 +57,7 @@ The Windows build tools listed above must be installed on the Windows host machi
 TODO: Add links to the respective instructions for each of these.
 
 **Note that after the dependencies are installed, this step is automated**
-**with `./build.sh`.**
+**with `./buildscripts/build.sh`.**
 
 In order to include a jpackaged(dependency-free) I2P router in the Profile
 Bundle you will need to build the jpackaged I2P router as an "App Image" on
@@ -127,10 +127,10 @@ Ubuntu in WSL.
         ant clean pkg
         cd ..
 
- 7. Move into the i2p.firefox directory. Run the `./build.sh` script.
+ 7. Move into the i2p.firefox directory. Run the `./buildscripts/build.sh` script.
 
         cd i2p.firefox
-        ./build.sh
+        ./buildscripts/build.sh
 
  8. Compile the NSIS installer using WSL.
 
@@ -170,10 +170,10 @@ git bash are not likely to work.
         ant clean pkg
         cd ..
 
-5. Move into the i2p.firefox directory. Run the `./build.sh` script.
+5. Move into the i2p.firefox directory. Run the `./buildscripts/build.sh` script.
 
         cd i2p.firefox
-        ./build.sh
+        ./buildscripts/build.sh
 
 6. Run `make` to build the installer.
 
