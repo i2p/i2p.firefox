@@ -17,9 +17,9 @@ jpackage --name I2P-EXE --app-version "$I2P_VERSION" \
     --java-options "--add-opens java.base/java.util.Properties=ALL-UNNAMED" \
     --java-options "--add-opens java.base/java.util.Properties.defaults=ALL-UNNAMED" \
     $JPACKAGE_OPTS \
-    --app-content src/I2P/config \
-    --app-content src/icons/windowsUIToopie2.png \
-    --icon src/icons/windowsUIToopie2.png \
+    --app-content "$SCRIPT_DIR"/src/I2P/config \
+    --app-content "$SCRIPT_DIR"/src/icons/windowsUIToopie2.png \
+    --icon "$SCRIPT_DIR"/src/icons/windowsUIToopie2.png \
     --input "$SCRIPT_DIR/build" \
     --verbose \
     --type exe \

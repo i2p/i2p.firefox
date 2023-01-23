@@ -66,20 +66,20 @@ ant jbigi
 
 cd "$SCRIPT_DIR"
 
-mkdir -p src/I2P/config
-rm -rf "src/I2P/config/geoip" "src/I2P/config/webapps" "src/I2P/config/certificates"
-cp -v "$RES_DIR/clients.config" "src/I2P/config/"
-cp -v "$RES_DIR/wrapper.config" "src/I2P/config/"
-#grep -v 'router.updateURL' $(RES_DIR)/router.config > src/I2P/config/router.config
-cat router.config > src/I2P/config/router.config
-cat i2ptunnel.config > src/I2P/config/i2ptunnel.config
-cp -v "$RES_DIR/hosts.txt" "src/I2P/config/hosts.txt"
-cp -R "$RES_DIR/certificates" "src/I2P/config/certificates"
-cp -R "$RES_DIR/eepsite" "src/I2P/config/eepsite"
-mkdir -p src/I2P/config/geoip
-cp -v "$RES_DIR/GeoLite2-Country.mmdb.gz" "src/I2P/config/geoip/GeoLite2-Country.mmdb.gz"
-cp -R "$I2P_PKG/webapps" "src/I2P/config/webapps"
-cd src/I2P/config/geoip && gunzip GeoLite2-Country.mmdb.gz; cd ../../..
+mkdir -p "$SCRIPT_DIR"/src/I2P/config
+rm -rf ""$SCRIPT_DIR"/src/I2P/config/geoip" ""$SCRIPT_DIR"/src/I2P/config/webapps" ""$SCRIPT_DIR"/src/I2P/config/certificates"
+cp -v "$RES_DIR/clients.config" ""$SCRIPT_DIR"/src/I2P/config/"
+cp -v "$RES_DIR/wrapper.config" ""$SCRIPT_DIR"/src/I2P/config/"
+#grep -v 'router.updateURL' $(RES_DIR)/router.config > "$SCRIPT_DIR"/src/I2P/config/router.config
+cat router.config > "$SCRIPT_DIR"/src/I2P/config/router.config
+cat i2ptunnel.config > "$SCRIPT_DIR"/src/I2P/config/i2ptunnel.config
+cp -v "$RES_DIR/hosts.txt" ""$SCRIPT_DIR"/src/I2P/config/hosts.txt"
+cp -R "$RES_DIR/certificates" ""$SCRIPT_DIR"/src/I2P/config/certificates"
+cp -R "$RES_DIR/eepsite" ""$SCRIPT_DIR"/src/I2P/config/eepsite"
+mkdir -p "$SCRIPT_DIR"/src/I2P/config/geoip
+cp -v "$RES_DIR/GeoLite2-Country.mmdb.gz" ""$SCRIPT_DIR"/src/I2P/config/geoip/GeoLite2-Country.mmdb.gz"
+cp -R "$I2P_PKG/webapps" ""$SCRIPT_DIR"/src/I2P/config/webapps"
+cd "$SCRIPT_DIR"/src/I2P/config/geoip && gunzip GeoLite2-Country.mmdb.gz; cd ../../..
 
 echo "compiling custom launcher"
 mkdir -p "$SCRIPT_DIR/build"

@@ -25,7 +25,7 @@ if [ -z $machine ]; then
   esac
 fi
 
-ICON="src/icons/ui2pbrowser_icon.ico"
+ICON=""$SCRIPT_DIR"/src/icons/ui2pbrowser_icon.ico"
 
 if [ "$machine" = "Mac" ]; then
   rm -rf I2P
@@ -36,7 +36,7 @@ elif [ "$machine" = "Linux" ]; then
   ./buildscripts/getprebuilt.sh
   exit 0
 elif [ "$machine" = "unix" ]; then
-  ICON=src/icons/windowsUIToopie2.png
+  ICON="$SCRIPT_DIR"/src/icons/windowsUIToopie2.png
   export EXTRACODE="unix"
   export EXTRA="    public final static String EXTRA = \"-$EXTRACODE\";"
 fi
@@ -62,11 +62,11 @@ if [ ! -d "I2P" ]; then
   --java-options "--add-opens java.base/java.util.Properties.defaults=ALL-UNNAMED" \
   $JPACKAGE_OPTS \
   --resource-dir $SCRIPT_DIR/build \
-  --app-content src/I2P/config \
-  --app-content src/unix/torbrowser.sh \
-  --app-content src/win/torbrowser-windows.sh \
-  --app-content src/icons/windowsUIToopie2.png \
-  --app-content src/icons/ui2pbrowser_icon.ico \
+  --app-content "$SCRIPT_DIR"/src/I2P/config \
+  --app-content "$SCRIPT_DIR"/src/unix/torbrowser.sh \
+  --app-content "$SCRIPT_DIR"/src/win/torbrowser-windows.sh \
+  --app-content "$SCRIPT_DIR"/src/icons/windowsUIToopie2.png \
+  --app-content "$SCRIPT_DIR"/src/icons/ui2pbrowser_icon.ico \
   --icon "${ICON}" \
   --input $SCRIPT_DIR/build --main-jar launcher.jar --main-class net.i2p.router.WinLauncher
 fi
