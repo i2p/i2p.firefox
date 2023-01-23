@@ -30,14 +30,9 @@ help: version
 	@echo "$(preset)"
 
 prep:
-	cp src/nsis/*.nsi build
-	echo "nsi1" >> make.log
-	cp src/nsis/*.nsh build
-	echo "nsi2" >> make.log
-	cp src/icons/*.ico build
 
-install.exe: prep
-	cd build && makensis i2pbrowser-installer.nsi && cp I2P-Easy-Install-Bundle-*.exe ../ && echo "built windows installer"
+install.exe:
+	./buildscripts/nsis.sh
 
 export RES_DIR="../i2p.i2p.jpackage-build/installer/resources"
 export PKG_DIR="../i2p.i2p.jpackage-build/pkg-temp"
