@@ -37,7 +37,8 @@ elif [ "$machine" = "Linux" ]; then
   exit 0
 elif [ "$machine" = "unix" ]; then
   ICON=src/icons/windowsUIToopie2.png
-  export EXTRA="    public final static String EXTRA = \"-unix\";"
+  export EXTRACODE="unix"
+  export EXTRA="    public final static String EXTRA = \"-$EXTRACODE\";"
 fi
 
 . "$SCRIPT_DIR/launcher.sh"
