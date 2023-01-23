@@ -161,10 +161,10 @@ set up and you're using git bash, that is enough to make the scripts compatible 
         ant clean pkg
         cd ..
 
-5. Move into the i2p.firefox directory. Run the `./buildscripts/build.sh` script.
+5. Move into the i2p.firefox directory. Run the `./buildscripts/unsigned.sh` script.
 
         cd i2p.firefox
-        ./buildscripts/build.sh
+        ./buildscripts/unsigned.sh
 
 6. Run `make` to build the installer.
 
