@@ -73,3 +73,8 @@ fi
 
 cp "$I2P_PKG/licenses/"* license/
 cp "$SCRIPT_DIR/../i2p.i2p.jpackage-build/LICENSE.txt" license/I2P.txt
+
+
+mkdir -p "$SCRIPT_DIR"/build/I2P
+cp -rv "$SCRIPT_DIR"/I2P/* "$SCRIPT_DIR"/build/I2P
+cp -rv src/I2P/config build/I2P/config

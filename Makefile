@@ -38,16 +38,10 @@ help: version
 	@echo "$(preset)"
 
 prep:
-	make build/licenses
-	echo "licenses" >>make.log
-	make build/I2P
-	echo "buildi2p" >>make.log
-	make build/I2P/config
-	echo "buildi2pconfig" >>make.log
 	cp src/nsis/*.nsi build
-	echo "nsi1" >>make.log
+	echo "nsi1" >> make.log
 	cp src/nsis/*.nsh build
-	echo "nsi2" >>make.log
+	echo "nsi2" >> make.log
 	cp src/icons/*.ico build
 
 install.exe: #build/licenses
@@ -64,28 +58,11 @@ I2P:
 	./build.sh
 
 build/I2P: I2P build
-	rm -rf build/I2P
-	cp -rv I2P build/I2P ; true
-#	cp "$(I2P_JBIGI)"/*windows*.dll build/I2P/runtime/lib; true
 
 src/I2P/config:
-	mkdir -p src/I2P/config
-	rm -rf src/I2P/config/geoip src/I2P/config/webapps src/I2P/config/certificates
-	cp -v $(RES_DIR)/clients.config src/I2P/config/
-	cp -v $(RES_DIR)/wrapper.config src/I2P/config/
-	#grep -v 'router.updateURL' $(RES_DIR)/router.config > src/I2P/config/router.config
-	cat router.config > src/I2P/config/router.config
-	cat i2ptunnel.config > src/I2P/config/i2ptunnel.config
-	cp -v $(RES_DIR)/hosts.txt src/I2P/config/hosts.txt
-	cp -R $(RES_DIR)/certificates src/I2P/config/certificates
-	cp -R $(RES_DIR)/eepsite src/I2P/config/eepsite
-	mkdir -p src/I2P/config/geoip
-	cp -v $(RES_DIR)/GeoLite2-Country.mmdb.gz src/I2P/config/geoip/GeoLite2-Country.mmdb.gz
-	cp -R "$(PKG_DIR)"/webapps src/I2P/config/webapps
-	cd src/I2P/config/geoip && gunzip GeoLite2-Country.mmdb.gz; cd ../../..
 
 build/I2P/config: src/I2P/config build/I2P
-	cp -rv src/I2P/config build/I2P/config
+#	cp -rv src/I2P/config build/I2P/config
 #	cp -rv build/I2P/* I2P/
 #	cp -rv src/I2P/config build/I2P/.i2p
 
@@ -95,20 +72,7 @@ build/I2P/config: src/I2P/config build/I2P
 # Possibly related: https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=895064
 #
 build/licenses: build
-	mkdir -p build/licenses
-	cp license/* build/licenses
-	cp LICENSE.md build/licenses/MIT.txt
-	cat build/licenses/LICENSE.index \
-		build/licenses/EPL.txt \
-		build/licenses/GPL+CLASSPATH.txt \
-		build/licenses/HTTPS-Everywhere.txt \
-		build/licenses/LICENSE.tor \
-		build/licenses/MIT.txt \
-		build/licenses/MPL2.txt \
-		build/licenses/NoScript.txt \
-		build/licenses/NSS.txt \
-		build/licenses/I2P.txt > build/licenses/LICENSE.txt
-	unix2dos build/licenses/LICENSE.txt
+	./buildscripts/licenses.sh
 
 clean:
 	rm -rf build app-profile-*.tgz profile-*.tgz I2P-Easy-Install-Bundle-*.exe *.deb src/I2P/config *.su3 .version *.url make.log
