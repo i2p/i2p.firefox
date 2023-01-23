@@ -44,7 +44,7 @@ if [ ! -d "$HERE/../i2p.i2p.jpackage-build/" ]; then
 fi
 cd "$HERE/../i2p.i2p.jpackage-build/"
 OLDEXTRA=$(find . -name RouterVersion.java -exec grep 'String EXTRA' {} \;)
-if [ -z $EXTRA ]; then
+if [ -z "$EXTRA" ]; then
   export EXTRACODE="win"
   export EXTRA="    public final static String EXTRA = \"-$EXTRACODE\";"
 fi
