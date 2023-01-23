@@ -9,7 +9,7 @@ if [ -f "$SCRIPT_DIR/config_override.sh" ]; then
   . "$SCRIPT_DIR/config_override.sh"
 fi
 "$SCRIPT_DIR"/buildscripts/clean.sh
-wsl make distclean
+wsl "$SCRIPT_DIR"/buildscripts/clean.sh
 "$SCRIPT_DIR"/buildscripts/build.sh
 "$SCRIPT_DIR"/buildscripts/fixperms.sh
 cd "$SCRIPT_DIR/I2P" || exit 1

@@ -33,4 +33,3 @@ rm -rf \
 	*.dmg
 rm -rf build app-profile-*.tgz profile-*.tgz I2P-Easy-Install-Bundle-*.exe *.deb src/I2P/config *.su3 .version *.url make.log
 git clean -fdx src build onionkeys tlskeys i2pkeys
-make clean
