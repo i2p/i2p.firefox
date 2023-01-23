@@ -1,6 +1,6 @@
 #! /usr/bin/env bash
 
-SCRIPT_DIR=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd -P)
+SCRIPT_DIR=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd -P)/..
 cd "$SCRIPT_DIR" || exit 1
 
 . "$SCRIPT_DIR/i2pversion"
@@ -25,7 +25,6 @@ fi
 # GITHUB_USERNAME=your github username
 git clean -fd
 git checkout .
-./targz.sh
 
 . "$HOME/github-release-config.sh"
 
@@ -46,8 +45,8 @@ fi
 
 echo github-release release -p -u "$GITHUB_USERNAME" -r "i2p.firefox" -n "$TODAYSDATE" -d "$DESCRIPTION" -t "$TODAYSDATE"
 github-release release -p -u "$GITHUB_USERNAME" -r "i2p.firefox" -n "$TODAYSDATE" -d "$DESCRIPTION" -t "$TODAYSDATE"
-sleep 2s
-ZIPCHECKSUM=$(sha256sum "I2P.tar.gz")
-echo github-release upload -R -u "$GITHUB_USERNAME" -r "i2p.firefox" -f "I2P.tar.gz" -l "$ZIPCHECKSUM" -t "$TODAYSDATE" -n "I2P.tar.gz"
-github-release upload -R -u "$GITHUB_USERNAME" -r "i2p.firefox" -f "I2P.tar.gz" -l "$ZIPCHECKSUM" -t "$TODAYSDATE" -n "I2P.tar.gz"
 
+./zip.sh
+WINZIPCHECKSUM=$(sha256sum "I2P-windows-portable.zip")
+echo github-release upload -R -u "$GITHUB_USERNAME" -r "i2p.firefox" -f "I2P-windows-portable.zip" -l "$WINZIPCHECKSUM" -t "$TODAYSDATE" -n "I2P-windows-portable.zip"
+github-release upload -R -u "$GITHUB_USERNAME" -r "i2p.firefox" -f "I2P-windows-portable.zip" -l "$WINZIPCHECKSUM" -t "$TODAYSDATE" -n "I2P-windows-portable.zip"

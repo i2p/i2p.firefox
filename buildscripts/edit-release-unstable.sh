@@ -1,7 +1,9 @@
 #! /usr/bin/env bash
 
-SCRIPT_DIR=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd -P)
+SCRIPT_DIR=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd -P)/..
 cd "$SCRIPT_DIR" || exit 1
+
+cp -v "$SCRIPT_DIR/config_override.example.sh" config_override.sh
 
 . "$SCRIPT_DIR/i2pversion"
 
@@ -21,7 +23,7 @@ if [ -f ./i2pversion_override ]; then
   . ./i2pversion_override
 fi
 
-TODAYSDATE=$(date +%Y%m%d)
+TODAYSDATE="$(date +%Y%m%d).java.19.dev.build"
 
 if [ -z "$DESCRIPTION" ]; then
 DESCRIPTION="Daily unsigned build of i2p.firefox for $TODAYSDATE
