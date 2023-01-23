@@ -22,8 +22,6 @@ version:
 	make version.txt
 
 version.txt: build
-	echo "$(PROFILE_VERSION)" > build/version.txt
-	echo "$(PROFILE_VERSION)" > build/version.txt
 
 i2pbrowser-jpackage.nsi:
 	echo "!define I2P_VERSION $(PROFILE_VERSION)" > src/nsis/i2pbrowser-jpackage.nsi
@@ -55,7 +53,7 @@ distclean: clean
 	rm -rf I2P
 
 I2P:
-	./build.sh
+	./buildscripts/build.sh
 
 build/I2P: I2P build
 
@@ -72,7 +70,7 @@ build/licenses: build
 	./buildscripts/licenses.sh
 
 clean:
-	./clean.sh
+	./buildscripts/clean.sh
 
 build:
 	@echo "creating build directory"
