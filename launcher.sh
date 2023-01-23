@@ -45,11 +45,13 @@ fi
 cd "$HERE/../i2p.i2p.jpackage-build/"
 OLDEXTRA=$(find . -name RouterVersion.java -exec grep 'String EXTRA' {} \;)
 if [ -z $EXTRA ]; then
-  export EXTRA="    public final static String EXTRA = \"-win\";"
+  export EXTRACODE="win"
+  export EXTRA="    public final static String EXTRA = \"-$EXTRACODE\";"
 fi
 find . -name RouterVersion.java -exec sed -i "s|$OLDEXTRA|$EXTRA|g" {} \;
+git checkout -b i2p-$VERSION-$EXTRACODE && git commit -am "i2p-$VERSION-$EXTRACODE"
 git pull --tags
-git archive --format=tar.gz --output="$HERE/../i2p.firefox/i2p.i2p.jpackage-build.tar.gz" "$VERSION"
+git archive --format=tar.gz --output="$HERE/../i2p.firefox/i2p.i2p.jpackage-build.tar.gz" "i2p-$VERSION-$EXTRACODE"
 for i in $COUNT; do
   echo -n "$i...."; sleep 1s
 done
