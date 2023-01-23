@@ -33,7 +33,6 @@ fi
 unzip -FF I2P.zip || true
 echo "unzipped prebuilt router"
 sleep 3
-"$SCRIPT_DIR"/buildscripts/fixperms.sh
 
 echo "moved prebuilt router"
 
