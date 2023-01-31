@@ -1,7 +1,7 @@
 # This now requires v3
 UniCode true
 
-!define APPNAME "I2PBrowser-Launcher"
+!define APPNAME "i2peasy"
 !define COMPANYNAME "I2P"
 !define DESCRIPTION "This is a tool which contains an I2P router, a bundled JVM, and a tool for automatically configuring a browser to use with I2P."
 !define I2P_MESSAGE "Please choose a directory."
@@ -18,11 +18,11 @@ UniCode true
 SetOverwrite on
 
 !define INSTDIR
-!define I2PINSTEXE_USERMODE "$LOCALAPPDATA\i2peasy"
+!define I2PINSTEXE_USERMODE "$LOCALAPPDATA\${APPNAME}"
 
 !define RAM_NEEDED_FOR_64BIT 0x80000000
 
-InstallDir "$PROGRAMFILES64\${COMPANYNAME}\${APPNAME}"
+InstallDir $LOCALAPPDATA\${APPNAME}
 
 # rtf or txt file - remember if it is txt, it must be in the DOS text format (\r\n)
 LicenseData "licenses\LICENSE.txt"
