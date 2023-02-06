@@ -12,6 +12,8 @@ import com.sun.jna.platform.win32.WinReg.HKEY;
 import com.sun.jna.win32.W32APIOptions;
 import java.util.*;
 
+//TODO: This is obsolete. I don't know if a single user still has an admin-style install of this.
+// it should be removed a the earliest convenient time.
 public interface Shell32X extends Shell32 {
   Shell32X INSTANCE = (Shell32X)Native.loadLibrary(
       "shell32", Shell32X.class, W32APIOptions.UNICODE_OPTIONS);

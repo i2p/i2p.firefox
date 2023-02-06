@@ -4,6 +4,9 @@ import com.sun.jna.WString;
 import com.sun.jna.platform.win32.Kernel32;
 import com.sun.jna.platform.win32.Kernel32Util;
 
+
+//TODO: This is obsolete. I don't know if a single user still has an admin-style install of this.
+// it should be removed a the earliest convenient time.
 public class Elevator {
   public static void main(String... args) {
     executeAsAdministrator("c:\\windows\\system32\\notepad.exe", "");
