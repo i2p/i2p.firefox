@@ -13,9 +13,9 @@ import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
 public class CopyConfigDir extends WindowsServiceUtil {
-  static final Logger logger = Logger.getLogger("configlog");
+  final Logger logger = Logger.getLogger("configlog");
 
-  public static void initLogger() {
+  public void initLogger() {
     try {
       // This block configure the logger with handler and formatter
       FileHandler fh = new FileHandler(logFile().toString());
@@ -31,13 +31,13 @@ public class CopyConfigDir extends WindowsServiceUtil {
     }
   }
 
-  public static boolean copyDirectory(String baseDir, String workDir) {
+  public boolean copyDirectory(String baseDir, String workDir) {
     File baseFile = new File(baseDir);
     File workFile = new File(workDir);
     return copyDirectory(baseFile, workFile);
   }
 
-  public static boolean copyDirectory(File baseDir, File workDir) {
+  public boolean copyDirectory(File baseDir, File workDir) {
     for (File file : baseDir.listFiles()) {
       String fPath = file.getAbsolutePath().replace(
           file.getParentFile().getAbsolutePath(), "");
@@ -52,7 +52,7 @@ public class CopyConfigDir extends WindowsServiceUtil {
     return true;
   }
 
-  public static boolean copyConfigDirectory(File baseDir, File workDir) {
+  public boolean copyConfigDirectory(File baseDir, File workDir) {
     for (File file : baseDir.listFiles()) {
       // System.out.println(file.getAbsolutePath());
       String fPath = file.getAbsolutePath().replace(
@@ -87,17 +87,17 @@ public class CopyConfigDir extends WindowsServiceUtil {
     return true;
   }
 
-  public static int copyFileNeverOverwrite(String basePath, String workPath) {
+  public int copyFileNeverOverwrite(String basePath, String workPath) {
     File baseFile = new File(basePath);
     File workFile = new File(workPath);
     return copyFileNeverOverwrite(baseFile, workFile);
   }
 
-  public static int copyFileNeverOverwrite(File basePath, File workPath) {
+  public int copyFileNeverOverwrite(File basePath, File workPath) {
     return copyFile(basePath, workPath, false);
   }
 
-  public static int copyFile(File basePath, File workPath, boolean overWrite) {
+  public int copyFile(File basePath, File workPath, boolean overWrite) {
     if (!basePath.exists()) {
       logger.info(basePath.getAbsolutePath() + " doesn't exist, not copying");
       return 0;
@@ -135,7 +135,7 @@ public class CopyConfigDir extends WindowsServiceUtil {
     }
   }
 
-  protected static File selectHome() { // throws Exception {
+  protected File selectHome() { // throws Exception {
     String path_override = System.getenv("I2P_CONFIG");
     if (path_override != null) {
       File path = new File(path_override);
@@ -151,7 +151,7 @@ public class CopyConfigDir extends WindowsServiceUtil {
     return i2p;
   }
 
-  protected static File selectProgramFile() {
+  protected File selectProgramFile() {
     String path_override = System.getenv("I2P");
     if (path_override != null) {
       File path = new File(path_override);
@@ -182,7 +182,7 @@ public class CopyConfigDir extends WindowsServiceUtil {
    *
    * @return
    */
-  protected static File javaHome() {
+  protected File javaHome() {
     File jrehome = new File(System.getProperty("java.home"));
     if (jrehome != null) {
       if (jrehome.exists()) {
@@ -199,7 +199,7 @@ public class CopyConfigDir extends WindowsServiceUtil {
    *
    * @return the app-image root
    */
-  protected static File appImageHome() {
+  protected File appImageHome() {
     File jreHome = javaHome();
     if (jreHome != null) {
       switch (osName()) {
@@ -221,7 +221,7 @@ public class CopyConfigDir extends WindowsServiceUtil {
    *
    * @return the app-image root
    */
-  protected static String appImageExe() {
+  protected String appImageExe() {
     File aih = appImageHome();
     if (aih != null) {
       switch (osName()) {
@@ -243,7 +243,7 @@ public class CopyConfigDir extends WindowsServiceUtil {
    *
    * @return the app-image root
    */
-  protected static File appImageConfig() {
+  protected File appImageConfig() {
     File aih = appImageHome();
     if (aih == null) {
       return null;
@@ -269,13 +269,13 @@ public class CopyConfigDir extends WindowsServiceUtil {
     return null;
   }
 
-  protected static boolean copyConfigDir() {
+  protected boolean copyConfigDir() {
     File appImageConfigDir = appImageConfig();
     File appImageHomeDir = selectHome();
     return copyConfigDirectory(appImageConfigDir, appImageHomeDir);
   }
 
-  protected static String routerConfig() {
+  protected String routerConfig() {
     File appImageHomeDir = selectHome();
     File routerConf = new File(appImageHomeDir, "router.config");
     if (routerConf != null) {
@@ -291,14 +291,14 @@ public class CopyConfigDir extends WindowsServiceUtil {
    *
    * @return
    */
-  protected static File logFile() { return logFile("launcher.log"); }
+  protected File logFile() { return logFile("launcher.log"); }
 
   /**
    * set up the path to the log file
    *
    * @return
    */
-  protected static File logFile(String p) {
+  protected File logFile(String p) {
     File log = new File(selectProgramFile(), "logs");
     if (!log.exists())
       log.mkdirs();

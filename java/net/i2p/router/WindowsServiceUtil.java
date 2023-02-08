@@ -31,7 +31,7 @@ import javax.swing.JOptionPane;
 
 public class WindowsServiceUtil {
   public WindowsServiceUtil() {}
-  public static String queryService(String serviceName) {
+  public String queryService(String serviceName) {
     String result = "";
     String line;
     ProcessBuilder pb = new ProcessBuilder("sc", "query", serviceName);
@@ -54,7 +54,7 @@ public class WindowsServiceUtil {
     }
     return result;
   }
-  public static String getStatePrefix(String qResult) {
+  public String getStatePrefix(String qResult) {
     String statePrefix = "STATE              : ";
     // get the first occurrence of "STATE", then find the
     // next occurrence of of ":" after that. Count the
@@ -70,7 +70,7 @@ public class WindowsServiceUtil {
     }
     return statePrefix;
   }
-  public static int getServiceStateInt(String serviceName) {
+  public int getServiceStateInt(String serviceName) {
     // String statePrefix = "STATE              : ";
     String qResult = queryService(serviceName);
     String statePrefix = getStatePrefix(qResult);
@@ -86,14 +86,14 @@ public class WindowsServiceUtil {
     return -2;
   }
 
-  public static boolean isInstalled(String serviceName) {
+  public boolean isInstalled(String serviceName) {
     if (getServiceState(serviceName).equals("uninstalled")) {
       return false;
     }
     return true;
   }
 
-  public static boolean isStart(String serviceName) {
+  public boolean isStart(String serviceName) {
     if (getServiceState(serviceName).equals("started")) {
       return true;
     }
@@ -106,7 +106,7 @@ public class WindowsServiceUtil {
     return false;
   }
 
-  public static boolean promptServiceStartIfAvailable(String serviceName) {
+  public boolean promptServiceStartIfAvailable(String serviceName) {
     if (osName() != "windows") {
       return true;
     }
@@ -152,17 +152,17 @@ public class WindowsServiceUtil {
     return true;
   }
 
-  public static String ServiceUpdaterString() {
+  public String ServiceUpdaterString() {
     return "http://tc73n4kivdroccekirco7rhgxdg5f3cjvbaapabupeyzrqwv5guq.b32.i2p/news.su3";
   }
-  public static String ServiceBackupUpdaterString() {
+  public String ServiceBackupUpdaterString() {
     return "http://dn3tvalnjz432qkqsvpfdqrwpqkw3ye4n4i2uyfr4jexvo3sp5ka.b32.i2p/news.su3";
   }
-  public static String ServiceStaticUpdaterString() {
+  public String ServiceStaticUpdaterString() {
     return "http://echelon.i2p/i2p/i2pupdate.sud,http://stats.i2p/i2p/i2pupdate.sud";
   }
 
-  public static String getProgramFilesInstall() {
+  public String getProgramFilesInstall() {
     String programFiles = System.getenv("PROGRAMFILES");
     if (programFiles != null) {
       File programFilesI2P = new File(programFiles, "i2p/i2p.exe");
@@ -178,7 +178,7 @@ public class WindowsServiceUtil {
     return null;
   }
 
-  public static boolean checkProgramFilesInstall() {
+  public boolean checkProgramFilesInstall() {
     String programFiles = System.getenv("PROGRAMFILES");
     if (programFiles != null) {
       File programFilesI2P = new File(programFiles, "i2p/i2p.exe");
@@ -194,7 +194,7 @@ public class WindowsServiceUtil {
     return false;
   }
 
-  public static boolean promptUserInstallStartIfAvailable() {
+  public boolean promptUserInstallStartIfAvailable() {
     if (osName() != "windows") {
       return true;
     }
@@ -205,7 +205,7 @@ public class WindowsServiceUtil {
       message +=
           "However, it is not running yet. Please start it using the shortcut on the desktop.\n";
       message +=
-          "If you click \"No\", the jpackage router will be launched instead.\n";
+          "If you click \"No\", the Easy-Install router will be launched instead.\n";
       a = JOptionPane.showConfirmDialog(null, message,
                                         "I2P Service detected not running",
                                         JOptionPane.YES_NO_OPTION);
@@ -216,7 +216,7 @@ public class WindowsServiceUtil {
         try {
           String pfi = getProgramFilesInstall();
           if (pfi != null)
-            Runtime.getRuntime().exec(pfi);
+            Runtime.getRuntime().exec(new String[] {pfi});
         } catch (IOException e) {
           return false;
         }
@@ -226,7 +226,7 @@ public class WindowsServiceUtil {
     return true;
   }
 
-  public static String getServiceState(String serviceName) {
+  public String getServiceState(String serviceName) {
     String stateString = "uninstalled";
     int state = getServiceStateInt(serviceName);
     switch (state) {
@@ -268,7 +268,7 @@ public class WindowsServiceUtil {
       return "mac";
     return "linux";
   }
-  public static void main(String args[]) {
+  public void main(String args[]) {
     // when querying the I2P router service installed by the IzPack installer
     // this is the correct call.
     String state = getServiceState("i2p");

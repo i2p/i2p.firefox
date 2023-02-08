@@ -1,7 +1,5 @@
 package net.i2p.router;
 
-import static net.i2p.update.UpdateType.*;
-
 import java.io.*;
 import java.net.InetAddress;
 import java.net.ServerSocket;
@@ -18,6 +16,7 @@ import net.i2p.router.RouterLaunch;
 import net.i2p.update.*;
 import net.i2p.update.UpdateManager;
 import net.i2p.update.UpdatePostProcessor;
+import net.i2p.update.UpdateType.*;
 
 /**
  * Launches a router from %PROGRAMFILES%/I2P using configuration data in
@@ -30,10 +29,10 @@ import net.i2p.update.UpdatePostProcessor;
  * router.pid - the pid of the java process.
  */
 public class WinLauncher extends CopyConfigDir {
-  static WindowsUpdatePostProcessor wupp = null;
-  private static Router i2pRouter;
+  WindowsUpdatePostProcessor wupp = null;
+  private Router i2pRouter;
 
-  public static void main(String[] args) {
+  public void main(String[] args) {
     setupLauncher();
     initLogger();
     int privateBrowsing = 0;
@@ -110,15 +109,11 @@ public class WinLauncher extends CopyConfigDir {
       logger.severe(
           "Service startup failure, please start I2P service with services.msc");
       System.exit(2);
-    } else {
-      fixServiceConfig();
     }
     continuerunning = promptUserInstallStartIfAvailable();
     if (!continuerunning) {
       logger.severe("User-install startup required.");
       System.exit(2);
-    } else {
-      fixServiceConfig();
     }
 
     // This actually does most of what we use NSIS for if NSIS hasn't
@@ -154,73 +149,14 @@ public class WinLauncher extends CopyConfigDir {
     i2pRouter.runRouter();
   }
 
-  private static void fixServiceConfig() {
-    if (osName() != "windows")
-      return;
-    // If the user installed the Easy bundle before installing the
-    // IzPack installer, then they have a config file which contains the
-    // wrong update URL. Check for it, and change it back if necessary.
-    // closes #23
-    String routerconf = routerConfig();
-    if (routerconf != null) {
-      File routerconffile = new File(routerconf);
-      if (!routerconffile.exists()) {
-        return;
-      }
-    } else {
-      return;
-    }
-    if (isInstalled("i2p") || checkProgramFilesInstall()) {
-      i2pRouter = new Router(routerconf, System.getProperties());
-      String newsURL = i2pRouter.getConfigSetting("router.newsURL");
-      if (newsURL != null) {
-        if (newsURL.contains(
-                "http://dn3tvalnjz432qkqsvpfdqrwpqkw3ye4n4i2uyfr4jexvo3sp5ka.b32.i2p/news/win/beta/news.su3")) {
-          logger.info(
-              "checked router.newsURL config, containes win/beta in a service install, invalid update type");
-          if (i2pRouter.saveConfig("router.newsURL", ServiceUpdaterString())) {
-            logger.info("updated routerconsole.browser config " +
-                        appImageExe());
-          }
-        }
-      }
-      String backupNewsURL = i2pRouter.getConfigSetting("router.backupNewsURL");
-      if (backupNewsURL != null) {
-        if (backupNewsURL.contains(
-                "http://tc73n4kivdroccekirco7rhgxdg5f3cjvbaapabupeyzrqwv5guq.b32.i2p/win/beta/news.su3")) {
-          logger.info(
-              "checked router.backupNewsURL config, containes win/beta in a service install, invalid update type");
-          if (i2pRouter.saveConfig("router.backupNewsURL",
-                                   ServiceBackupUpdaterString())) {
-            logger.info("updated routerconsole.browser config " +
-                        appImageExe());
-          }
-        }
-      }
-      String updateURL = i2pRouter.getConfigSetting("router.updateURL");
-      if (updateURL != null) {
-        if (updateURL.contains(
-                "http://ekm3fu6fr5pxudhwjmdiea5dovc3jdi66hjgop4c7z7dfaw7spca.b32.i2p/i2pwinupdate.su3")) {
-          logger.info(
-              "checked router.updateURL config, containes easy-intall update in a service install, invalid update type");
-          if (i2pRouter.saveConfig("router.updateURL",
-                                   ServiceStaticUpdaterString())) {
-            logger.info("updated routerconsole.browser config " +
-                        appImageExe());
-          }
-        }
-      }
-    }
-  }
-
-  private static void setupLauncher() {
+  private void setupLauncher() {
     File jrehome = javaHome();
     logger.info("jre home is: " + jrehome.getAbsolutePath());
     File appimagehome = appImageHome();
     logger.info("appimage home is: " + appimagehome.getAbsolutePath());
   }
 
-  private static File programFile() {
+  private File programFile() {
     File programs = selectProgramFile();
     if (!programs.exists())
       programs.mkdirs();
@@ -233,7 +169,7 @@ public class WinLauncher extends CopyConfigDir {
     return programs;
   }
 
-  private static File homeDir() {
+  private File homeDir() {
     File home = selectHome();
     if (!home.exists())
       home.mkdirs();
@@ -246,11 +182,9 @@ public class WinLauncher extends CopyConfigDir {
     return home;
   }
 
-  private static boolean launchBrowser(int privateBrowsing,
-                                       boolean usabilityMode,
-                                       boolean chromiumFirst,
-                                       int proxyTimeoutTime,
-                                       ArrayList<String> newArgsList) {
+  private boolean launchBrowser(int privateBrowsing, boolean usabilityMode,
+                                boolean chromiumFirst, int proxyTimeoutTime,
+                                ArrayList<String> newArgsList) {
     if (i2pIsRunning()) {
       logger.info("I2P is already running, launching an I2P browser");
       I2PBrowser i2pBrowser = new I2PBrowser();
@@ -273,7 +207,7 @@ public class WinLauncher extends CopyConfigDir {
 
   // see
   // https://stackoverflow.com/questions/434718/sockets-discover-port-availability-using-java
-  private static boolean isAvailable(int portNr) {
+  private boolean isAvailable(int portNr) {
     boolean portFree;
     try (var ignored = new ServerSocket(portNr)) {
       portFree = true;
@@ -283,7 +217,7 @@ public class WinLauncher extends CopyConfigDir {
     return portFree;
   }
 
-  private static boolean i2pIsRunningCheck() {
+  private boolean i2pIsRunningCheck() {
     // check if there's something listening on port 7657(Router Console)
     if (!isAvailable(7657))
       return true;
@@ -295,7 +229,7 @@ public class WinLauncher extends CopyConfigDir {
     return false;
   }
 
-  private static void setNotStarting() {
+  private void setNotStarting() {
     logger.info("removing startup file, the application has started");
     File home = selectHome();
     File starting = new File(home, "starting");
@@ -304,7 +238,7 @@ public class WinLauncher extends CopyConfigDir {
     }
   }
 
-  private static void setStarting() {
+  private void setStarting() {
     logger.info("creating startup file, router is starting up");
     File home = selectHome();
     File starting = new File(home, "starting");
@@ -323,7 +257,7 @@ public class WinLauncher extends CopyConfigDir {
     });
   }
 
-  private static boolean checkStarting() {
+  private boolean checkStarting() {
     logger.info("checking startup file");
     File home = selectHome();
     File starting = new File(home, "starting");
@@ -338,7 +272,7 @@ public class WinLauncher extends CopyConfigDir {
 
   // check for the existence of router.ping file, if it's less then 2
   // minutes old, exit
-  private static boolean checkPing() {
+  private boolean checkPing() {
     File home = selectHome();
     File ping = new File(home, "router.ping");
     if (ping.exists()) {
@@ -355,7 +289,7 @@ public class WinLauncher extends CopyConfigDir {
     return false;
   }
 
-  private static boolean i2pIsRunning() {
+  private boolean i2pIsRunning() {
     if (checkStarting())
       return true;
     if (checkPing())
@@ -370,7 +304,7 @@ public class WinLauncher extends CopyConfigDir {
     return false;
   }
 
-  private static final Runnable REGISTER_UPP = () -> {
+  private final Runnable REGISTER_UPP = () -> {
     RouterContext ctx;
     while ((ctx = i2pRouter.getContext()) == null) {
       sleep(1000);
@@ -395,7 +329,7 @@ public class WinLauncher extends CopyConfigDir {
    *
    * @param millis
    */
-  private static void sleep(int millis) {
+  private void sleep(int millis) {
     try {
       Thread.sleep(millis);
     } catch (InterruptedException bad) {

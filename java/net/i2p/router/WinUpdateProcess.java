@@ -47,43 +47,34 @@ class WinUpdateProcess implements Runnable {
     File workingDir = workDir();
     File logFile = new File(workingDir, "log-" + version + ".txt");
 
-    if (logFile.canWrite()) {
-      // check if we can write to the log file. If we can, use the
-      // ProcessBuilder to run the installer.
-      ProcessBuilder pb = new ProcessBuilder(
-          file.getAbsolutePath(), "/S", "/D=" + workingDir.getAbsolutePath());
-      Map<String, String> env = pb.environment();
-      env.put("OLD_I2P_VERSION", version);
-      env.remove("RESTART_I2P");
+    // check if we can write to the log file. If we can, use the
+    // ProcessBuilder to run the installer.
+    ProcessBuilder pb = new ProcessBuilder(
+        file.getAbsolutePath(), "/S", "/D=" + workingDir.getAbsolutePath());
+    Map<String, String> env = pb.environment();
+    env.put("OLD_I2P_VERSION", version);
+    env.remove("RESTART_I2P");
 
-      int exitCode = ctx.router().scheduledGracefulExitCode();
-      if (exitCode == Router.EXIT_HARD_RESTART ||
-          exitCode == Router.EXIT_GRACEFUL_RESTART)
-        env.put("RESTART_I2P", "true");
+    int exitCode = ctx.router().scheduledGracefulExitCode();
+    if (exitCode == Router.EXIT_HARD_RESTART ||
+        exitCode == Router.EXIT_GRACEFUL_RESTART)
+      env.put("RESTART_I2P", "true");
 
-      try {
-        Process p = pb.directory(workingDir)
-                        .redirectErrorStream(true)
-                        .redirectOutput(logFile)
-                        .start();
-        exitCode = p.waitFor();
-        if (exitCode != 0)
-          _log.error("Update failed with exit code " + exitCode + " see " +
-                     logFile.getAbsolutePath() + " for more details");
-      } catch (IOException ex) {
-        _log.error(
-            "Unable to run update program in background. Update will fail.",
-            ex);
-      } catch (InterruptedException ex) {
-        _log.error(
-            "Unable to run update program in background. Update will fail.",
-            ex);
-      }
-    } else {
-      // If we cant write to the log file and we're on Windows, use the elevator
-      // to execute the installer instead of the ProcessBuilder.
-      Elevator.executeAsAdministrator(file.getAbsolutePath(),
-                                      " /S /D=" + workingDir.getAbsolutePath());
+    try {
+      Process p = pb.directory(workingDir)
+                      .redirectErrorStream(true)
+                      .redirectOutput(logFile)
+                      .start();
+      exitCode = p.waitFor();
+      if (exitCode != 0)
+        _log.error("Update failed with exit code " + exitCode + " see " +
+                   logFile.getAbsolutePath() + " for more details");
+    } catch (IOException ex) {
+      _log.error(
+          "Unable to run update program in background. Update will fail.", ex);
+    } catch (InterruptedException ex) {
+      _log.error(
+          "Unable to run update program in background. Update will fail.", ex);
     }
   }
 

@@ -44,20 +44,6 @@ public class WindowsUpdatePostProcessor implements UpdatePostProcessor {
       _log.warn("Unsupported update type " + type);
       return;
     }
-    if (fileType != SU3File.TYPE_ZIP) {
-      this.positionedFile = moveUpdateInstaller(file);
-      this.version = version;
-
-      if (!hook.compareAndSet(false, true)) {
-        _log.info("shutdown hook was already set");
-        return;
-      }
-
-      _log.info("adding shutdown hook");
-
-      ctx.addFinalShutdownTask(
-          new ZipUpdateProcess(ctx, this::getVersion, this::getFile));
-    }
     if (SystemVersion.isWindows()) {
 
       if (fileType != SU3File.TYPE_EXE) {
@@ -77,6 +63,21 @@ public class WindowsUpdatePostProcessor implements UpdatePostProcessor {
 
       ctx.addFinalShutdownTask(
           new WinUpdateProcess(ctx, this::getVersion, this::getFile));
+    } else {
+      if (fileType == SU3File.TYPE_ZIP) {
+        this.positionedFile = moveUpdateInstaller(file);
+        this.version = version;
+
+        if (!hook.compareAndSet(false, true)) {
+          _log.info("shutdown hook was already set");
+          return;
+        }
+
+        _log.info("adding shutdown hook");
+
+        ctx.addFinalShutdownTask(
+            new ZipUpdateProcess(ctx, this::getVersion, this::getFile));
+      }
     }
   }
 

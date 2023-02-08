@@ -57,8 +57,10 @@ if [ -z "$EXTRA" ]; then
   export EXTRA="    public final static String EXTRA = \"-$EXTRACODE\";"
 fi
 find . -name RouterVersion.java -exec sed -i "s|$OLDEXTRA|$EXTRA|g" {} \;
-git checkout -b "i2p-$VERSION-$EXTRACODE" && git commit -am "i2p-$VERSION-$EXTRACODE"
+git switch - || :
 git pull --tags
+git checkout -b "i2p-$VERSION-$EXTRACODE" || :
+git commit -am "i2p-$VERSION-$EXTRACODE" || :
 git archive --format=tar.gz --output="$SCRIPT_DIR/../i2p.firefox/i2p.i2p.jpackage-build.tar.gz" "i2p-$VERSION-$EXTRACODE"
 
 for i in $COUNT; do
@@ -105,10 +107,8 @@ for dll in "$I2P_JBIGI/"*windows*.dll; do
 done
 
 cd "$SCRIPT_DIR"/java
-"$JAVA_HOME"/bin/javac -d ../build -classpath "$SCRIPT_DIR/build/i2pfirefox.jar:$SCRIPT_DIR/build/jna.jar":"$SCRIPT_DIR/build/jna-platform.jar":"$SCRIPT_DIR/build/i2p.jar":"$SCRIPT_DIR/build/router.jar":"$SCRIPT_DIR/build/routerconsole.jar":"$SCRIPT_DIR/build/jbigi.jar" \
+"$JAVA_HOME"/bin/javac -Xlint:deprecation -d ../build -classpath "$SCRIPT_DIR/build/i2pfirefox.jar:$SCRIPT_DIR/build/jna.jar":"$SCRIPT_DIR/build/jna-platform.jar":"$SCRIPT_DIR/build/i2p.jar":"$SCRIPT_DIR/build/router.jar":"$SCRIPT_DIR/build/routerconsole.jar":"$SCRIPT_DIR/build/jbigi.jar" \
   net/i2p/router/CopyConfigDir.java \
-  net/i2p/router/Elevator.java \
-  net/i2p/router/Shell32X.java \
   net/i2p/router/WindowsServiceUtil.java \
   net/i2p/router/WinLauncher.java \
   net/i2p/router/WindowsUpdatePostProcessor.java \
