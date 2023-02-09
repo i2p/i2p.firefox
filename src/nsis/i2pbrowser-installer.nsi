@@ -168,11 +168,6 @@ Function installerFunction
             Sleep 500
         ${LoopWhile} $0 <> 0
     ${EndIf}
-    # delete the jpackaged file for safety. Remove this IMMEDIATELY after the next release.
-    # early-adopters and daily-build users may have to manually delete config files if they
-    # uninstall.
-    # RELATED: line 246
-    Delete "$INSTDIR\jpackaged"
 
     # set the installation directory as the destination for the following actions
     createDirectory $INSTDIR
