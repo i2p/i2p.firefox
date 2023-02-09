@@ -132,11 +132,6 @@ Function .onInit
     # Admin installs have been migrated to user-mode installs.
     # But I'm leaving it because I might need it again if I support service installs.
     StrCpy $INSTDIR "${I2PINSTEXE_USERMODE}"
-    UserInfo::GetAccountType
-    pop $0
-    ${If} $0 != "admin"
-        StrCpy $INSTDIR "${I2PINSTEXE_USERMODE}"
-    ${EndIf}
     !insertmacro MUI_LANGDLL_DISPLAY
     #Call ShouldInstall64Bit
     # look for user installs
