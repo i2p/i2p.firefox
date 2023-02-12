@@ -105,13 +105,13 @@ public class WinLauncher extends CopyConfigDir {
     launcher.logger.info("\t" + System.getProperty("i2p.dir.base"));
     launcher.logger.info("\t" + System.getProperty("i2p.dir.config"));
     launcher.logger.info("\t" + System.getProperty("router.pid"));
-    boolean continuerunning = promptServiceStartIfAvailable("i2p");
+    boolean continuerunning = launcher.promptServiceStartIfAvailable("i2p");
     if (!continuerunning) {
       launcher.logger.severe(
           "Service startup failure, please start I2P service with services.msc");
       System.exit(2);
     }
-    continuerunning = promptUserInstallStartIfAvailable();
+    continuerunning = launcher.promptUserInstallStartIfAvailable();
     if (!continuerunning) {
       launcher.logger.severe("User-install startup required.");
       System.exit(2);
@@ -119,7 +119,7 @@ public class WinLauncher extends CopyConfigDir {
 
     // This actually does most of what we use NSIS for if NSIS hasn't
     // already done it, which essentially makes this whole thing portable.
-    if (!copyConfigDir()) {
+    if (!launcher.copyConfigDir()) {
       launcher.logger.severe("Cannot copy the configuration directory");
       System.exit(1);
     }
@@ -128,13 +128,15 @@ public class WinLauncher extends CopyConfigDir {
                                proxyTimeoutTime, newArgsList)) {
       System.exit(0);
     }
-    launcher.i2pRouter = new Router(routerConfig(), System.getProperties());
-    if (!isInstalled("i2p")) {
+    launcher.i2pRouter =
+        new Router(launcher.routerConfig(), System.getProperties());
+    if (!launcher.isInstalled("i2p")) {
       if (launcher.i2pRouter.saveConfig("routerconsole.browser", null)) {
         launcher.logger.info("removed routerconsole.browser config");
       }
       if (launcher.i2pRouter.saveConfig("routerconsole.browser",
-                                        appImageExe() + " -noproxycheck")) {
+                                        launcher.appImageExe() +
+                                            " -noproxycheck")) {
         launcher.logger.info("updated routerconsole.browser config " +
                              appImageExe());
       }
