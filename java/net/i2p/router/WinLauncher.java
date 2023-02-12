@@ -47,18 +47,18 @@ public class WinLauncher extends CopyConfigDir {
         for (String arg : args) {
           if (arg.equals("-private")) {
             privateBrowsing = 1;
-            logger.info(
+            launcher.logger.info(
                 "Private browsing is true, profile will be discarded at end of session.");
           } else if (arg.equals("-chromium")) {
             chromiumFirst = true;
-            logger.info("Chromium will be selected before Firefox.");
+            launcher.logger.info("Chromium will be selected before Firefox.");
           } else if (arg.equals("-usability")) {
             usabilityMode = true;
-            logger.info(
+            launcher.logger.info(
                 "Usability mode is true, using alternate extensions loadout.");
           } else if (arg.equals("-noproxycheck")) {
             proxyTimeoutTime = 0;
-            logger.info("Proxy timeout time set to zero");
+            launcher.logger.info("Proxy timeout time set to zero");
           } else {
             // make an effort to not let people launch into sites if the proxy
             // isn't quite ready yet, but also disable the proxy timeout if
@@ -101,26 +101,26 @@ public class WinLauncher extends CopyConfigDir {
      * to find the JVM and Runtime bundle. This broke Windows 11 installs.
      */
     System.setProperty("user.dir", programs.getAbsolutePath());
-    logger.info("\t" + System.getProperty("user.dir"));
-    logger.info("\t" + System.getProperty("i2p.dir.base"));
-    logger.info("\t" + System.getProperty("i2p.dir.config"));
-    logger.info("\t" + System.getProperty("router.pid"));
+    launcher.logger.info("\t" + System.getProperty("user.dir"));
+    launcher.logger.info("\t" + System.getProperty("i2p.dir.base"));
+    launcher.logger.info("\t" + System.getProperty("i2p.dir.config"));
+    launcher.logger.info("\t" + System.getProperty("router.pid"));
     boolean continuerunning = promptServiceStartIfAvailable("i2p");
     if (!continuerunning) {
-      logger.severe(
+      launcher.logger.severe(
           "Service startup failure, please start I2P service with services.msc");
       System.exit(2);
     }
     continuerunning = promptUserInstallStartIfAvailable();
     if (!continuerunning) {
-      logger.severe("User-install startup required.");
+      launcher.logger.severe("User-install startup required.");
       System.exit(2);
     }
 
     // This actually does most of what we use NSIS for if NSIS hasn't
     // already done it, which essentially makes this whole thing portable.
     if (!copyConfigDir()) {
-      logger.severe("Cannot copy the configuration directory");
+      launcher.logger.severe("Cannot copy the configuration directory");
       System.exit(1);
     }
 
@@ -131,14 +131,15 @@ public class WinLauncher extends CopyConfigDir {
     launcher.i2pRouter = new Router(routerConfig(), System.getProperties());
     if (!isInstalled("i2p")) {
       if (launcher.i2pRouter.saveConfig("routerconsole.browser", null)) {
-        logger.info("removed routerconsole.browser config");
+        launcher.logger.info("removed routerconsole.browser config");
       }
       if (launcher.i2pRouter.saveConfig("routerconsole.browser",
                                         appImageExe() + " -noproxycheck")) {
-        logger.info("updated routerconsole.browser config " + appImageExe());
+        launcher.logger.info("updated routerconsole.browser config " +
+                             appImageExe());
       }
     }
-    logger.info("Router is configured");
+    launcher.logger.info("Router is configured");
 
     Thread registrationThread = new Thread(launcher.REGISTER_UPP);
     registrationThread.setName("UPP Registration");
