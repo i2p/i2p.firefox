@@ -138,7 +138,7 @@ public class WinLauncher extends CopyConfigDir {
                                         launcher.appImageExe() +
                                             " -noproxycheck")) {
         launcher.logger.info("updated routerconsole.browser config " +
-                             appImageExe());
+                             launcher.appImageExe());
       }
     }
     launcher.logger.info("Router is configured");
