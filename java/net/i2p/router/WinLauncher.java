@@ -19,8 +19,8 @@ import net.i2p.update.UpdatePostProcessor;
 import net.i2p.update.UpdateType.*;
 
 /**
- * Launches a router from %PROGRAMFILES%/I2P using configuration data in
- * %LOCALAPPDATA%/I2P.. Uses Java 9 APIs.
+ * Launches a router from %WORKINGDIR%/I2P using configuration data in
+ * %WORKINGDIR%/I2P.. Uses Java 9 APIs.
  *
  * Sets the following properties:
  * i2p.dir.base - this points to the (read-only) resources inside the bundle
