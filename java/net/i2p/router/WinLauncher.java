@@ -35,7 +35,7 @@ public class WinLauncher extends CopyConfigDir {
   public static void main(String[] args) {
     var launcher = new WinLauncher();
     launcher.setupLauncher();
-    initLogger();
+    launcher.initLogger();
     int privateBrowsing = 0;
     boolean usabilityMode = false;
     boolean chromiumFirst = false;
