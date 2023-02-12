@@ -268,12 +268,13 @@ public class WindowsServiceUtil {
       return "mac";
     return "linux";
   }
-  public void main(String args[]) {
+  public static void main(String args[]) {
+    WindowsServiceUtil wsu = new WindowsServiceUtil();
     // when querying the I2P router service installed by the IzPack installer
     // this is the correct call.
-    String state = getServiceState("i2p");
-    int stateInt = getServiceStateInt("i2p");
+    String state = wsu.getServiceState("i2p");
+    int stateInt = wsu.getServiceStateInt("i2p");
     System.out.println("i2p state: " + state + " code: " + stateInt);
-    promptServiceStartIfAvailable("i2p");
+    wsu.promptServiceStartIfAvailable("i2p");
   }
 }

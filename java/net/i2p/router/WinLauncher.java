@@ -32,8 +32,9 @@ public class WinLauncher extends CopyConfigDir {
   WindowsUpdatePostProcessor wupp = null;
   private Router i2pRouter;
 
-  public void main(String[] args) {
-    setupLauncher();
+  public static void main(String[] args) {
+    var launcher = new WinLauncher();
+    launcher.setupLauncher();
     initLogger();
     int privateBrowsing = 0;
     boolean usabilityMode = false;
@@ -76,7 +77,7 @@ public class WinLauncher extends CopyConfigDir {
               proxyTimeoutTime = 0;
             } else if (proxyTimeoutTime > 0) {
               newArgsList.add(arg);
-            } else if (!isAvailable(4444)) {
+            } else if (!launcher.isAvailable(4444)) {
               newArgsList.add(arg);
             }
           }
@@ -84,8 +85,8 @@ public class WinLauncher extends CopyConfigDir {
       }
     }
 
-    File programs = programFile();
-    File home = homeDir();
+    File programs = launcher.programFile();
+    File home = launcher.homeDir();
 
     System.setProperty(
         "i2p.dir.base",
@@ -123,30 +124,30 @@ public class WinLauncher extends CopyConfigDir {
       System.exit(1);
     }
 
-    if (launchBrowser(privateBrowsing, usabilityMode, chromiumFirst,
-                      proxyTimeoutTime, newArgsList)) {
+    if (launcher.launchBrowser(privateBrowsing, usabilityMode, chromiumFirst,
+                               proxyTimeoutTime, newArgsList)) {
       System.exit(0);
     }
-    i2pRouter = new Router(routerConfig(), System.getProperties());
+    launcher.i2pRouter = new Router(routerConfig(), System.getProperties());
     if (!isInstalled("i2p")) {
-      if (i2pRouter.saveConfig("routerconsole.browser", null)) {
+      if (launcher.i2pRouter.saveConfig("routerconsole.browser", null)) {
         logger.info("removed routerconsole.browser config");
       }
-      if (i2pRouter.saveConfig("routerconsole.browser",
-                               appImageExe() + " -noproxycheck")) {
+      if (launcher.i2pRouter.saveConfig("routerconsole.browser",
+                                        appImageExe() + " -noproxycheck")) {
         logger.info("updated routerconsole.browser config " + appImageExe());
       }
     }
     logger.info("Router is configured");
 
-    Thread registrationThread = new Thread(REGISTER_UPP);
+    Thread registrationThread = new Thread(launcher.REGISTER_UPP);
     registrationThread.setName("UPP Registration");
     registrationThread.setDaemon(true);
     registrationThread.start();
 
-    setNotStarting();
+    launcher.setNotStarting();
 
-    i2pRouter.runRouter();
+    launcher.i2pRouter.runRouter();
   }
 
   private void setupLauncher() {
