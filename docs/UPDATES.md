@@ -2,28 +2,24 @@ Setting up an Update Server for an I2P Bundle
 =============================================
 
 It is important to set up a signed update server so that people are able to
-safely and anonymously update your I2P bundle.
+safely and anonymously update your I2P bundle. There are two sort of "Levels"
+to what you might do to provide updates to your users. Each of them requires the
+generation of a [signed newsfeed](https://eyedeekay.github.io/Hopefully-Holistic-Guide-to-I2P-Dev-Build-Update-Hosting/),
+which also serves as a way to provide information to your users about updates,
+features, and security events.
 
-The quick way:
---------------
+This project, `i2p.firefox` a.k.a. the "I2P Easy Install Bundle" uses the "Executable"
+update subtype, meaning that it capable of installing itself by executing code as the
+user who runs the update, which is usually the main user of a Windows 10 or 11 PC.
+This update subtype is highly flexible, but requires the creation of a "Scripted" using
+something like `NSIS`, `wixl`, or custom code. Other update types include ZIP (used by
+the core I2P product) and DMG(used by Mac OSX).
 
-This process depends on my ability to push releases to github. If you are
-forking, setting up a dev server, or taking over because I got hit by a bus,
-you'll need to do it the complete way.
+Static HTTP Update URL over I2P
+===============================
 
-For as long as I am building updates, you will be able to mirror the jpackaged
-Windows bundle by cloning the repository `https://github.com/eyedeekay/i2p` and
-running the `make docker run` target in that repository. You can retrieve the
-base32 address of your update server by viewing the log with 
-`docker logs eephttpd-jpackage | grep b32.i2p | tee eephttpd-address.md`. To
-update the site, run `./update.site.sh` in that repository.
+Bittorrent Update URL over I2P
+==============================
 
-Once you have cloned the repository and started the container with
-`make docker run`, you can simply add `path/to/repo/update-site.sh` to your
-`crontab` and it will update at an interval of your choosing.
-
-The complete way:
------------------
-
-TODO: describe how to do it with less of the awesome fancy stuff I put together
-to make it easier on myself to keep an update server going.
+[If you choose to do this, consider using zzzot to host your open tracker instead of a normal site](https://github.com/i2p/i2p.plugins.zzzot),
+which you can obtain from [this I2P link](http://stats.i2p/i2p/plugins/zzzot.su3).
