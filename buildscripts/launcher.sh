@@ -30,10 +30,10 @@ if [ "$JAVA" -lt "17" ]; then
 fi
 
 if [ -z "${JAVA_HOME}" ]; then
-  export JAVA_HOME=`type -p java|xargs readlink -f|xargs dirname|xargs dirname`
+  export JAVA_HOME=$(type -p java|xargs readlink -f|xargs dirname|xargs dirname)
 fi
 if [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
-  export JAVA_HOME=`type -p java|xargs readlink -f|xargs dirname|xargs dirname`
+  export JAVA_HOME=$(type -p java|xargs readlink -f|xargs dirname|xargs dirname)
 fi
 echo "Building with: $JAVA, $JAVA_HOME"
 sleep 5s
@@ -65,6 +65,7 @@ git pull --tags
 git checkout -b "i2p-$VERSION$VERSIONDATE-$EXTRACODE" || :
 git commit -am "i2p-$VERSION$VERSIONDATE-$EXTRACODE" || :
 git archive --format=tar.gz --output="$SCRIPT_DIR/../i2p.firefox/i2p.i2p.jpackage-build.tar.gz" "i2p-$VERSION$VERSIONDATE-$EXTRACODE"
+git checkout "i2p-$VERSION$VERSIONDATE-$EXTRACODE" || :
 
 for i in $COUNT; do
   echo -n "$i...."; sleep 1s
