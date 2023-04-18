@@ -10,7 +10,6 @@ UniCode true
 !define CONSOLE_URL "http://127.0.0.1:7657/home"
 
 !include i2pbrowser-version.nsi
-#!include i2pbrowser-jpackage.nsi
 !include FindProcess.nsh
 
 #var INSTDIR

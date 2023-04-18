@@ -15,6 +15,7 @@ makensis(){
     NSIS_PATH="/c/Program Files (x86)/NSIS/Bin"
     PATH="$NSIS_PATH:$PATH:$NSIS_PATH/"
     export PATH="$NSIS_PATH:$PATH:$NSIS_PATH/"
+    makensis $@
 }
 
 if [[ -n "$IS_WSL" || -n "$WSL_DISTRO_NAME" ]]; then
