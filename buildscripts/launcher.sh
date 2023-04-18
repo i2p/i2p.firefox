@@ -95,15 +95,15 @@ mkdir -p "$SCRIPT_DIR/build"
 cp "$I2P_JARS"/*.jar "$SCRIPT_DIR/build"
 cp "$I2P_JBIGI_JAR" "$SCRIPT_DIR/build"
 if [ ! -f "$SCRIPT_DIR/build/jna.jar" ]; then
-  wget -O "$SCRIPT_DIR/build/jna.jar" "https://repo1.maven.org/maven2/net/java/dev/jna/jna/$JNA_VERSION/jna-$JNA_VERSION.jar"
+  wget "https://repo1.maven.org/maven2/net/java/dev/jna/jna/$JNA_VERSION/jna-$JNA_VERSION.jar" -O "$SCRIPT_DIR/build/jna.jar"
 fi
 
 if [ ! -f "$SCRIPT_DIR/build/jna-platform.jar" ]; then
-  wget -O "$SCRIPT_DIR/build/jna-platform.jar" "https://repo1.maven.org/maven2/net/java/dev/jna/jna-platform/$JNA_VERSION/jna-platform-$JNA_VERSION.jar"
+  wget "https://repo1.maven.org/maven2/net/java/dev/jna/jna-platform/$JNA_VERSION/jna-platform-$JNA_VERSION.jar" -O "$SCRIPT_DIR/build/jna-platform.jar"
 fi
 
 if [ ! -f "$SCRIPT_DIR/build/i2pfirefox.jar" ]; then
-  wget -O "$SCRIPT_DIR/build/i2pfirefox.jar" "https://github.com/eyedeekay/i2p.plugins.firefox/releases/download/$I2PFIREFOX_VERSION/i2pfirefox.jar"
+  wget "https://github.com/eyedeekay/i2p.plugins.firefox/releases/download/$I2PFIREFOX_VERSION/i2pfirefox.jar" -O "$SCRIPT_DIR/build/i2pfirefox.jar"
 fi
 
 for dll in "$I2P_JBIGI/"*windows*.dll; do
@@ -111,7 +111,7 @@ for dll in "$I2P_JBIGI/"*windows*.dll; do
 done
 
 cd "$SCRIPT_DIR"/java
-"$JAVA_HOME"/bin/javac -Xlint:deprecation -d ../build -classpath "$SCRIPT_DIR/build/i2pfirefox.jar:$SCRIPT_DIR/build/jna.jar:$SCRIPT_DIR/build/jna-platform.jar:$SCRIPT_DIR/build/i2p.jar:$SCRIPT_DIR/build/router.jar:$SCRIPT_DIR/build/routerconsole.jar:$SCRIPT_DIR/build/jbigi.jar" \
+"$JAVA_HOME"/bin/javac -Xlint:deprecation -d ../build -classpath "$SCRIPT_DIR/build/i2pfirefox.jar:$SCRIPT_DIR/build/jna.jar:$SCRIPT_DIR/build/jna-platform.jar":"$SCRIPT_DIR/build/i2p.jar:$SCRIPT_DIR/build/router.jar:$SCRIPT_DIR/build/routerconsole.jar:$SCRIPT_DIR/build/jbigi.jar" \
   net/i2p/router/CopyConfigDir.java \
   net/i2p/router/WindowsServiceUtil.java \
   net/i2p/router/WindowsUpdatePostProcessor.java \
