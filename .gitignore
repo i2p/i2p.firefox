@@ -26,3 +26,5 @@ i2pkeys
 onionkeys
 tlskeys
 tmp
+/.stfolder/
+/.vscode/
