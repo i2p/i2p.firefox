@@ -152,8 +152,8 @@ Function routerDetect
 
     createDirectory "$INSTDIR\"
     SetOutPath "$INSTDIR\"
-    File  /a /r "I2P/config/certificates"
-    File  /a /r "I2P/config/geoip"
+    File  /a /r "I2P\config\certificates\"
+    File  /a /r "I2P\config\geoip\"
 FunctionEnd
 
 Function installerFunction
