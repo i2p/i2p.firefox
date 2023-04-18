@@ -5,24 +5,20 @@
 
 uname=$(uname)
 
-#export PATH="$PATH:/c/Program Files/Java/jdk-17.0.3/bin/"
-#export JAVA_HOME="/c/Program Files/Java/jdk-17.0.3"
-# to use it for Oracle OpenJDK18
-
 if [[ -n "$IS_WSL" || -n "$WSL_DISTRO_NAME" ]]; then
-    PATH="/c/Program Files/Java/jdk-20/bin/:$PATH:/c/Program Files/Java/jdk-20/bin/"
-    export PATH="/c/Program Files/Java/jdk-20/bin/:$PATH:/c/Program Files/Java/jdk-20/bin/"
-    JAVA_HOME="/c/Program Files/Java/jdk-20"
-    export JAVA_HOME="/c/Program Files/Java/jdk-20"
+    JAVA_HOME=$(java -XshowSettings:properties -version 2>&1 | findstr "java.home" | sed 's|    java.home = ||g')
+    export JAVA_HOME="$JAVA_HOME"
+    PATH="$JAVA_HOME/bin/:$PATH:$JAVA_HOME/bin/"
+    export PATH="$JAVA_HOME/bin/:$PATH:$JAVA_HOME/bin/"
     HOST=win32
     export HOST=win32
 fi
 
 if [ "${uname}" != "Linux" ]; then
-    PATH="/c/Program Files/Java/jdk-20/bin/:$PATH:/c/Program Files/Java/jdk-20/bin/"
-    export PATH="/c/Program Files/Java/jdk-20/bin/:$PATH:/c/Program Files/Java/jdk-20/bin/"
-    JAVA_HOME="/c/Program Files/Java/jdk-20"
-    export JAVA_HOME="/c/Program Files/Java/jdk-20"
+    JAVA_HOME=$(java -XshowSettings:properties -version 2>&1 | findstr "java.home" | sed 's|    java.home = ||g')
+    export JAVA_HOME="$JAVA_HOME"
+    PATH="$JAVA_HOME/bin/:$PATH:$JAVA_HOME/bin/"
+    export PATH="$JAVA_HOME/bin/:$PATH:$JAVA_HOME/bin/"
     HOST=win32
     export HOST=win32
 fi
@@ -72,8 +68,9 @@ fi
 # You can also use this to temporarily add applications into the PATH that are
 # required to build this if you do not wish to edit your PATH across the entire
 # Windows session, and for setting ANT_HOME
-#export ANT_HOME="/c/apache-ant-1.10.9"
-#export PATH="$PATH:$ANT_HOME/bin/"
+ANT_HOME=$(ls -d /c/apache-ant-*)
+export ANT_HOME="$ANT_HOME"
+export PATH="$PATH:$ANT_HOME/bin/"
 
 if [[ -n "$IS_WSL" || -n "$WSL_DISTRO_NAME" ]]; then
     PATH="$PATH:/c/Program Files (x86)/Windows Kits/10/App Certification Kit/"
