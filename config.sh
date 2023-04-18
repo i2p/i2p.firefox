@@ -5,6 +5,11 @@
 
 uname=$(uname)
 
+wget(){
+    which wget && wget $@
+    which powershell || powershell wget $@
+}
+
 if [[ -n "$IS_WSL" || -n "$WSL_DISTRO_NAME" ]]; then
     JAVA_HOME=$(java -XshowSettings:properties -version 2>&1 | findstr "java.home" | sed 's|    java.home = ||g')
     export JAVA_HOME="$JAVA_HOME"

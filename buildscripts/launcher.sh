@@ -111,7 +111,7 @@ for dll in "$I2P_JBIGI/"*windows*.dll; do
 done
 
 cd "$SCRIPT_DIR"/java
-"$JAVA_HOME"/bin/javac -Xlint:deprecation -d ../build -classpath "$SCRIPT_DIR/build/i2pfirefox.jar:$SCRIPT_DIR/build/jna.jar":"$SCRIPT_DIR/build/jna-platform.jar":"$SCRIPT_DIR/build/i2p.jar":"$SCRIPT_DIR/build/router.jar":"$SCRIPT_DIR/build/routerconsole.jar":"$SCRIPT_DIR/build/jbigi.jar" \
+"$JAVA_HOME"/bin/javac -Xlint:deprecation -d ../build -classpath "$SCRIPT_DIR/build/i2pfirefox.jar:$SCRIPT_DIR/build/jna.jar:$SCRIPT_DIR/build/jna-platform.jar:$SCRIPT_DIR/build/i2p.jar:$SCRIPT_DIR/build/router.jar:$SCRIPT_DIR/build/routerconsole.jar:$SCRIPT_DIR/build/jbigi.jar" \
   net/i2p/router/CopyConfigDir.java \
   net/i2p/router/WindowsServiceUtil.java \
   net/i2p/router/WindowsUpdatePostProcessor.java \
