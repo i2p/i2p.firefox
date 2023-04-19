@@ -177,7 +177,7 @@ Function installerFunction
     # Install the licenses
     createDirectory "$INSTDIR\licenses"
     SetOutPath "$INSTDIR\licenses"
-    File /a /r "licenses/*"
+    File /a /r "licenses\"
 
     SetOutPath "$INSTDIR"
     createDirectory "$SMPROGRAMS\${APPNAME}"
