@@ -15,11 +15,6 @@ if [ -f "$SCRIPT_DIR/config_override.sh" ]; then
   . "$SCRIPT_DIR/config_override.sh"
 fi
 
-#MAKENSIS=$(which makensis)
-#if [ -z "$MAKENSIS" ]; then
-#    MAKENSIS="wsl makensis"
-#fi
-
 cp "$SCRIPT_DIR"/src/nsis/*.nsi "$SCRIPT_DIR"/build
 cp "$SCRIPT_DIR"/src/nsis/*.nsh "$SCRIPT_DIR"/build
 cp "$SCRIPT_DIR"/src/icons/*.ico "$SCRIPT_DIR"/build

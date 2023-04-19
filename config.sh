@@ -5,16 +5,16 @@
 
 uname=$(uname)
 
+NSIS_PATH="/c/Program Files (x86)/NSIS/Bin"
+PATH="$NSIS_PATH:$PATH:$NSIS_PATH/"
+export PATH="$NSIS_PATH:$PATH:$NSIS_PATH/"
+
 wget(){
     which wget && wget $@
     which powershell && powershell Invoke-WebRequest $@
 }
 
 makensis(){
-    which makensis && makensis $@
-    NSIS_PATH="/c/Program Files (x86)/NSIS/Bin"
-    PATH="$NSIS_PATH:$PATH:$NSIS_PATH/"
-    export PATH="$NSIS_PATH:$PATH:$NSIS_PATH/"
     which makensis && makensis $@
     which wsl && wsl makensis $@
 }
