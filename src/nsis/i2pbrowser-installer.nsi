@@ -274,21 +274,9 @@ Function LaunchLink
   ${If} ${Silent}
     ReadEnvStr $0 RESTART_I2P
     ${If} $0 != ""
-        UserInfo::GetAccountType
-        pop $0
-        ${If} $0 == "admin"
-            ShellExecAsUser::ShellExecAsUser "open" "$DESKTOP\Browse I2P.lnk"
-        ${Else}
            ExecShell "" "$DESKTOP\Browse I2P.lnk"
-        ${EndIf}
     ${EndIf}  
   ${Else}
-    UserInfo::GetAccountType
-    pop $0
-    ${If} $0 == "admin"
-        ShellExecAsUser::ShellExecAsUser "open" "$DESKTOP\Browse I2P.lnk"
-    ${Else}
         ExecShell "" "$DESKTOP\Browse I2P.lnk"
-    ${EndIf}
   ${EndIf}
 FunctionEnd
