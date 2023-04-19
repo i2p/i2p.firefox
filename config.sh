@@ -7,7 +7,7 @@ uname=$(uname)
 
 wget(){
     which wget && wget $@
-    which powershell || powershell wget $@
+    which powershell && powershell Invoke-WebRequest $@
 }
 
 makensis(){
