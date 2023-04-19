@@ -10,13 +10,13 @@ PATH="$NSIS_PATH:$PATH:$NSIS_PATH/"
 export PATH="$NSIS_PATH:$PATH:$NSIS_PATH/"
 
 wget(){
-    which wget && wget $@
-    which powershell && powershell Invoke-WebRequest $@
+    which wget && wget $@; return
+    which powershell && powershell Invoke-WebRequest $@; return
 }
 
 makensisi(){
-    which makensis && makensis $@
-    which wsl && wsl makensis $@
+    which makensis && makensis $@; return
+    which wsl && wsl makensis $@; return
 }
 
 if [[ -n "$IS_WSL" || -n "$WSL_DISTRO_NAME" ]]; then
