@@ -14,7 +14,7 @@ wget(){
     which powershell && powershell Invoke-WebRequest $@
 }
 
-makensis(){
+makensisi(){
     which makensis && makensis $@
     which wsl && wsl makensis $@
 }

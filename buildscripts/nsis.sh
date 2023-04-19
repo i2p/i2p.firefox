@@ -18,4 +18,4 @@ fi
 cp "$SCRIPT_DIR"/src/nsis/*.nsi "$SCRIPT_DIR"/build
 cp "$SCRIPT_DIR"/src/nsis/*.nsh "$SCRIPT_DIR"/build
 cp "$SCRIPT_DIR"/src/icons/*.ico "$SCRIPT_DIR"/build
-cd "$SCRIPT_DIR"/build && makensis i2pbrowser-installer.nsi && cp I2P-Easy-Install-Bundle-*.exe ../ && echo "built windows installer"
+cd "$SCRIPT_DIR"/build && makensisi i2pbrowser-installer.nsi && cp I2P-Easy-Install-Bundle-*.exe ../ && echo "built windows installer"
