@@ -10,7 +10,6 @@ if [ -f "$SCRIPT_DIR/config_override.sh" ]; then
 fi
 export machine=unix
 "$SCRIPT_DIR"/buildscripts/clean.sh
-"$SCRIPT_DIR"/buildscripts/clean.sh
 "$SCRIPT_DIR"/buildscripts/build.sh
 cd "$SCRIPT_DIR/I2P" || exit 1
 
