@@ -9,7 +9,6 @@ if [ -f "$SCRIPT_DIR/config_override.sh" ]; then
   . "$SCRIPT_DIR/config_override.sh"
 fi
 "$SCRIPT_DIR"/buildscripts/clean.sh
-"$SCRIPT_DIR"/buildscripts/clean.sh
 "$SCRIPT_DIR"/buildscripts/build.sh
 cd "$SCRIPT_DIR/I2P" || exit 1
 
