@@ -11,6 +11,30 @@ if [ -z "$SIGNER" ]; then
     export SIGNER=hankhill19580@gmail.com
 fi
 
+if [ -z "$I2P_LIBS" ]; then
+    if [ -d "$HOME/i2p/lib/" ]; then
+        I2P_LIBS="$HOME/i2p/lib/"
+    fi
+    if [ -d "$LOCALAPPDATA/i2p/lib/" ]; then
+        I2P_LIBS="$LOCALAPPDATA/i2p/lib/"
+    fi
+    if [ -d "/usr/share/i2p/lib/" ]; then
+        I2P_LIBS="/usr/share/i2p/lib/"
+    fi
+fi
+
+if [ -z "$I2P_SNARK_DIR" ]; then
+    if [ -d "$HOME/.i2p/i2psnark" ]; then
+        I2P_SNARK_DIR="$HOME/.i2p/i2psnark"
+    fi
+    if [ -d "$LOCALAPPDATA/i2p/i2psnark/" ]; then
+        I2P_SNARK_DIR="$LOCALAPPDATA/i2p/i2psnark/"
+    fi
+    if [ -d "/var/lib/i2p/i2p-config/i2psnark/" ]; then
+        I2P_SNARK_DIR="/var/lib/i2p/i2p-config/i2psnark/"
+    fi
+fi
+
 NSIS_PATH="/c/Program Files (x86)/NSIS/Bin"
 PATH="$NSIS_PATH:$PATH:$NSIS_PATH/"
 export PATH="$NSIS_PATH:$PATH:$NSIS_PATH/"
