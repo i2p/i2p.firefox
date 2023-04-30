@@ -5,6 +5,12 @@
 
 uname=$(uname)
 
+# Third-party builders should always override this in config_override.sh
+if [ -z "$SIGNER" ]; then
+    SIGNER=hankhill19580@gmail.com
+    export SIGNER=hankhill19580@gmail.com
+fi
+
 NSIS_PATH="/c/Program Files (x86)/NSIS/Bin"
 PATH="$NSIS_PATH:$PATH:$NSIS_PATH/"
 export PATH="$NSIS_PATH:$PATH:$NSIS_PATH/"
