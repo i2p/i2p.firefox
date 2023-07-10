@@ -1,6 +1,7 @@
 FROM debian:sid
 
 ## Originally found at: https://yusuke.blog/2021/10/19/3149 and updated to Java 20.
+## This does not work yet.
 
 RUN dpkg --add-architecture i386
 RUN apt-get update
