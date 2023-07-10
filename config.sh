@@ -117,9 +117,11 @@ fi
 # You can also use this to temporarily add applications into the PATH that are
 # required to build this if you do not wish to edit your PATH across the entire
 # Windows session, and for setting ANT_HOME
-ANT_HOME=$(ls -d /c/apache-ant-*)
-export ANT_HOME="$ANT_HOME"
-export PATH="$PATH:$ANT_HOME/bin/"
+if [ -d "/c/apache-ant-"* ]; then
+    ANT_HOME=$(ls -d /c/apache-ant-*)
+    export ANT_HOME="$ANT_HOME"
+    export PATH="$PATH:$ANT_HOME/bin/"
+fi
 
 if [[ -n "$IS_WSL" || -n "$WSL_DISTRO_NAME" ]]; then
     PATH="$PATH:/c/Program Files (x86)/Windows Kits/10/App Certification Kit/"

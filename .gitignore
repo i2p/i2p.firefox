@@ -28,3 +28,4 @@ tlskeys
 tmp
 /.stfolder/
 /.vscode/
+*github-release-config*.sh*
