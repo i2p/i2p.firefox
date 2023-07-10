@@ -53,3 +53,21 @@ github-release upload -R -u "$GITHUB_USERNAME" -r "i2p.firefox" -f "../i2p.i2p.j
 sh -c "powershell Compress-Archive I2P I2P-jpackage-windows-$I2P_VERSION.zip || zip I2P-jpackage-windows-$I2P_VERSION.zip -r I2P"
 echo github-release upload -R -u "$GITHUB_USERNAME" -r "i2p.firefox" -n "i2p-jpackage-windows-$I2P_VERSION" -f "./I2P-jpackage-windows-$I2P_VERSION.zip"
 github-release upload -R -u "$GITHUB_USERNAME" -r "i2p.firefox" -n "i2p-jpackage-windows-$I2P_VERSION" -f "./I2P-jpackage-windows-$I2P_VERSION.zip"
+
+GITHUB_USERNAME=i2p
+echo github-release release -p -u "$GITHUB_USERNAME" -r "i2p.firefox" -n "$I2P_VERSION" -d "$DESCRIPTION" -t "$I2P_VERSION"
+github-release release -p -u "$GITHUB_USERNAME" -r "i2p.firefox" -n "$I2P_VERSION" -d "$DESCRIPTION" -t "$I2P_VERSION"
+sleep 2s;
+EXECHECKSUM=$(sha256sum "I2P-Easy-Install-Bundle-$I2P_VERSION.exe")
+echo github-release upload -R -u "$GITHUB_USERNAME" -r "i2p.firefox" -f "I2P-Easy-Install-Bundle-$I2P_VERSION.exe" -l "$EXECHECKSUM" -t "$I2P_VERSION" -n "I2P-Easy-Install-Bundle-$I2P_VERSION.exe"
+github-release upload -R -u "$GITHUB_USERNAME" -r "i2p.firefox" -f "I2P-Easy-Install-Bundle-$I2P_VERSION.exe" -l "$EXECHECKSUM" -t "$I2P_VERSION" -n "I2P-Easy-Install-Bundle-$I2P_VERSION.exe"
+powershell Compress-Archive -force I2P I2P.zip
+ZIPCHECKSUM=$(sha256sum "I2P.zip")
+echo github-release upload -R -u "$GITHUB_USERNAME" -r "i2p.firefox" -f "I2P.zip" -l "$ZIPCHECKSUM" -t "$I2P_VERSION" -n "I2P.zip"
+github-release upload -R -u "$GITHUB_USERNAME" -r "i2p.firefox" -f "I2P.zip" -l "$ZIPCHECKSUM" -t "$I2P_VERSION" -n "I2P.zip"
+TARCHECKSUM=$(sha256sum "../i2p.i2p.jpackage-build.tar.gz")
+echo github-release upload -R -u "$GITHUB_USERNAME" -r "i2p.firefox" -f "../i2p.i2p.jpackage-build.tar.gz" -l "Upstream I2P Router source code $TARCHECKSUM" -t "$I2P_VERSION" -n "i2p.i2p.jpackage-build.tar.gz"
+github-release upload -R -u "$GITHUB_USERNAME" -r "i2p.firefox" -f "../i2p.i2p.jpackage-build.tar.gz" -l "Upstream I2P Router source code $TARCHECKSUM" -t "$I2P_VERSION" -n "i2p.i2p.jpackage-build.tar.gz"
+sh -c "powershell Compress-Archive I2P I2P-jpackage-windows-$I2P_VERSION.zip || zip I2P-jpackage-windows-$I2P_VERSION.zip -r I2P"
+echo github-release upload -R -u "$GITHUB_USERNAME" -r "i2p.firefox" -n "i2p-jpackage-windows-$I2P_VERSION" -f "./I2P-jpackage-windows-$I2P_VERSION.zip"
+github-release upload -R -u "$GITHUB_USERNAME" -r "i2p.firefox" -n "i2p-jpackage-windows-$I2P_VERSION" -f "./I2P-jpackage-windows-$I2P_VERSION.zip"
