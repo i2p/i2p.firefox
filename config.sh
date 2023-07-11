@@ -123,6 +123,12 @@ if [ -d "/c/apache-ant-"* ]; then
     export PATH="$PATH:$ANT_HOME/bin/"
 fi
 
+if [ -d "/c/mktorrent"* ]; then
+    MKTORRENT_HOME=$(ls -d /c/mktorrent*)
+    export MKTORRENT_HOME="$MKTORRENT_HOME"
+    export PATH="$PATH:$MKTORRENT_HOME/bin/"
+fi
+
 if [[ -n "$IS_WSL" || -n "$WSL_DISTRO_NAME" ]]; then
     PATH="$PATH:/c/Program Files (x86)/Windows Kits/10/App Certification Kit/"
     export PATH="$PATH:/c/Program Files (x86)/Windows Kits/10/App Certification Kit/"
