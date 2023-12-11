@@ -95,15 +95,18 @@ mkdir -p "$SCRIPT_DIR/build"
 cp "$I2P_JARS"/*.jar "$SCRIPT_DIR/build"
 cp "$I2P_JBIGI_JAR" "$SCRIPT_DIR/build"
 if [ ! -f "$SCRIPT_DIR/build/jna.jar" ]; then
-  wget "https://repo1.maven.org/maven2/net/java/dev/jna/jna/$JNA_VERSION/jna-$JNA_VERSION.jar" -O "$SCRIPT_DIR/build/jna.jar"
+  echo "downloading jna"
+  wget_download "https://repo1.maven.org/maven2/net/java/dev/jna/jna/$JNA_VERSION/jna-$JNA_VERSION.jar" -O "$SCRIPT_DIR/build/jna.jar"
 fi
 
 if [ ! -f "$SCRIPT_DIR/build/jna-platform.jar" ]; then
-  wget "https://repo1.maven.org/maven2/net/java/dev/jna/jna-platform/$JNA_VERSION/jna-platform-$JNA_VERSION.jar" -O "$SCRIPT_DIR/build/jna-platform.jar"
+  echo "downloading jna-platform"
+  wget_download "https://repo1.maven.org/maven2/net/java/dev/jna/jna-platform/$JNA_VERSION/jna-platform-$JNA_VERSION.jar" -O "$SCRIPT_DIR/build/jna-platform.jar"
 fi
 
 if [ ! -f "$SCRIPT_DIR/build/i2pfirefox.jar" ]; then
-  wget "https://github.com/eyedeekay/i2p.plugins.firefox/releases/download/$I2PFIREFOX_VERSION/i2pfirefox.jar" -O "$SCRIPT_DIR/build/i2pfirefox.jar"
+  echo "downloading i2pfirefox jars"
+  wget_download "https://github.com/eyedeekay/i2p.plugins.firefox/releases/download/$I2PFIREFOX_VERSION/i2pfirefox.jar" -O "$SCRIPT_DIR/build/i2pfirefox.jar"
 fi
 
 for dll in "$I2P_JBIGI/"*windows*.dll; do

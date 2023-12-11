@@ -39,9 +39,9 @@ NSIS_PATH="/c/Program Files (x86)/NSIS/Bin"
 PATH="$NSIS_PATH:$PATH:$NSIS_PATH/"
 export PATH="$NSIS_PATH:$PATH:$NSIS_PATH/"
 
-wget(){
+wget_download(){
     which powershell && powershell Invoke-WebRequest $@ && return
-    which wget && wget $@ && return
+    wget $@
 }
 
 makensisi(){
@@ -49,7 +49,7 @@ makensisi(){
     which wsl && wsl makensis $@ && return
 }
 
-make(){
+make_make(){
     which make && make $@ && return
     which wsl && wsl make $@ && return
 }

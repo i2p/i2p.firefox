@@ -30,6 +30,7 @@ fi
 cp -v "I2P-Easy-Install-Bundle-$I2P_VERSION.exe" "I2P-Easy-Install-Bundle-$I2P_VERSION-signed.exe"
 java -cp "$I2P_LIBS/*" net.i2p.crypto.SU3File sign -c ROUTER -f EXE I2P-Easy-Install-Bundle-$I2P_VERSION-signed.exe I2P-Easy-Install-Bundle-$I2P_VERSION-signed.su3 "$HOME/.i2p-plugin-keys/news-su3-keystore.ks" $I2P_VERSION $SIGNER
 rm -f i2pwinupdate.su3.torrent
+cp -v I2P-Easy-Install-Bundle-$I2P_VERSION-signed.su3 i2pwinupdate.su3
 mktorrent \
 		--announce=http://tracker2.postman.i2p/announce.php \
 		--announce=http://w7tpbzncbcocrqtwwm3nezhnnsw4ozadvi2hmvzdhrqzfxfum7wa.b32.i2p/a \

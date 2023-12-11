@@ -260,7 +260,7 @@ public class WindowsServiceUtil {
    *
    * @return os name in lower-case, "windows" "mac" or  "linux"
    */
-  protected static String osName() {
+  protected String osName() {
     String osName = System.getProperty("os.name").toLowerCase();
     if (osName.contains("windows"))
       return "windows";
