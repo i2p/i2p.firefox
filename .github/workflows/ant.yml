@@ -1,0 +1,27 @@
+# Mostly copied from https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-java-with-ant
+# zlatinb
+
+name: Java CI
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+      - name: build with script
+        run: ./buildscripts/build.sh
+      - name: Upload installer.jar
+        uses: actions/upload-artifact@v4
+        with:
+          name: I2P-Easy-Install-Bundle-${{ github.sha }}-unsigned.exe
+          path: I2P-Easy-Install-Bundle-2.4.0-unsigned.exe
+        
+
