@@ -19,7 +19,7 @@ jobs:
       - name: install wsl
         run: wsl --install
       - name: build with script
-        run: ./buildscripts/build.sh
+        run: bash -c "./buildscripts/build.sh"
       - name: Upload I2P-Easy-Install-Bundle-${{ github.sha }}-unsigned.exe
         uses: actions/upload-artifact@v4
         with:
