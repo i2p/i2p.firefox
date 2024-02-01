@@ -20,6 +20,7 @@ jobs:
         run: wsl --install
       - name: change config
         run: |
+          bash -c "echo '' >> config.sh"
           bash -c "echo VERSIONMAJOR=2 >> config.sh"
           bash -c "echo VERSIONMINOR=0 >> config.sh"
           bash -c "echo VERSIONBUILD=0 >> config.sh"
@@ -27,6 +28,7 @@ jobs:
           bash -c "echo export I2P_VERSION=2.0.0 >> config.sh"
           bash -c "echo VERSION=master >> config.sh"
           bash -c "echo export VERSION=master >> config.sh"
+          bash -c "echo '' >> config.sh"
       - name: build with script
         run: bash -c "./buildscripts/exe.sh; ls *.exe"
       - name: Upload I2P-Easy-Install-Bundle-${{ github.sha }}-unsigned.exe
