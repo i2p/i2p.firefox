@@ -20,10 +20,9 @@ jobs:
         run: wsl --install
       - name: change config
         run: |
-          bash -c "echo I2P_VERSION=2.0.0 >> config.sh"
-          bash -c "echo VERSIONMAJOR=2">> config.sh"
-          bash -c "echo VERSIONMINOR=0">> config.sh"
-          bash -c "echo VERSIONBUILD=0">> config.sh"
+          bash -c "echo VERSIONMAJOR=2 >> config.sh"
+          bash -c "echo VERSIONMINOR=0 >> config.sh"
+          bash -c "echo VERSIONBUILD=0 >> config.sh"
           bash -c "echo I2P_VERSION=2.0.0 >> config.sh"
           bash -c "echo export I2P_VERSION=2.0.0 >> config.sh"
           bash -c "echo VERSION=master" >> config.sh"
