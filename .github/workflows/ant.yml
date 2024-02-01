@@ -16,6 +16,21 @@ jobs:
         with:
           java-version: '21'
           distribution: 'temurin'
+      - name: install wsl
+        run: wsl --install -d Ubuntu
+      - name: install makensis dos2unix
+        run: wsl apt install nsis* dos2unix
+      - name: change config
+        run: |
+          echo '' tee config.sh
+          echo VERSIONMAJOR=2 tee config.sh
+          echo VERSIONMINOR=0 tee config.sh
+          echo VERSIONBUILD=0 tee config.sh
+          echo I2P_VERSION=2.0.0 tee config.sh
+          echo export I2P_VERSION=2.0.0 tee config.sh
+          echo VERSION=master tee config.sh
+          echo export VERSION=master tee config.sh
+          echo '' tee config.sh
       - name: build with script
         run: bash -c "./buildscripts/exe.sh; ls *.exe"
       - name: Upload I2P-Easy-Install-Bundle-${{ github.sha }}-unsigned.exe
