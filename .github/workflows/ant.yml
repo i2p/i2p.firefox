@@ -18,6 +18,8 @@ jobs:
           distribution: 'temurin'
       - name: install wsl
         run: wsl --install
+      - name: install makensis
+        run: wsl apt install nsis*
       - name: change config
         run: |
           bash -c "echo '' >> config.sh"
