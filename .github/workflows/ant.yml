@@ -16,15 +16,15 @@ jobs:
           distribution: 'temurin'
       - name: change config
         run: |
-          echo '' tee config.sh
-          echo VERSIONMAJOR=2 tee config.sh
-          echo VERSIONMINOR=0 tee config.sh
-          echo VERSIONBUILD=0 tee config.sh
-          echo I2P_VERSION=2.0.0 tee config.sh
-          echo export I2P_VERSION=2.0.0 tee config.sh
-          echo VERSION=master tee config.sh
-          echo export VERSION=master tee config.sh
-          echo '' tee config.sh
+          echo '' tee i2pversion
+          echo VERSIONMAJOR=2 tee i2pversion
+          echo VERSIONMINOR=0 tee i2pversion
+          echo VERSIONBUILD=0 tee i2pversion
+          echo I2P_VERSION=2.0.0 tee i2pversion
+          echo export I2P_VERSION=2.0.0 tee i2pversion
+          echo VERSION=master tee i2pversion
+          echo export VERSION=master tee i2pversion
+          echo '' tee i2pversion
       - name: build with script
         run: bash -c "./buildscripts/exe.sh; ls *.exe"
       - name: Upload I2P-Easy-Install-Bundle-${{ github.sha }}-unsigned.exe
