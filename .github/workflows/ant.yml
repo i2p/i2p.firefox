@@ -14,10 +14,6 @@ jobs:
         with:
           java-version: '21'
           distribution: 'temurin'
-      - name: install wsl
-        run: wsl --install -d Ubuntu
-      - name: install makensis dos2unix
-        run: wsl apt install nsis* dos2unix
       - name: change config
         run: |
           echo '' tee config.sh
