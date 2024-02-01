@@ -31,6 +31,8 @@ jobs:
           bash -c "echo VERSION=master >> config.sh"
           bash -c "echo export VERSION=master >> config.sh"
           bash -c "echo '' >> config.sh"
+          unix2dos config.sh config-override.sh
+          bash -c "mv config-override.sh config.sh"
       - name: build with script
         run: bash -c "./buildscripts/exe.sh; ls *.exe"
       - name: Upload I2P-Easy-Install-Bundle-${{ github.sha }}-unsigned.exe
