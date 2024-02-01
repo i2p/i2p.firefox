@@ -36,7 +36,7 @@ jobs:
       - name: Upload I2P-Easy-Install-Bundle-${{ github.sha }}-unsigned.exe
         uses: actions/upload-artifact@v4
         with:
-          name: I2P-Easy-Install-Bundle-${{ github.sha }}-unsigned.exe
-          path: I2P-Easy-Install-Bundle-2.4.0-unsigned.exe
+          name: I2P-EXE-${{ github.sha }}-unsigned.exe
+          path: I2P-EXE-2.0.0.exe
         
 
