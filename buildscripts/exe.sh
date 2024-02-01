@@ -7,7 +7,7 @@ cd "$SCRIPT_DIR" || exit 1
 
 . ./config.sh
 . ./i2pversion
-./build.sh
+./buildscripts/build.sh
 jpackage --name I2P-EXE --app-version "$I2P_VERSION" \
     --verbose \
     --java-options "-Xmx512m" \
