@@ -14,27 +14,12 @@ jobs:
         with:
           java-version: '21'
           distribution: 'temurin'
-      - name: wsl install Ubuntu
-        run: |
-          Get-LocalUser
-          wsl --install -d Ubuntu-22.04
-      - name: change config
-        run: |
-          echo '' | tee i2pversion
-          echo VERSIONMAJOR=2 | tee i2pversion
-          echo VERSIONMINOR=0 | tee i2pversion
-          echo VERSIONBUILD=0 | tee i2pversion
-          echo I2P_VERSION=2.0.0 | tee i2pversion
-          echo export I2P_VERSION=2.0.0 | tee i2pversion
-          echo VERSION=i2p-2.4.0 | tee i2pversion
-          echo export VERSION=i2p-2.4.0 | tee i2pversion
-          echo '' | tee i2pversion
       - name: build with script
         run: bash -c "./buildscripts/exe.sh; ls *.exe"
       - name: Upload I2P-Easy-Install-Bundle-${{ github.sha }}-unsigned.exe
         uses: actions/upload-artifact@v4
         with:
           name: I2P-EXE-${{ github.sha }}-unsigned.exe
-          path: I2P-EXE-2.0.0.exe
+          path: I2P-EXE-2.4.0.exe
         
 
