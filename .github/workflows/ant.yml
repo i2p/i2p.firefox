@@ -14,6 +14,10 @@ jobs:
         with:
           java-version: '21'
           distribution: 'temurin'
+      - name: wsl install Ubuntu
+        run: |
+          Get-LocalUser
+          wsl --install -d Ubuntu-22.04
       - name: change config
         run: |
           echo '' | tee i2pversion
