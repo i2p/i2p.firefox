@@ -98,6 +98,8 @@ jobs:
         with:
           java-version: '21'
           distribution: 'temurin'
+      - run: |
+          apt-get install nsis nsis-common nsis-pluginapi wget dos2unix curl jq gpg
       - name: build with script
         run: bash -c "./buildscripts/targz.sh; ls *.tar.gz *.tgz"
       - name: Upload I2P-${{ github.sha }}.tar.gz
