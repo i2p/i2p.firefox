@@ -8,6 +8,9 @@ jobs:
     runs-on: windows-latest
 
     steps:
+      - uses: Vampire/setup-wsl@v3
+        with:
+          distribution: Ubuntu-20.04
       - uses: actions/checkout@v4
       - name: Set up JDK 21
         uses: actions/setup-java@v4
