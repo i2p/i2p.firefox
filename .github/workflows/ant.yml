@@ -103,7 +103,7 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y nsis nsis-common nsis-pluginapi wget dos2unix curl jq gpg gettext
       - name: build with script
-        run: bash -c "./buildscripts/targz.sh; ls *.tar.gz
+        run: ./buildscripts/targz.sh; ls *.tar.gz
       - name: Upload I2P-${{ github.sha }}.tar.gz
         uses: actions/upload-artifact@v4
         with:
