@@ -7,6 +7,9 @@ jobs:
 
   nsis:
     runs-on: windows-latest
+    defaults:
+      run:
+        shell: wsl-bash {0}
     steps:
       - uses: Vampire/setup-wsl@v3
         with:
