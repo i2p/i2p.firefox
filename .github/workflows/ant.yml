@@ -16,7 +16,7 @@ jobs:
           distribution: Ubuntu-20.04
       - run: apt-get update
       - run: apt-get install -y nsis nsis-common nsis-pluginapi wget dos2unix curl jq gpg gettext
-      - run: find . -name *.sh -exec dos2unix {} \;
+      - run: find . -name *.sh -exec unix2dos {} \;
       - uses: actions/checkout@v4
       - name: Set up JDK 21
         uses: actions/setup-java@v4
@@ -76,7 +76,7 @@ jobs:
           distribution: Ubuntu-20.04
       - run: apt-get update
       - run: apt-get install -y nsis nsis-common nsis-pluginapi wget dos2unix curl jq gpg gettext
-      - run: find . -name *.sh -exec dos2unix {} \;
+      - run: find . -name *.sh -exec unix2dos {} \;
       - uses: actions/checkout@v4
       - name: Set up JDK 21
         uses: actions/setup-java@v4
