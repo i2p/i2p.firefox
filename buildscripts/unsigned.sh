@@ -1,7 +1,7 @@
 #! /usr/bin/env bash
 
 SCRIPT_DIR=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd -P)/..
-cd "$SCRIPT_DIR" || cd ../ || SCRIPT_DIR=$(pwd)
+cd "$SCRIPT_DIR" || cd ../ ; SCRIPT_DIR=$(pwd)
 
 . "$SCRIPT_DIR/config.sh"
 
