@@ -16,7 +16,7 @@ jobs:
           distribution: Ubuntu-20.04
       - run: |
           apt-get update
-          apt-get install nsis nsis-common nsis-pluginapi wget dos2unix curl jq gpg gettext
+          apt-get -y nsis nsis-common nsis-pluginapi wget dos2unix curl jq gpg gettext
       - uses: actions/checkout@v4
       - name: Set up JDK 21
         uses: actions/setup-java@v4
@@ -76,7 +76,7 @@ jobs:
           distribution: Ubuntu-20.04
       - run: |
           apt-get update
-          apt-get install nsis nsis-common nsis-pluginapi wget dos2unix curl jq gpg gettext
+          apt-get install -y nsis nsis-common nsis-pluginapi wget dos2unix curl jq gpg gettext
       - uses: actions/checkout@v4
       - name: Set up JDK 21
         uses: actions/setup-java@v4
@@ -102,7 +102,7 @@ jobs:
           distribution: 'temurin'
       - run: |
           sudo apt-get update
-          sudo apt-get install nsis nsis-common nsis-pluginapi wget dos2unix curl jq gpg gettext
+          sudo apt-get install -y nsis nsis-common nsis-pluginapi wget dos2unix curl jq gpg gettext
       - name: build with script
         run: bash -c "./buildscripts/targz.sh; ls *.tar.gz *.tgz"
       - name: Upload I2P-${{ github.sha }}.tar.gz
