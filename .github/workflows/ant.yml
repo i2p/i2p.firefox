@@ -23,7 +23,7 @@ jobs:
           java-version: '21'
           distribution: 'temurin'
       - name: build with script
-        run: bash -c "./buildscripts/unsigned.sh; ls *.exe"
+        run: ./buildscripts/unsigned.sh; ls *.exe
       - name: Upload I2P-Easy-Install-Bundle-${{ github.sha }}-unsigned.exe
         uses: actions/upload-artifact@v4
         with:
@@ -83,7 +83,7 @@ jobs:
           java-version: '21'
           distribution: 'temurin'
       - name: build with script
-        run: bash -c "./buildscripts/zip.sh; ls *.zip"
+        run: ./buildscripts/zip.sh; ls *.zip
       - name: Upload I2P-windows-portable-${{ github.sha }}.zip
         uses: actions/upload-artifact@v4
         with:
