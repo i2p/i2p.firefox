@@ -15,6 +15,7 @@ jobs:
         with:
           distribution: Ubuntu-20.04
       - run: |
+          apt-get update
           apt-get install nsis nsis-common nsis-pluginapi wget dos2unix curl jq gpg
       - uses: actions/checkout@v4
       - name: Set up JDK 21
@@ -74,6 +75,7 @@ jobs:
         with:
           distribution: Ubuntu-20.04
       - run: |
+          apt-get update
           apt-get install nsis nsis-common nsis-pluginapi wget dos2unix curl jq gpg
       - uses: actions/checkout@v4
       - name: Set up JDK 21
@@ -99,6 +101,7 @@ jobs:
           java-version: '21'
           distribution: 'temurin'
       - run: |
+          sudo apt-get update
           sudo apt-get install nsis nsis-common nsis-pluginapi wget dos2unix curl jq gpg
       - name: build with script
         run: bash -c "./buildscripts/targz.sh; ls *.tar.gz *.tgz"
