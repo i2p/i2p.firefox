@@ -15,6 +15,8 @@ jobs:
         run: |
           git config --global core.autocrlf false
           git config --global core.eol lf
+          git config --global user.email "github@i2p.net"
+          git config --global user.name "eyedeekay Github CI Build"
       - uses: actions/checkout@v4
       - run: wsl apt-get update
       - run: wsl apt-get install -y nsis nsis-common nsis-pluginapi wget dos2unix curl jq gpg gettext
@@ -75,6 +77,8 @@ jobs:
         run: |
           git config --global core.autocrlf false
           git config --global core.eol lf
+          git config --global user.email "github@i2p.net"
+          git config --global user.name "eyedeekay Github CI Build"
       - uses: actions/checkout@v4
       - run: wsl apt-get update
       - run: wsl apt-get install -y nsis nsis-common nsis-pluginapi wget dos2unix curl jq gpg gettext
