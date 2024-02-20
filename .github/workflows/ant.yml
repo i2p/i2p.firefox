@@ -81,7 +81,7 @@ jobs:
           git config --global user.name "eyedeekay Github CI Build"
       - uses: actions/checkout@v4
       - run: wsl apt-get update
-      - run: wsl apt-get install -y nsis nsis-common nsis-pluginapi wget dos2unix curl jq gpg gettext
+      - run: wsl apt-get install -y nsis nsis-common nsis-pluginapi wget dos2unix curl jq gpg gettext zip
       - name: Set up JDK 21
         uses: actions/setup-java@v4
         with:
