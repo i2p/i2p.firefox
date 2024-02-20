@@ -31,7 +31,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: I2P-Easy-Install-Bundle-${{ github.sha }}-unsigned.exe
-          path: I2P-Easy-Install-Bundle-2.4.0-unsigned.exe
+          path: I2P-Easy-Install-Bundle-2.4.0.exe
 
   buildjpackagexe:
     runs-on: windows-latest
