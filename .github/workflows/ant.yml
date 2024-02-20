@@ -11,6 +11,7 @@ jobs:
       - uses: Vampire/setup-wsl@v3
         with:
           distribution: Ubuntu-20.04
+      - uses: pkg-src/github-action-git-bash@v1.1
       - name: Set git to use LF
         run: |
           git config --global core.autocrlf false
@@ -24,7 +25,7 @@ jobs:
           java-version: '21'
           distribution: 'temurin'
       - name: build with script
-        run: wsl-bash "./buildscripts/unsigned.sh; ls *.exe"
+        run: git-bash "./buildscripts/unsigned.sh; ls *.exe"
       - name: Upload I2P-Easy-Install-Bundle-${{ github.sha }}-unsigned.exe
         uses: actions/upload-artifact@v4
         with:
@@ -71,6 +72,7 @@ jobs:
       - uses: Vampire/setup-wsl@v3
         with:
           distribution: Ubuntu-20.04
+      - uses: pkg-src/github-action-git-bash@v1.1
       - name: Set git to use LF
         run: |
           git config --global core.autocrlf false
@@ -84,7 +86,7 @@ jobs:
           java-version: '21'
           distribution: 'temurin'
       - name: build with script
-        run: wsl-bash "./buildscripts/zip.sh; ls *.zip"
+        run: git-bash "./buildscripts/zip.sh; ls *.zip"
       - name: Upload I2P-windows-portable-${{ github.sha }}.zip
         uses: actions/upload-artifact@v4
         with:
