@@ -82,13 +82,14 @@ jobs:
       - uses: actions/checkout@v4
       - run: wsl apt-get update
       - run: wsl apt-get install -y nsis nsis-common nsis-pluginapi wget dos2unix curl jq gpg gettext zip
+      - run: choco install wget
       - name: Set up JDK 21
         uses: actions/setup-java@v4
         with:
           java-version: '21'
           distribution: 'temurin'
       - name: build with script
-        run: wsl bash -c "./buildscripts/zip.sh; ls *.zip"
+        run: bash -c "./buildscripts/zip.sh; ls *.zip"
       - name: Upload I2P-windows-portable-${{ github.sha }}.zip
         uses: actions/upload-artifact@v4
         with:
