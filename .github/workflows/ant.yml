@@ -21,7 +21,6 @@ jobs:
       - uses: actions/checkout@v4
       - run: apt-get update
       - run: apt-get install -y nsis nsis-common nsis-pluginapi wget dos2unix curl jq gpg gettext
-      - run: find . -name *.sh -exec dos2unix {} \;
       - name: Set up JDK 21
         uses: actions/setup-java@v4
         with:
@@ -85,7 +84,6 @@ jobs:
       - uses: actions/checkout@v4
       - run: apt-get update
       - run: apt-get install -y nsis nsis-common nsis-pluginapi wget dos2unix curl jq gpg gettext
-      - run: find . -name *.sh -exec dos2unix {} \;
       - name: Set up JDK 21
         uses: actions/setup-java@v4
         with:
@@ -118,8 +116,3 @@ jobs:
         with:
           name: I2P-${{ github.sha }}.tar.gz
           path: I2P.tar.gz
-        
-
-
-
-
