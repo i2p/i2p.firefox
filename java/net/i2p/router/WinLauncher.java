@@ -10,7 +10,7 @@ import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 import net.i2p.app.ClientAppManager;
 import net.i2p.crypto.*;
-import net.i2p.i2pfirefox.*;
+//import net.i2p.i2pfirefox.*;
 import net.i2p.router.Router;
 import net.i2p.router.RouterLaunch;
 import net.i2p.update.*;
@@ -36,9 +36,6 @@ public class WinLauncher extends CopyConfigDir {
     var launcher = new WinLauncher();
     launcher.setupLauncher();
     launcher.initLogger();
-    int privateBrowsing = 0;
-    boolean usabilityMode = false;
-    boolean chromiumFirst = false;
     int proxyTimeoutTime = 200;
     ArrayList<String> newArgsList = new ArrayList<String>();
 
@@ -46,14 +43,11 @@ public class WinLauncher extends CopyConfigDir {
       if (args.length > 0) {
         for (String arg : args) {
           if (arg.equals("-private")) {
-            privateBrowsing = 1;
             launcher.logger.info(
                 "Private browsing is true, profile will be discarded at end of session.");
           } else if (arg.equals("-chromium")) {
-            chromiumFirst = true;
             launcher.logger.info("Chromium will be selected before Firefox.");
           } else if (arg.equals("-usability")) {
-            usabilityMode = true;
             launcher.logger.info(
                 "Usability mode is true, using alternate extensions loadout.");
           } else if (arg.equals("-noproxycheck")) {
@@ -124,10 +118,6 @@ public class WinLauncher extends CopyConfigDir {
       System.exit(1);
     }
 
-    if (launcher.launchBrowser(privateBrowsing, usabilityMode, chromiumFirst,
-                               proxyTimeoutTime, newArgsList)) {
-      System.exit(0);
-    }
     launcher.i2pRouter =
         new Router(launcher.routerConfig(), System.getProperties());
     if (!launcher.isInstalled("i2p")) {
@@ -184,29 +174,6 @@ public class WinLauncher extends CopyConfigDir {
       System.exit(1);
     }
     return home;
-  }
-
-  private boolean launchBrowser(int privateBrowsing, boolean usabilityMode,
-                                boolean chromiumFirst, int proxyTimeoutTime,
-                                ArrayList<String> newArgsList) {
-    if (i2pIsRunning()) {
-      logger.info("I2P is already running, launching an I2P browser");
-      I2PBrowser i2pBrowser = new I2PBrowser();
-      i2pBrowser.usability = usabilityMode;
-      i2pBrowser.chromiumFirst = chromiumFirst;
-      i2pBrowser.firefox = !chromiumFirst;
-      i2pBrowser.chromium = chromiumFirst;
-      if (chromiumFirst) {
-        logger.warning("favoring Chromium instead of Firefox");
-      }
-      i2pBrowser.setProxyTimeoutTime(proxyTimeoutTime);
-      System.out.println("I2PBrowser");
-      String[] newArgs = newArgsList.toArray(new String[newArgsList.size()]);
-      setNotStarting();
-      i2pBrowser.launch(privateBrowsing, newArgs);
-      return true;
-    }
-    return false;
   }
 
   // see
