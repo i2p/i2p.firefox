@@ -188,18 +188,6 @@ public class WinLauncher extends CopyConfigDir {
     return portFree;
   }
 
-  private boolean i2pIsRunningCheck() {
-    // check if there's something listening on port 7657(Router Console)
-    if (!isAvailable(7657))
-      return true;
-    // check if there's something listening on port 7654(I2CP)
-    if (!isAvailable(7654))
-      return true;
-    if (checkPing())
-      return true;
-    return false;
-  }
-
   private void setNotStarting() {
     logger.info("removing startup file, the application has started");
     File home = selectHome();
@@ -207,72 +195,6 @@ public class WinLauncher extends CopyConfigDir {
     if (starting.exists()) {
       starting.delete();
     }
-  }
-
-  private void setStarting() {
-    logger.info("creating startup file, router is starting up");
-    File home = selectHome();
-    File starting = new File(home, "starting");
-    if (!starting.exists()) {
-      try {
-        starting.createNewFile();
-      } catch (IOException e) {
-        logger.info(e.toString());
-      }
-    }
-    Runtime.getRuntime().addShutdownHook(new Thread() {
-      @Override
-      public void run() {
-        setNotStarting();
-      }
-    });
-  }
-
-  private boolean checkStarting() {
-    logger.info("checking startup file");
-    File home = selectHome();
-    File starting = new File(home, "starting");
-    if (starting.exists()) {
-      logger.info("startup file exists, I2P is already starting up");
-      return true;
-    }
-    logger.info("startup file does not exist but we're running now");
-    setStarting();
-    return false;
-  }
-
-  // check for the existence of router.ping file, if it's less then 2
-  // minutes old, exit
-  private boolean checkPing() {
-    File home = selectHome();
-    File ping = new File(home, "router.ping");
-    if (ping.exists()) {
-      long diff = System.currentTimeMillis() - ping.lastModified();
-      if (diff > 60 * 1000) {
-        logger.info(
-            "router.ping exists and is more than 1 minute old, I2P does not appear to be running.");
-        logger.info("If I2P is running, report this as a bug.");
-        return false;
-      } else {
-        return true;
-      }
-    }
-    return false;
-  }
-
-  private boolean i2pIsRunning() {
-    if (checkStarting())
-      return true;
-    if (checkPing())
-      return true;
-    if (i2pIsRunningCheck())
-      return true;
-    for (int i = 0; i < 10; i++) {
-      if (i2pIsRunningCheck())
-        return true;
-      sleep(1000);
-    }
-    return false;
   }
 
   private final Runnable REGISTER_UPP = () -> {
