@@ -106,7 +106,9 @@ fi
 
 if [ ! -f "$SCRIPT_DIR/build/i2pfirefox.jar" ]; then
   echo "downloading i2pfirefox jars"
-  wget_download "https://github.com/eyedeekay/i2p.plugins.firefox/releases/download/$I2PFIREFOX_VERSION/i2pfirefox.jar" -O "$SCRIPT_DIR/build/i2pfirefox.jar"
+  wget_download "https://github.com/eyedeekay/i2p.plugins.firefox/releases/download/$I2PFIREFOX_VERSION/i2pfirefox.zip" -O "$SCRIPT_DIR/build/i2pfirefox.zip"
+  unzip "$SCRIPT_DIR/build/i2pfirefox.zip" -d "$SCRIPT_DIR/build/I2P/config/plugins/i2pfirefox"
+  unzip "$SCRIPT_DIR/build/I2P/config/plugins/i2pfirefox/plugin.zip" -d "$SCRIPT_DIR/build/I2P/config/plugins/i2pfirefox"
 fi
 
 for dll in "$I2P_JBIGI/"*windows*.dll; do
