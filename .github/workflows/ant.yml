@@ -27,10 +27,10 @@ jobs:
           distribution: 'temurin'
       - name: build with script
         run: bash -c "./buildscripts/unsigned.sh; ls *.exe"
-      - name: Upload I2P-Easy-Install-Bundle-${{ github.sha }}-unsigned.exe
+      - name: Upload I2P-Easy-Install-Bundle-unsigned.exe
         uses: actions/upload-artifact@v4
         with:
-          name: I2P-Easy-Install-Bundle-${{ github.sha }}-unsigned.exe
+          name: I2P-Easy-Install-Bundle-unsigned.exe
           path: I2P-Easy-Install-Bundle-2.4.0.exe
 
   buildjpackagexe:
@@ -44,10 +44,10 @@ jobs:
           distribution: 'temurin'
       - name: build with script
         run: bash -c "./buildscripts/exe.sh; ls *.exe"
-      - name: Upload I2P-Easy-Install-Bundle-${{ github.sha }}-unsigned.exe
+      - name: Upload I2P-Easy-Install-Bundle-unsigned.exe
         uses: actions/upload-artifact@v4
         with:
-          name: I2P-EXE-${{ github.sha }}-unsigned.exe
+          name: I2P-EXE-unsigned.exe
           path: I2P-EXE-2.4.0.exe
 
   buildjpackagmsi:
@@ -61,10 +61,10 @@ jobs:
           distribution: 'temurin'
       - name: build with script
         run: bash -c "./buildscripts/msi.sh; ls *.msi"
-      - name: Upload I2P-Easy-Install-Bundle-${{ github.sha }}-unsigned.msi
+      - name: Upload I2P-Easy-Install-Bundle-unsigned.msi
         uses: actions/upload-artifact@v4
         with:
-          name: I2P-MSI-${{ github.sha }}-unsigned.msi
+          name: I2P-MSI-unsigned.msi
           path: I2P-MSI-2.4.0.msi
 
   buildzip:
@@ -90,10 +90,10 @@ jobs:
           distribution: 'temurin'
       - name: build with script
         run: bash -c "./buildscripts/zip.sh; ls *.zip"
-      - name: Upload I2P-windows-portable-${{ github.sha }}.zip
+      - name: Upload I2P-windows-portable.zip
         uses: actions/upload-artifact@v4
         with:
-          name: I2P-windows-portable-${{ github.sha }}.zip
+          name: I2P-windows-portable.zip
           path: I2P-windows-portable.zip
         
   buildtgz:
@@ -110,8 +110,8 @@ jobs:
           sudo apt-get install -y nsis nsis-common nsis-pluginapi wget dos2unix curl jq gpg gettext
       - name: build with script
         run: ./buildscripts/targz.sh; ls *.tar.gz
-      - name: Upload I2P-${{ github.sha }}.tar.gz
+      - name: Upload I2P.tar.gz
         uses: actions/upload-artifact@v4
         with:
-          name: I2P-${{ github.sha }}.tar.gz
+          name: I2P.tar.gz
           path: I2P.tar.gz
