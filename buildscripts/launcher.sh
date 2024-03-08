@@ -111,7 +111,7 @@ fi
 
 if [ ! -d "$SCRIPT_DIR/build/I2P/config/plugins/i2pfirefox" ]; then
   mkdir -p "$SCRIPT_DIR/build/I2P/config/plugins/"
-  unzip "$SCRIPT_DIR/build/i2pfirefox.zip" -d "$SCRIPT_DIR/build/I2P/config/plugins"
+  unzip "$SCRIPT_DIR/build/i2pfirefox.zip" -d "$SCRIPT_DIR/build/I2P/config/plugins/plugin"
   mv "$SCRIPT_DIR/build/I2P/config/plugins/plugin" "$SCRIPT_DIR/build/I2P/config/plugins/i2pfirefox"
 fi
 
