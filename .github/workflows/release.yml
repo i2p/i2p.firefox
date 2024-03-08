@@ -56,11 +56,11 @@ jobs:
         id: download-artifact
         uses: dawidd6/action-download-artifact@v3
         with:
-          skip_unpack: false
+          skip_unpack: true
           workflow: ant.yml
           if_no_artifact_found: fail
       # remove .zip file extension
-      - run: for f in *.zip; do mv "$f" "${f%.zip}"; done
+      - run: for f in *.zip; do unzip "$f"; rm "$f"; done
       - run: echo "" | tee -a changelog.txt
       - run: echo "## Checksums" | tee -a changelog.txt
       - run: echo "" | tee -a changelog.txt
