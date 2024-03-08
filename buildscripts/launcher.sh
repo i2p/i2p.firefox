@@ -104,11 +104,15 @@ if [ ! -f "$SCRIPT_DIR/build/jna-platform.jar" ]; then
   wget_download "https://repo1.maven.org/maven2/net/java/dev/jna/jna-platform/$JNA_VERSION/jna-platform-$JNA_VERSION.jar" -O "$SCRIPT_DIR/build/jna-platform.jar"
 fi
 
-if [ ! -f "$SCRIPT_DIR/build/i2pfirefox.jar" ]; then
+if [ ! -f "$SCRIPT_DIR/build/i2pfirefox.zip" ]; then
   echo "downloading i2pfirefox jars"
-  wget_download "https://github.com/eyedeekay/i2p.plugins.firefox/releases/download/$I2PFIREFOX_VERSION/i2pfirefox.zip" -O "$SCRIPT_DIR/build/i2pfirefox.zip"
-  unzip "$SCRIPT_DIR/build/i2pfirefox.zip" -d "$SCRIPT_DIR/build/I2P/config/plugins/i2pfirefox"
-  unzip "$SCRIPT_DIR/build/I2P/config/plugins/i2pfirefox/plugin.zip" -d "$SCRIPT_DIR/build/I2P/config/plugins/i2pfirefox"
+  wget_download "https://github.com/eyedeekay/i2p.plugins.firefox/releases/download/$I2PFIREFOX_VERSION/plugin.zip" -O "$SCRIPT_DIR/build/i2pfirefox.zip"
+fi
+
+if [ ! -d "$SCRIPT_DIR/build/I2P/config/plugins/i2pfirefox" ]; then
+  mkdir -p "$SCRIPT_DIR/build/I2P/config/plugins/"
+  unzip "$SCRIPT_DIR/build/i2pfirefox.zip" -d "$SCRIPT_DIR/build/I2P/config/plugins"
+  mv "$SCRIPT_DIR/build/I2P/config/plugins/plugin" "$SCRIPT_DIR/build/I2P/config/plugins/i2pfirefox"
 fi
 
 for dll in "$I2P_JBIGI/"*windows*.dll; do
