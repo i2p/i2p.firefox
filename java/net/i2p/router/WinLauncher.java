@@ -5,18 +5,14 @@ import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.*;
-import java.util.logging.FileHandler;
-import java.util.logging.Logger;
-import java.util.logging.SimpleFormatter;
 import net.i2p.app.ClientAppManager;
 import net.i2p.crypto.*;
-//import net.i2p.i2pfirefox.*;
 import net.i2p.router.Router;
 import net.i2p.router.RouterLaunch;
 import net.i2p.update.*;
 import net.i2p.update.UpdateManager;
-import net.i2p.update.UpdatePostProcessor;
 import net.i2p.update.UpdateType.*;
+import net.i2p.util.Log;
 
 /**
  * Launches a router from %WORKINGDIR%/I2P using configuration data in
@@ -28,14 +24,20 @@ import net.i2p.update.UpdateType.*;
  * appdata
  * router.pid - the pid of the java process.
  */
-public class WinLauncher extends CopyConfigDir {
+public class WinLauncher extends WindowsServiceUtil {
+  private final CopyConfigDir copyConfigDir;
   WindowsUpdatePostProcessor wupp = null;
-  private Router i2pRouter;
+  private final Router i2pRouter;
+  final Log logger;
+  public WinLauncher() {
+    i2pRouter = new Router(routerConfig(), System.getProperties());
+    copyConfigDir = new CopyConfigDir(i2pRouter.getContext());
+    logger = i2pRouter.getContext().logManager().getLog(WinLauncher.class);
+  }
 
   public static void main(String[] args) {
     var launcher = new WinLauncher();
     launcher.setupLauncher();
-    launcher.initLogger();
     int proxyTimeoutTime = 200;
     ArrayList<String> newArgsList = new ArrayList<String>();
 
@@ -101,25 +103,23 @@ public class WinLauncher extends CopyConfigDir {
     launcher.logger.info("\t" + System.getProperty("router.pid"));
     boolean continuerunning = launcher.promptServiceStartIfAvailable("i2p");
     if (!continuerunning) {
-      launcher.logger.severe(
+      launcher.logger.error(
           "Service startup failure, please start I2P service with services.msc");
       System.exit(2);
     }
     continuerunning = launcher.promptUserInstallStartIfAvailable();
     if (!continuerunning) {
-      launcher.logger.severe("User-install startup required.");
+      launcher.logger.error("User-install startup required.");
       System.exit(2);
     }
 
     // This actually does most of what we use NSIS for if NSIS hasn't
     // already done it, which essentially makes this whole thing portable.
     if (!launcher.copyConfigDir()) {
-      launcher.logger.severe("Cannot copy the configuration directory");
+      launcher.logger.error("Cannot copy the configuration directory");
       System.exit(1);
     }
 
-    launcher.i2pRouter =
-        new Router(launcher.routerConfig(), System.getProperties());
     if (!launcher.isInstalled("i2p")) {
       if (launcher.i2pRouter.saveConfig("routerconsole.browser", null)) {
         launcher.logger.info("removed routerconsole.browser config");
@@ -155,7 +155,7 @@ public class WinLauncher extends CopyConfigDir {
     if (!programs.exists())
       programs.mkdirs();
     else if (!programs.isDirectory()) {
-      logger.warning(
+      logger.warn(
           programs +
           " exists but is not a directory. Please get it out of the way");
       System.exit(1);
@@ -168,7 +168,7 @@ public class WinLauncher extends CopyConfigDir {
     if (!home.exists())
       home.mkdirs();
     else if (!home.isDirectory()) {
-      logger.warning(
+      logger.warn(
           home +
           " exists but is not a directory. Please get it out of the way");
       System.exit(1);
