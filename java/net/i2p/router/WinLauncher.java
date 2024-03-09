@@ -138,8 +138,6 @@ public class WinLauncher extends WindowsAppUtil {
     registrationThread.setDaemon(true);
     registrationThread.start();
 
-    launcher.setNotStarting();
-
     launcher.i2pRouter.runRouter();
   }
 
