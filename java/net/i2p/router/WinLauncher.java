@@ -30,6 +30,23 @@ public class WinLauncher extends WindowsAppUtil {
   private Router i2pRouter;
   private final Log logger;
   public WinLauncher() {
+    File programs = launcher.programFile();
+    File home = launcher.homeDir();
+
+    System.setProperty(
+        "i2p.dir.base",
+        new File(programs.getAbsolutePath(), "config").getAbsolutePath());
+    System.setProperty("i2p.dir.config", home.getAbsolutePath());
+    System.setProperty("router.pid",
+                       String.valueOf(ProcessHandle.current().pid()));
+    /**
+     * IMPORTANT: You must set user.dir to the same directory where the
+     * jpackage is intstalled, or when the launcher tries to re-run itself
+     * to start the browser, it will start in the wrong directory and fail
+     * to find the JVM and Runtime bundle. This broke Windows 11 installs.
+     */
+    System.setProperty("user.dir", programs.getAbsolutePath());
+
     i2pRouter = new Router(routerConfig(), System.getProperties());
     copyConfigDir = new CopyConfigDir(i2pRouter.getContext());
     logger = i2pRouter.getContext().logManager().getLog(WinLauncher.class);
@@ -81,22 +98,6 @@ public class WinLauncher extends WindowsAppUtil {
       }
     }
 
-    File programs = launcher.programFile();
-    File home = launcher.homeDir();
-
-    System.setProperty(
-        "i2p.dir.base",
-        new File(programs.getAbsolutePath(), "config").getAbsolutePath());
-    System.setProperty("i2p.dir.config", home.getAbsolutePath());
-    System.setProperty("router.pid",
-                       String.valueOf(ProcessHandle.current().pid()));
-    /**
-     * IMPORTANT: You must set user.dir to the same directory where the
-     * jpackage is intstalled, or when the launcher tries to re-run itself
-     * to start the browser, it will start in the wrong directory and fail
-     * to find the JVM and Runtime bundle. This broke Windows 11 installs.
-     */
-    System.setProperty("user.dir", programs.getAbsolutePath());
     launcher.logger.info("\t" + System.getProperty("user.dir"));
     launcher.logger.info("\t" + System.getProperty("i2p.dir.base"));
     launcher.logger.info("\t" + System.getProperty("i2p.dir.config"));
