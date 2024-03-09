@@ -187,6 +187,8 @@ public class WinLauncher extends WindowsAppUtil {
   }
 
   private final Runnable REGISTER_UPP = () -> {
+    if (i2pRouter == null)
+      return;
     RouterContext ctx;
     while ((ctx = i2pRouter.getContext()) == null) {
       sleep(1000);
