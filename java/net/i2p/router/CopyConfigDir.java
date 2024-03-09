@@ -12,7 +12,7 @@ import java.util.logging.FileHandler;
 import java.util.logging.SimpleFormatter;
 import net.i2p.util.Log;
 
-public class CopyConfigDir extends WindowsServiceUtil {
+public class CopyConfigDir extends WindowsAppUtil {
   final Log logger;
 
   public CopyConfigDir(RouterContext ctx) {

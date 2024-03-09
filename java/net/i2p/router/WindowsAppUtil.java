@@ -4,11 +4,6 @@ import java.io.File;
 import net.i2p.util.Log;
 
 public class WindowsAppUtil extends WindowsServiceUtil {
-  final Log logger;
-  public WindowsAppUtil(RouterContext ctx) {
-    super();
-    logger = ctx.logManager().getLog(WindowsAppUtil.class);
-  }
   protected File selectHome() { // throws Exception {
     String path_override = System.getenv("I2P_CONFIG");
     if (path_override != null) {
@@ -21,7 +16,6 @@ public class WindowsAppUtil extends WindowsServiceUtil {
       }
     }
     File i2p = appImageHome();
-    logger.info("Checking for signs of life in I2P_CONFIG directory: " + i2p);
     return i2p;
   }
 
@@ -37,7 +31,6 @@ public class WindowsAppUtil extends WindowsServiceUtil {
       }
     }
     File i2p = appImageHome();
-    logger.info("Checking for signs of life in I2P directory: " + i2p);
     return i2p;
   }
 

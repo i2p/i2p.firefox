@@ -24,11 +24,11 @@ import net.i2p.util.Log;
  * appdata
  * router.pid - the pid of the java process.
  */
-public class WinLauncher extends WindowsServiceUtil {
+public class WinLauncher extends WindowsAppUtil {
   private final CopyConfigDir copyConfigDir;
   WindowsUpdatePostProcessor wupp = null;
   private final Router i2pRouter;
-  final Log logger;
+  private final Log logger;
   public WinLauncher() {
     i2pRouter = new Router(routerConfig(), System.getProperties());
     copyConfigDir = new CopyConfigDir(i2pRouter.getContext());
@@ -115,7 +115,7 @@ public class WinLauncher extends WindowsServiceUtil {
 
     // This actually does most of what we use NSIS for if NSIS hasn't
     // already done it, which essentially makes this whole thing portable.
-    if (!launcher.copyConfigDir()) {
+    if (!launcher.copyConfigDir.copyConfigDir()) {
       launcher.logger.error("Cannot copy the configuration directory");
       System.exit(1);
     }
@@ -186,15 +186,6 @@ public class WinLauncher extends WindowsServiceUtil {
       portFree = false;
     }
     return portFree;
-  }
-
-  private void setNotStarting() {
-    logger.info("removing startup file, the application has started");
-    File home = selectHome();
-    File starting = new File(home, "starting");
-    if (starting.exists()) {
-      starting.delete();
-    }
   }
 
   private final Runnable REGISTER_UPP = () -> {
