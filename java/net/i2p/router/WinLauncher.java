@@ -122,12 +122,7 @@ public class WinLauncher extends WindowsAppUtil {
     }
 
     if (!launcher.isInstalled("i2p")) {
-      if (launcher.i2pRouter.saveConfig("routerconsole.browser", null)) {
-        launcher.logger.info("removed routerconsole.browser config");
-      }
-      if (launcher.i2pRouter.saveConfig("routerconsole.browser",
-                                        launcher.appImageExe() +
-                                            " -noproxycheck")) {
+      if (launcher.i2pRouter.saveConfig("routerconsole.browser", "NUL")) {
         launcher.logger.info("updated routerconsole.browser config " +
                              launcher.appImageExe());
       }
