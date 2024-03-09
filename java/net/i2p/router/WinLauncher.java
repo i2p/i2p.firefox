@@ -30,8 +30,8 @@ public class WinLauncher extends WindowsAppUtil {
   private Router i2pRouter;
   private final Log logger;
   public WinLauncher() {
-    File programs = launcher.programFile();
-    File home = launcher.homeDir();
+    File programs = programFile();
+    File home = homeDir();
 
     System.setProperty(
         "i2p.dir.base",
