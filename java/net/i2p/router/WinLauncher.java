@@ -27,7 +27,7 @@ import net.i2p.util.Log;
 public class WinLauncher extends WindowsAppUtil {
   private final CopyConfigDir copyConfigDir;
   WindowsUpdatePostProcessor wupp = null;
-  private final Router i2pRouter;
+  private Router i2pRouter;
   private final Log logger;
   public WinLauncher() {
     i2pRouter = new Router(routerConfig(), System.getProperties());
@@ -187,8 +187,6 @@ public class WinLauncher extends WindowsAppUtil {
   }
 
   private final Runnable REGISTER_UPP = () -> {
-    if (i2pRouter == null)
-      return;
     RouterContext ctx;
     while ((ctx = i2pRouter.getContext()) == null) {
       sleep(1000);
