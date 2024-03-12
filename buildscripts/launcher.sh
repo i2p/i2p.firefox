@@ -125,7 +125,7 @@ cd "$SCRIPT_DIR"/java
   net/i2p/router/CopyConfigDir.java \
   net/i2p/router/WindowsServiceUtil.java \
   net/i2p/router/WindowsAppUtil.java \
-  net/i2p/router/WindowsUpdatePostProcessor.java \
+  net/i2p/router/WinUpdatePostProcessor.java \
   net/i2p/router/WinLauncher.java \
   net/i2p/router/WinUpdateProcess.java \
   net/i2p/router/ZipUpdateProcess.java

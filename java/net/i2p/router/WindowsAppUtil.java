@@ -4,33 +4,32 @@ import java.io.File;
 import net.i2p.util.Log;
 
 public class WindowsAppUtil extends WindowsServiceUtil {
-  protected File selectHome() { // throws Exception {
-    String path_override = System.getenv("I2P_CONFIG");
+  private File checkPathEnvironmentVariable(String name) {
+    String path_override = System.getenv(name);
     if (path_override != null) {
       File path = new File(path_override);
       if (path != null && path.exists()) {
         if (path.isDirectory())
           return path.getAbsoluteFile();
         else
-          throw new RuntimeException("I2P_CONFIG is not a directory: " + path);
+          throw new RuntimeException(name + " is not a directory: " + path);
       }
     }
-    File i2p = appImageHome();
+    return null;
+  }
+  
+  protected File selectHome() { // throws Exception {
+    File i2p = checkPathEnvironmentVariable("I2P_CONFIG");
+    String path_override = System.getenv("I2P_CONFIG");
+    if (i2p == null)
+      i2p = appImageHome();
     return i2p;
   }
 
   protected File selectProgramFile() {
-    String path_override = System.getenv("I2P");
-    if (path_override != null) {
-      File path = new File(path_override);
-      if (path.exists()) {
-        if (path.isDirectory())
-          return path.getAbsoluteFile();
-        else
-          throw new RuntimeException("I2P is not a directory: " + path);
-      }
-    }
-    File i2p = appImageHome();
+    File i2p = checkPathEnvironmentVariable("I2P");
+    if (i2p == null)
+      i2p = appImageHome();
     return i2p;
   }
 

@@ -26,7 +26,7 @@ import net.i2p.util.Log;
  */
 public class WinLauncher extends WindowsAppUtil {
   private final CopyConfigDir copyConfigDir;
-  WindowsUpdatePostProcessor wupp = null;
+  WinUpdatePostProcessor wupp = null;
   private Router i2pRouter;
   private final Log logger;
   public WinLauncher() {
@@ -56,48 +56,7 @@ public class WinLauncher extends WindowsAppUtil {
     var launcher = new WinLauncher();
     launcher.setupLauncher();
     int proxyTimeoutTime = 200;
-    ArrayList<String> newArgsList = new ArrayList<String>();
-
-    if (args != null) {
-      if (args.length > 0) {
-        for (String arg : args) {
-          if (arg.equals("-private")) {
-            launcher.logger.info(
-                "Private browsing is true, profile will be discarded at end of session.");
-          } else if (arg.equals("-chromium")) {
-            launcher.logger.info("Chromium will be selected before Firefox.");
-          } else if (arg.equals("-usability")) {
-            launcher.logger.info(
-                "Usability mode is true, using alternate extensions loadout.");
-          } else if (arg.equals("-noproxycheck")) {
-            proxyTimeoutTime = 0;
-            launcher.logger.info("Proxy timeout time set to zero");
-          } else {
-            // make an effort to not let people launch into sites if the proxy
-            // isn't quite ready yet, but also disable the proxy timeout if
-            // they're reaching a router console
-            if (arg.startsWith("http://localhost:76")) {
-              newArgsList.add(arg);
-              proxyTimeoutTime = 0;
-            } else if (arg.startsWith("http://127.0.0.1:76")) {
-              newArgsList.add(arg);
-              proxyTimeoutTime = 0;
-            } else if (arg.startsWith("https://localhost:76")) {
-              newArgsList.add(arg);
-              proxyTimeoutTime = 0;
-            } else if (arg.startsWith("https://127.0.0.1:76")) {
-              newArgsList.add(arg);
-              proxyTimeoutTime = 0;
-            } else if (proxyTimeoutTime > 0) {
-              newArgsList.add(arg);
-            } else if (!launcher.isAvailable(4444)) {
-              newArgsList.add(arg);
-            }
-          }
-        }
-      }
-    }
-
+    
     launcher.logger.info("\t" + System.getProperty("user.dir"));
     launcher.logger.info("\t" + System.getProperty("i2p.dir.base"));
     launcher.logger.info("\t" + System.getProperty("i2p.dir.config"));
@@ -197,7 +156,7 @@ public class WinLauncher extends WindowsAppUtil {
            null) {
       sleep(1000);
     }
-    WindowsUpdatePostProcessor wupp = new WindowsUpdatePostProcessor(ctx);
+    WinUpdatePostProcessor wupp = new WinUpdatePostProcessor(ctx);
     um.register(wupp, UpdateType.ROUTER_SIGNED_SU3, SU3File.TYPE_EXE);
     um.register(wupp, UpdateType.ROUTER_DEV_SU3, SU3File.TYPE_EXE);
   };

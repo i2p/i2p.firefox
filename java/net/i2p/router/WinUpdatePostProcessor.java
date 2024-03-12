@@ -16,7 +16,7 @@ import net.i2p.update.UpdateType;
 import net.i2p.util.Log;
 import net.i2p.util.SystemVersion;
 
-public class WindowsUpdatePostProcessor implements UpdatePostProcessor {
+public class WinUpdatePostProcessor implements UpdatePostProcessor {
   private final Log _log;
   private final RouterContext ctx;
   private final AtomicBoolean hook = new AtomicBoolean();
@@ -26,9 +26,9 @@ public class WindowsUpdatePostProcessor implements UpdatePostProcessor {
 
   private volatile File positionedFile = null;
 
-  WindowsUpdatePostProcessor(RouterContext ctx) {
+  WinUpdatePostProcessor(RouterContext ctx) {
     this.ctx = ctx;
-    this._log = ctx.logManager().getLog(WindowsUpdatePostProcessor.class);
+    this._log = ctx.logManager().getLog(WinUpdatePostProcessor.class);
   }
 
   public String getVersion() { return version; }
