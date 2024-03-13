@@ -81,6 +81,7 @@ jobs:
           git config --global user.name "eyedeekay Github CI Build"
       - uses: actions/checkout@v4
       - run: wsl apt-get update
+      - run: wsl apt-cache search 7zip
       - run: wsl apt-get install -y nsis nsis-common nsis-pluginapi wget dos2unix curl jq gpg gettext zip 7zip
       - run: choco install wget
       - name: Set up JDK 21
