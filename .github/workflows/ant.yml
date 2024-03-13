@@ -90,7 +90,7 @@ jobs:
           java-version: '21'
           distribution: 'temurin'
       - name: build with script
-        run: bash -c "./buildscripts/zip.sh; ls *.zip"
+        run: bash -c "./buildscripts/zip.sh; ls -lahR"
       - name: Upload I2P-windows-portable.zip
         uses: actions/upload-artifact@v4
         with:
