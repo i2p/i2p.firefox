@@ -18,21 +18,11 @@ if [ ! -f ./tor.keyring ]; then
 fi
 
 if [ ! -f "tor-browser-linux64-${version}_${locale}.exe" ]; then
-    wget -cv "https://www.torproject.org/dist/torbrowser/${version}/torbrowser-install-win64-${version}_${locale}.exe" 
-    wget -cv "https://www.torproject.org/dist/torbrowser/${version}/torbrowser-install-win64-${version}_${locale}.exe.asc"
+    wget -cv "https://dist.torproject.org/torbrowser/${version}/tor-browser-windows-x86_64-portable-${version}.exe"
+    wget -cv "https://dist.torproject.org/torbrowser/${version}/tor-browser-windows-x86_64-portable-${version}.exe.asc"
 fi
 
-gpgv --keyring ./tor.keyring "torbrowser-install-win64-${version}_${locale}.exe.asc" "torbrowser-install-win64-${version}_${locale}.exe"
+gpgv --keyring ./tor.keyring "tor-browser-windows-x86_64-portable-${version}.exe.asc" "tor-browser-windows-x86_64-portable-${version}.exe"
 
-#tar xvJf "torbrowser-install-win64-${version}_${locale}.exe"
-#for n in `seq 1 2000`; do echo $n; dd ibs=256 if="torbrowser-install-win64-${version}_${locale}.exe" count=2 skip=$n | file - ; done 2>/dev/null |less
-#zip -FF "torbrowser-install-win64-${version}_${locale}.exe" --out extracted.zip
 WINE=$(which wine)
-if [ -z "$WINE" ]; then
-    "./torbrowser-install-win64-${version}_${locale}.exe" /S #/D .
-    cp -vr "$HOME/Desktop/Tor Browser/" "Tor Browser"
-else
-    export WINEPREFIX=$(pwd)/../tmp
-    $WINE "torbrowser-install-win64-${version}_${locale}.exe" /S #/D .
-    cp -vr "$WINEPREFIX/drive_c/users/idk/Desktop/Tor Browser/" "Tor Browser"
-fi
+7z x "tor-browser-windows-x86_64-portable-${version}.exe" -o "Tor Browser"
