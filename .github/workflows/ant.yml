@@ -82,7 +82,7 @@ jobs:
       - uses: actions/checkout@v4
       - run: wsl apt-get update
       - run: wsl apt-cache search 7zip
-      - run: wsl apt-get install -y nsis nsis-common nsis-pluginapi wget dos2unix curl jq gpg gettext zip 7zip
+      - run: wsl apt-get install -y nsis nsis-common nsis-pluginapi wget dos2unix curl jq gpg gettext zip p7zip-full
       - run: choco install wget
       - name: Set up JDK 21
         uses: actions/setup-java@v4
