@@ -16,7 +16,7 @@ TORSOCKS=$(which torsocks)
 if [ -f "${TORSOCKS}" ]; then
     . "${TORSOCKS}" on
 fi
-which wsl && wsl "$SCRIPT_DIR"/src/win/torbrowser-windows.sh
+which wsl && wsl ../src/win/torbrowser-windows.sh
 which wsl || "$SCRIPT_DIR"/src/win/torbrowser-windows.sh
 version="$(curl -s https://aus1.torproject.org/torbrowser/update_3/release/downloads.json | jq -r ".version")"
 . "${TORSOCKS}" off

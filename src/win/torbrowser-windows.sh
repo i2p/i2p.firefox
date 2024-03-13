@@ -24,5 +24,4 @@ fi
 
 gpgv --keyring ./tor.keyring "tor-browser-windows-x86_64-portable-${version}.exe.asc" "tor-browser-windows-x86_64-portable-${version}.exe"
 
-WINE=$(which wine)
 7z x "tor-browser-windows-x86_64-portable-${version}.exe" -o "Tor Browser"
