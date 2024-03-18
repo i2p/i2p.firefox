@@ -173,8 +173,6 @@ set up and you're using git bash, that is enough to make the scripts compatible 
         cd i2p.firefox
         ./buildscripts/unsigned.sh
 
-6. Run `make` to build the installer.
-
 Doing a Release
 ---------------
 
@@ -187,19 +185,7 @@ bundle is Zlatinb. Standard Windows signing tools are used.
 ./release.sh
 ```
 
-produces the binary.
-
-Building a signed update file
------------------------------
-
-Building a signed update file for automatically updating a Windows I2P router
-requires you to either be using linux, or have Go installed in your Cygwin or WSL environment.
-On Linux(Where I sign the su3 files), this works:
-
-        make su3
-
-to run the signing tool if necessary and then package the installer in a
-signed update file.
+produces the binary and the su3.
 
 Issues
 ------
