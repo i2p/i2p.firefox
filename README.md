@@ -201,40 +201,6 @@ On Linux(Where I sign the su3 files), this works:
 to run the signing tool if necessary and then package the installer in a
 signed update file.
 
-Docker Support
---------------
-
-**MOVED, DEPRECATION NOTICE:** Most of this functionality has been moved
-to http://git.idk.i2p/idk/i2p.plugins.firefox which is more stable,
-easier to build and use, and easier to incorporate into other
-projects.
-
- - https://git.idk.i2p/idk/i2p.plugins.firefox/-/blob/main/docker.sh
-
-Unix Support
-------------
-
-**MOVED. DEPRECATION NOTICE:** Most of this functionality has been moved
-to http://git.idk.i2p/idk/i2p.plugins.firefox which is more stable,
-easier to build and use, and easier to incorporate into other
-projects. It is the better option for nearly every non-Windows case
-right now. You can get binary packages from:
-
- - https://github.com/eyedeekay/i2p.plugins.firefox/releases
-
-or look at
-
- - https://i2pgit.org/idk/i2p.plugins.firefox/-/blob/master/PACKAGES.md
-
-for instructions on how to build your own packages. These packages are
-unofficial! Although I do dogfood most of them and the `.jar` gets thorough
-testing.
-
-**The only remotely interesting Unix functionality that remains in this**
-**repository is the construction of a portable. You can use `targz.sh` to**
-**generate that. Once generated, `cd I2P && ./lib/torbrowser.sh` to complete**
-**setup, and `./bin/I2P` to run it.**
-
 Issues
 ------
 
