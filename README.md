@@ -1,5 +1,5 @@
-I2P Easy-Install Bundle for Windows(Also/formerly)I2P Browsing Profile for Firefox
-==================================================================================
+I2P Easy-Install Bundle for Windows, (Formerly)I2P Browsing Profile for Firefox
+===============================================================================
 
 Features:
 ---------
@@ -12,6 +12,13 @@ Features:
 
 Build Dependencies:
 -------------------
+
+**SHORTCUT:** All the build artifacts can be produced by the description in the `.yaml` files in `.github/workflows`.
+These can be run on Github's infrastructure, or on a local(Windows) PC using https://github.com/nektos/act.
+Doing things this way deals with all the dependency issues that Windows doesn't really give you a good way to deal with automatically.
+It also guarantees that the same base container and environment gets used for every build no matter what machine it runs on.
+I highly recommend you use either Github CI or `nektos/act` for dev builds of this software, as it **automates literally every one of the steps**.
+CI-based builds follow the `WSL` version of the instructions.
 
 To build this, you will need the following software packages
 (all available in Debian and Ubuntu, see WSL section below):
