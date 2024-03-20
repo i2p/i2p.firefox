@@ -38,7 +38,8 @@ echo "$I2P_VERSION"
 export SUMMARY_HERE=$(head -n 1 "$SCRIPT_DIR/docs/RELEASE.md" | sed "s|# ||g")
 echo "$SUMMARY_HERE"
 export CONTENT_HERE=$(tail -n +2 "$SCRIPT_DIR/docs/RELEASE.md" | markdown)
-echo "$CONTENT_HERE"
+echo "$CONTENT_HERE" > news-content.html
+unset CONTENT_HERE
 ./create_new_entry.sh
 
 export DATE=$(date +%Y-%m-%d)
@@ -62,4 +63,5 @@ TORRENTJSON+='    }'
 TORRENTJSON+='  }'
 TORRENTJSON+=']'
 
-echo "$TORRENTJSON" | jq
+echo "$TORRENTJSON" | jq > "$I2P_NEWSXML/data/win/beta/releases.json"
+echo "$TORRENTJSON" | jq > "$I2P_NEWSXML/data/win/testing/releases.json"
