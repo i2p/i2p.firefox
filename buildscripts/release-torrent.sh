@@ -41,8 +41,8 @@ echo "~~~~~~~~~~"
 MAGNET=$(transmission-show -m "i2pwinupdate.su3.torrent" 2>&1 3>&1 | tail -n 1)
 echo "$MAGNET"
 ZIPCHECKSUM=$(sha256sum "i2pwinupdate.su3")
-echo github-release upload -R -u "$GITHUB_USERNAME" -r "i2p.firefox" -f "i2pwinupdate.su3" -l "$ZIPCHECKSUM" -t "$I2P_VERSION" -n "i2pwinupdate.su3"
-github-release upload -R -u "$GITHUB_USERNAME" -r "i2p.firefox" -f "i2pwinupdate.su3" -l "$ZIPCHECKSUM" -t "$I2P_VERSION" -n "i2pwinupdate.su3"
+echo github-release upload -R -u "$GITHUB_USERNAME" -r "i2p.firefox" -f "i2pwinupdate.su3" -l "$ZIPCHECKSUM" -t "i2p-firefox-$I2P_VERSION" -n "i2pwinupdate.su3"
+github-release upload -R -u "$GITHUB_USERNAME" -r "i2p.firefox" -f "i2pwinupdate.su3" -l "$ZIPCHECKSUM" -t "i2p-firefox-$I2P_VERSION" -n "i2pwinupdate.su3"
 ZIPCHECKSUM=$(sha256sum "i2pwinupdate.su3.torrent")
-echo github-release upload -R -u "$GITHUB_USERNAME" -r "i2p.firefox" -f "i2pwinupdate.su3.torrent" -l "$ZIPCHECKSUM" -t "$I2P_VERSION" -n "i2pwinupdate.su3.torrent"
-github-release upload -R -u "$GITHUB_USERNAME" -r "i2p.firefox" -f "i2pwinupdate.su3.torrent" -l "$ZIPCHECKSUM" -t "$I2P_VERSION" -n "i2pwinupdate.su3.torrent"
+echo github-release upload -R -u "$GITHUB_USERNAME" -r "i2p.firefox" -f "i2pwinupdate.su3.torrent" -l "$ZIPCHECKSUM" -t "i2p-firefox-$I2P_VERSION" -n "i2pwinupdate.su3.torrent"
+github-release upload -R -u "$GITHUB_USERNAME" -r "i2p.firefox" -f "i2pwinupdate.su3.torrent" -l "$ZIPCHECKSUM" -t "i2p-firefox-$I2P_VERSION" -n "i2pwinupdate.su3.torrent"
