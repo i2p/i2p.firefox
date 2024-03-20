@@ -9,6 +9,15 @@ export GITHUB_TAG=$(git describe --tags --abbrev=0 | sed 's|i2p||g' | tr -d [a-z
 VERSIONMAJOR=$(echo "$GITHUB_TAG" | cut -d . -f 1)
 VERSIONMINOR=$(echo "$GITHUB_TAG" | cut -d . -f 2)
 VERSIONBUILD=$(echo "$GITHUB_TAG" | cut -d . -f 3)
+if [ -z "$VERSIONBUILD" ]; then
+    VERSIONBUILD=2
+fi
+if [ -z "$VERSIONMINOR" ]; then
+    VERSIONMINOR=4
+fi
+if [ -z "$VERSIONMAJOR" ]; then
+    VERSIONMAJOR=0
+fi
 I2P_VERSION="$VERSIONMAJOR.$VERSIONMINOR.$VERSIONBUILD"
 export I2P_VERSION="$VERSIONMAJOR.$VERSIONMINOR.$VERSIONBUILD"
 # Comment this out to build from an alternate branch or
