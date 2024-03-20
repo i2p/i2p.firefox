@@ -31,7 +31,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: I2P-Easy-Install-Bundle-unsigned.exe
-          path: I2P-Easy-Install-Bundle-2.4.0.exe
+          path: I2P-Easy-Install-Bundle-*.exe
 
   buildjpackagexe:
     runs-on: windows-latest
@@ -48,7 +48,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: I2P-EXE-unsigned.exe
-          path: I2P-EXE-2.4.0.exe
+          path: I2P-EXE-*.exe
 
   buildjpackagmsi:
     runs-on: windows-latest
@@ -65,7 +65,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: I2P-MSI-unsigned.msi
-          path: I2P-MSI-2.4.0.msi
+          path: I2P-MSI-*.msi
 
   buildzip:
     runs-on: windows-latest
