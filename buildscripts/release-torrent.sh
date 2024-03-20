@@ -31,11 +31,11 @@ cp -v "I2P-Easy-Install-Bundle-$I2P_VERSION.exe" "I2P-Easy-Install-Bundle-$I2P_V
 java -cp "$I2P_LIBS/*" net.i2p.crypto.SU3File sign -c ROUTER -f EXE I2P-Easy-Install-Bundle-$I2P_VERSION-signed.exe I2P-Easy-Install-Bundle-$I2P_VERSION-signed.su3 "$HOME/.i2p-plugin-keys/news-su3-keystore.ks" $I2P_VERSION $SIGNER
 rm -f i2pwinupdate.su3.torrent
 cp -v I2P-Easy-Install-Bundle-$I2P_VERSION-signed.su3 i2pwinupdate.su3
-mktorrent \
-		--announce=http://tracker2.postman.i2p/announce.php \
-		--announce=http://w7tpbzncbcocrqtwwm3nezhnnsw4ozadvi2hmvzdhrqzfxfum7wa.b32.i2p/a \
-		--announce=http://mb5ir7klpc2tj6ha3xhmrs3mseqvanauciuoiamx2mmzujvg67uq.b32.i2p/a \
-		i2pwinupdate.su3
+
+java -cp "$I2P_LIBS/*" "org.klomp.snark.Storage" -a http://tracker2.postman.i2p/announce.php -a http://w7tpbzncbcocrqtwwm3nezhnnsw4ozadvi2hmvzdhrqzfxfum7wa.b32.i2p/a -a http://mb5ir7klpc2tj6ha3xhmrs3mseqvanauciuoiamx2mmzujvg67uq.b32.i2p/a -c "$SIGNER" -m "Official torrent for Windows Easy-Install version $I2P_VERSION" i2pwinupdate.su3
+echo "~~~~~~~~~~"
+MAGNET=$(transmission-show -m "i2pwinupdate.su3.torrent" 2>&1 3>&1 | tail -n 1)
+echo "$MAGNET"
 ZIPCHECKSUM=$(sha256sum "i2pwinupdate.su3")
 echo github-release upload -R -u "$GITHUB_USERNAME" -r "i2p.firefox" -f "i2pwinupdate.su3" -l "$ZIPCHECKSUM" -t "$I2P_VERSION" -n "i2pwinupdate.su3"
 github-release upload -R -u "$GITHUB_USERNAME" -r "i2p.firefox" -f "i2pwinupdate.su3" -l "$ZIPCHECKSUM" -t "$I2P_VERSION" -n "i2pwinupdate.su3"

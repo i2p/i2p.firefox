@@ -40,3 +40,26 @@ echo "$SUMMARY_HERE"
 export CONTENT_HERE=$(tail -n +2 "$SCRIPT_DIR/docs/RELEASE.md" | markdown)
 echo "$CONTENT_HERE"
 ./create_new_entry.sh
+
+export DATE=$(date +%Y-%m-%d)
+echo "$DATE"
+MAGNET=$(transmission-show -m "$SCRIPT_DIR/i2pwinupdate.su3.torrent" 2>&1 3>&1 | tail -n 1)
+
+TORRENTJSON='['
+TORRENTJSON+='  {'
+TORRENTJSON+="    \"date\": \"$DATE\","
+TORRENTJSON+="    \"version\": \"$I2P_VERSION\","
+TORRENTJSON+="    \"minVersion\": \"1.5.0\","
+TORRENTJSON+="    \"minJavaVersion\": \"1.8\","
+TORRENTJSON+="    \"updates\": {"
+TORRENTJSON+="      \"su3\": {"
+TORRENTJSON+="        \"torrent\": \"$MAGNET\","
+TORRENTJSON+="        \"url\": ["
+TORRENTJSON+="          \"http://ekm3fu6fr5pxudhwjmdiea5dovc3jdi66hjgop4c7z7dfaw7spca.b32.i2p/i2pwinupdate.su3\""
+TORRENTJSON+='        ]'
+TORRENTJSON+='      }'
+TORRENTJSON+='    }'
+TORRENTJSON+='  }'
+TORRENTJSON+=']'
+
+echo "$TORRENTJSON" | jq
