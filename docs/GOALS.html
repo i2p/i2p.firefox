@@ -1,0 +1,553 @@
+<html>
+  <head>
+    <title>
+      I2P Easy-Install...
+    </title>
+    <meta name="author" content="eyedeekay" />
+    <meta name="description" content="i2p.firefox" />
+    <meta name="keywords" content="master" />
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <link rel="stylesheet" type="text/css" href="showhider.css" />
+    <link rel="stylesheet" type="text/css" href="darklight.css" />
+  </head>
+  <body>
+    <input type="checkbox" id="checkboxDarkLight">
+    <div class="container">
+      <div id="navbar">
+        <a href="#shownav">
+          Show navigation
+        </a>
+        <div id="shownav">
+          <div id="hidenav">
+            <ul>
+              <li>
+                <a href="..">
+                  Up one level ^
+                </a>
+              </li>
+              <li>
+                <a href="index.html">
+                  index
+                </a>
+              </li>
+              <li>
+                <a href="LICENSE.html">
+                  LICENSE
+                </a>
+              </li>
+              <li>
+                <a href="index.html">
+                  index.html
+                </a>
+              </li>
+              <li>
+                <a href="GOALS.html">
+                  GOALS
+                </a>
+              </li>
+              <li>
+                <a href="PRINCIPLES.html">
+                  PRINCIPLES
+                </a>
+              </li>
+              <li>
+                <a href="RELEASE.html">
+                  RELEASE
+                </a>
+              </li>
+              <li>
+                <a href="UPDATES.html">
+                  UPDATES
+                </a>
+              </li>
+            </ul>
+            <br>
+            <a href="#hidenav">
+              Hide Navigation
+            </a>
+          </div>
+        </div>
+      </div>
+      <a id="returnhome" href="/">
+        /
+      </a>
+      <h1>
+        Feature Goals
+      </h1>
+      <p>
+        For information about the &ldquo;Goals guiding the Goals&rdquo; see:
+        <code>
+          [PRINCIPLES]
+        </code>
+        .
+      </p>
+      <p>
+        While Windows is the primary platform, some goals may represent cross-platform
+        utility as well. Since a portable jpackage really only needs slightly different
+        arguments on different platforms, cross-platform support is often low-cost.
+      </p>
+      <ul>
+        <li>
+          <strong>
+            See Also:
+          </strong>
+        </li>
+        <li>
+          <em>
+            Browser Integrations are provided by browser extensions which are contained in their own repositories.
+          </em>
+        </li>
+        <li>
+          Firefox:
+        </li>
+        <li>
+          <a href="http://git.idk.i2p/idk/I2P-in-Private-Browsing-Mode-Firefox/">
+            git.idk.i2p/idk/I2P-in-Private-Browsing-Mode-Firefox
+          </a>
+        </li>
+        <li>
+          <a href="https://i2pgit.org/idk/I2P-in-Private-Browsing-Mode-Firefox/">
+            i2pgit.org/idk/I2P-in-Private-Browsing-Mode-Firefox
+          </a>
+        </li>
+        <li>
+          <a href="https://github.com/eyedeekay/I2P-in-Private-Browsing-Mode-Firefox/">
+            github.com/eyedeekay/I2P-in-Private-Browsing-Mode-Firefox
+          </a>
+        </li>
+        <li>
+          Chromium:
+        </li>
+        <li>
+          <a href="http://git.idk.i2p/idk/I2P-Configuration-For-Chromium/">
+            git.idk.i2p/idk/I2P-Configuration-For-Chromium
+          </a>
+        </li>
+        <li>
+          <a href="https://i2pgit.org/idk/I2P-Configuration-For-Chromium/">
+            i2pgit.org/idk/I2P-Configuration-For-Chromium
+          </a>
+        </li>
+        <li>
+          <a href="https://github.com/eyedeekay/I2P-Configuration-For-Chromium/">
+            github.com/eyedeekay/I2P-Configuration-For-Chromium
+          </a>
+        </li>
+        <li>
+          <em>
+            Browser profile management are provided by a freestanding, cross-platform library which is contained in its own repository.
+          </em>
+        </li>
+        <li>
+          <a href="http://git.idk.i2p/idk/i2p.plugins.firefox">
+            git.idk.i2p/idk/i2p.plugins.firefox
+          </a>
+        </li>
+        <li>
+          <a href="https://i2pgit.org/idk/i2p.plugins.firefox">
+            i2pgit.org/idk/i2p.plugins.firefox
+          </a>
+        </li>
+        <li>
+          <a href="https://github.com/eyedeekay/i2p.plugins.firefox">
+            github.com/eyedeekay/i2p.plugins.firefox
+          </a>
+        </li>
+      </ul>
+      <h2>
+        Build Methods
+      </h2>
+      <ul>
+        <li>
+          <code>
+            [X]
+          </code>
+          Cleanly separate jpackage generation phase from NSIS generation phase
+        </li>
+        <li>
+          <code>
+            [X]
+          </code>
+          Enable archive builds for generating Windows
+          <code>
+            .exe
+          </code>
+          &rsquo;s from Linux hosts
+        </li>
+      </ul>
+      <h2>
+        Installation Methods
+      </h2>
+      <ul>
+        <li>
+          <code>
+            [X]
+          </code>
+          NSIS installer
+        </li>
+        <li>
+          <code>
+            [X]
+          </code>
+          Portable, directory-based install
+        </li>
+        <li>
+          <code>
+            [ ]
+          </code>
+          Windows Service Support
+        </li>
+      </ul>
+      <h2>
+        Update Methods
+      </h2>
+      <ul>
+        <li>
+          <code>
+            [X]
+          </code>
+          NSIS installer in Default Directory
+        </li>
+        <li>
+          <code>
+            [X]
+          </code>
+          NSIS installer in Portable Directory
+        </li>
+        <li>
+          <code>
+            [X]
+          </code>
+          Handle admin and non-admin updates automatically
+        </li>
+        <li>
+          <code>
+            [ ]
+          </code>
+          Zip-Only portable updater
+        </li>
+      </ul>
+      <h2>
+        Launcher
+      </h2>
+      <ul>
+        <li>
+          <code>
+            [X]
+          </code>
+          Detect and handle un-bundled routers on the host system, policy of non-interference
+        </li>
+        <li>
+          <code>
+            [X]
+          </code>
+          Wait for router console to be ready to launch router-console browser
+        </li>
+        <li>
+          <code>
+            [X]
+          </code>
+          Wait for proxy to be ready to launch I2P Web Browser
+        </li>
+        <li>
+          <code>
+            [X]
+          </code>
+          Launch browser instead of router when a repeat-launch is detected
+        </li>
+        <li>
+          <code>
+            [X]
+          </code>
+          GUI component for launching each available component
+        </li>
+        <li>
+          <code>
+            [X]
+          </code>
+          Introduce
+          <code>
+            browser.properties
+          </code>
+          for customization
+        </li>
+        <li>
+          <code>
+            [ ]
+          </code>
+          Registry-based browser discovery
+          <a href="http://git.idk.i2p/idk/i2p.plugins.firefox/-/issues/3">
+            Firefox
+          </a>
+          <a href="http://git.idk.i2p/idk/i2p.plugins.firefox/-/issues/4">
+            Chromium
+          </a>
+        </li>
+      </ul>
+      <h2>
+        Browser Configuration All
+      </h2>
+      <ul>
+        <li>
+          <code>
+            [X]
+          </code>
+          Use identical extensions in Firefox-based and Chromium-based browsers wherever possible
+        </li>
+        <li>
+          <code>
+            [X]
+          </code>
+          Always use a dedicated, I2P Easy-Install specific profile directory
+        </li>
+        <li>
+          <code>
+            [X]
+          </code>
+          Always configure an HTTP Proxy, and safe access to the router console
+        </li>
+        <li>
+          <code>
+            [X]
+          </code>
+          Provide I2P-Specific integrations to the browser UI through WebExtensions
+        </li>
+        <li>
+          <code>
+            [X]
+          </code>
+          Operate in &ldquo;Strict&rdquo; mode where the maximum level of defenses are up
+        </li>
+        <li>
+          <code>
+            [X]
+          </code>
+          Operate in &ldquo;Usability&rdquo; mode where defense is balanced with utility
+        </li>
+        <li>
+          <code>
+            [X]
+          </code>
+          Operate in &ldquo;App&rdquo; mode where we work as a single-purpose window where it is hard to access arbitrary, potentially malicious resources
+        </li>
+        <li>
+          <code>
+            [X]
+          </code>
+          All I2P-Specific profiles should be possible to generate automatically, sight-unseen
+        </li>
+      </ul>
+      <h2>
+        Browser Configuration Firefox
+      </h2>
+      <ul>
+        <li>
+          <code>
+            [X]
+          </code>
+          When using Firefox, download extension updates automatically, from AMO, using an outproxy
+        </li>
+        <li>
+          <code>
+            [X]
+          </code>
+          Integrate I2P in Private Browsing for to provide UI for I2P within Firefox
+        </li>
+        <li>
+          <code>
+            [X]
+          </code>
+          Prevent WebRTC proxy escapes by setting mode
+          <code>
+            4
+          </code>
+          <code>
+            disable_non_proxied_udp
+          </code>
+          or higher
+        </li>
+        <li>
+          <code>
+            [X]
+          </code>
+          Customize panel for Firefox
+          <code>
+            App
+          </code>
+          mode(Not required for Chromiums)
+        </li>
+      </ul>
+      <h2>
+        Browser Configuration Chromium
+      </h2>
+      <ul>
+        <li>
+          <code>
+            [X]
+          </code>
+          When using Chromium, load extensions from source and freeze them without updates to prevent unproxied updating.
+        </li>
+        <li>
+          <code>
+            [X]
+          </code>
+          Integrate
+          <code>
+            I2PChrome.js
+          </code>
+          to provide UI for I2P within Chrome
+        </li>
+        <li>
+          <code>
+            [X]
+          </code>
+          Prevent WebRTC proxy escapes by setting mode
+          <code>
+            4
+          </code>
+          <code>
+            disable_non_proxied_udp
+          </code>
+        </li>
+      </ul>
+      <h2>
+        Browser Configuration Strict Mode
+      </h2>
+      <ul>
+        <li>
+          <code>
+            [X]
+          </code>
+          Disable Javascript by default with NoScript
+        </li>
+        <li>
+          <code>
+            [X]
+          </code>
+          Enforce HTTPS where available with HTTPS Everywhere
+          <strong>
+            OR
+          </strong>
+          HTTPS only Mode
+        </li>
+        <li>
+          <code>
+            [ ]
+          </code>
+          Proactively enumerate and disable &ldquo;Fine&rdquo; fingerprinting vectors where possible(ongoing)
+        </li>
+        <li>
+          <code>
+            [ ]
+          </code>
+          When running in Tor Browser, look as much like Tor Browser as possible but use an outproxy(ongoing)
+        </li>
+      </ul>
+      <h2>
+        Browser Configuration Usability Mode
+      </h2>
+      <ul>
+        <li>
+          <code>
+            [X]
+          </code>
+          Enable Javascript by default but limit it with jShelter
+        </li>
+        <li>
+          <code>
+            [X]
+          </code>
+          Enforce HTTPS where available with HTTPS Everywhere
+          <strong>
+            OR
+          </strong>
+          HTTPS only Mode
+        </li>
+        <li>
+          <code>
+            [X]
+          </code>
+          Limit attempts to fetch useless junk like advertising with an up-to-date uBlock Origin
+        </li>
+        <li>
+          <code>
+            [X]
+          </code>
+          Limit attempts to reach clearnet CDN&rsquo;s with LocalCDN
+        </li>
+        <li>
+          <code>
+            [X]
+          </code>
+          Isolate
+          <code>
+            .onion
+          </code>
+          traffic from
+          <code>
+            outproxy
+          </code>
+          traffic and
+          <code>
+            .i2p
+          </code>
+          traffic using Onion in Container Tabs
+        </li>
+      </ul>
+      <div id="sourcecode">
+        <span id="sourcehead">
+          <strong>
+            Get the source code:
+          </strong>
+        </span>
+        <ul>
+          <li>
+            <a href="https://github.com/eyedeekay/i2p.firefox">
+              Source Repository: (https://github.com/eyedeekay/i2p.firefox)
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <a href="#show">
+          Show license
+        </a>
+        <div id="show">
+          <div id="hide">
+            <pre><code>Copyright 2018
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of
+this software and associated documentation files (the "Software"), to deal in
+the Software without restriction, including without limitation the rights to
+use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+the Software, and to permit persons to whom the Software is furnished to do so,
+subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+</code></pre>
+            <a href="#hide">
+              Hide license
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <iframe src="https://snowflake.torproject.org/embed.html" width="320" height="240" frameborder="0" scrolling="no"></iframe>
+    </div>
+    <div>
+      <a href="https://geti2p.net/">
+        <img class="i2plogo" src="i2plogo.png"></img>
+        I2P
+      </a>
+    </div>
+  </body>
+</html>

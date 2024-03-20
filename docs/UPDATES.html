@@ -8,127 +8,142 @@
     <meta name="keywords" content="master" />
     <link rel="stylesheet" type="text/css" href="style.css" />
     <link rel="stylesheet" type="text/css" href="showhider.css" />
+    <link rel="stylesheet" type="text/css" href="darklight.css" />
   </head>
   <body>
-    <div id="navbar">
-      <a href="#shownav">
-        Show navigation
-      </a>
-      <div id="shownav">
-        <div id="hidenav">
-          <ul>
-            <li>
-              <a href="..">
-                Up one level ^
-              </a>
-            </li>
-            <li>
-              <a href="index.html">
-                index
-              </a>
-            </li>
-            <li>
-              <a href="LICENSE.html">
-                LICENSE
-              </a>
-            </li>
-            <li>
-              <a href="UPDATES.html">
-                UPDATES
-              </a>
-            </li>
-          </ul>
-          <br>
-          <a href="#hidenav">
-            Hide Navigation
-          </a>
+    <input type="checkbox" id="checkboxDarkLight">
+    <div class="container">
+      <div id="navbar">
+        <a href="#shownav">
+          Show navigation
+        </a>
+        <div id="shownav">
+          <div id="hidenav">
+            <ul>
+              <li>
+                <a href="..">
+                  Up one level ^
+                </a>
+              </li>
+              <li>
+                <a href="index.html">
+                  index
+                </a>
+              </li>
+              <li>
+                <a href="LICENSE.html">
+                  LICENSE
+                </a>
+              </li>
+              <li>
+                <a href="index.html">
+                  index.html
+                </a>
+              </li>
+              <li>
+                <a href="GOALS.html">
+                  GOALS
+                </a>
+              </li>
+              <li>
+                <a href="PRINCIPLES.html">
+                  PRINCIPLES
+                </a>
+              </li>
+              <li>
+                <a href="RELEASE.html">
+                  RELEASE
+                </a>
+              </li>
+              <li>
+                <a href="UPDATES.html">
+                  UPDATES
+                </a>
+              </li>
+            </ul>
+            <br>
+            <a href="#hidenav">
+              Hide Navigation
+            </a>
+          </div>
         </div>
       </div>
-    </div>
-    <a id="returnhome" href="/">
-      /
-    </a>
-    <h1>
-      Setting up an Update Server for an I2P Bundle
-    </h1>
-    <p>
-      It is important to set up a signed update server so that people are able to
-      safely and anonymously update your I2P bundle.
-    </p>
-    <h2>
-      The quick way:
-    </h2>
-    <p>
-      This process depends on my ability to push releases to github. If you are
-      forking, setting up a dev server, or taking over because I got hit by a bus,
-      you&rsquo;ll need to do it the complete way.
-    </p>
-    <p>
-      For as long as I am building updates, you will be able to mirror the jpackaged
-      Windows bundle by cloning the repository
-      <code>
-        https://github.com/eyedeekay/i2p
-      </code>
-      and
-      running the
-      <code>
-        make docker run
-      </code>
-      target in that repository. You can retrieve the
-      base32 address of your update server by viewing the log with
-      <code>
-        docker logs eephttpd-jpackage | grep b32.i2p | tee eephttpd-address.md
-      </code>
-      . To
-      update the site, run
-      <code>
-        ./update.site.sh
-      </code>
-      in that repository.
-    </p>
-    <p>
-      Once you have cloned the repository and started the container with
-      <code>
-        make docker run
-      </code>
-      , you can simply add
-      <code>
-        path/to/repo/update-site.sh
-      </code>
-      to your
-      <code>
-        crontab
-      </code>
-      and it will update at an interval of your choosing.
-    </p>
-    <h2>
-      The complete way:
-    </h2>
-    <p>
-      TODO: describe how to do it with less of the awesome fancy stuff I put together
-      to make it easier on myself to keep an update server going.
-    </p>
-    <div id="sourcecode">
-      <span id="sourcehead">
-        <strong>
-          Get the source code:
-        </strong>
-      </span>
-      <ul>
-        <li>
-          <a href="https://github.com/eyedeekay/i2p.firefox">
-            Source Repository: (https://github.com/eyedeekay/i2p.firefox)
-          </a>
-        </li>
-      </ul>
-    </div>
-    <div>
-      <a href="#show">
-        Show license
+      <a id="returnhome" href="/">
+        /
       </a>
-      <div id="show">
-        <div id="hide">
-          <pre><code>Copyright 2018
+      <h1>
+        Setting up an Update Server for an I2P Bundle
+      </h1>
+      <p>
+        It is important to set up a signed update server so that people are able to
+        safely and anonymously update your I2P bundle. There are two sort of &ldquo;Levels&rdquo;
+        to what you might do to provide updates to your users. Each of them requires the
+        generation of a
+        <a href="https://eyedeekay.github.io/Hopefully-Holistic-Guide-to-I2P-Dev-Build-Update-Hosting/">
+          signed newsfeed
+        </a>
+        ,
+        which also serves as a way to provide information to your users about updates,
+        features, and security events.
+      </p>
+      <p>
+        This project,
+        <code>
+          i2p.firefox
+        </code>
+        a.k.a. the &ldquo;I2P Easy Install Bundle&rdquo; uses the &ldquo;Executable&rdquo;
+        update subtype, meaning that it capable of installing itself by executing code as the
+        user who runs the update, which is usually the main user of a Windows 10 or 11 PC.
+        This update subtype is highly flexible, but requires the creation of a &ldquo;Scripted&rdquo; using
+        something like
+        <code>
+          NSIS
+        </code>
+        ,
+        <code>
+          wixl
+        </code>
+        , or custom code. Other update types include ZIP (used by
+        the core I2P product) and DMG(used by Mac OSX).
+      </p>
+      <h1>
+        Static HTTP Update URL over I2P
+      </h1>
+      <h1>
+        Bittorrent Update URL over I2P
+      </h1>
+      <p>
+        <a href="https://github.com/i2p/i2p.plugins.zzzot">
+          If you choose to do this, consider using zzzot to host your open tracker instead of a normal site
+        </a>
+        ,
+        which you can obtain from
+        <a href="http://stats.i2p/i2p/plugins/zzzot.su3">
+          this I2P link
+        </a>
+        .
+      </p>
+      <div id="sourcecode">
+        <span id="sourcehead">
+          <strong>
+            Get the source code:
+          </strong>
+        </span>
+        <ul>
+          <li>
+            <a href="https://github.com/eyedeekay/i2p.firefox">
+              Source Repository: (https://github.com/eyedeekay/i2p.firefox)
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <a href="#show">
+          Show license
+        </a>
+        <div id="show">
+          <div id="hide">
+            <pre><code>Copyright 2018
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -147,9 +162,10 @@ COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
 IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 </code></pre>
-          <a href="#hide">
-            Hide license
-          </a>
+            <a href="#hide">
+              Hide license
+            </a>
+          </div>
         </div>
       </div>
     </div>
@@ -158,7 +174,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
     </div>
     <div>
       <a href="https://geti2p.net/">
-        <img src="i2plogo.png"></img>
+        <img class="i2plogo" src="i2plogo.png"></img>
         I2P
       </a>
     </div>

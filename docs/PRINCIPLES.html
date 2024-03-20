@@ -1,0 +1,377 @@
+<html>
+  <head>
+    <title>
+      I2P Easy-Install...
+    </title>
+    <meta name="author" content="eyedeekay" />
+    <meta name="description" content="i2p.firefox" />
+    <meta name="keywords" content="master" />
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <link rel="stylesheet" type="text/css" href="showhider.css" />
+    <link rel="stylesheet" type="text/css" href="darklight.css" />
+  </head>
+  <body>
+    <input type="checkbox" id="checkboxDarkLight">
+    <div class="container">
+      <div id="navbar">
+        <a href="#shownav">
+          Show navigation
+        </a>
+        <div id="shownav">
+          <div id="hidenav">
+            <ul>
+              <li>
+                <a href="..">
+                  Up one level ^
+                </a>
+              </li>
+              <li>
+                <a href="index.html">
+                  index
+                </a>
+              </li>
+              <li>
+                <a href="LICENSE.html">
+                  LICENSE
+                </a>
+              </li>
+              <li>
+                <a href="index.html">
+                  index.html
+                </a>
+              </li>
+              <li>
+                <a href="GOALS.html">
+                  GOALS
+                </a>
+              </li>
+              <li>
+                <a href="PRINCIPLES.html">
+                  PRINCIPLES
+                </a>
+              </li>
+              <li>
+                <a href="RELEASE.html">
+                  RELEASE
+                </a>
+              </li>
+              <li>
+                <a href="UPDATES.html">
+                  UPDATES
+                </a>
+              </li>
+            </ul>
+            <br>
+            <a href="#hidenav">
+              Hide Navigation
+            </a>
+          </div>
+        </div>
+      </div>
+      <a id="returnhome" href="/">
+        /
+      </a>
+      <h1>
+        Guidance
+      </h1>
+      <p>
+        This document explains the ideas which are guiding the development of
+        features specific to the I2P Easy-Install bundle.
+      </p>
+      <p>
+        The general idea is that it is possible, on most platforms, to make I2P
+        post-install configuration much simpler and much less error-prone. Each
+        section of this document has guidance for a different &ldquo;Meta-Feature&rdquo; of
+        the I2P Easy-Install Bundle. For granular, specific information about
+        goals both achieved and un-achieved see
+        <code>
+          [GOALS]
+        </code>
+        .
+      </p>
+      <ul>
+        <li>
+          <strong>
+            Sections:
+          </strong>
+        </li>
+      </ul>
+      <ol>
+        <li>
+          Guidance for Browser Profile Configuration
+        </li>
+      </ol>
+      <h2>
+        Guidance for Browser Profile Configuration
+      </h2>
+      <ul>
+        <li>
+          <strong>
+            See also:
+          </strong>
+        </li>
+        <li>
+          <a href="http://git.idk.i2p/idk/i2p.plugins.firefox">
+            git.idk.i2p/idk/i2p.plugins.firefox
+          </a>
+        </li>
+        <li>
+          <a href="https://i2pgit.org/idk/i2p.plugins.firefox">
+            i2pgit.org/idk/i2p.plugins.firefox
+          </a>
+        </li>
+        <li>
+          <a href="https://github.com/eyedeekay/i2p.plugins.firefox">
+            github.com/eyedeekay/i2p.plugins.firefox
+          </a>
+        </li>
+      </ul>
+      <p>
+        The I2P Easy-Install Bundle for Windows considers basic configuration tasks
+        &ldquo;Features&rdquo; when they can be automated. The quintessential example of this
+        is
+        <strong>
+          <code>
+            Browser Profile Configuration
+          </code>
+        </strong>
+        where it injects settings into a
+        pre-existing browser from the host system. Solving this problem pre-dates
+        the evolution of
+        <code>
+          i2p.firefox
+        </code>
+        into a fully-fledged I2P router distribution
+        and has been the defining goal of this project for its entire existence.
+      </p>
+      <p>
+        However, what good browser profile configuration is, is as complicated as
+        how to deploy it. I2P has a unique opportunity to decide how it will handle
+        problems related to browsing in its own context while the network grows
+        and synthesize a useful number of safe browser configurations while also
+        reducing existing browser config fragmentation.
+      </p>
+      <p>
+        Easy-Install attempts to limit the number of &ldquo;Coarse Fingerprints&rdquo; which it will
+        produce by default to a predictable number. A Coarse Fingerprint is basically
+        a fingerprint &ldquo;That we know we&rsquo;re making&rdquo; by offering the ability to configure
+        something differently.
+      </p>
+      <ul>
+        <li>
+          <strong>
+            That means:
+          </strong>
+        </li>
+      </ul>
+      <ol>
+        <li>
+          It considers the browser integral to the interactive use of the I2P network by a large fraction of users.
+        </li>
+        <li>
+          It considers effective browser configuration
+          <strong>
+            impossible for a single user to achieve
+          </strong>
+          because effective browser configuration must have the characteristic of being reflected en-masse(anti-fingerprinting measures are only remotely effective when widely used).
+        </li>
+        <li>
+          The browser profile it injects inherits the runtime security characteristics of the
+          <strong>
+            host browser
+          </strong>
+          .
+        </li>
+        <li>
+          The browser profile it injects obtains runtime privacy characteristics of the
+          <strong>
+            easy-install bundle
+          </strong>
+        </li>
+        <li>
+          The number of coarse browser fingerprint sets is reduced from indeterminately large to
+          <code>
+            [supported browsers]*[variant configurations]
+          </code>
+        </li>
+        <li>
+          It attempts to balance flexibility with privacy, and accommodate people&rsquo;s preferences where possible.
+        </li>
+        <li>
+          It considers browser vendors better at providing browser updates than the I2P Project
+        </li>
+      </ol>
+      <h2>
+        Browser Configurations and Coarse Fingerprints
+      </h2>
+      <p>
+        At this time it offers configuration for Tor Browser, Firefox, Waterfox, and
+        LibreWolf for Firefox-based browsers, and Ungoogled-Chromium, Chromium, Brave,
+        Chrome, and Edgium configuration for Chromium-based browsers. That is a total
+        of
+        <strong>
+          Nine(9)
+        </strong>
+        main browsers. There are
+        <strong>
+          Two(2)
+        </strong>
+        variant configurations,
+        which correspond to &ldquo;Strict&rdquo; and &ldquo;Usability&rdquo; Modes. That makes a total of
+        <strong>
+          Eighteen(18)
+        </strong>
+        coarse browser fingerprints produced by this bundle. It also
+        has the ability to launch in a &ldquo;Restricted to Apps&rdquo; mode where it is only
+        possible to visit I2P sites using links on the I2P application interface(router
+        console, hidden services manager) itself.
+      </p>
+      <h3>
+        Strict Mode
+      </h3>
+      <p>
+        This is not on its face as good as having an almost entirely unified browser
+        fingerprint like Tor Browser attempts to have. It is a simple fact that 18
+        is greater than one. Every active attempt to gain granularity from a browser
+        outside of off-the-shelf Fingerprinting techniques is classified as &ldquo;Fine&rdquo;
+        fingerprinting. It is unpredictable, and harder to defend against, more likely
+        to exhibit novelty, and more likely to be affected by the host browser&rsquo;s
+        security. When fingerprinters get this creative disabling Javascript by default
+        is the most complete defense. This is the primary characteristic of Strict Mode,
+        it disables Javascript by default with NoScript.
+        <strong>
+          Strict Mode is the only
+        </strong>
+        <strong>
+          partial defense against fine-fingerprinting offered by this product.
+        </strong>
+        Even
+        disabling Javascript does not close all fine fingerprinting vectors, but it
+        does close most of them and reduce attack surface significantly. It is recommended
+        in combination with Tor Browser, and attempts to be somewhat closer to Tor Browser
+        than Usability Mode. It is the default mode of operation.
+      </p>
+      <h3>
+        Usability Mode
+      </h3>
+      <p>
+        In contrast to Strict Mode, Usability mode offers the greatest agreeable number
+        of browser features enabled by default, including a restricted subset of Javascript.
+        It makes no attempt at all to look like Tor Browser, even when using Tor Browser
+        as a host browser. It does attempt to optimize the browser for use within I2P, including
+        specific optimizations to keep traffic in-network or even retrieve information which is
+        stored on the localhost(while avoiding cache timing attacks). It does this by deploying
+        an alternative loadout of extensions, including ones which block advertising by default
+        and which include a cache of CDN resources in local browser storage.
+      </p>
+      <h3>
+        Firefox-Based Browsers
+      </h3>
+      <p>
+        Because of the relatively high configurability of Firefox-based browser
+        telemetry, Firefox-based browsers are preferred over Chromium-based browsers.
+        Chromium-based browsers will be used by default
+        <strong>
+          only
+        </strong>
+        if a Firefox based
+        browser is unavailable. Only Firefox-variant releases of the Extended Support
+        Release or of the latest stable release are supportable. If a variant lags
+        behind Firefox releases, it will be dropped. The primary reason for the default
+        &ldquo;Ordering&rdquo; of Firefox Profile Selection is the speed at which updates can be
+        expected to be applied.
+      </p>
+      <h3>
+        Chromium-Based Browsers
+      </h3>
+      <p>
+        Chromium-based browser selection is more subjective and slightly more ad-hoc.
+        Chromium browsers are chosen based on the variant&rsquo;s stated goals and perceived
+        efficacy in pursuing those goals. For example, if a Chromium distribution is
+        focused on removing telemetry or providing anti-fingerprinting, it is chosen
+        before a Chromium that is provided by Google or integrated tightly with the
+        host OS. This is a matter of judgement on my part and if you disagree you should
+        open an issue and argue with me. I&rsquo;m not infallible, I&rsquo;ll listen.
+      </p>
+      <h3>
+        All other browsers
+      </h3>
+      <p>
+        With all other browsers attempts at anti-fingerprinting are a moot point. It offers
+        limited configuration options using widely-supported generic browser configuration
+        means. If it doesn&rsquo;t recognize a Firefox or Chromium browser on the host, then it
+        sets the common proxy environment variables
+        <code>
+          http_proxy
+        </code>
+        <code>
+          https_proxy
+        </code>
+        <code>
+          ALL_PROXY
+        </code>
+        and
+        <code>
+          NO_PROXY
+        </code>
+        to their appropriate values before launching the browser configuration
+        and attempts to set a directory for the runtime configuration(Profile) by changing
+        to the profile directory.
+      </p>
+      <div id="sourcecode">
+        <span id="sourcehead">
+          <strong>
+            Get the source code:
+          </strong>
+        </span>
+        <ul>
+          <li>
+            <a href="https://github.com/eyedeekay/i2p.firefox">
+              Source Repository: (https://github.com/eyedeekay/i2p.firefox)
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <a href="#show">
+          Show license
+        </a>
+        <div id="show">
+          <div id="hide">
+            <pre><code>Copyright 2018
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of
+this software and associated documentation files (the "Software"), to deal in
+the Software without restriction, including without limitation the rights to
+use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+the Software, and to permit persons to whom the Software is furnished to do so,
+subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+</code></pre>
+            <a href="#hide">
+              Hide license
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <iframe src="https://snowflake.torproject.org/embed.html" width="320" height="240" frameborder="0" scrolling="no"></iframe>
+    </div>
+    <div>
+      <a href="https://geti2p.net/">
+        <img class="i2plogo" src="i2plogo.png"></img>
+        I2P
+      </a>
+    </div>
+  </body>
+</html>

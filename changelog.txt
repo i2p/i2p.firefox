@@ -147,3 +147,24 @@
 * start a changelog
 * add version to the profile, independent of installer version
   - version 0.1 corresponds to IDK version 0.03b
+
+## Checksums
+
+```
+621301bd5f0e0ef1879ed16f8a40d5da9444525755736411fe1e326192f90cb2  I2P-EXE-2.4.992.exe
+decbdef9ef24f6b614027afb006dc7ee4b4817f48a25dbd6af440a6f2be5ecb3  I2P-Easy-Install-Bundle-2.4.992.exe
+bf6f5d162885798072cd61c098bbe871571ac116aaed411b330bab247064e399  I2P-MSI-2.4.992.msi
+0b9c68a6d97727140e56bc80c0096db9340ce12d5bdb7cc3252713a7bb0d33ca  I2P-windows-portable.zip
+18d68eeb61762f0b8cef3505802b5d4a2fa1327fa0fd8f2f41775328361be60b  I2P.tar.gz
+669d353ea064a6a660ef94e8d70728f011e81f98b0fbf298b4d124bbcec7ba83  changelog.txt
+```
+
+```
+I2P-EXE-2.4.992.exe:                 PE32+ executable (GUI) x86-64, for MS Windows
+I2P-Easy-Install-Bundle-2.4.992.exe: PE32 executable (GUI) Intel 80386, for MS Windows, Nullsoft Installer self-extracting archive
+I2P-MSI-2.4.992.msi:                 Composite Document File V2 Document, Little Endian, Os: Windows, Version 6.2, MSI Installer, Code page: 1252, Title: Installation Database, Subject: I2P-MSI, Author: Unknown, Keywords: Installer, Comments: This installer database contains the logic and data required to install I2P-MSI., Template: x64;1033, Revision Number: {F44ACC17-351A-4424-A4F5-7F9E52BBE96E}, Create Time/Date: Wed Mar 20 02:46:40 2024, Last Saved Time/Date: Wed Mar 20 02:46:40 2024, Number of Pages: 200, Number of Words: 10, Name of Creating Application: Windows Installer XML Toolset (3.14.0.8606), Security: 2
+I2P-windows-portable.zip:            Zip archive data, at least v2.0 to extract, compression method=deflate
+I2P.tar.gz:                          gzip compressed data, from Unix, original size modulo 2^32 766935040
+changelog.txt:                       ASCII text
+```
+
