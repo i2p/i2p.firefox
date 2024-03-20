@@ -18,7 +18,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           sparse-checkout: |
-            changelog.txt
+            changelog.txt docs/RELEASE.md
           sparse-checkout-cone-mode: false
       - name: sleep 15 minutes
         run: |
