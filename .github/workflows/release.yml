@@ -82,8 +82,9 @@ jobs:
       - run: file * | tee -a changelog.txt
       - run: echo '```' | tee -a changelog.txt
       - run: echo "" | tee -a changelog.txt
+      - run: cat docs/RELEASE.md changelog.txt > RELEASE.md
       - name: Upload artifacts
         uses: ncipollo/release-action@v1
         with:
           artifacts: "*"
-          bodyFile: "changelog.txt"
+          bodyFile: "RELEASE.md"
