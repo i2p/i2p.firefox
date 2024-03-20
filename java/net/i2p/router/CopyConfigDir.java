@@ -12,7 +12,7 @@ import java.util.logging.FileHandler;
 import java.util.logging.SimpleFormatter;
 import net.i2p.util.Log;
 
-public class CopyConfigDir extends WindowsAppUtil {
+public class CopyConfigDir extends I2PAppUtil {
   final Log logger;
 
   public CopyConfigDir(RouterContext ctx) {
@@ -142,7 +142,7 @@ public class CopyConfigDir extends WindowsAppUtil {
    * @return
    */
   protected File logFile(String p) {
-    File log = new File(selectProgramFile(), "logs");
+    File log = new File(selectHome(), "logs");
     if (!log.exists())
       log.mkdirs();
     return new File(log, p);

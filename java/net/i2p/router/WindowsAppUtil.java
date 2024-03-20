@@ -17,17 +17,9 @@ public class WindowsAppUtil extends WindowsServiceUtil {
     }
     return null;
   }
-  
-  protected File selectHome() { // throws Exception {
-    File i2p = checkPathEnvironmentVariable("I2P_CONFIG");
-    String path_override = System.getenv("I2P_CONFIG");
-    if (i2p == null)
-      i2p = appImageHome();
-    return i2p;
-  }
 
-  protected File selectProgramFile() {
-    File i2p = checkPathEnvironmentVariable("I2P");
+  protected File selectHome() { // throws Exception {
+    File i2p = checkPathEnvironmentVariable("JPACKAGE_HOME");
     if (i2p == null)
       i2p = appImageHome();
     return i2p;
@@ -90,12 +82,15 @@ public class WindowsAppUtil extends WindowsServiceUtil {
   protected String appImageExe() {
     File aih = appImageHome();
     if (aih != null) {
+      // get the name of the aih directory itself, which will be the default
+      // name of the executable as well
+      String baseName = aih.getName();
       switch (osName()) {
       case "windows":
-        return "I2P.exe";
+        return baseName + ".exe";
       case "mac":
       case "linux":
-        return "./bin/I2P";
+        return "./bin/" + baseName;
       }
     }
     return null;

@@ -24,7 +24,7 @@ import net.i2p.util.Log;
  * appdata
  * router.pid - the pid of the java process.
  */
-public class WinLauncher extends WindowsAppUtil {
+public class WinLauncher extends I2PAppUtil {
   private final CopyConfigDir copyConfigDir;
   WinUpdatePostProcessor wupp = null;
   private Router i2pRouter;
@@ -56,7 +56,7 @@ public class WinLauncher extends WindowsAppUtil {
     var launcher = new WinLauncher();
     launcher.setupLauncher();
     int proxyTimeoutTime = 200;
-    
+
     launcher.logger.info("\t" + System.getProperty("user.dir"));
     launcher.logger.info("\t" + System.getProperty("i2p.dir.base"));
     launcher.logger.info("\t" + System.getProperty("i2p.dir.config"));
@@ -104,7 +104,7 @@ public class WinLauncher extends WindowsAppUtil {
   }
 
   private File programFile() {
-    File programs = selectProgramFile();
+    File programs = selectHome();
     if (!programs.exists())
       programs.mkdirs();
     else if (!programs.isDirectory()) {
