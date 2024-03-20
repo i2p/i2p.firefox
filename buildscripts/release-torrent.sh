@@ -27,6 +27,10 @@ if [ -f ./i2pversion_override ]; then
   . ./i2pversion_override
 fi
 
+if [ ! -f "I2P-Easy-Install-Bundle-$I2P_VERSION.exe" ]; then
+	wget -c "https://github.com/eyedeekay/i2p.firefox/releases/download/i2p-firefox-$I2P_VERSION/I2P-Easy-Install-Bundle-$I2P_VERSION.exe"
+fi
+
 cp -v "I2P-Easy-Install-Bundle-$I2P_VERSION.exe" "I2P-Easy-Install-Bundle-$I2P_VERSION-signed.exe"
 java -cp "$I2P_LIBS/*" net.i2p.crypto.SU3File sign -c ROUTER -f EXE I2P-Easy-Install-Bundle-$I2P_VERSION-signed.exe I2P-Easy-Install-Bundle-$I2P_VERSION-signed.su3 "$HOME/.i2p-plugin-keys/news-su3-keystore.ks" $I2P_VERSION $SIGNER
 rm -f i2pwinupdate.su3.torrent
