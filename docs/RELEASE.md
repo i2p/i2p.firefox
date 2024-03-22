@@ -1,6 +1,13 @@
-# I2P Easy-Install Bundle for Windows 2.4.9
+# I2P Easy-Install Bundle for Windows 2.4.91
 
 This is a pre-release of the I2P Easy-Install Bundle for Windows.
+
+This release embeds a "trunk" Java I2P router based on the git `master` branch.
+Network behavior is close to the 2.5.0 release.
+It is not an automatic update.
+
+## 2.4.9 Release Notes.
+
 This changes how the I2P bundle and browser profile manager are installed and integrated with the host system.
 The Easy-Install bundle is now a "portable" system that can be moved to different locations within or between Windows file-systems while retaining all built-in functionality.
 A shortcut for starting the I2P router is still provided by the installer for convenience, but the shortcuts for starting the I2P Browser are now integrated with the I2P desktop UI.
@@ -28,6 +35,3 @@ For you the end user, nothing much should change.
 You'll get your updates a lot faster, and have more options available for testing.
 The same installer is used for the updater, and the process is handled the same way.
 However for developers, testers, and maintainers, this release will result in big changes for the better.
-
-This release still embeds a `2.4.0` Java I2P router. No changes have been made to update the embedded router.
-Network behavior will be unchanged until the official `2.5.0` release.
