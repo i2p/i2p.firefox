@@ -58,9 +58,9 @@ if [ -z "$EXTRA" ]; then
 fi
 if [ "$VERSION" = master ]; then
   VERSIONDATE="$(date +%m%d)"
-  export CHECKOUT_VERSION="$VERSIONMAJOR.$VERSIONMINOR.$VERSIONBUILD"
+  export TAG_VERSION="$VERSIONMAJOR.$VERSIONMINOR.$VERSIONBUILD"
 else
-  export CHECKOUT_VERSION="$VERSION"
+  export TAG_VERSION="$VERSION"
 fi
 
 
@@ -68,10 +68,10 @@ fi
 find . -name RouterVersion.java -exec sed -i "s|$OLDEXTRA|$EXTRA|g" {} \;
 git switch - || :
 git pull --tags
-git checkout -b "i2p-$CHECKOUT_VERSION$VERSIONDATE-$EXTRACODE" || :
-git commit -am "i2p-$CHECKOUT_VERSION$VERSIONDATE-$EXTRACODE" || :
-git archive --format=tar.gz --output="$SCRIPT_DIR/../i2p.firefox/i2p.i2p.jpackage-build.tar.gz" "i2p-$CHECKOUT_VERSION$VERSIONDATE-$EXTRACODE"
-git checkout "i2p-$CHECKOUT_VERSION$VERSIONDATE-$EXTRACODE" || :
+git checkout -b "i2p-$TAG_VERSION-$VERSIONDATE-$EXTRACODE" || :
+git commit -am "i2p-$TAG_VERSION-$VERSIONDATE-$EXTRACODE" || :
+git archive --format=tar.gz --output="$SCRIPT_DIR/../i2p.firefox/i2p.i2p.jpackage-build.tar.gz" "i2p-$TAG_VERSION-$VERSIONDATE-$EXTRACODE"
+git checkout "i2p-$TAG_VERSION-$VERSIONDATE-$EXTRACODE" || :
 
 for i in $COUNT; do
   echo -n "$i...."; sleep 1s
