@@ -2,8 +2,6 @@
 
 JNA_VERSION=5.12.1
 export JNA_VERSION=5.12.1
-I2PFIREFOX_VERSION=1.5.0
-export I2PFIREFOX_VERSION=1.5.0
 
 export GITHUB_TAG=$(git describe --tags --abbrev=0 | sed 's|i2p||g' | tr -d [a-z-])
 VERSIONMAJOR=$(echo "$GITHUB_TAG" | cut -d . -f 1)
@@ -26,3 +24,6 @@ export I2P_VERSION="$VERSIONMAJOR.$VERSIONMINOR.$VERSIONBUILD"
 #export VERSION=i2p-2.4.0
 VERSION=master
 export VERSION=master
+
+I2PFIREFOX_VERSION=$I2P_VERSION
+export I2PFIREFOX_VERSION=$I2P_VERSION
