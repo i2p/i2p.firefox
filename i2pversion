@@ -11,7 +11,7 @@ if [ -z "$VERSIONMAJOR" ]; then
     VERSIONMAJOR=2
 fi
 if [ -z "$VERSIONMINOR" ]; then
-    VERSIONMINOR=4
+    VERSIONMINOR=5
 fi
 if [ -z "$VERSIONBUILD" ]; then
     VERSIONBUILD=0
