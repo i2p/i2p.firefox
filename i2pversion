@@ -4,9 +4,15 @@ JNA_VERSION=5.12.1
 export JNA_VERSION=5.12.1
 
 export GITHUB_TAG=$(git describe --tags --abbrev=0 | sed 's|i2p||g' | tr -d [a-z-])
-VERSIONMAJOR=$(echo "$GITHUB_TAG" | cut -d . -f 1)
-VERSIONMINOR=$(echo "$GITHUB_TAG" | cut -d . -f 2)
-VERSIONBUILD=$(echo "$GITHUB_TAG" | cut -d . -f 3)
+if [ -z "$VERSIONMAJOR" ]; then
+    VERSIONMAJOR=$(echo "$GITHUB_TAG" | cut -d . -f 1)
+fi
+if [ -z "$VERSIONMINOR" ]; then
+    VERSIONMINOR=$(echo "$GITHUB_TAG" | cut -d . -f 2)
+fi
+if [ -z "$VERSIONBUILD" ]; then
+    VERSIONBUILD=$(echo "$GITHUB_TAG" | cut -d . -f 3)
+fi
 if [ -z "$VERSIONMAJOR" ]; then
     VERSIONMAJOR=2
 fi
@@ -14,7 +20,7 @@ if [ -z "$VERSIONMINOR" ]; then
     VERSIONMINOR=5
 fi
 if [ -z "$VERSIONBUILD" ]; then
-    VERSIONBUILD=0
+    VERSIONBUILD=1
 fi
 I2P_VERSION="$VERSIONMAJOR.$VERSIONMINOR.$VERSIONBUILD"
 export I2P_VERSION="$VERSIONMAJOR.$VERSIONMINOR.$VERSIONBUILD"
