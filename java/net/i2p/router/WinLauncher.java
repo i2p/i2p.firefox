@@ -48,6 +48,7 @@ public class WinLauncher extends I2PAppUtil {
     System.setProperty("user.dir", programs.getAbsolutePath());
 
     i2pRouter = new Router(routerConfig(), System.getProperties());
+    this.setLog(i2pRouter.getContext().logManager().getLog(WindowsAppUtil.class));
     // copyConfigDir = new CopyConfigDir(i2pRouter.getContext());
     logger = i2pRouter.getContext().logManager().getLog(WinLauncher.class);
   }

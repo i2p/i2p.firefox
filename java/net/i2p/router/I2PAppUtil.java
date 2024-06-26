@@ -3,8 +3,10 @@ package net.i2p.router;
 import java.io.File;
 import java.io.IOException;
 import javax.swing.JOptionPane;
+import net.i2p.router.RouterContext;
 
 public class I2PAppUtil extends WindowsAppUtil {
+
   public String ServiceUpdaterString() {
     return "http://tc73n4kivdroccekirco7rhgxdg5f3cjvbaapabupeyzrqwv5guq.b32.i2p/news.su3";
   }

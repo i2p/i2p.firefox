@@ -5,10 +5,10 @@ import net.i2p.util.Log;
 import net.i2p.router.RouterContext;
 
 public class WindowsAppUtil extends WindowsServiceUtil {
-  private final Log _log;
+  private Log _log;
 
-  public WindowsAppUtil(RouterContext ctx) {
-    this._log = ctx.logManager().getLog(WindowsAppUtil.class);
+  public void setLog(Log log) {
+    this._log = log;
   }
 
   private File checkPathEnvironmentVariable(String name) {
