@@ -1,8 +1,10 @@
 #!/bin/bash
 
-TORSOCKS=$(which torsocks)
-if [ -f "${TORSOCKS}" ]; then
-    . "${TORSOCKS}" on
+if [ -z "$NO_TORSOCKS" ]; then
+    TORSOCKS=$(which torsocks)
+    if [ -f "${TORSOCKS}" ]; then
+        . "${TORSOCKS}" on
+    fi
 fi
 
 version="$(curl -s https://aus1.torproject.org/torbrowser/update_3/release/downloads.json | jq -r ".version")"

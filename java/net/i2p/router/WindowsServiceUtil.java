@@ -30,7 +30,9 @@ import javax.swing.JOptionPane;
  */
 
 public class WindowsServiceUtil {
-  public WindowsServiceUtil() {}
+  public WindowsServiceUtil() {
+  }
+
   public String queryService(String serviceName) {
     String result = "";
     String line;
@@ -39,8 +41,7 @@ public class WindowsServiceUtil {
       Process p = pb.start();
       try {
         p.waitFor(); // wait for process to finish then continue.
-        BufferedReader bri =
-            new BufferedReader(new InputStreamReader(p.getInputStream()));
+        BufferedReader bri = new BufferedReader(new InputStreamReader(p.getInputStream()));
         while ((line = bri.readLine()) != null) {
           result += line;
         }
@@ -54,6 +55,7 @@ public class WindowsServiceUtil {
     }
     return result;
   }
+
   public String getStatePrefix(String qResult) {
     String statePrefix = "STATE              : ";
     // get the first occurrence of "STATE", then find the
@@ -70,8 +72,9 @@ public class WindowsServiceUtil {
     }
     return statePrefix;
   }
+
   public int getServiceStateInt(String serviceName) {
-    // String statePrefix = "STATE              : ";
+    // String statePrefix = "STATE : ";
     String qResult = queryService(serviceName);
     String statePrefix = getStatePrefix(qResult);
     // check that the temp string contains the status prefix
@@ -79,7 +82,7 @@ public class WindowsServiceUtil {
     if (ix >= 0) {
       // compare status number to one of the states
       String stateStr = qResult.substring(ix + statePrefix.length(),
-                                          ix + statePrefix.length() + 1);
+          ix + statePrefix.length() + 1);
       int state = Integer.parseInt(stateStr);
       return state;
     }
@@ -113,15 +116,12 @@ public class WindowsServiceUtil {
     if (isInstalled(serviceName)) {
       if (!isStart(serviceName)) {
         int a;
-        String message =
-            "It appears you have an existing I2P service installed.\n";
-        message +=
-            "However, it is not running yet. Please start it through `services.msc`.\n";
-        message +=
-            "If you click \"No\", the jpackage router will be launched instead.\n";
+        String message = "It appears you have an existing I2P service installed.\n";
+        message += "However, it is not running yet. Please start it through `services.msc`.\n";
+        message += "If you click \"No\", the jpackage router will be launched instead.\n";
         a = JOptionPane.showConfirmDialog(null, message,
-                                          "I2P Service detected not running",
-                                          JOptionPane.YES_NO_OPTION);
+            "I2P Service detected not running",
+            JOptionPane.YES_NO_OPTION);
         if (a == JOptionPane.NO_OPTION) {
           // Do nothing here, this will continue on to launch a jpackaged router
           return true;
@@ -131,8 +131,7 @@ public class WindowsServiceUtil {
           // user can start the service themselves. OR maybe we ask for
           // elevation here? May need to refactor Elevator and Shell32X to
           // achieve it though
-          ProcessBuilder pb =
-              new ProcessBuilder("C:\\Windows\\System32\\services.msc");
+          ProcessBuilder pb = new ProcessBuilder("C:\\Windows\\System32\\services.msc");
           try {
             Process p = pb.start();
             int exitCode = p.waitFor();
@@ -156,27 +155,27 @@ public class WindowsServiceUtil {
     String stateString = "uninstalled";
     int state = getServiceStateInt(serviceName);
     switch (state) {
-    case (1): // service stopped
-      stateString = "stopped";
-      break;
-    case (2): // service starting
-      stateString = "starting";
-      break;
-    case (3): // service stopping
-      stateString = "stopping";
-      break;
-    case (4): // service started
-      stateString = "started";
-      break;
-    case (5): // service resuming from pause
-      stateString = "resuming";
-      break;
-    case (6): // service pausing
-      stateString = "pausing";
-      break;
-    case (7): // service paused
-      stateString = "paused";
-      break;
+      case (1): // service stopped
+        stateString = "stopped";
+        break;
+      case (2): // service starting
+        stateString = "starting";
+        break;
+      case (3): // service stopping
+        stateString = "stopping";
+        break;
+      case (4): // service started
+        stateString = "started";
+        break;
+      case (5): // service resuming from pause
+        stateString = "resuming";
+        break;
+      case (6): // service pausing
+        stateString = "pausing";
+        break;
+      case (7): // service paused
+        stateString = "paused";
+        break;
     }
     return stateString;
   }
@@ -184,7 +183,7 @@ public class WindowsServiceUtil {
   /**
    * get the OS name(windows, mac, linux only)
    *
-   * @return os name in lower-case, "windows" "mac" or  "linux"
+   * @return os name in lower-case, "windows" "mac" or "linux"
    */
   protected String osName() {
     String osName = System.getProperty("os.name").toLowerCase();
@@ -194,6 +193,7 @@ public class WindowsServiceUtil {
       return "mac";
     return "linux";
   }
+
   public static void main(String args[]) {
     WindowsServiceUtil wsu = new WindowsServiceUtil();
     // when querying the I2P router service installed by the IzPack installer

@@ -48,9 +48,16 @@ export I2P_JARS="$I2P_PKG/lib"
 export I2P_JBIGI="$SCRIPT_DIR/../i2p.i2p.jpackage-build/installer/lib/jbigi"
 export I2P_JBIGI_JAR="$SCRIPT_DIR/../i2p.i2p.jpackage-build/build/jbigi.jar"
 if [ ! -d "$SCRIPT_DIR/../i2p.i2p.jpackage-build/" ]; then
-  git clone --depth=1 -b "$VERSION" https://i2pgit.org/i2p-hackers/i2p.i2p "$SCRIPT_DIR/../i2p.i2p.jpackage-build/"
+  if [ -d "$SCRIPT_DIR/../i2p.i2p/" ]; then
+    echo cloning from local i2p.i2p checkout
+    git clone --depth=1 -b "$VERSION" -l "$SCRIPT_DIR/../i2p.i2p/" "$SCRIPT_DIR/../i2p.i2p.jpackage-build/"
+  else
+    echo cloning from remote i2p.i2p repository
+    git clone --depth=1 -b "$VERSION" https://i2pgit.org/i2p-hackers/i2p.i2p "$SCRIPT_DIR/../i2p.i2p.jpackage-build/"
+  fi
 fi
 cd "$SCRIPT_DIR/../i2p.i2p.jpackage-build/"
+echo "setting up git branch for build"
 OLDEXTRA=$(find . -name RouterVersion.java -exec grep 'String EXTRA' {} \;)
 if [ -z "$EXTRA" ]; then
   export EXTRACODE="win"
@@ -62,8 +69,7 @@ if [ "$VERSION" = master ]; then
 else
   export TAG_VERSION="$VERSION"
 fi
-
-
+echo "build is: i2p-$TAG_VERSION-$VERSIONDATE-$EXTRACODE"
 
 find . -name RouterVersion.java -exec sed -i "s|$OLDEXTRA|$EXTRA|g" {} \;
 git switch - || :

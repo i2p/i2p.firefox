@@ -2,8 +2,15 @@ package net.i2p.router;
 
 import java.io.File;
 import net.i2p.util.Log;
+import net.i2p.router.RouterContext;
 
 public class WindowsAppUtil extends WindowsServiceUtil {
+  private final Log _log;
+
+  public WindowsAppUtil(RouterContext ctx) {
+    this._log = ctx.logManager().getLog(WindowsAppUtil.class);
+  }
+
   private File checkPathEnvironmentVariable(String name) {
     String path_override = System.getenv(name);
     if (path_override != null) {
@@ -31,10 +38,10 @@ public class WindowsAppUtil extends WindowsServiceUtil {
    * relative to the root of the app-image on each platform:
    *
    * Windows - Root of appimage is 1 directory above directory named runtime
-   *     ./runtime
+   * ./runtime
    *
    * Linux - Root of appimage is 2 directories above directory named runtime
-   *     ./lib/runtime
+   * ./lib/runtime
    *
    * Mac OSX - Unknown for now
    *
@@ -61,11 +68,11 @@ public class WindowsAppUtil extends WindowsServiceUtil {
     File jreHome = javaHome();
     if (jreHome != null) {
       switch (osName()) {
-      case "windows":
-        return jreHome.getAbsoluteFile().getParentFile();
-      case "mac":
-      case "linux":
-        return jreHome.getAbsoluteFile().getParentFile().getParentFile();
+        case "windows":
+          return jreHome.getAbsoluteFile().getParentFile();
+        case "mac":
+        case "linux":
+          return jreHome.getAbsoluteFile().getParentFile().getParentFile();
       }
     }
     return null;
@@ -86,11 +93,11 @@ public class WindowsAppUtil extends WindowsServiceUtil {
       // name of the executable as well
       String baseName = aih.getName();
       switch (osName()) {
-      case "windows":
-        return baseName + ".exe";
-      case "mac":
-      case "linux":
-        return "./bin/" + baseName;
+        case "windows":
+          return baseName + ".exe";
+        case "mac":
+        case "linux":
+          return "./bin/" + baseName;
       }
     }
     return null;
@@ -111,21 +118,22 @@ public class WindowsAppUtil extends WindowsServiceUtil {
     }
     String osName = osName();
     switch (osName) {
-    case "windows":
-      File winConfigDir = new File(aih, "config");
-      if (winConfigDir != null) {
-        if (winConfigDir.exists()) {
-          return winConfigDir;
+      case "windows":
+        File winConfigDir = new File(aih, "config");
+        if (winConfigDir != null) {
+          if (winConfigDir.exists()) {
+
+            return winConfigDir;
+          }
         }
-      }
-    case "mac":
-    case "linux":
-      File linConfigDir = new File(aih, "lib/config");
-      if (linConfigDir != null) {
-        if (linConfigDir.exists()) {
-          return linConfigDir;
+      case "mac":
+      case "linux":
+        File linConfigDir = new File(aih, "lib/config");
+        if (linConfigDir != null) {
+          if (linConfigDir.exists()) {
+            return linConfigDir;
+          }
         }
-      }
     }
     return null;
   }

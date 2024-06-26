@@ -25,20 +25,20 @@ import net.i2p.util.Log;
  * router.pid - the pid of the java process.
  */
 public class WinLauncher extends I2PAppUtil {
-  private final CopyConfigDir copyConfigDir;
+  // private final CopyConfigDir copyConfigDir;
   WinUpdatePostProcessor wupp = null;
   private Router i2pRouter;
   private final Log logger;
+
   public WinLauncher() {
     File programs = programFile();
-    File home = homeDir();
 
     System.setProperty(
         "i2p.dir.base",
-        new File(programs.getAbsolutePath(), "config").getAbsolutePath());
-    System.setProperty("i2p.dir.config", home.getAbsolutePath());
+        appImageConfig().getAbsolutePath());
+    System.setProperty("i2p.dir.config", appImageConfig().getAbsolutePath());
     System.setProperty("router.pid",
-                       String.valueOf(ProcessHandle.current().pid()));
+        String.valueOf(ProcessHandle.current().pid()));
     /**
      * IMPORTANT: You must set user.dir to the same directory where the
      * jpackage is intstalled, or when the launcher tries to re-run itself
@@ -48,7 +48,7 @@ public class WinLauncher extends I2PAppUtil {
     System.setProperty("user.dir", programs.getAbsolutePath());
 
     i2pRouter = new Router(routerConfig(), System.getProperties());
-    copyConfigDir = new CopyConfigDir(i2pRouter.getContext());
+    // copyConfigDir = new CopyConfigDir(i2pRouter.getContext());
     logger = i2pRouter.getContext().logManager().getLog(WinLauncher.class);
   }
 
@@ -75,15 +75,17 @@ public class WinLauncher extends I2PAppUtil {
 
     // This actually does most of what we use NSIS for if NSIS hasn't
     // already done it, which essentially makes this whole thing portable.
-    if (!launcher.copyConfigDir.copyConfigDir()) {
-      launcher.logger.error("Cannot copy the configuration directory");
-      System.exit(1);
-    }
+    /*
+     * if (!launcher.copyConfigDir.copyConfigDir()) {
+     * launcher.logger.error("Cannot copy the configuration directory");
+     * System.exit(1);
+     * }
+     */
 
     if (!launcher.isInstalled("i2p")) {
       if (launcher.i2pRouter.saveConfig("routerconsole.browser", "NUL")) {
         launcher.logger.info("updated routerconsole.browser config " +
-                             launcher.appImageExe());
+            launcher.appImageExe());
       }
     }
     launcher.logger.info("Router is configured");
@@ -110,23 +112,10 @@ public class WinLauncher extends I2PAppUtil {
     else if (!programs.isDirectory()) {
       logger.warn(
           programs +
-          " exists but is not a directory. Please get it out of the way");
+              " exists but is not a directory. Please get it out of the way");
       System.exit(1);
     }
     return programs;
-  }
-
-  private File homeDir() {
-    File home = selectHome();
-    if (!home.exists())
-      home.mkdirs();
-    else if (!home.isDirectory()) {
-      logger.warn(
-          home +
-          " exists but is not a directory. Please get it out of the way");
-      System.exit(1);
-    }
-    return home;
   }
 
   // see
@@ -152,8 +141,7 @@ public class WinLauncher extends I2PAppUtil {
       sleep(1000);
     }
     UpdateManager um;
-    while ((um = (UpdateManager)cam.getRegisteredApp(UpdateManager.APP_NAME)) ==
-           null) {
+    while ((um = (UpdateManager) cam.getRegisteredApp(UpdateManager.APP_NAME)) == null) {
       sleep(1000);
     }
     WinUpdatePostProcessor wupp = new WinUpdatePostProcessor(ctx);

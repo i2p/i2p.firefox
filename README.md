@@ -95,8 +95,8 @@ Windows Build
 -------------
 
 After installing the dependencies and completing the preparations,
-just run `make`.  This will produce the install.exe - the windows
-installer, which sets up the shortcuts to launch Firefox on Windows.
+just run `buildscripts/unsigned.sh`.  This will produce the install.exe - the
+windows installer, which sets up the shortcuts to launch Firefox on Windows.
 Building without a jpackage is no longer supported.
 
 When generating a build it's important to make sure that the
@@ -137,7 +137,7 @@ Ubuntu in WSL.
  7. Move into the i2p.firefox directory. Run the `./buildscripts/build.sh` script.
 
         cd i2p.firefox
-        ./buildscripts/build.sh
+        ./buildscripts/unsigned.sh
 
  8. Compile the NSIS installer using WSL.
 

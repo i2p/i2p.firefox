@@ -31,12 +31,16 @@ public class WinUpdatePostProcessor implements UpdatePostProcessor {
     this._log = ctx.logManager().getLog(WinUpdatePostProcessor.class);
   }
 
-  public String getVersion() { return version; }
+  public String getVersion() {
+    return version;
+  }
 
-  public File getFile() { return positionedFile; }
+  public File getFile() {
+    return positionedFile;
+  }
 
   public void updateDownloadedandVerified(UpdateType type, int fileType,
-                                          String version, File file)
+      String version, File file)
       throws IOException {
     _log.info("Got an update to post-process");
     if (type != UpdateType.ROUTER_SIGNED_SU3 &&
@@ -97,12 +101,11 @@ public class WinUpdatePostProcessor implements UpdatePostProcessor {
 
   private File workDir() throws IOException {
     if (this.ctx != null) {
-      File workDir =
-          new File(this.ctx.getConfigDir().getAbsolutePath(), "i2p_update_win");
+      File workDir = new File(this.ctx.getConfigDir().getAbsolutePath(), "i2p_update_win");
       if (workDir.exists()) {
         if (workDir.isFile())
           throw new IOException(workDir +
-                                " exists but is a file, get it out of the way");
+              " exists but is a file, get it out of the way");
         return null;
       } else {
         workDir.mkdirs();

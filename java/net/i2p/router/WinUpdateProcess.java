@@ -14,7 +14,7 @@ class WinUpdateProcess implements Runnable {
   private final Log _log;
 
   WinUpdateProcess(RouterContext ctx, Supplier<String> versionSupplier,
-                   Supplier<File> fileSupplier) {
+      Supplier<File> fileSupplier) {
     this.ctx = ctx;
     this.versionSupplier = versionSupplier;
     this.fileSupplier = fileSupplier;
@@ -23,12 +23,11 @@ class WinUpdateProcess implements Runnable {
 
   private File workDir() throws IOException {
     if (ctx != null) {
-      File workDir =
-          new File(ctx.getConfigDir().getAbsolutePath(), "i2p_update_win");
+      File workDir = new File(ctx.getConfigDir().getAbsolutePath(), "i2p_update_win");
       if (workDir.exists()) {
         if (workDir.isFile())
           throw new IOException(workDir +
-                                " exists but is a file, get it out of the way");
+              " exists but is a file, get it out of the way");
         return workDir;
       } else {
         workDir.mkdirs();
@@ -62,13 +61,13 @@ class WinUpdateProcess implements Runnable {
 
     try {
       Process p = pb.directory(workingDir)
-                      .redirectErrorStream(true)
-                      .redirectOutput(logFile)
-                      .start();
+          .redirectErrorStream(true)
+          .redirectOutput(logFile)
+          .start();
       exitCode = p.waitFor();
       if (exitCode != 0)
         _log.error("Update failed with exit code " + exitCode + " see " +
-                   logFile.getAbsolutePath() + " for more details");
+            logFile.getAbsolutePath() + " for more details");
     } catch (IOException ex) {
       _log.error(
           "Unable to run update program in background. Update will fail.", ex);

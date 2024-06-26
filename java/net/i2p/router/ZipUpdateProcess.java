@@ -20,7 +20,7 @@ public class ZipUpdateProcess implements Runnable {
   private final Log _log;
 
   ZipUpdateProcess(RouterContext ctx, Supplier<String> versionSupplier,
-                   Supplier<File> fileSupplier) {
+      Supplier<File> fileSupplier) {
     this.ctx = ctx;
     this.versionSupplier = versionSupplier;
     this.fileSupplier = fileSupplier;
@@ -29,12 +29,11 @@ public class ZipUpdateProcess implements Runnable {
 
   private File workDir() throws IOException {
     if (ctx != null) {
-      File workDir =
-          new File(ctx.getConfigDir().getAbsolutePath(), "i2p_update_zip");
+      File workDir = new File(ctx.getConfigDir().getAbsolutePath(), "i2p_update_zip");
       if (workDir.exists()) {
         if (workDir.isFile())
           throw new IOException(workDir +
-                                " exists but is a file, get it out of the way");
+              " exists but is a file, get it out of the way");
         return workDir;
       } else {
         workDir.mkdirs();
