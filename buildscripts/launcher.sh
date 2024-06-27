@@ -121,11 +121,11 @@ if [ ! -f "$SCRIPT_DIR/build/i2pfirefox.zip" ]; then
   wget_download "https://github.com/eyedeekay/i2p.plugins.firefox/releases/download/$I2PFIREFOX_VERSION/plugin.zip" -O "$SCRIPT_DIR/build/i2pfirefox.zip"
 fi
 
-if [ ! -d "$SCRIPT_DIR/build/config/plugins/i2pfirefox" ]; then
-  mkdir -p "$SCRIPT_DIR/build/config/plugins/"
-  unzip "$SCRIPT_DIR/build/i2pfirefox.zip" -d "$SCRIPT_DIR/build/config/plugins/"
-  rm -rf "$SCRIPT_DIR/build/config/plugins/i2pfirefox"
-  mv "$SCRIPT_DIR/build/config/plugins/plugin" "$SCRIPT_DIR/build/config/plugins/i2pfirefox"
+if [ ! -d "$SCRIPT_DIR/src/I2P/config/plugins/i2pfirefox" ]; then
+  mkdir -p "$SCRIPT_DIR/src/I2P/config/plugins/"
+  unzip "$SCRIPT_DIR/build/i2pfirefox.zip" -d "$SCRIPT_DIR/src/I2P/config/plugins/"
+  rm -rf "$SCRIPT_DIR/src/I2P/config/plugins/i2pfirefox"
+  mv "$SCRIPT_DIR/src/I2P/config/plugins/plugin" "$SCRIPT_DIR/src/I2P/config/plugins/i2pfirefox"
 fi
 
 for dll in "$I2P_JBIGI/"*windows*.dll; do
