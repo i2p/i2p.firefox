@@ -122,7 +122,6 @@ public class WindowsAppUtil extends WindowsServiceUtil {
         File winConfigDir = new File(aih, "config");
         if (winConfigDir != null) {
           if (winConfigDir.exists()) {
-
             return winConfigDir;
           }
         }
@@ -131,6 +130,14 @@ public class WindowsAppUtil extends WindowsServiceUtil {
         File linConfigDir = new File(aih, "lib/config");
         if (linConfigDir != null) {
           if (linConfigDir.exists()) {
+            File cfg = new File(linConfigDir, "router.config");
+            if (cfg.canWrite())
+              return linConfigDir;
+            else {
+              String home = System.getenv("HOME");
+              if (home != null)
+                linConfigDir = new File(home,"config");
+            }
             return linConfigDir;
           }
         }
