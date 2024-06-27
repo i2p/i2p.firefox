@@ -84,5 +84,6 @@ jobs:
           prerelease: true
           allowUpdates: true
           replacesArtifacts: true
+          makeLatest: true
           tag: nightly
           bodyFile: "RELEASE.md"
