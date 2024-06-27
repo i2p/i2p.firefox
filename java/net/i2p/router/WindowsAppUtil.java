@@ -136,7 +136,7 @@ public class WindowsAppUtil extends WindowsServiceUtil {
             else {
               String home = System.getenv("HOME");
               if (home != null)
-                linConfigDir = new File(home,"config");
+                linConfigDir = new File(home,"i2p-config");
             }
             return linConfigDir;
           }
