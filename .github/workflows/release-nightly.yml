@@ -82,5 +82,7 @@ jobs:
         with:
           artifacts: "*"
           prerelease: true
+          allowUpdates: true
+          replacesArtifacts: true
           tag: nightly
           bodyFile: "RELEASE.md"
