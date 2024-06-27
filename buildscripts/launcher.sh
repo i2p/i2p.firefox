@@ -88,7 +88,7 @@ ant jbigi
 cd "$SCRIPT_DIR"
 
 mkdir -p "$SCRIPT_DIR/src/I2P/config"
-rm -rf "$SCRIPT_DIR/src/I2P/config/geoip" "$SCRIPT_DIR/src/I2P/config/webapps" "$SCRIPT_DIR/src/I2P/config/certificates"
+rm -rf "$SCRIPT_DIR/src/I2P/config/geoip" "$SCRIPT_DIR/src/I2P/config/webapps" "$SCRIPT_DIR/src/I2P/config/certificates" "$SCRIPT_DIR/src/I2P/config/eepsite"
 cp -v "$RES_DIR/clients.config" "$SCRIPT_DIR/src/I2P/config/"
 cp -v "$RES_DIR/wrapper.config" "$SCRIPT_DIR/src/I2P/config/"
 #grep -v 'router.updateURL' $(RES_DIR)/router.config > "$SCRIPT_DIR"/src/I2P/config/router.config
