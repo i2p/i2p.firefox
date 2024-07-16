@@ -61,7 +61,7 @@ jobs:
         uses: dawidd6/action-download-artifact@v3
         with:
           skip_unpack: true
-          workflow: ant-latest.yml
+          workflow: ant.yml
           if_no_artifact_found: fail
       # remove .zip file extension
       - run: for f in *.zip; do unzip "$f"; rm "$f"; done
