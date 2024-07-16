@@ -1,5 +1,5 @@
 
-name: Java CI
+name: Java 22 CI
 
 on: [push]
 
