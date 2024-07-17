@@ -14,8 +14,10 @@ jobs:
             changelog.txt
             docs/RELEASE.md
           sparse-checkout-cone-mode: false
-      - name: sleep 21 minutes
+      - name: sleep 22 minutes
         run: |
+          echo "sleeping 22 minutes to wait for artifacts"
+          sleep 1m
           echo "sleeping 21 minutes to wait for artifacts"
           sleep 1m
           echo "sleeping 20 minutes to wait for artifacts"
