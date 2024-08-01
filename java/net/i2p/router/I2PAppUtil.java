@@ -80,5 +80,4 @@ public class I2PAppUtil extends WindowsAppUtil {
     }
     return true;
   }
-
 }
