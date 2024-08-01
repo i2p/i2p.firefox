@@ -29,8 +29,8 @@ fi
 
 
 
-echo github-release download -u "$GITHUB_USERNAME" -r "i2p.firefox" -n "I2P-Easy-Install-Bundle-$I2P_VERSION.exe" -t "$I2P_VERSION"
-github-release download -u "$GITHUB_USERNAME" -r "i2p.firefox" -n "I2P-Easy-Install-Bundle-$I2P_VERSION.exe" -t "$I2P_VERSION"
+echo github-release download -u "$GITHUB_USERNAME" -r "i2p.firefox" -n "I2P-Easy-Install-Bundle-$I2P_VERSION.exe" -t "i2p-firefox-$I2P_VERSION"
+github-release download -u "$GITHUB_USERNAME" -r "i2p.firefox" -n "I2P-Easy-Install-Bundle-$I2P_VERSION.exe" -t "i2p-firefox-$I2P_VERSION"
 
 echo github-release download -u "$GITHUB_USERNAME" -r "i2p.firefox" -n "I2P.zip" -t "$I2P_VERSION"
 github-release download -u "$GITHUB_USERNAME" -r "i2p.firefox" -n "I2P.zip" -t "$I2P_VERSION"

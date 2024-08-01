@@ -1,6 +1,5 @@
-# I2P Easy-Install Nightly Build
+# I2P Easy-Install 2.6.0
 
-This is a pre-release of the I2P Easy-Install Bundle for Windows.
-It is built from the `master` branch of the `i2p.i2p` and `i2p.firefox` repositories.
-It is a nightly build and may contain bugs.
-Use it at your own risk.
+This release of the I2P Easy-Install bundle updates the embedded I2P router to I2P 2.6.0.
+It also includes an updated I2P Firefox Profile, an updated version of I2P in Private Browsing, and updated browser plugins.
+Discovery of browser configuration has been improved on some platforms.

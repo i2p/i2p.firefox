@@ -81,28 +81,4 @@ public class I2PAppUtil extends WindowsAppUtil {
     return true;
   }
 
-  /**
-   * get the path to the binary of the app-image root by getting the path to
-   * java.home and the OS, and traversing up to the app-image root based on that
-   * information, then getting the binary path on a per-platform basis. The path
-   * returned will be relative to the root.
-   *
-   * @return the app-image root
-   */
-  protected String appImageExe() {
-    File aih = appImageHome();
-    if (aih != null) {
-      // get the name of the aih directory itself, which will be the default
-      // name of the executable as well
-      String baseName = "I2P";
-      switch (osName()) {
-      case "windows":
-        return baseName + ".exe";
-      case "mac":
-      case "linux":
-        return "./bin/" + baseName;
-      }
-    }
-    return null;
-  }
 }

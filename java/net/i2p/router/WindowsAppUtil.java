@@ -84,7 +84,7 @@ public class WindowsAppUtil extends WindowsServiceUtil {
    * information, then getting the binary path on a per-platform basis. The path
    * returned will be relative to the root.
    *
-   * @return the app-image root
+   * @return the app-image root + the path to the executable
    */
   protected String appImageExe() {
     File aih = appImageHome();
