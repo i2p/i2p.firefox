@@ -65,7 +65,6 @@ if [ -z "$EXTRA" ]; then
 fi
 if [ "$VERSION" = master ]; then
   VERSIONDATE="$(date +%m%d)"
-  export TAG_VERSION="$VERSIONMAJOR.$VERSIONMINOR.$VERSIONBUILD"
 else
   export TAG_VERSION="$VERSION"
 fi
