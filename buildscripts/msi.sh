@@ -9,7 +9,12 @@ cd "$SCRIPT_DIR" || exit 1
 . ./i2pversion
 
 "$SCRIPT_DIR"/buildscripts/build.sh
-jpackage --name I2P-MSI --app-version "$I2P_VERSION" \
+if echo "$I2P_VERSION" | grep "master"; then
+    RELEASE_VERSION="9.9.9"
+else
+    RELEASE_VERSION="$I2P_VERSION"
+fi
+jpackage --name I2P-MSI --app-version "$RELEASE_VERSION" \
     --verbose \
     --java-options "-Xmx512m" \
     --java-options "--add-opens java.base/java.lang=ALL-UNNAMED" \
