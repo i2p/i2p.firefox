@@ -33,10 +33,10 @@ echo github-release download -u "$GITHUB_USERNAME" -r "i2p.firefox" -n "I2P-Easy
 github-release download -u "$GITHUB_USERNAME" -r "i2p.firefox" -n "I2P-Easy-Install-Bundle-$I2P_VERSION.exe" -t "i2p-firefox-$I2P_VERSION"
 
 echo github-release download -u "$GITHUB_USERNAME" -r "i2p.firefox" -n "I2P.zip" -t "$I2P_VERSION"
-github-release download -u "$GITHUB_USERNAME" -r "i2p.firefox" -n "I2P.zip" -t "$I2P_VERSION"
+github-release download -u "$GITHUB_USERNAME" -r "i2p.firefox" -n "I2P.zip" -t "i2p-firefox-$I2P_VERSION"
 
-echo github-release download -u "$GITHUB_USERNAME" -r "i2p.firefox" -n "i2p.i2p.jpackage-build.tar.gz" -t "$I2P_VERSION"
-github-release download -u "$GITHUB_USERNAME" -r "i2p.firefox" -n "i2p.i2p.jpackage-build.tar.gz" -t "$I2P_VERSION"
+echo github-release download -u "$GITHUB_USERNAME" -r "i2p.firefox" -n "i2p.i2p.jpackage-build.tar.gz" -t "i2p-firefox-$I2P_VERSION"
+github-release download -u "$GITHUB_USERNAME" -r "i2p.firefox" -n "i2p.i2p.jpackage-build.tar.gz" -t "i2p-firefox-$I2P_VERSION"
 
-echo github-release download -u "$GITHUB_USERNAME" -r i2p -t "$I2P_VERSION" -n "./I2P-jpackage-windows-$I2P_VERSION.zip"
-github-release download -u "$GITHUB_USERNAME" -r i2p -t "$I2P_VERSION" -n "./I2P-jpackage-windows-$I2P_VERSION.zip"
+echo github-release download -u "$GITHUB_USERNAME" -r i2p -t "i2p-firefox-$I2P_VERSION" -n "./I2P-jpackage-windows-$I2P_VERSION.zip"
+github-release download -u "$GITHUB_USERNAME" -r i2p -t "i2p-firefox-$I2P_VERSION" -n "./I2P-jpackage-windows-$I2P_VERSION.zip"

@@ -27,6 +27,16 @@ jobs:
           distribution: 'temurin'
       - name: build with script
         run: bash -c "./buildscripts/unsigned.sh; ls *.exe"
+      - name: Upload archived copy of I2P router source embedded in the build
+        uses: actions/upload-artifact@v4
+        with:
+          name: i2p.i2p.jpackage-build.tar.gz
+          path: i2p.i2p.jpackage-build.tar.gz
+      - name: Upload prebuilt jpackage bundle without any plugins or modded config
+        uses: actions/upload-artifact@v4
+        with:
+          name: I2P-Prebuilt.zip
+          path: I2P-Prebuilt.zip
       - name: Upload I2P-Easy-Install-Bundle-unsigned.exe
         uses: actions/upload-artifact@v4
         with:

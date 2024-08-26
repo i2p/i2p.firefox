@@ -178,8 +178,7 @@ Doing a Release
 
 Once you have the installer `.exe` file produced by NSIS, you're almost ready to
 do a release. As a final step, someone must sign the `.exe` file using a
-Certificate which Windows will recognize. The current signer of the Windows
-bundle is Zlatinb. Standard Windows signing tools are used.
+Certificate which Windows will recognize. Standard Windows signing tools are used.
 
 ```sh
 ./release.sh
