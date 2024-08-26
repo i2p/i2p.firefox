@@ -14,16 +14,17 @@ if [ -z "$VERSIONBUILD" ]; then
     VERSIONBUILD=$(echo "$GITHUB_TAG" | cut -d . -f 3)
 fi
 if [ -z "$VERSIONMAJOR" ]; then
-    VERSIONMAJOR=2
+    I2P_VERSION="master"
+    export I2P_VERSION="master"
+    VERSION="master"
+    export VERSION="master"
+else
+    I2P_VERSION="$VERSIONMAJOR.$VERSIONMINOR.$VERSIONBUILD"
+    export I2P_VERSION="$VERSIONMAJOR.$VERSIONMINOR.$VERSIONBUILD"
+    VERSION="i2p-$I2P_VERSION"
+    export VERSION="i2p-$I2P_VERSION"
 fi
-if [ -z "$VERSIONMINOR" ]; then
-    VERSIONMINOR=6
-fi
-if [ -z "$VERSIONBUILD" ]; then
-    VERSIONBUILD=0
-fi
-I2P_VERSION="$VERSIONMAJOR.$VERSIONMINOR.$VERSIONBUILD"
-export I2P_VERSION="$VERSIONMAJOR.$VERSIONMINOR.$VERSIONBUILD"
+
 # Comment this out to build from an alternate branch or
 # the tip of the master branch.
 #VERSION=i2p-2.4.0
