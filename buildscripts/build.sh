@@ -55,7 +55,7 @@ echo "preparing to invoke jpackage for I2P version $I2P_VERSION"
 rm -rf I2P
 
 if [ ! -d "I2P" ]; then
-  if [ "$I2P_VERSION" = "master" ]; then
+  if [ echo "$I2P_VERSION" | grep "master" ]; then
     RELEASE_VERSION="9.9.9"
   else
     RELEASE_VERSION="$I2P_VERSION"
