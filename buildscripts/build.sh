@@ -55,7 +55,12 @@ echo "preparing to invoke jpackage for I2P version $I2P_VERSION"
 rm -rf I2P
 
 if [ ! -d "I2P" ]; then
-"$JAVA_HOME"/bin/jpackage --type app-image --name I2P --app-version "$I2P_VERSION" \
+  if [ "$I2P_VERSION" = "master" ]; then
+    RELEASE_VERSION="9.9.9"
+  else
+    RELEASE_VERSION="$I2P_VERSION"
+  fi
+"$JAVA_HOME"/bin/jpackage --type app-image --name I2P --app-version "$RELEASE_VERSION" \
   --verbose \
   --java-options "-Xmx512m" \
   --java-options "--add-opens java.base/java.lang=ALL-UNNAMED" \
