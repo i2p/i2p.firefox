@@ -14,10 +14,10 @@ if [ -z "$VERSIONBUILD" ]; then
     VERSIONBUILD=$(echo "$GITHUB_TAG" | cut -d . -f 3)
 fi
 if [ -z "$VERSIONMAJOR" ]; then
-    I2P_VERSION="i2p-windows-2.8.0"
-    export I2P_VERSION="i2p-windows-2.8.0"
-    VERSION="i2p-windows-2.8.0"
-    export VERSION="i2p-windows-2.8.0"
+    I2P_VERSION="master"
+    export I2P_VERSION="master"
+    VERSION="master"
+    export VERSION="master"
     I2PFIREFOX_VERSION="2.8.0"
     export I2PFIREFOX_VERSION="2.8.0"
 else
