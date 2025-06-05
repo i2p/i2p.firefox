@@ -1,7 +1,14 @@
 
 name: Java 22 CI
 
-on: [push]
+on:
+  push:
+    branches:
+      - main
+      - master
+  schedule:
+    - cron: '0 0 * * *' # Every day at midnight UTC
+  workflow_dispatch:
 
 jobs:
 
