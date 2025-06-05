@@ -1,3 +1,6 @@
+2025-06-05 idk
+ * Remove Chromium support completely. Much smaller binary now.
+
 2023-01-23 idk
  * Move build scripts to their own directory and make them use correct paths when moved
  * Add EXTRA to router when generating embedded router jars.
