@@ -13,6 +13,8 @@ on:
 jobs:
 
   nsis-jdk22:
+    env:
+      GITHUB_TAG: ${{ github.ref_name }}
     runs-on: windows-latest
     steps:
       - uses: Vampire/setup-wsl@v3
