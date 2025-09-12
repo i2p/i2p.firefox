@@ -30,6 +30,18 @@ else
     export I2PFIREFOX_VERSION="$VERSIONMAJOR.$VERSIONMINOR.$VERSIONBUILD"
 fi
 
+if echo $I2P_VERSION | grep -o "[0-9]\+\.[0-9]\+\.[0-9]\+"; then
+    echo "Detected I2P version $I2P_VERSION"
+else
+    echo "Could not detect I2P version, defaulting to master"
+    I2P_VERSION="master"
+    export I2P_VERSION="master"
+    VERSION="master"
+    export VERSION="master"
+    I2PFIREFOX_VERSION="2.9.0"
+    export I2PFIREFOX_VERSION="2.9.0"
+fi
+
 # Comment this out to build from an alternate branch or
 # the tip of the master branch.
 #VERSION=i2p-2.4.0
