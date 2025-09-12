@@ -190,7 +190,7 @@ Issues
 ------
 
 To report issues against this browser profile, please file issues
-at [the official Gitlab](https://i2pgit.org/i2p-hackers/i2p.firefox)
+at [the official Gitlab](https://i2pgit.org/I2P_Developers/i2p.firefox)
 or the [Github Mirror](https://github.com/i2p/i2p.firefox). Issues
 pertaining to the plugins may be reported to their upstream
 maintainers if it's determined that our configuration is not at

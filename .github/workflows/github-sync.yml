@@ -1,4 +1,4 @@
-# File: .github/workflows/github-sync.yml for i2p-hackers/i2p.firefox
+# File: .github/workflows/github-sync.yml for I2P_Developers/i2p.firefox
 on:
   schedule:
   - cron:  "*/5 * * * *"
@@ -16,7 +16,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       uses: repo-sync/github-sync@v2
       with:
-        source_repo: "https://i2pgit.org/i2p-hackers/i2p.firefox"
+        source_repo: "https://i2pgit.org/I2P_Developers/i2p.firefox"
         source_branch: "master"
         destination_branch: "master"
         github_token: ${{ secrets.PAT }}

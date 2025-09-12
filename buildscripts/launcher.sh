@@ -53,7 +53,7 @@ if [ ! -d "$SCRIPT_DIR/../i2p.i2p.jpackage-build/" ]; then
     git clone --depth=1 -b "$VERSION" -l "$SCRIPT_DIR/../i2p.i2p/" "$SCRIPT_DIR/../i2p.i2p.jpackage-build/"
   else
     echo cloning from remote i2p.i2p repository
-    git clone --depth=1 -b "$VERSION" https://i2pgit.org/i2p-hackers/i2p.i2p "$SCRIPT_DIR/../i2p.i2p.jpackage-build/"
+    git clone --depth=1 -b "$VERSION" https://i2pgit.org/I2P_Developers/i2p.i2p "$SCRIPT_DIR/../i2p.i2p.jpackage-build/"
   fi
 fi
 cd "$SCRIPT_DIR/../i2p.i2p.jpackage-build/"
