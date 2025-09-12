@@ -1,12 +1,21 @@
 
 name: Java CI
 
-on: [push]
+on:
+  push:
+    branches:
+      - main
+      - master
+  schedule:
+    - cron: '0 0 * * *' # Every day at midnight UTC
+  workflow_dispatch:
 
 jobs:
 
   nsis:
     runs-on: windows-latest
+    env:
+      GITHUB_TAG: ${{ github.ref_name }}
     steps:
       - uses: Vampire/setup-wsl@v3
         with:
