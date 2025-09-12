@@ -2,8 +2,9 @@
 
 JNA_VERSION=5.12.1
 export JNA_VERSION=5.12.1
-
-export GITHUB_TAG=$(git describe --tags --abbrev=0 | sed 's|i2p||g' | tr -d [a-z-])
+if [ -z "$GITHUB_TAG" ]; then
+    export GITHUB_TAG=$(git describe --tags --abbrev=0 | sed 's|i2p||g' | tr -d [a-z-])
+fi
 if [ -z "$VERSIONMAJOR" ]; then
     VERSIONMAJOR=$(echo "$GITHUB_TAG" | cut -d . -f 1)
 fi
