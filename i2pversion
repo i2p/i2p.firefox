@@ -19,8 +19,8 @@ if [ -z "$VERSIONMAJOR" ]; then
     export I2P_VERSION="master"
     VERSION="master"
     export VERSION="master"
-    I2PFIREFOX_VERSION="2.9.0"
-    export I2PFIREFOX_VERSION="2.9.0"
+    I2PFIREFOX_VERSION="2.11.0"
+    export I2PFIREFOX_VERSION="2.11.0"
 else
     I2P_VERSION="$VERSIONMAJOR.$VERSIONMINOR.$VERSIONBUILD"
     export I2P_VERSION="$VERSIONMAJOR.$VERSIONMINOR.$VERSIONBUILD"
@@ -38,8 +38,8 @@ else
     export I2P_VERSION="master"
     VERSION="master"
     export VERSION="master"
-    I2PFIREFOX_VERSION="2.9.0"
-    export I2PFIREFOX_VERSION="2.9.0"
+    I2PFIREFOX_VERSION="2.11.0"
+    export I2PFIREFOX_VERSION="2.11.0"
 fi
 
 # Comment this out to build from an alternate branch or
