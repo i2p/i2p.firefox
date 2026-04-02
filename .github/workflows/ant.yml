@@ -104,12 +104,13 @@ jobs:
         run: |
           $exe = Get-ChildItem -Filter "I2P-Easy-Install-Bundle-*.exe" | Select-Object -First 1
           powershell -ExecutionPolicy Bypass -File ".github/scripts/sign-exe.ps1" -BinaryPath $exe.FullName
+          Rename-Item $exe.FullName "I2P-Easy-Install-Bundle_Signed.exe"
         shell: powershell
       - name: Upload signed NSIS installer
         uses: actions/upload-artifact@v4
         with:
-          name: I2P-Easy-Install-Bundle-signed.exe
-          path: I2P-Easy-Install-Bundle-*.exe
+          name: I2P-Easy-Install-Bundle_Signed.exe
+          path: I2P-Easy-Install-Bundle_Signed.exe
 
   sign-exe:
     needs: buildjpackagexe
@@ -129,12 +130,13 @@ jobs:
         run: |
           $exe = Get-ChildItem -Filter "I2P-EXE-*.exe" | Select-Object -First 1
           powershell -ExecutionPolicy Bypass -File ".github/scripts/sign-exe.ps1" -BinaryPath $exe.FullName
+          Rename-Item $exe.FullName "I2P-EXE_Signed.exe"
         shell: powershell
       - name: Upload signed EXE installer
         uses: actions/upload-artifact@v4
         with:
-          name: I2P-EXE-signed.exe
-          path: I2P-EXE-*.exe
+          name: I2P-EXE_Signed.exe
+          path: I2P-EXE_Signed.exe
 
   sign-msi:
     needs: buildjpackagmsi
@@ -154,12 +156,13 @@ jobs:
         run: |
           $msi = Get-ChildItem -Filter "I2P-MSI-*.msi" | Select-Object -First 1
           powershell -ExecutionPolicy Bypass -File ".github/scripts/sign-exe.ps1" -BinaryPath $msi.FullName
+          Rename-Item $msi.FullName "I2P-MSI_Signed.msi"
         shell: powershell
       - name: Upload signed MSI installer
         uses: actions/upload-artifact@v4
         with:
-          name: I2P-MSI-signed.msi
-          path: I2P-MSI-*.msi
+          name: I2P-MSI_Signed.msi
+          path: I2P-MSI_Signed.msi
 
   buildzip:
     runs-on: windows-latest
