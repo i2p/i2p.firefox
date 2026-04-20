@@ -86,6 +86,81 @@ jobs:
           name: I2P-MSI-unsigned.msi
           path: I2P-MSI-*.msi
 
+  sign-nsis:
+    needs: nsis
+    runs-on: [self-hosted, Windows, X64]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: .github/scripts
+          sparse-checkout-cone-mode: false
+      - name: Download unsigned NSIS installer
+        uses: actions/download-artifact@v4
+        with:
+          name: I2P-Easy-Install-Bundle-unsigned.exe
+      - name: Sign NSIS installer
+        env:
+          CERTUM_CERTIFICATE_SHA1: ${{ secrets.CERTUM_CERTIFICATE_SHA1 }}
+        run: |
+          $exe = Get-ChildItem -Filter "I2P-Easy-Install-Bundle-*.exe" | Select-Object -First 1
+          powershell -ExecutionPolicy Bypass -File ".github/scripts/sign-exe.ps1" -BinaryPath $exe.FullName
+        shell: powershell
+      - name: Upload signed NSIS installer
+        uses: actions/upload-artifact@v4
+        with:
+          name: I2P-Easy-Install-Bundle-signed.exe
+          path: I2P-Easy-Install-Bundle-*.exe
+
+  sign-exe:
+    needs: buildjpackagexe
+    runs-on: [self-hosted, Windows, X64]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: .github/scripts
+          sparse-checkout-cone-mode: false
+      - name: Download unsigned EXE installer
+        uses: actions/download-artifact@v4
+        with:
+          name: I2P-EXE-unsigned.exe
+      - name: Sign EXE installer
+        env:
+          CERTUM_CERTIFICATE_SHA1: ${{ secrets.CERTUM_CERTIFICATE_SHA1 }}
+        run: |
+          $exe = Get-ChildItem -Filter "I2P-EXE-*.exe" | Select-Object -First 1
+          powershell -ExecutionPolicy Bypass -File ".github/scripts/sign-exe.ps1" -BinaryPath $exe.FullName
+        shell: powershell
+      - name: Upload signed EXE installer
+        uses: actions/upload-artifact@v4
+        with:
+          name: I2P-EXE-signed.exe
+          path: I2P-EXE-*.exe
+
+  sign-msi:
+    needs: buildjpackagmsi
+    runs-on: [self-hosted, Windows, X64]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: .github/scripts
+          sparse-checkout-cone-mode: false
+      - name: Download unsigned MSI installer
+        uses: actions/download-artifact@v4
+        with:
+          name: I2P-MSI-unsigned.msi
+      - name: Sign MSI installer
+        env:
+          CERTUM_CERTIFICATE_SHA1: ${{ secrets.CERTUM_CERTIFICATE_SHA1 }}
+        run: |
+          $msi = Get-ChildItem -Filter "I2P-MSI-*.msi" | Select-Object -First 1
+          powershell -ExecutionPolicy Bypass -File ".github/scripts/sign-exe.ps1" -BinaryPath $msi.FullName
+        shell: powershell
+      - name: Upload signed MSI installer
+        uses: actions/upload-artifact@v4
+        with:
+          name: I2P-MSI-signed.msi
+          path: I2P-MSI-*.msi
+
   buildzip:
     runs-on: windows-latest
     steps:
