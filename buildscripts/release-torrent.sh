@@ -28,7 +28,7 @@ if [ -f ./i2pversion_override ]; then
 fi
 
 if [ ! -f "I2P-Easy-Install-Bundle-$I2P_VERSION.exe" ]; then
-	wget -c "https://github.com/eyedeekay/i2p.firefox/releases/download/i2p-firefox-$I2P_VERSION/I2P-Easy-Install-Bundle-$I2P_VERSION.exe"
+	wget -c "https://github.com/i2p/i2p.firefox/releases/download/i2p-firefox-$I2P_VERSION/I2P-Easy-Install-Bundle-$I2P_VERSION.exe"
 fi
 
 cp -v "I2P-Easy-Install-Bundle-$I2P_VERSION.exe" "I2P-Easy-Install-Bundle-$I2P_VERSION-signed.exe"

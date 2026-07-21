@@ -117,7 +117,7 @@ fi
 
 if [ ! -f "$SCRIPT_DIR/build/i2pfirefox.zip" ]; then
   echo "downloading i2pfirefox jars"
-  wget_download "https://github.com/eyedeekay/i2p.plugins.firefox/releases/download/$I2PFIREFOX_VERSION/plugin.zip" -O "$SCRIPT_DIR/build/i2pfirefox.zip"
+  wget_download "https://github.com/i2p/i2p.plugins.firefox/releases/download/$I2PFIREFOX_VERSION/plugin.zip" -O "$SCRIPT_DIR/build/i2pfirefox.zip"
 fi
 
 if [ ! -d "$SCRIPT_DIR/src/I2P/config/plugins/i2pfirefox" ]; then
