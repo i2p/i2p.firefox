@@ -1,6 +1,3 @@
--include i2pversion
--include i2pversion_override
-
 -include config.mk
 
 preset=`rm .version; make version`
@@ -9,6 +6,8 @@ preset=`rm .version; make version`
 
 PROFILE_VERSION=$(VERSIONMAJOR).$(VERSIONMINOR).$(VERSIONBUILD)
 
+.PHONY: update-version
+
 all: version install.exe
 
 fmt:
@@ -16,6 +15,15 @@ fmt:
 
 version:
 	./buildscripts/version.sh
+
+update-version:
+ifndef VERSION
+	$(error VERSION is required, for example: make update-version VERSION=2.14.0 AUTHOR="Author Name")
+endif
+ifndef AUTHOR
+	$(error AUTHOR is required, for example: make update-version VERSION=2.14.0 AUTHOR="Author Name")
+endif
+	./buildscripts/update-version.sh "$(VERSION)" "$(AUTHOR)"
 
 jpackage: version I2P build/I2P all
 
@@ -53,4 +61,3 @@ clean:
 build:
 	@echo "creating build directory"
 	mkdir -p build
-
