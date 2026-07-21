@@ -1,5 +1,5 @@
 
-name: Java 22 CI
+name: Java Latest CI
 
 on:
   push:
@@ -32,7 +32,7 @@ jobs:
       - name: Set up JDK 22
         uses: actions/setup-java@v4
         with:
-          java-version: '25'
+          java-version: 'latest'
           distribution: 'temurin'
       - name: build with script
         run: bash -c "./buildscripts/unsigned.sh; ls *.exe"
@@ -59,7 +59,7 @@ jobs:
       - name: Set up JDK 22
         uses: actions/setup-java@v4
         with:
-          java-version: '25'
+          java-version: 'latest'
           distribution: 'temurin'
       - name: build with script
         run: bash -c "./buildscripts/exe.sh; ls *.exe"
@@ -76,7 +76,7 @@ jobs:
       - name: Set up JDK 22
         uses: actions/setup-java@v4
         with:
-          java-version: '25'
+          java-version: 'latest'
           distribution: 'temurin'
       - name: build with script
         run: bash -c "./buildscripts/msi.sh; ls *.msi"
@@ -181,7 +181,7 @@ jobs:
       - name: Set up JDK 22
         uses: actions/setup-java@v4
         with:
-          java-version: '25'
+          java-version: 'latest'
           distribution: 'temurin'
       - name: build with script
         run: bash -c "./buildscripts/zip.sh; ls -d * */* "
@@ -198,7 +198,7 @@ jobs:
       - name: Set up JDK 22
         uses: actions/setup-java@v4
         with:
-          java-version: '25'
+          java-version: 'latest'
           distribution: 'temurin'
       - run: |
           sudo apt-get update
