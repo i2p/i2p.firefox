@@ -1,3 +1,6 @@
+-include i2pversion
+-include i2pversion_override
+
 -include config.mk
 
 preset=`rm .version; make version`
