@@ -13,7 +13,7 @@ Update the release version in i2pversion and docs/RELEASE.md, and prepend a
 version entry to changelog.txt.
 
 Example:
-  buildscripts/update-version.sh 2.14.0 "Author Name"
+  buildscripts/update-version.sh *.**.* "Author Name"
 EOF
 }
 

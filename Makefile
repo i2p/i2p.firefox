@@ -21,10 +21,10 @@ version:
 
 update-version:
 ifndef VERSION
-	$(error VERSION is required, for example: make update-version VERSION=2.14.0 AUTHOR="Author Name")
+	$(error VERSION is required, for example: make update-version VERSION=*.**.* AUTHOR="Author Name")
 endif
 ifndef AUTHOR
-	$(error AUTHOR is required, for example: make update-version VERSION=2.14.0 AUTHOR="Author Name")
+	$(error AUTHOR is required, for example: make update-version VERSION=*.**.* AUTHOR="Author Name")
 endif
 	./buildscripts/update-version.sh "$(VERSION)" "$(AUTHOR)"
 
