@@ -12,6 +12,7 @@
 
 jobs:
   sync:
+    if: ${{ false }}
     runs-on: ubuntu-latest
     steps:
       - name: Validate Github Actions Environment
