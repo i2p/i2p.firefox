@@ -6,6 +6,7 @@ on:
     tags:
       - 'i2p-firefox-*.*.*' # Release i2p-firefox-1.2.3
       - 'i2p-firefox-*.*.*-*' # Release i2p-firefox-1.2.3
+  workflow_dispatch:
 
 jobs:
   build:
