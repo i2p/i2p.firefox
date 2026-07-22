@@ -11,7 +11,7 @@ on:
         required: true
         type: string
       tag:
-        description: 'Release tag, for example i2p-firefox-2.14.0'
+        description: 'Release tag, for example i2p-firefox-*.**.*'
         required: true
         type: string
 
