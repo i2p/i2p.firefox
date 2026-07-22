@@ -1,38 +1,46 @@
 name: Nightly Release
 
 on:
-  push:
-    branches:
-      - main
-      - master
-  schedule:
-    - cron: '0 0 * * *' # Every day at midnight UTC
+  workflow_run:
+    workflows: ["Java Latest CI"]
+    branches: [main, master]
+    types: [completed]
   workflow_dispatch:
+    inputs:
+      run_id:
+        description: 'Successful ant.yml workflow run ID to publish'
+        required: true
+        type: string
 
 jobs:
   build:
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
     permissions:
+      actions: read
       contents: write
     steps:
       - uses: actions/checkout@v4
         with:
+          ref: ${{ github.event_name == 'workflow_run' && github.event.workflow_run.head_sha || github.sha }}
           sparse-checkout: |
             changelog.txt
             docs/RELEASE.md
             .github/scripts/release.sh
           sparse-checkout-cone-mode: false
-      - name: Wait for build artifacts
-        run: bash .github/scripts/release.sh wait
       - name: Download artifacts
         id: download-artifact
         uses: dawidd6/action-download-artifact@v3
         with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          run_id: ${{ github.event_name == 'workflow_run' && github.event.workflow_run.id || inputs.run_id }}
           skip_unpack: true
           workflow: ant.yml
           if_no_artifact_found: fail
       - name: Prepare release notes and checksums
-        run: bash .github/scripts/release.sh prepare
+        run: bash .github/scripts/release.sh
       - name: Upload artifacts
         uses: ncipollo/release-action@v1
         with:
