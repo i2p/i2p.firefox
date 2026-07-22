@@ -41,8 +41,8 @@ else
     export I2P_VERSION="master"
     VERSION="master"
     export VERSION="master"
-    I2PFIREFOX_VERSION="2.14.0"
-    export I2PFIREFOX_VERSION="2.14.0"
+    I2PFIREFOX_VERSION="2.13.0"
+    export I2PFIREFOX_VERSION="2.13.0"
 fi
 
 # Comment this out to build from an alternate branch or
