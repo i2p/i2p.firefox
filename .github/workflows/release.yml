@@ -88,3 +88,4 @@ jobs:
         with:
           artifacts: "*"
           bodyFile: "RELEASE.md"
+          allowUpdates: true
