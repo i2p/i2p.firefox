@@ -70,7 +70,7 @@ jobs:
           workflow: ant.yml
           if_no_artifact_found: fail
       # remove .zip file extension
-      - run: for f in *.zip; do unzip "$f"; rm "$f"; done
+      - run: for f in *.zip; do unzip -o "$f"; rm "$f"; done
       - run: echo "" | tee -a changelog.txt
       - run: echo "## Checksums" | tee -a changelog.txt
       - run: echo "" | tee -a changelog.txt
